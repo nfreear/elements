@@ -1,0 +1,68 @@
+<!doctype html> <title> my-page </title>
+
+<style>
+  :root {
+    --X-color-1: teal;
+    --color-1: #222;
+  }
+</style>
+
+<my-page>
+  <h2> my-page Web Component </h2>
+
+  <p> Hello world! </p>
+</my-page>
+
+
+<template id="my-page">
+  <style>
+    header,
+    nav,
+    main,
+    footer {
+      color: var(--color-1);
+      font: 1rem/1.1 sans-serif;
+      margin: .5rem auto;
+      max-width: 34rem;
+    }
+  </style>
+
+  <header>
+    <h1> Demo </h1>
+  </header>
+
+  <nav>
+    <a href="#">Home</a> | <a href="#">Link 2</a> | ...
+  </nav>
+
+  <main><slot></slot></main>
+
+  <footer>
+    <p> My footer. </p>
+  </footer>
+</template>
+
+
+<script>
+  class MyPage extends HTMLElement {
+    constructor() {
+      super();
+
+      const template = document.getElementById('my-page');
+      const templateContent = template.content;
+      const root = templateContent.cloneNode(true);
+
+      this.attachShadow({mode: 'open'}).appendChild(root);
+
+      // console.debug('my-page:', this);
+    }
+  }
+
+  customElements.define('my-page', MyPage);
+</script>
+
+
+<pre>
+
+NDF, 27-Nov-2021.
+</pre>

@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><meta charset="utf-8"> <title> Translation test </title>
+
+<style>
+  body { margin: 1rem auto; max-width: 36rem; padding: 0 .3rem; }
+  pre { font-size: x-small; }
+</style>
+
+<header>
+  <h1> My translation test </h1>
+</header>
+
+<nav>
+  <a href="#"> Home page </a> | <a href="#"> About us </a>
+</nav>
+
+<main>
+  <p> Some main content. I'm <em>not</em> translated! </p>
+</main>
+
+<footer>
+  <p> My page footer. </p>
+</footer>
+
+
+<template id="translations">
+{
+  "defaultLocale": "en",
+  "selector": "title, header > *, nav a, footer > *",
+
+  "translations": {
+    "en": [
+      { "#": "Dummy language!" }
+    ],
+    "fr": [
+      { "id": "Translation test", "str": "Essai de traduction." },
+      { "id": "My translation test", "str": "Mon test de traduction" },
+      { "id": "Home page",  "str": "Page d'accueil" },
+      { "id": "About us",   "str": "À propos de nous" },
+      { "id": "My page footer.", "str": "Mon pied de page." }
+    ],
+    "zh-hans": [
+      { "id": "My translation test", "str": "我的翻译测试。" },
+      { "id": "Home page", "str": "主页。" },
+      { "id": "About us", "str": "关于我们。" },
+      { "id": "My page footer.", "str": "我的页脚。" }
+    ]
+  }
+}
+</template>
+<!--
+我的翻译测试。
+主页。
+关于我们。
+我的页脚。
+-/-
+Wǒ de fānyì cèshì.
+Zhǔyè.
+Guānyú wǒmen.
+Wǒ de yè jiǎo.
+-->
+
+
+<script>
+  if (!'content' in document.createElement('template')) {
+    throw new Error('Template not supported!');
+  }
+
+  const LANG = location.search.replace(/.*lang=([a-z]{2}(-[a-z]{2,})*)/, '$1' ) || 'en'; // zh-hans';
+  const SELECTOR = 'title, header > *, nav a, footer > *';
+  const ELEMS = document.querySelectorAll(SELECTOR);
+  const TEMPLATE = document.querySelector('#translations');
+  const DATA = JSON.parse(TEMPLATE.content.textContent);
+  const TRANSLATIONS = DATA.translations[ LANG ];
+
+  console.log('Translations:', LANG, ELEMS, TRANSLATIONS);
+
+  if (!TRANSLATIONS) {
+    throw new Error(`Translations not found! Lang: '${LANG}'`);
+  }
+
+  [...ELEMS].forEach(EL => {
+    const msgid = EL.textContent.trim();
+
+    const found = TRANSLATIONS.find(row => row.id === msgid);
+    if (found) {
+      EL.textContent = found.str;
+      EL.lang = LANG;
+    }
+
+    console.debug('>', EL, `'${msgid}'`, found);
+  });
+</script>
+
+
+<pre>
+
+
+©Nick Freear, 27-Nov-2021.
+
+* https://translate.google.com/?sl=en&tl=fr&text=My%20translation%20test.%0AHome%20page.%0AAbout%20us.%0AMy%20page%20footer.&op=translate;
+* (https://translate.google.com/?sl=en&tl=fr&text=Translation%20test.%0AHome%20page.%0AAbout%20us.&op=translate)
+* https://gnu.org/software/gettext/manual/html_node/PO-Files.html;
+
+
+# PO file format:
+# Translation comment.
+#
+msgid untranslated-string
+msgstr translated-string
+
+</pre>
+</html>

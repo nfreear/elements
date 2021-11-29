@@ -1,0 +1,202 @@
+<!doctype html>  <title> my-map Web Component </title>
+
+<h1> my-map Web Component </h1>
+
+
+<my-map lat="51.505" long="-0.09" zoom="13" caption="A map showing London landarks."></my-map>
+
+
+<template id="geojson">
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tower of London",
+        "popupContent": "This is the Tower of London!",
+        "url": "https://latlong.net/place/the-tower-of-london-uk-81.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.076132, 51.508530 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "London Eye",
+        "popupContent": "This is the London Eye!",
+        "url": "https://www.latlong.net/place/the-london-eye-uk-2843.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.119519, 51.503399 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "popupContent": "This is Big Ben!"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.116773, 51.510357 ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "NAME",
+        "popupContent": "This is the NAME !",
+        "url": "https://latlong.net/place/the-tower-of-london-uk-81.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.0007, 51.99 ]
+      }
+    }
+  ]
+}
+</template>
+
+
+<template id="my-map-template">
+  <!-- <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" /> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+
+  <script data-X-src="leaflet-1.7.1/leaflet.dist.js" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+  <style>
+    figure {
+      margin: 1rem 0;
+    }
+    figcaption {
+      margin: .5rem 0;
+    }
+    #my-map {
+      border: 1px solid #ddd;
+      border-radius: .2rem;
+      height: 78vh;
+      max-height: 110vh;
+      min-height: 180px;
+    }
+  </style>
+
+  <figure>
+    <figcaption id="caption"> Caption. </figcaption>
+
+    <div id="my-map"> Loading. </div>
+  </figure>
+
+  <script>
+    console.debug('Hello world!');
+  </script>
+</template>
+
+
+<script type="module">
+  // const L = window.L;
+
+  customElements.define('my-map',
+    class extends HTMLElement {
+      constructor() {
+        super();
+
+        const template = document.getElementById('my-map-template');
+        const templateContent = template.content;
+        const root = templateContent.cloneNode(true);
+
+        this.attachShadow({mode: 'open'}).appendChild(root);
+
+        const mapElem = this.shadowRoot.querySelector('#my-map');
+
+        const lat = parseFloat(this.getAttribute('lat') || 51.505);
+        const long = parseFloat(this.getAttribute('long') || -0.09);
+        const zoom = parseInt(this.getAttribute('zoom') || 13);
+        const caption = this.getAttribute('caption') || 'A caption for the map.'
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const attribution = this.getAttribute('attribute') || 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+
+        this.shadowRoot.querySelector('#caption').textContent = caption;
+
+        /* setTimeout(() => {
+          const SC = document.createElement('script');
+          SC.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+
+          this.shadowRoot.appendChild(SC);
+        }, 100); */
+
+        setTimeout(() => {
+          const L = window.L;
+
+          const map = L.map(mapElem).setView([ lat, long ], zoom);
+
+          const tiles = L.tileLayer(tileUrl,{
+            attribution
+          }).addTo(map);
+
+          this._ = {
+            lat, long, zoom, caption, attribution, tileUrl, map, mapElem, L
+          };
+
+          this.loadGeoJson(map);
+
+          console.debug('my-map:', this._, this);
+        }, 800); /* Was: 250 */
+      }
+
+      loadGeoJson(map) {
+        const L = window.L;
+
+        const markerIcon = L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [10, 41],
+          popupAnchor: [2, -40],
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png"
+        });
+
+        const template = document.getElementById('geojson');
+        const geoJsonFeatures = JSON.parse(template.content.textContent);
+
+        L.geoJSON(geoJsonFeatures,
+        {
+          pointToLayer: function (feature, latlng) {
+            // console.debug('pointToLayer:', feature, latlng, markerIcon);
+			      return L.marker(latlng, {icon: markerIcon});
+		      },
+          onEachFeature: (feature, layer) => {
+            // does this feature have a property named popupContent?
+            if (feature.properties && feature.properties.popupContent) {
+              layer.bindPopup(feature.properties.popupContent);
+            }
+          }
+        })
+        .addTo(map);
+      }
+    } // End class.
+  );
+</script>
+
+
+<pre>
+
+
+NDF, 27-Nov-2021.
+
+* https://leafletjs.com/examples/quick-start/
+* https://openmaptiles.org/docs/website/leaflet/
+* https://stackoverflow.com/questions/62571474/open-street-maps-default-tiles-leaflet
+* https://latlong.net/place/the-tower-of-london-uk-81.html
+* https://cse.google.com/cse?cx=partner-pub-1669785826962003:rppuucliysy&q=London&
+* https://github.blog/2013-08-07-gist-meets-geojson/
+* https://labs.mapbox.com/maki-icons/
+* https://gist.github.com/nfreear/a0a21eacc7a728075a4d
+* https://stackoverflow.com/questions/57091717/how-to-set-marker-icon-in-leaflet-map;
+* https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
+
+</pre>
