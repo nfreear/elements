@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tower of London",
+        "popupContent": "This is the Tower of London!",
+        "url": "https://latlong.net/place/the-tower-of-london-uk-81.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.076132, 51.508530 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "London Eye",
+        "popupContent": "This is the London Eye!",
+        "url": "https://www.latlong.net/place/the-london-eye-uk-2843.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.119519, 51.503399 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "popupContent": "This is Big Ben!"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.116773, 51.510357 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "Greenwich",
+        "popupContent": "The Royal Observatory Greenwich & Prime Meridian, London !",
+        "url": "https://www.latlong.net/place/the-royal-observatory-greenwich-london-uk-6624.html"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.000500, 51.476852 ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "NAME",
+        "popupContent": "This is the NAME !",
+        "url": "https://cse.google.com/cse?cx=partner-pub-1669785826962003:rppuucliysy&q=London&"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.0007, 51.99 ]
+      }
+    }
+  ]
+}

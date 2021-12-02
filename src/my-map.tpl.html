@@ -1,0 +1,59 @@
+<!doctype html>
+<!--
+  Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
+-->
+
+<!-- <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" /> -->
+<template id="my-map-template">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+
+  <script data-X-src="leaflet-1.7.1/leaflet.dist.js" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+  <style>
+    figure {
+      margin: 1rem 0;
+    }
+    figcaption {
+      margin: .5rem 0;
+    }
+    #my-map {
+      border: 1px solid #ddd;
+      border-radius: .2rem;
+      height: 78vh;
+      max-height: 110vh;
+      min-height: 180px;
+    }
+  </style>
+
+  <figure>
+    <figcaption id="caption"> Caption. </figcaption>
+
+    <div id="my-map"> Loading. </div>
+  </figure>
+
+  <script>
+    console.debug('Hello world!');
+  </script>
+</template>
+
+
+<!--<pre>
+
+NDF, 27-Nov-2021.
+
+* https://leafletjs.com/examples/quick-start/
+* https://openmaptiles.org/docs/website/leaflet/
+* https://stackoverflow.com/questions/62571474/open-street-maps-default-tiles-leaflet
+* https://latlong.net/place/the-tower-of-london-uk-81.html
+* https://cse.google.com/cse?cx=partner-pub-1669785826962003:rppuucliysy&q=London&
+* https://github.blog/2013-08-07-gist-meets-geojson/
+* https://labs.mapbox.com/maki-icons/
+* https://gist.github.com/nfreear/a0a21eacc7a728075a4d
+* https://stackoverflow.com/questions/57091717/how-to-set-marker-icon-in-leaflet-map;
+* https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
+
+</pre>-->

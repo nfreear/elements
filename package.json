@@ -2,7 +2,7 @@
   "private": true,
   "name": "@nfreear/web-components-etc",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server --no-browser"
   },
   "devDependencies": {
     "live-server": "^1.2.1"
