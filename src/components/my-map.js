@@ -61,7 +61,7 @@ export class MyMap extends HTMLElement {
     // const templateContent = template.content;
 
     // URL is relative to the HTML page!
-    const url = `../src/${id}.tpl.html`;
+    const url = `../src/components/${id}.tpl.html`;
 
     const resp = await fetch(url);
     const html = await resp.text();
