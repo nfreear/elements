@@ -26,24 +26,7 @@
 {
   "defaultLocale": "en",
   "selector": "title, header > *, nav a, footer > *",
-
   "translations": {
-    "en": [
-      { "#": "Dummy language!" }
-    ],
-    "fr": [
-      { "id": "Translation test", "str": "Essai de traduction." },
-      { "id": "My translation test", "str": "Mon test de traduction" },
-      { "id": "Home page",  "str": "Page d'accueil" },
-      { "id": "About us",   "str": "À propos de nous" },
-      { "id": "My page footer.", "str": "Mon pied de page." }
-    ],
-    "zh-hans": [
-      { "id": "My translation test", "str": "我的翻译测试。" },
-      { "id": "Home page", "str": "主页。" },
-      { "id": "About us", "str": "关于我们。" },
-      { "id": "My page footer.", "str": "我的页脚。" }
-    ]
   }
 }
 </template>
@@ -60,36 +43,7 @@ Wǒ de yè jiǎo.
 -->
 
 
-<script>
-  if (!'content' in document.createElement('template')) {
-    throw new Error('Template not supported!');
-  }
-
-  const LANG = location.search.replace(/.*lang=([a-z]{2}(-[a-z]{2,})*)/, '$1' ) || 'en'; // zh-hans';
-  const SELECTOR = 'title, header > *, nav a, footer > *';
-  const ELEMS = document.querySelectorAll(SELECTOR);
-  const TEMPLATE = document.querySelector('#translations');
-  const DATA = JSON.parse(TEMPLATE.content.textContent);
-  const TRANSLATIONS = DATA.translations[ LANG ];
-
-  console.log('Translations:', LANG, ELEMS, TRANSLATIONS);
-
-  if (!TRANSLATIONS) {
-    throw new Error(`Translations not found! Lang: '${LANG}'`);
-  }
-
-  [...ELEMS].forEach(EL => {
-    const msgid = EL.textContent.trim();
-
-    const found = TRANSLATIONS.find(row => row.id === msgid);
-    if (found) {
-      EL.textContent = found.str;
-      EL.lang = LANG;
-    }
-
-    console.debug('>', EL, `'${msgid}'`, found);
-  });
-</script>
+<script type="module" src="../src/translate.js" data-translate="auto"></script>
 
 
 <pre>

@@ -1,0 +1,25 @@
+{
+  "#": "Sample translations for 'all' languages.",
+
+  "defaultLocale": "en",
+  "selector": "title, header > *, nav a, footer > *",
+
+  "translations": {
+    "en": [
+      { "#": "Dummy language!" }
+    ],
+    "fr": [
+      { "id": "Translation test", "str": "Essai de traduction." },
+      { "id": "My translation test", "str": "Mon test de traduction" },
+      { "id": "Home page",  "str": "Page d'accueil" },
+      { "id": "About us",   "str": "À propos de nous" },
+      { "id": "My page footer.", "str": "Mon pied de page." }
+    ],
+    "zh-hans": [
+      { "id": "My translation test", "str": "我的翻译测试。" },
+      { "id": "Home page", "str": "主页。" },
+      { "id": "About us", "str": "关于我们。" },
+      { "id": "My page footer.", "str": "我的页脚。" }
+    ]
+  }
+}
