@@ -1,4 +1,6 @@
 {
+  "#": "Some landmarks in central London.",
+
   "type": "FeatureCollection",
   "features": [
     {

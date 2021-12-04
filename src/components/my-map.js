@@ -1,10 +1,14 @@
 /*!
  Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
+
+  Nick Freear, 27-Nov-2021.
 */
+
+import { MyElement } from '../MyElement.js';
 
 // const L = window.L;
 
-export class MyMap extends HTMLElement {
+export class MyMap extends MyElement { // HTMLElement {
   constructor() {
     super();
 
@@ -53,28 +57,6 @@ export class MyMap extends HTMLElement {
 
       console.debug('my-map:', this.$$, this);
     }, 800); // Was: 250;
-  }
-
-  // https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
-  async getTemplate(id) {
-    // const template = document.getElementById('my-map-template');
-    // const templateContent = template.content;
-
-    // URL is relative to the HTML page!
-    const url = `../src/components/${id}.tpl.html`;
-
-    const resp = await fetch(url);
-    const html = await resp.text();
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const template = doc.querySelector('template');
-    const root = template.content.cloneNode(true);
-
-    this.attachShadow({mode: 'open'}).appendChild(root);
-
-    return template;
   }
 
   async loadGeoJson(geojson) {
