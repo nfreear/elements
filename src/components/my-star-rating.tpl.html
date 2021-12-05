@@ -1,0 +1,56 @@
+
+<meta name="robots" content="noindex">
+
+<template id="my-radio-star-rating-element">
+  <style>
+  /* ??
+  :root {
+    --star-rating-size: 4rem;
+    --no-star-url: url(https://upload.wikimedia.org/wikipedia/commons/e/e7/Empty_Star.svg);
+    --star-url: url(https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg);
+  } */
+
+  /* Reset */
+  fieldset { border: none; padding: 0; }
+  fieldset legend { position: relative; left: -.3rem; X-margin-bottom: 1rem; }
+  label i { font-style: normal; }
+
+  .radio-star-rating-set label {
+    background-image: var(--star-url);
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    font-size: x-small;
+    margin: 0;
+    height: var(--star-rating-size);
+    width: var(--star-rating-size);
+  }
+
+  .radio-star-rating-set label:hover,
+  .radio-star-rating-set label.focused {
+    X-outline: 1px solid blue;
+    box-shadow: 0 0 4px 2px blue;
+    transition: all .2s;
+  }
+
+  /* .radio-star-rating-set legend, */
+  .X-radio-star-rating-set [ type = radio ] {
+    overflow: hidden;
+    height: 0;
+    width: 0;
+  }
+  </style>
+
+  <fieldset class="radio-star-rating-set" data-stars="">
+    <legend><slot> Rate me </slot></legend>
+
+    <label class="star-1"><input type="radio" name="rsrg-1" data-star="1" /><i> 1 star  </i></label>
+    <label class="star-2"><input type="radio" name="rsrg-1" data-star="2" /><i> 2 stars </i></label>
+    <label class="star-3"><input type="radio" name="rsrg-1" data-star="3" /><i> 3 stars </i></label>
+    <label class="star-4"><input type="radio" name="rsrg-1" data-star="4" /><i> 4 stars </i></label>
+    <label class="star-5"><input type="radio" name="rsrg-1" data-star="5" /><i> 5 stars </i></label>
+  </fieldset>
+</template>

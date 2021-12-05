@@ -1,0 +1,53 @@
+<!doctype html> <title> My radio star rating </title>
+
+<meta name="robots" content="noindex">
+
+<style>
+:root {
+  --star-rating-size: 5rem;
+  --no-star-url: url(https://upload.wikimedia.org/wikipedia/commons/e/e7/Empty_Star.svg);
+  --star-url: url(https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg);
+}
+
+body { margin: 1rem auto; max-width: 33rem; padding: 0 .2rem; }
+button { font: inherit; padding: .3rem 2rem; }
+
+my-star-rating {
+  display: block;
+  margin: 2rem 0;
+}
+
+/* The <p> in the <slot> within the Web Component !!
+*/
+my-star-rating p {
+  margin-top: 0;
+}
+</style>
+
+
+<main>
+
+<h1> My radio star rating </h1>
+
+<p><a href="#">Before</a></p>
+<!-- <div>Align</div> -->
+
+<form>
+
+  <my-star-rating data-XX-name="test-rating" stars="5">
+    <p>How would you rate the quality of our service?</p>
+  </my-star-rating>
+
+  <!-- <label for="rating-1"> How would you rate the quality of our service? </label>
+  <input id="rating-1" type="" data-stars="" is="my-star-rating" /> -->
+
+  <p><button type="submit">Submit</button>
+</form>
+<!-- <div>Align</div> -->
+
+<p><a href="#">After</a></p>
+
+</main>
+
+
+<script type="module" src="../index.js"></script>
