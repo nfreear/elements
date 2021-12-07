@@ -29,7 +29,6 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     const hiddenInput = this.createHiddenInput(attr.name);
 
     this.after(hiddenInput);
-    //this.parentElement.app
 
     this.$$ = {
       ...attr, hiddenInput, labels, fieldset, templates
@@ -38,6 +37,10 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     this.appendStars(labels, templates[ 1 ]);
 
     fieldset.addEventListener('click', ev => this.clickEventHandler(ev));
+    fieldset.addEventListener('mouseout', ev => {
+      this.unfocusStars();
+      // console.debug('mouseout');
+    });
 
     console.debug('my-star-rating (radio):', this.$$, this);
   }
@@ -79,9 +82,6 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   }
 
   clickEventHandler(ev) {
-    // console.warn('Click:', ev);
-
-    // const RADIO = ev.target;
     const LABEL = ev.target.parentElement;
     const VALUE = parseInt(ev.target.getAttribute('data-rating')); // Was: 'data-star';
 

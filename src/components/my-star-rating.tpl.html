@@ -21,26 +21,29 @@ Example:
   <style>
   /* Reset */
   fieldset { border: none; padding: 0; }
-  fieldset legend { position: relative; left: -.3rem; X-margin-bottom: 1rem; }
-  label i { font-style: normal; }
+  fieldset legend { position: relative; left: -.3rem; }
 
   .radio-star-rating-set label {
-    X-background-image: var(--star-url);
-    background-repeat: no-repeat;
-    background-size: contain;
     border: 1px solid #ddd;
     border-radius: 50%;
     cursor: pointer;
     display: inline-block;
-    X-font-size: x-small;
     margin: 0;
-    height: var(--my-star-rating-size, 4rem);
-    width: var(--my-star-rating-size, 4rem);
+    margin-right: var(--my-star-margin, .2rem);
+    max-height: var(--my-star-rating-max-size, 4rem);
+    max-width: var(--my-star-rating-max-size, 4rem);
+    height: 15vw;
+    width: 15vw;
+  }
+
+  @media screen and (max-width: 750px) { /* 800px */
+    .radio-star-rating-set label {
+      margin-right: .6vw;
+    }
   }
 
   .radio-star-rating-set label:hover,
   .radio-star-rating-set label.focused {
-    X-outline: 1px solid blue;
     box-shadow: 0 0 4px 2px var(--my-star-ring-color, #444);
     transition: all .2s;
   }
@@ -61,10 +64,6 @@ Example:
     width: 1px;
   }
 
-  .radio-star-rating-set label {
-    margin-right: var(--my-star-margin, .2rem);
-  }
-
   .radio-star-rating-set label svg {
     height: 100%;
     width: 100%; /* Width: 1235px !! */
@@ -80,8 +79,6 @@ Example:
   .radio-star-rating-set [ data-star = yes ] .path-star {
     fill: red;
     fill: var(--my-star-color, #555);
-    stroke: #aaa;
-    stroke-width: 2px;
   }
   </style>
 
@@ -103,7 +100,7 @@ Example:
 -->
 <template id="star-svg">
   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1235" height="1175" viewBox="0 0 1235 1175">
-    <title>Star</title>
+    <!--<title>Star</title>-->
     <path class="path-star" d="M0,449h1235l-999,726 382-1175 382,1175z"/>
   </svg>
 </template>
