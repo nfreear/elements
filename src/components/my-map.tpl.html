@@ -1,11 +1,10 @@
-<!doctype html>
 <!--
   Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
 
   Nick Freear, 27-Nov-2021.
 -->
+<meta name="robots" content="noindex">
 
-<!-- <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" /> -->
 <template id="my-map-template">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -16,26 +15,49 @@
     crossorigin=""></script>
 
   <style>
-    figure {
-      margin: 1rem 0;
-    }
-    figcaption {
-      margin: .5rem 0;
-    }
-    #my-map {
+  #my-map {
       border: 1px solid #ddd;
       border-radius: .2rem;
       height: 78vh;
-      max-height: 110vh;
+      max-height: 490px;
       min-height: 180px;
-    }
+  }
+  #my-map.leaflet-container {
+    font-size: .95rem;
+  }
+  .my-loading {
+    font-size: 1.3rem;
+    margin: 1.3rem;
+  }
+  .leaflet-container .leaflet-pane .leaflet-popup-close-button {
+    border: 1px solid #ddd;
+    border-radius: 20%;
+    color: #bbb;
+    height: 20px;
+    width: 20px;
+    padding: 2px;
+  }
+  .leaflet-container .leaflet-pane .leaflet-popup-close-button:hover {
+    background: rgba(200, 200, 200, .6);
+    color: navy;
+  }
+  .leaflet-container .leaflet-popup-content {
+    margin: .55rem;
+    margin-right: 1.2rem;
+  }
+  .leaflet-container .leaflet-control-attribution {
+    font-size: .7rem;
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: .5rem;
+  }
   </style>
 
-  <figure>
-    <figcaption id="caption"> Caption. </figcaption>
+  <div id="desc"><slot> Description of the map. </slot></div>
 
-    <div id="my-map"> Loading. </div>
-  </figure>
+  <div id="my-map" role="region" aria-label="Map" aria-describedby="desc">
+    <p class="my-loading">Loading map…</p>
+  </div>
 
   <script>
     console.debug('Hello world!');

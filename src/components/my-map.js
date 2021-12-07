@@ -15,12 +15,12 @@ export class MyMap extends MyElement { // HTMLElement {
     const lat = parseFloat(this.getAttribute('lat') || 51.505);
     const long = parseFloat(this.getAttribute('long') || -0.09);
     const zoom = parseInt(this.getAttribute('zoom') || 14);
-    const caption = this.getAttribute('caption') || 'A caption for the map.';
+    // const caption = this.getAttribute('caption') || 'A caption for the map.';
     const geojson = this.getAttribute('geojson') || null; // GeoJSON URL is relative to the HTML page!
     const tileUrl = this.getAttribute('tileUrl') || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     const attribution = this.getAttribute('attribute') || 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 
-    const ATTRS = { lat, long, zoom, caption, geojson, tileUrl, attribution };
+    const ATTRS = { lat, long, zoom, geojson, tileUrl, attribution };
 
     this.initialize(ATTRS);
   }
@@ -31,7 +31,7 @@ export class MyMap extends MyElement { // HTMLElement {
 
     const mapElem = this.shadowRoot.querySelector('#my-map');
 
-    this.shadowRoot.querySelector('#caption').textContent = attr.caption;
+    // this.shadowRoot.querySelector('#caption').textContent = attr.caption;
 
     /* setTimeout(() => {
       const SC = document.createElement('script');
