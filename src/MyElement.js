@@ -1,4 +1,5 @@
 /*!
+  Base class with functions to fetch templates, etc.
 
   © Nick Freear, 02-Dec-2021.
 */
@@ -30,6 +31,8 @@ export class MyElement extends HTMLElement {
     const root = template.content.cloneNode(true);
 
     this.attachShadow({mode: 'open'}).appendChild(root);
+
+    console.debug('getTemplate:', template);
 
     return template;
   }
