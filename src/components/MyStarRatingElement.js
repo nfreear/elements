@@ -21,7 +21,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   }
 
   async initialize(attr) {
-    await this.getTemplate('my-star-rating');
+    const templates = await this.getTemplate('my-star-rating');
 
     const labels = this.shadowRoot.querySelectorAll('label');
     const fieldset = this.shadowRoot.querySelector('fieldset');
@@ -32,8 +32,10 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     //this.parentElement.app
 
     this.$$ = {
-      ...attr, hiddenInput, labels, fieldset
+      ...attr, hiddenInput, labels, fieldset, templates
     };
+
+    this.appendStars(labels, templates[ 1 ]);
 
     fieldset.addEventListener('click', ev => this.clickEventHandler(ev));
 
@@ -50,9 +52,19 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     return INPUT;
   }
 
+  appendStars(labels, starSvgTemplate) {
+    // const starSvgTemplate = templates[ 1 ];
+    [...labels].map(label => {
+      const starSvg = starSvgTemplate.content.cloneNode(true);
+
+      label.appendChild(starSvg);
+    });
+  }
+
   updateValue(value) {
+    this.title = `${value} stars`;
     this.setAttribute('data-value', value);
-    this.$$.hiddenInput.setAttribute('data-value', value);
+    // this.$$.hiddenInput.setAttribute('data-value', value);
     this.$$.hiddenInput.value = value;
   }
 
@@ -60,12 +72,18 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     [...this.$$.labels].map(label => label.classList.remove('focused'));
   }
 
+  updateState(VALUE) {
+    [...this.$$.labels].map((label, idx) => {
+      label.setAttribute('data-star', idx < VALUE ? 'yes' : 'no');
+    })
+  }
+
   clickEventHandler(ev) {
     // console.warn('Click:', ev);
 
     // const RADIO = ev.target;
     const LABEL = ev.target.parentElement;
-    const VALUE = parseInt(ev.target.getAttribute('data-star'));
+    const VALUE = parseInt(ev.target.getAttribute('data-rating')); // Was: 'data-star';
 
     if (ev.target.nodeName !== 'INPUT') { // NaN.
       this.unfocusStars();
@@ -73,6 +91,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     }
 
     this.updateValue(VALUE);
+    this.updateState(VALUE);
     this.unfocusStars();
 
     LABEL.classList.add('focused');

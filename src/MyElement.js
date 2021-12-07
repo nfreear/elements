@@ -13,13 +13,17 @@ export class MyElement extends HTMLElement {
     }
   }
 
+  // URL is relative to the HTML page!
+  getTemplateUrl(id) {
+    return `../src/components/${id}.tpl.html`;
+  }
+
   // https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
   async getTemplate(id) {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
 
-    // URL is relative to the HTML page!
-    const url = `../src/components/${id}.tpl.html`;
+    const url = this.getTemplateUrl(id);
 
     const resp = await fetch(url);
     const html = await resp.text();
@@ -27,14 +31,17 @@ export class MyElement extends HTMLElement {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    const template = doc.querySelector('template');
-    const root = template.content.cloneNode(true);
+    const allTemplates = doc.querySelectorAll('template');
+
+    const defaultTemplate = allTemplates[0];
+
+    const root = defaultTemplate.content.cloneNode(true);
 
     this.attachShadow({mode: 'open'}).appendChild(root);
 
-    console.debug('getTemplate:', template);
+    console.debug('getTemplate (all):', allTemplates);
 
-    return template;
+    return allTemplates;
   }
 
 }

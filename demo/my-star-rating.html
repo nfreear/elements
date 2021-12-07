@@ -5,9 +5,11 @@
 
 <style>
 :root {
-  --star-rating-size: 5rem;
-  --no-star-url: url(https://upload.wikimedia.org/wikipedia/commons/e/e7/Empty_Star.svg);
-  --star-url: url(https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg);
+  --my-star-rating-size: 4.5rem;
+  --my-star-margin: .5rem;
+  --my-no-star-color: #ccc;
+  --my-star-color: #c00;
+  --my-star-ring-color: #05f;
 }
 
 body { margin: 1rem auto; max-width: 33rem; padding: 0 .2rem; }
@@ -31,7 +33,6 @@ my-star-rating p {
 <h1> My radio star rating </h1>
 
 <p><a href="#">Before</a></p>
-<!-- <div>Align</div> -->
 
 <form>
 
@@ -39,12 +40,9 @@ my-star-rating p {
     <p>How would you rate the quality of our service?</p>
   </my-star-rating>
 
-  <!-- <label for="rating-1"> How would you rate the quality of our service? </label>
-  <input id="rating-1" type="" data-stars="" is="my-star-rating" /> -->
 
   <p><button type="submit">Submit</button>
 </form>
-<!-- <div>Align</div> -->
 
 <p><a href="#">After</a></p>
 
