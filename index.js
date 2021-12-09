@@ -1,13 +1,16 @@
-/*!
-  Experimental Web Components.
-
-  © Nick Freear, 04-Dec-2021.
-*/
+/**
+ * Experimental Web Components.
+ *
+ * @copyright © Nick Freear, 04-Dec-2021.
+ */
 
 export { MyMap } from './src/components/my-map.js';
 export { MyStarRatingElement } from './src/components/MyStarRatingElement.js';
 export { MyAnalyticsElement } from './src/components/MyAnalyticsElement.js';
+export { MySkipLinkElement } from './src/components/MySkipLinkElement.js';
+export { MyLoremIpsumElement } from './src/components/MyLoremIpsumElement.js';
 
+export { MyFoobarElement } from './src/components/MyFoobarElement.js';
 export { MyElement } from './src/MyElement.js';
 
 export { translate } from './src/translate.js';
