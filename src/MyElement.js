@@ -4,6 +4,8 @@
   © Nick Freear, 02-Dec-2021.
 */
 
+import { getOptions } from './components/MyOptionsElement.js';
+
 export class MyElement extends HTMLElement {
   constructor() {
     super();
@@ -15,15 +17,18 @@ export class MyElement extends HTMLElement {
 
   // URL is relative to the HTML page!
   getTemplateUrl(id) {
-    return `../src/components/${id}.tpl.html`;
+    const { templateHost } = getOptions();
+    const BASE = templateHost === 'github.io' ? 'https://nfreear.github.io/web-components' : '..';
+
+    return `${BASE}/src/components/${id}.tpl.html`;
   }
 
   // https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
-  async getTemplate(id) {
+  async getTemplate(tag, id = null) {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
 
-    const url = this.getTemplateUrl(id);
+    const url = this.getTemplateUrl(tag);
 
     const resp = await fetch(url);
     const html = await resp.text();
@@ -33,13 +38,13 @@ export class MyElement extends HTMLElement {
 
     const allTemplates = doc.querySelectorAll('template');
 
-    const defaultTemplate = allTemplates[0];
+    const defaultTemplate = id ? [...allTemplates].find(t => t.id === id) : allTemplates[0];
 
     const root = defaultTemplate.content.cloneNode(true);
 
     this.attachShadow({mode: 'open'}).appendChild(root);
 
-    console.debug('getTemplate (all):', allTemplates);
+    console.debug('getTemplate (all):', url, allTemplates);
 
     return allTemplates;
   }
