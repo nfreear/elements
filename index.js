@@ -10,6 +10,8 @@ export { MyAnalyticsElement } from './src/components/MyAnalyticsElement.js';
 export { MySkipLinkElement } from './src/components/MySkipLinkElement.js';
 export { MyLoremIpsumElement } from './src/components/MyLoremIpsumElement.js';
 export { MyOptionsElement } from './src/components/MyOptionsElement.js';
+export { MyPageElement } from './src/components/MyPageElement.js';
+export { MyBusySpinnerElement } from './src/components/MyBusySpinnerElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
