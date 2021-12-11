@@ -6,10 +6,10 @@
 
 // import { MyElement } from '../MyElement.js';
 
-const $_OPTIONS = {};
+const $_OPTIONS = { $$: {} };
 
-export function getOptions() {
-  return $_OPTIONS.$$;
+export function getOpt(key = null) {
+  return key && key in $_OPTIONS.$$ ? $_OPTIONS.$$[key] : $_OPTIONS.$$;
 }
 
 export class MyOptionsElement extends HTMLElement {

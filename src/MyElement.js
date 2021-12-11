@@ -4,7 +4,7 @@
   © Nick Freear, 02-Dec-2021.
 */
 
-import { getOptions } from './components/MyOptionsElement.js';
+import { getOpt } from './components/MyOptionsElement.js';
 
 export class MyElement extends HTMLElement {
   constructor() {
@@ -17,8 +17,8 @@ export class MyElement extends HTMLElement {
 
   // URL is relative to the HTML page!
   getTemplateUrl(id) {
-    const { templateHost } = getOptions();
-    const BASE = templateHost === 'github.io' ? 'https://nfreear.github.io/web-components' : '..';
+    // const { templateHost } = getOptions();
+    const BASE = getOpt('templateHost') === 'github.io' ? 'https://nfreear.github.io/web-components' : '..';
 
     return `${BASE}/src/components/${id}.tpl.html`;
   }
