@@ -4,22 +4,31 @@
  * @copyright © Nick Freear, 28-June-2021.
  * @see https://gist.github.com/nfreear/0146258d72e9e1330b19a1ff2c143ff6,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id#using_localstorage_to_store_the_client_id,
+ * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,
  */
+
+// import { MyElement } from '../MyElement.js';
 
 export class MyAnalyticsElement extends HTMLElement {
   constructor() {
     super();
 
     const analyticsId = this.getAttribute('analytics-id') || 'UA-123456-XX';
+    const anonymizeIp = this.getAttribute('anonymize-ip') || true;
     const debug = this.getAttribute('debug') || false;
     const storageKey = 'ga:clientId';
 
-    this.$$ = { analyticsId, debug, storageKey };
+    this.$$ = { analyticsId, anonymizeIp, debug, storageKey };
 
-    this.injectScript(debug);
+    this.asyncGa();
     this.sendPageView(analyticsId, storageKey);
+    this.appendAsyncScript(debug);
+
+    // Was: this.injectScript(debug);
+    // Was: this.sendPageView(analyticsId, storageKey);
   }
 
+  // DEPRECATED!
   injectScript(debug) { //: void {
     /* eslint-disable */
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -30,9 +39,25 @@ export class MyAnalyticsElement extends HTMLElement {
     /* eslint-enable */
   }
 
+  appendAsyncScript(debug) {
+    const SCR = document.createElement('script');
+    SCR.src = `https://www.google-analytics.com/analytics${debug ? '_debug' : ''}.js`;
+    SCR.async = 'async';
+    this.attachShadow({ mode: 'open' }).appendChild(SCR);
+  }
+
+  asyncGa() {
+    window.ga = window.ga || function(){(ga.q = ga.q || []).push(arguments)}; ga.l =+ new Date;
+  }
+
+  anonymizeIp() {
+    if (this.$$.anonymizeIp) {
+      window.ga('set', 'anonymizeIp', true);
+    }
+  }
+
   sendPageView(analyticsId, storageKey) { //: void {
     const ga = window.ga; // (window as any).ga;
-    // const GAO = window.GoogleAnalyticsObject;
 
     if (window.localStorage) {
       ga('create', analyticsId, {
@@ -45,6 +70,8 @@ export class MyAnalyticsElement extends HTMLElement {
     } else {
       ga('create', analyticsId, 'auto');
     }
+
+    this.anonymizeIp();
 
     ga('send', 'pageview');
 
