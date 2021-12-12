@@ -1,8 +1,15 @@
+<!--
 
+  https://css-tricks.com/introduction-reduced-motion-media-query/,
+-->
 <meta name="robots" content="noindex">
 
 <template>
   <style>
+    .defaults {
+      --my-spinner-duration: 1s;
+    }
+
     @keyframes SpinnerY {
        0%   { transform: rotateY(0deg);  }
        100% { transform: rotateY(180deg); }
@@ -29,17 +36,17 @@
     }
 
     .css-spinner {
-      X-border: 2.5vh solid var(--spinner-color);
-      border-color: hsl(var(--spinner-hue), 100%, var(--spinner-lightness));
+      X-border: 2.5vh solid var(--my-spinner-color);
+      border-color: hsl(var(--my-spinner-hue), 100%, var(--my-spinner-lightness));
       border-style: solid;
       border-width: 2.5vh;
       border-radius: 50%;
       margin: 2rem auto;
-      height: var(--spinner-size);
-      width:  var(--spinner-size);
+      height: var(--my-spinner-size, 40vh);
+      width:  var(--my-spinner-size, 40vh);
 
       animation-direction: normal;
-      animation-duration: var(--spinner-duration);
+      animation-duration: var(--my-spinner-duration, 1.5s);
       animation-iteration-count: infinite;
       animation-timing-function: linear; /* << +1 ! */
       animation-play-state: running;
@@ -67,7 +74,11 @@
     .css-spinner.rotate {
       animation-name: Rotate;
       background-color: #eef;
-      border-bottom-color: hsl(var(--spinner-hue), 100%, calc(var(--spinner-lightness) - var(--spinner-darken)));
+      border-bottom-color: hsl(
+        var(--my-spinner-hue),
+        100%,
+        calc(var(--my-spinner-lightness) - var(--my-spinner-darken))
+      );
       X-border-bottom-color: #006;
       border-style: outset;
     }
@@ -75,8 +86,19 @@
     .css-spinner.z.anti,
     .css-spinner.rotate.anti {
       animation-name: AntiClockwise;
-      border-left-color: hsl(var(--spinner-hue), 100%, calc(var(--spinner-lightness) - var(--spinner-darken)));
+      border-left-color: hsl(
+        var(--my-spinner-hue),
+        100%,
+        calc(var(--my-spinner-lightness) - var(--my-spinner-darken))
+      );
     }
+
+    /* Applies styles when Reduced Motion is enabled *-/
+    @media screen and (prefers-reduced-motion: reduce) {
+      .css-spinner {
+        animation-duration: var(--my-spinner-slow, 2s);
+      }
+    } */
   </style>
 
   <div class="css-spinner z XX_anti" aria-label="Loading" title="Loading"></div>
