@@ -8,7 +8,7 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyStarRatingElement extends MyElement { // HTMLInputElement {
-  constructor() {
+  constructor () {
     super();
 
     const name = this.getAttribute('name') || 'my-star-rating-1';
@@ -16,11 +16,11 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     this.initialize({ name });
   }
 
-  connectedCallback() {
+  connectedCallback () {
     console.debug('connectedCallback:', this);
   }
 
-  async initialize(attr) {
+  async initialize (attr) {
     const templates = await this.getTemplate('my-star-rating');
 
     const labels = this.shadowRoot.querySelectorAll('label');
@@ -34,7 +34,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
       ...attr, hiddenInput, labels, fieldset, templates
     };
 
-    this.appendStars(labels, templates[ 1 ]);
+    this.appendStars(labels, templates[1]);
 
     fieldset.addEventListener('click', ev => this.clickEventHandler(ev));
     fieldset.addEventListener('mouseout', ev => {
@@ -45,7 +45,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     console.debug('my-star-rating (radio):', this.$$, this);
   }
 
-  createHiddenInput(name) {
+  createHiddenInput (name) {
     const INPUT = document.createElement('input');
     INPUT.id = 'my-star-rating-input-1';
     INPUT.type = 'hidden';
@@ -55,7 +55,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     return INPUT;
   }
 
-  appendStars(labels, starSvgTemplate) {
+  appendStars (labels, starSvgTemplate) {
     // const starSvgTemplate = templates[ 1 ];
     [...labels].map(label => {
       const starSvg = starSvgTemplate.content.cloneNode(true);
@@ -64,24 +64,24 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     });
   }
 
-  updateValue(value) {
+  updateValue (value) {
     this.title = `${value} stars`;
     this.setAttribute('data-value', value);
     // this.$$.hiddenInput.setAttribute('data-value', value);
     this.$$.hiddenInput.value = value;
   }
 
-  unfocusStars() {
+  unfocusStars () {
     [...this.$$.labels].map(label => label.classList.remove('focused'));
   }
 
-  updateState(VALUE) {
+  updateState (VALUE) {
     [...this.$$.labels].map((label, idx) => {
       label.setAttribute('data-star', idx < VALUE ? 'yes' : 'no');
-    })
+    });
   }
 
-  clickEventHandler(ev) {
+  clickEventHandler (ev) {
     const LABEL = ev.target.parentElement;
     const VALUE = parseInt(ev.target.getAttribute('data-rating')); // Was: 'data-star';
 
@@ -96,7 +96,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
 
     LABEL.classList.add('focused');
 
-    console.debug('Star rating. Click:', VALUE, VALUE ? 'ok':'err', ev);
+    console.debug('Star rating. Click:', VALUE, VALUE ? 'ok' : 'err', ev);
   }
 }
 

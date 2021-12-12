@@ -11,15 +11,15 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyBusySpinnerElement extends MyElement {
-  constructor() {
+  constructor () {
     super();
 
-	  // const name = this.getAttribute('name') || 'A name attribute';
+    // const name = this.getAttribute('name') || 'A name attribute';
 
-	  // await
+    // await
     this.getTemplate('my-busy-spinner');
 
-	  console.debug('my-busy-spinner:', this);
+    console.debug('my-busy-spinner:', this);
   }
 }
 

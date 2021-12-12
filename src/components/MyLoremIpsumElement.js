@@ -6,15 +6,15 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyLoremIpsumElement extends MyElement {
-  constructor() {
+  constructor () {
     super();
 
-	  // const name = this.getAttribute('name') || 'A Name attribute';
+    // const name = this.getAttribute('name') || 'A Name attribute';
 
-	  // await
+    // await
     this.getTemplate('my-lorem-ipsum');
 
-	  console.debug('my-lorem-ipsum:', this);
+    console.debug('my-lorem-ipsum:', this);
   }
 }
 

@@ -10,7 +10,7 @@
 // import { MyElement } from '../MyElement.js';
 
 export class MyAnalyticsElement extends HTMLElement {
-  constructor() {
+  constructor () {
     super();
 
     const analyticsId = this.getAttribute('analytics-id') || 'UA-123456-XX';
@@ -29,7 +29,7 @@ export class MyAnalyticsElement extends HTMLElement {
   }
 
   // DEPRECATED!
-  injectScript(debug) { //: void {
+  injectScript (debug) { // : void {
     /* eslint-disable */
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       /* @ts-ignore */
@@ -39,32 +39,32 @@ export class MyAnalyticsElement extends HTMLElement {
     /* eslint-enable */
   }
 
-  appendAsyncScript(debug) {
+  appendAsyncScript (debug) {
     const SCR = document.createElement('script');
     SCR.src = `https://www.google-analytics.com/analytics${debug ? '_debug' : ''}.js`;
     SCR.async = 'async';
     this.attachShadow({ mode: 'open' }).appendChild(SCR);
   }
 
-  asyncGa() {
-    window.ga = window.ga || function(){(ga.q = ga.q || []).push(arguments)}; ga.l =+ new Date;
+  asyncGa () {
+    window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments); }; ga.l = +new Date();
   }
 
-  anonymizeIp() {
+  anonymizeIp () {
     if (this.$$.anonymizeIp) {
       window.ga('set', 'anonymizeIp', true);
     }
   }
 
-  sendPageView(analyticsId, storageKey) { //: void {
+  sendPageView (analyticsId, storageKey) { // : void {
     const ga = window.ga; // (window as any).ga;
 
     if (window.localStorage) {
       ga('create', analyticsId, {
-        'storage': 'none',
-        'clientId': localStorage.getItem(storageKey)
+        storage: 'none',
+        clientId: localStorage.getItem(storageKey)
       });
-      ga((tracker) /*: void*/ => {
+      ga((tracker) /*: void */ => {
         localStorage.setItem(storageKey, tracker.get('clientId'));
       });
     } else {

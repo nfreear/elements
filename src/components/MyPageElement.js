@@ -6,7 +6,7 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyPageElement extends MyElement {
-  constructor() {
+  constructor () {
     super();
 
     /* const template = document.getElementById('my-page');

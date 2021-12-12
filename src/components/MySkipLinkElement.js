@@ -6,16 +6,16 @@
 import { MyElement } from '../MyElement.js';
 
 export class MySkipLinkElement extends MyElement {
-  constructor() {
+  constructor () {
     super();
 
-	  // const href = this.getAttribute('href') || '#main-content';
+    // const href = this.getAttribute('href') || '#main-content';
 
-	  // const template = document.getElementById('skip-link-template');
+    // const template = document.getElementById('skip-link-template');
     // await
     this.getTemplate('my-skip-link');
 
-	  console.debug('my-skip-link:', this);
+    console.debug('my-skip-link:', this);
   }
 }
 

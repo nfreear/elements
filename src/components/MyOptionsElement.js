@@ -8,19 +8,19 @@
 
 const $_OPTIONS = { $$: {} };
 
-export function getOpt(key = null) {
+export function getOpt (key = null) {
   return key && key in $_OPTIONS.$$ ? $_OPTIONS.$$[key] : $_OPTIONS.$$;
 }
 
 export class MyOptionsElement extends HTMLElement {
-  constructor() {
+  constructor () {
     super();
 
     const templateHost = this.getAttribute('template-host') || 'local';
 
-	  $_OPTIONS.$$ = this.$$ = { templateHost };
+    $_OPTIONS.$$ = this.$$ = { templateHost };
 
-	  console.debug('my-options:', this.$$, this);
+    console.debug('my-options:', this.$$, this);
   }
 }
 

@@ -7,15 +7,15 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyFoobarElement extends MyElement {
-  constructor() {
+  constructor () {
     super();
 
-	  // const name = this.getAttribute('name') || 'A name attribute';
+    // const name = this.getAttribute('name') || 'A name attribute';
 
-	  // await
+    // await
     this.getTemplate('my-foobar');
 
-	  console.debug('my-foobar:', this);
+    console.debug('my-foobar:', this);
   }
 }
 

@@ -9,7 +9,7 @@ import { MyElement } from '../MyElement.js';
 // const L = window.L;
 
 export class MyMap extends MyElement { // HTMLElement {
-  constructor() {
+  constructor () {
     super();
 
     const lat = parseFloat(this.getAttribute('lat') || 51.505);
@@ -25,8 +25,8 @@ export class MyMap extends MyElement { // HTMLElement {
     this.initialize(ATTRS);
   }
 
-  async initialize(attr) {
-    //.
+  async initialize (attr) {
+    // .
     await this.getTemplate('my-map');
 
     const mapElem = this.shadowRoot.querySelector('#my-map');
@@ -43,14 +43,14 @@ export class MyMap extends MyElement { // HTMLElement {
     setTimeout(() => {
       const L = window.L;
 
-      const map = L.map(mapElem).setView([ attr.lat, attr.long ], attr.zoom);
+      const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
 
       const tiles = L.tileLayer(attr.tileUrl, {
         attribution: attr.attribution
       }).addTo(map);
 
       this.$$ = {
-        ...attr, map, mapElem, L
+        ...attr, map, mapElem, tiles, L
       };
 
       if (attr.geojson) {
@@ -61,7 +61,7 @@ export class MyMap extends MyElement { // HTMLElement {
     }, 800); // Was: 250;
   }
 
-  async loadGeoJson(geojson) {
+  async loadGeoJson (geojson) {
     const L = window.L;
 
     const resp = await fetch(geojson); // './data/landmarks.geo.json');
@@ -72,18 +72,18 @@ export class MyMap extends MyElement { // HTMLElement {
     // const geoJsonFeatures = JSON.parse(template.content.textContent);
 
     const res = L.geoJSON(geoJsonFeatures,
-    {
-      pointToLayer: (feature, latlng) => {
+      {
+        pointToLayer: (feature, latlng) => {
         // console.debug('pointToLayer:', feature, latlng, markerIcon);
-        return L.marker(latlng, { icon: this.markerIcon() });
-      },
-      onEachFeature: (feature, layer) => {
+          return L.marker(latlng, { icon: this.markerIcon() });
+        },
+        onEachFeature: (feature, layer) => {
         // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.popupContent) {
-          layer.bindPopup(feature.properties.popupContent);
+          if (feature.properties && feature.properties.popupContent) {
+            layer.bindPopup(feature.properties.popupContent);
+          }
         }
-      }
-    });
+      });
     // .addTo(map)
 
     return res;
@@ -97,7 +97,7 @@ export class MyMap extends MyElement { // HTMLElement {
       iconAnchor: [10, 41],
       popupAnchor: [2, -40],
       iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-      shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png"
+      shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
     });
   }
 }
