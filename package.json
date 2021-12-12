@@ -1,13 +1,16 @@
 {
   "private": true,
-  "name": "@nfreear/web-components-etc",
+  "name": "@nfreear/web-components",
   "description": "Experimental Web Components | © 2021 Nick Freear.",
-  "repository": "https://github.com/nfreear/web-components-etc.git",
+  "repository": "https://github.com/nfreear/web-components.git",
   "main": "./index.js",
   "scripts": {
-    "start": "live-server --no-browser"
+    "start": "live-server --no-browser",
+    "fix": "semistandard --fix",
+    "test": "semistandard"
   },
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "semistandard": "^16.0.1"
   }
 }

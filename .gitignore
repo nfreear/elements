@@ -3,7 +3,8 @@ experiment
 leaflet*
 Untitled
 
+*BAK*
 .env
 .DS_Store
 node_modules
-package-lock.json
+# package-lock.json
