@@ -7,9 +7,11 @@
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,
  */
 
-// import { MyElement } from '../MyElement.js';
+import { MyElement } from '../MyElement.js';
 
-export class MyAnalyticsElement extends HTMLElement {
+const { localStorage } = window;
+
+export class MyAnalyticsElement extends MyElement {
   constructor () {
     super();
 
@@ -47,6 +49,7 @@ export class MyAnalyticsElement extends HTMLElement {
   }
 
   asyncGa () {
+    /* eslint-disable-next-line */
     window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments); }; ga.l = +new Date();
   }
 

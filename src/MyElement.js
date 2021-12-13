@@ -4,19 +4,22 @@
   © Nick Freear, 02-Dec-2021.
 */
 
-import { getOpt } from './components/MyOptionsElement.js';
+import { getOpt } from './Options.js';
+
+const { DOMParser, fetch, HTMLElement } = window;
 
 export class MyElement extends HTMLElement {
-  constructor() {
+  constructor () {
     super();
 
+    /* eslint-disable-next-line */
     if (!'content' in document.createElement('template')) {
       throw new Error('Template not supported!');
     }
   }
 
   // URL is relative to the HTML page!
-  getTemplateUrl(id) {
+  getTemplateUrl (id) {
     // const { templateHost } = getOptions();
     const BASE = getOpt('templateHost') === 'github.io' ? 'https://nfreear.github.io/web-components' : '..';
 
@@ -24,7 +27,7 @@ export class MyElement extends HTMLElement {
   }
 
   // https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
-  async getTemplate(tag, id = null) {
+  async getTemplate (tag, id = null) {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
 
@@ -42,11 +45,10 @@ export class MyElement extends HTMLElement {
 
     const root = defaultTemplate.content.cloneNode(true);
 
-    this.attachShadow({mode: 'open'}).appendChild(root);
+    this.attachShadow({ mode: 'open' }).appendChild(root);
 
     console.debug('getTemplate (all):', url, allTemplates);
 
     return allTemplates;
   }
-
 }

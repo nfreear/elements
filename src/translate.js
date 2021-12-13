@@ -1,20 +1,18 @@
 /*!
-
+  Translate selected page content.
 
   © Nick Freear, 27-Nov-2021.
 */
 
-export async function translate() {
-  if (!'content' in document.createElement('template')) {
-    throw new Error('Template not supported!');
-  }
+const { fetch, location } = window;
 
+export async function translate () {
   const LANG = getLanguage();
   const SELECTOR = 'title, header > *, nav a, footer > *';
   const ELEMS = document.querySelectorAll(SELECTOR);
   const DATA = await getTranslationData();
 
-  const TRANSLATIONS = DATA.translations[ LANG ];
+  const TRANSLATIONS = DATA.translations[LANG];
 
   console.log('Translations:', LANG, ELEMS, TRANSLATIONS);
 
@@ -35,11 +33,11 @@ export async function translate() {
   });
 }
 
-function getLanguage() {
-  return location.search.replace(/.*lang=([a-z]{2}(-[a-z]{2,})*)/, '$1' ) || 'en'; // zh-hans';
+function getLanguage () {
+  return location.search.replace(/.*lang=([a-z]{2}(-[a-z]{2,})*)/, '$1') || 'en'; // zh-hans';
 }
 
-async function getTranslationData(LANG) {
+async function getTranslationData (LANG) {
   /*   const TEMPLATE = document.querySelector('#translations');
   const DATA = JSON.parse(TEMPLATE.content.textContent);
   const TRANSLATIONS = DATA.translations[ LANG ]; */
@@ -48,7 +46,6 @@ async function getTranslationData(LANG) {
 
   const RESP = await fetch(translationsUrl);
   const DATA = await RESP.json();
-  const TRANSLATIONS = DATA.translations[ LANG ];
 
   return DATA;
 }

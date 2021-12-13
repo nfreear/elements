@@ -6,9 +6,10 @@
 
 import { MyElement } from '../MyElement.js';
 
+const { fetch } = window;
 // const L = window.L;
 
-export class MyMap extends MyElement { // HTMLElement {
+export class MyMap extends MyElement {
   constructor () {
     super();
 

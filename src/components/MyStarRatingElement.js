@@ -57,7 +57,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
 
   appendStars (labels, starSvgTemplate) {
     // const starSvgTemplate = templates[ 1 ];
-    [...labels].map(label => {
+    [...labels].forEach(label => {
       const starSvg = starSvgTemplate.content.cloneNode(true);
 
       label.appendChild(starSvg);
@@ -76,7 +76,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   }
 
   updateState (VALUE) {
-    [...this.$$.labels].map((label, idx) => {
+    [...this.$$.labels].forEach((label, idx) => {
       label.setAttribute('data-star', idx < VALUE ? 'yes' : 'no');
     });
   }

@@ -4,21 +4,18 @@
   © Nick Freear, 11-Dec-2021.
 */
 
-// import { MyElement } from '../MyElement.js';
+import { MyElement } from '../MyElement.js';
+import { setupOptions } from '../Options.js';
 
-const $_OPTIONS = { $$: {} };
-
-export function getOpt (key = null) {
-  return key && key in $_OPTIONS.$$ ? $_OPTIONS.$$[key] : $_OPTIONS.$$;
-}
-
-export class MyOptionsElement extends HTMLElement {
+export class MyOptionsElement extends MyElement {
   constructor () {
     super();
 
     const templateHost = this.getAttribute('template-host') || 'local';
 
-    $_OPTIONS.$$ = this.$$ = { templateHost };
+    this.$$ = { templateHost };
+
+    setupOptions(this.$$);
 
     console.debug('my-options:', this.$$, this);
   }
