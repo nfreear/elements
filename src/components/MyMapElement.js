@@ -9,7 +9,7 @@ import { MyElement } from '../MyElement.js';
 const { fetch } = window;
 // const L = window.L;
 
-export class MyMap extends MyElement {
+export class MyMapElement extends MyElement {
   constructor () {
     super();
 
