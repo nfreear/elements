@@ -6,7 +6,7 @@
 
 import { getOpt } from './Options.js';
 
-const { DOMParser, fetch, HTMLElement } = window;
+const { customElements, DOMParser, fetch, HTMLElement } = window;
 
 export class MyElement extends HTMLElement {
   constructor () {
@@ -16,6 +16,18 @@ export class MyElement extends HTMLElement {
     if (!'content' in document.createElement('template')) {
       throw new Error('Template not supported!');
     }
+  }
+
+  static getTag () {
+    // Example: return 'my-element';
+    throw new Error('getTag() should be implemented in the child class!');
+  }
+
+  static async define () {
+    // await whenDOMReady();
+    const klass = this;
+
+    customElements.define(klass.getTag(), klass);
   }
 
   // URL is relative to the HTML page!

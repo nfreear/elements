@@ -5,9 +5,23 @@
 
 import { MyElement } from '../MyElement.js';
 
+// const tagName = 'my-skip-link';
+
+/* const metadata = {
+  tagName: 'my-skip-link'
+}; */
+
 export class MySkipLinkElement extends MyElement {
+  static getTag () {
+    return 'my-skip-link';
+  }
+  // static tagName = 'my-skip-link';
+
   constructor () {
     super();
+
+    console.debug('MySkipLinkElement');
+
     // this.setTagName('my-skip-link');
 
     // const href = this.getAttribute('href') || '#main-content';
@@ -19,6 +33,6 @@ export class MySkipLinkElement extends MyElement {
   }
 }
 
-// MySkipLinkElement.define();
+MySkipLinkElement.define();
 
-customElements.define('my-skip-link', MySkipLinkElement);
+// Was: customElements.define('my-skip-link', MySkipLinkElement);
