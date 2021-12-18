@@ -2,6 +2,8 @@
  Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
 
   Nick Freear, 27-Nov-2021.
+
+ * @WAS 'my-map.js'
 */
 
 import { MyElement } from '../MyElement.js';

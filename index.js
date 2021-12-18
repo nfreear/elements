@@ -4,7 +4,7 @@
  * @copyright © Nick Freear, 04-Dec-2021.
  */
 
-export { MyMap } from './src/components/my-map.js';
+export { MyMapElement } from './src/components/MyMapElement.js';
 export { MyStarRatingElement } from './src/components/MyStarRatingElement.js';
 export { MyAnalyticsElement } from './src/components/MyAnalyticsElement.js';
 export { MySkipLinkElement } from './src/components/MySkipLinkElement.js';
