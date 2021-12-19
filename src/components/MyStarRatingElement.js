@@ -8,6 +8,10 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyStarRatingElement extends MyElement { // HTMLInputElement {
+  static getTag () {
+    return 'my-star-rating';
+  }
+
   constructor () {
     super();
 
@@ -100,4 +104,4 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   }
 }
 
-customElements.define('my-star-rating', MyStarRatingElement); //, { extends: 'input' });
+MyStarRatingElement.define(); //, { extends: 'input' });

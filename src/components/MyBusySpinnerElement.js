@@ -11,6 +11,10 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyBusySpinnerElement extends MyElement {
+  static getTag () {
+    return 'my-busy-spinner';
+  }
+
   constructor () {
     super();
 
@@ -23,4 +27,4 @@ export class MyBusySpinnerElement extends MyElement {
   }
 }
 
-customElements.define('my-busy-spinner', MyBusySpinnerElement);
+MyBusySpinnerElement.define();

@@ -6,6 +6,10 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyPageElement extends MyElement {
+  static getTag () {
+    return 'my-page';
+  }
+
   constructor () {
     super();
 
@@ -21,4 +25,4 @@ export class MyPageElement extends MyElement {
   }
 }
 
-customElements.define('my-page', MyPageElement);
+MyPageElement.define();

@@ -12,6 +12,10 @@ import { MyElement } from '../MyElement.js';
 const { localStorage } = window;
 
 export class MyAnalyticsElement extends MyElement {
+  static getTag () {
+    return 'my-analytics';
+  }
+
   constructor () {
     super();
 
@@ -83,4 +87,4 @@ export class MyAnalyticsElement extends MyElement {
   }
 }
 
-customElements.define('my-analytics', MyAnalyticsElement);
+MyAnalyticsElement.define();

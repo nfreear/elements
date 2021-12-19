@@ -10,7 +10,7 @@
     "test": "semistandard"
   },
   "semistandard": {
-    "globals": [ "customElements", "XX_HTMLElement" ]
+    "globals": [ "XX_customElements", "XX_HTMLElement" ]
   },
   "devDependencies": {
     "live-server": "^1.2.1",

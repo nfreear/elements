@@ -8,6 +8,10 @@ import { MyElement } from '../MyElement.js';
 import { setupOptions } from '../Options.js';
 
 export class MyOptionsElement extends MyElement {
+  static getTag () {
+    return 'my-options';
+  }
+
   constructor () {
     super();
 
@@ -21,4 +25,4 @@ export class MyOptionsElement extends MyElement {
   }
 }
 
-customElements.define('my-options', MyOptionsElement);
+MyOptionsElement.define();

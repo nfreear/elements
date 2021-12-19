@@ -12,6 +12,10 @@ const { fetch } = window;
 // const L = window.L;
 
 export class MyMapElement extends MyElement {
+  static getTag () {
+    return 'my-map';
+  }
+
   constructor () {
     super();
 
@@ -105,4 +109,6 @@ export class MyMapElement extends MyElement {
   }
 }
 
-customElements.define('my-map', MyMap);
+MyMapElement.define();
+
+// Was: customElements.define('my-map', MyMap);

@@ -6,6 +6,10 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyLoremIpsumElement extends MyElement {
+  static getTag () {
+    return 'my-lorem-ipsum';
+  }
+
   constructor () {
     super();
 
@@ -18,4 +22,4 @@ export class MyLoremIpsumElement extends MyElement {
   }
 }
 
-customElements.define('my-lorem-ipsum', MyLoremIpsumElement);
+MyLoremIpsumElement.define();

@@ -5,17 +5,10 @@
 
 import { MyElement } from '../MyElement.js';
 
-// const tagName = 'my-skip-link';
-
-/* const metadata = {
-  tagName: 'my-skip-link'
-}; */
-
 export class MySkipLinkElement extends MyElement {
   static getTag () {
     return 'my-skip-link';
   }
-  // static tagName = 'my-skip-link';
 
   constructor () {
     super();

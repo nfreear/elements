@@ -7,6 +7,10 @@
 import { MyElement } from '../MyElement.js';
 
 export class MyFoobarElement extends MyElement {
+  static getTag () {
+    return 'my-foobar';
+  }
+
   constructor () {
     super();
 
@@ -19,4 +23,6 @@ export class MyFoobarElement extends MyElement {
   }
 }
 
-customElements.define('my-foobar', MyFoobarElement);
+MyFoobarElement.define();
+
+// Was: customElements.define('my-foobar', MyFoobarElement);
