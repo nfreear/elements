@@ -7,19 +7,30 @@
     nav,
     main,
     footer {
-      color: var(--color-1);
-      font: 1rem/1.1 sans-serif;
-      margin: .5rem auto;
-      max-width: 34rem;
+      background: #fcfcfc;
+      border: 1px solid #e6e6e6;
+      color: var(--color-1, #333);
+      font: 1rem/1.2 sans-serif;
+      margin: .6rem auto;
+      max-width: 33rem;
+      min-width: 12rem;
+      padding: 0 .3rem;
+    }
+    main {
+      line-height: 1.8;
+    }
+    pre {
+      border: 1px solid #ccc;
+      padding: .5rem;
     }
   </style>
 
   <header>
-    <h1> Demo </h1>
+    <h1> My Web Components </h1>
   </header>
 
   <nav>
-    <a href="#">Home</a> | <a href="#">Link 2</a> | ...
+    <a href="./">Home</a> | <a href="#">Link 2</a> | ...
   </nav>
 
   <main><slot></slot></main>
