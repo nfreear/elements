@@ -19,9 +19,21 @@ export class MyPageElement extends MyElement {
 
     this.attachShadow({mode: 'open'}).appendChild(root); */
 
-    this.getTemplate('my-page');
+    this.getTemplate('my-page').then(() => this.fixUnstyledFlash ());
 
     console.debug('my-page:', this);
+  }
+
+  /**
+   * @see https://stackoverflow.com/questions/62683430/how-to-stop-fouc-from-happening-with-native-web-components
+   */
+  fixUnstyledFlash () {
+    // setTimeout(() => {
+    const html = document.querySelector('html');
+
+    html.style.opacity = 1;
+    html.style.transition = 'opacity 2s ease 0.25s';
+    // }, 0);
   }
 }
 
