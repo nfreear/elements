@@ -14,14 +14,18 @@
       margin: .6rem auto;
       max-width: 33rem;
       min-width: 12rem;
-      padding: 0 .3rem;
+      padding: 0 .6rem;
     }
     main {
       line-height: 1.8;
     }
-    pre {
-      border: 1px solid #ccc;
-      padding: .5rem;
+
+    .fouc {
+      opacity: 0;
+      transition: opacity 3s ease 0s;
+    }
+    .fouc.op1 {
+      opacity: 1;
     }
   </style>
 
@@ -33,7 +37,9 @@
     <a href="./">Home</a> | <a href="#">Link 2</a> | ...
   </nav>
 
-  <main><slot></slot></main>
+  <main id="main-content">
+    <slot></slot>
+  </main>
 
   <footer>
     <p> My footer. </p>

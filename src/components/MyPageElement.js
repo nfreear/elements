@@ -19,7 +19,7 @@ export class MyPageElement extends MyElement {
 
     this.attachShadow({mode: 'open'}).appendChild(root); */
 
-    this.getTemplate('my-page').then(() => this.fixUnstyledFlash ());
+    this.getTemplate('my-page').then(() => this.fixUnstyledFlash());
 
     console.debug('my-page:', this);
   }

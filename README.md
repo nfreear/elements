@@ -22,7 +22,7 @@ About [Web Components][mdn].
 
 ## Usage
 
-```
+```html
 <my-skip-link></my-skip-link>
 
 
