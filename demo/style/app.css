@@ -1,0 +1,45 @@
+
+
+:root {
+  --my-star-rating-max-size: 5rem;
+  --my-star-margin: .8rem;
+  --my-no-star-color: #ccc;
+  --my-star-color: #c00;
+  --my-star-ring-color: #03e;
+}
+
+/* Fix Unstyled Flash of Content (FOUC).
+*/
+.X_my-page,
+.X_my-page *,
+.X_html {
+  opacity: 0;
+}
+
+.XX:not(:defined) { opacity: 0; }
+
+body > pre {
+  display: none;
+}
+
+pre {
+  border: 1px solid #ddd;
+  padding: .5rem;
+}
+
+button {
+  font: inherit;
+  padding: .3rem 2rem;
+}
+
+my-lorem-ipsum,
+my-star-rating {
+  display: block;
+  margin: 1rem 0;
+}
+
+/* The <p> in the <slot> within the Web Component !!
+*/
+my-star-rating p {
+  margin-top: 0;
+}
