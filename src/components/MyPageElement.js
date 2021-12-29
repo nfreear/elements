@@ -25,15 +25,22 @@ export class MyPageElement extends MyElement {
   }
 
   /**
+   * Fix Unstyled Flash of Content (FOUC).
+   *
+   * @see ../../demo/style/app.css
    * @see https://stackoverflow.com/questions/62683430/how-to-stop-fouc-from-happening-with-native-web-components
    */
   fixUnstyledFlash () {
-    // setTimeout(() => {
-    const html = document.querySelector('html');
+    setTimeout(() => {
+      const html = document.querySelector('html');
 
-    html.style.opacity = 1;
-    html.style.transition = 'opacity 2s ease 0.25s';
-    // }, 0);
+      html.classList.add('fouc');
+      html.classList.add('end');
+
+      // html.style.opacity = 1;
+      // html.style.transition = 'opacity 2s ease 0.25s';
+    },
+    10);
   }
 }
 

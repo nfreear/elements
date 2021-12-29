@@ -10,10 +10,13 @@
 
 /* Fix Unstyled Flash of Content (FOUC).
 */
-.X_my-page,
-.X_my-page *,
-.X_html {
+html {
   opacity: 0;
+  transition: opacity 1s ease 100ms;
+}
+
+html.fouc.end {
+  opacity: 1 !important;
 }
 
 .XX:not(:defined) { opacity: 0; }
