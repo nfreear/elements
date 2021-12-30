@@ -15,6 +15,12 @@
     crossorigin=""></script>
 
   <style>
+  .map-desc {
+    color: #333;
+    font: 1rem sans-serif;
+    max-width: 35rem;
+    margin: 0 auto;
+  }
   #my-map {
       border: 1px solid #ddd;
       border-radius: .2rem;
@@ -51,9 +57,14 @@
   .leaflet-popup-content-wrapper {
     border-radius: .5rem;
   }
+
+  .leaflet-overlay-pane path.leaflet-interactive {
+    stroke: var(--my-map-path-color, #3388ff);
+    stroke-width: var(--my-map-path-width, 3px);
+  }
   </style>
 
-  <div id="desc"><slot> Description of the map. </slot></div>
+  <div id="desc" class="map-desc"><slot> Description of the map. </slot></div>
 
   <div id="my-map" role="region" aria-label="Map" aria-describedby="desc">
     <p class="my-loading">Loading map…</p>

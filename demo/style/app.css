@@ -1,11 +1,22 @@
 
 
 :root {
+  /* <my-star-rating>
+  */
   --my-star-rating-max-size: 5rem;
   --my-star-margin: .8rem;
   --my-no-star-color: #ccc;
   --my-star-color: #c00;
   --my-star-ring-color: #03e;
+
+  /* <my-busy-spinner>
+  */
+  --my-spinner-duration: 1.5s;
+  --X-spinner-color: #44f; /* hsl(240, 100%, 63%) */ /* teal hsl(180, 100, 25) */
+  --my-spinner-hue: 240deg;
+  --my-spinner-lightness: 63%;
+  --my-spinner-darken: 30%;
+  --my-spinner-size: 40vh; /* Was: 12rem; */
 }
 
 /* Fix Unstyled Flash of Content (FOUC).

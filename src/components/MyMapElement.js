@@ -64,7 +64,7 @@ export class MyMapElement extends MyElement {
         this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
       }
 
-      console.debug('my-map:', this.$$, this);
+      console.debug('my-map:', L.version, this.$$, this);
     }, 800); // Was: 250;
   }
 
