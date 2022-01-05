@@ -24,6 +24,8 @@
     }
   </style>
 
+  <my-skip-link></my-skip-link>
+
   <header>
     <h1> My Web Components </h1>
   </header>
@@ -32,7 +34,7 @@
     <a href="./">Home</a> | <a href="#">Link 2</a> | ...
   </nav>
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     <slot></slot>
   </main>
 

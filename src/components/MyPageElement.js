@@ -19,7 +19,11 @@ export class MyPageElement extends MyElement {
 
     this.attachShadow({mode: 'open'}).appendChild(root); */
 
-    this.getTemplate('my-page').then(() => this.fixUnstyledFlash());
+    this.getTemplate('my-page').then(() => {
+      this.fixUnstyledFlash();
+
+      this.skipLinkHandler();
+    });
 
     console.debug('my-page:', this);
   }
@@ -41,6 +45,19 @@ export class MyPageElement extends MyElement {
       // html.style.transition = 'opacity 2s ease 0.25s';
     },
     10);
+  }
+
+  skipLinkHandler () {
+    const LINK = this.shadowRoot.querySelector('my-skip-link');
+    const CONTENT = this.shadowRoot.querySelector('main');
+
+    // console.debug('skipLinkHandler:', LINK, CONTENT);
+
+    LINK.addEventListener('click', ev => {
+      CONTENT.focus();
+
+      console.debug('skipLinkHandler (click):', ev);
+    });
   }
 }
 
