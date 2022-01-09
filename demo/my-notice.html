@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><title> my-notice </title>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="style/app.css" />
+
+<my-notice X-position="top"></my-notice>
+
+<my-page>
+  <h2> my-notice </h2>
+
+  <p> Add a dismissable notice, for example, an EU cookie-law notice! </p>
+
+  <pre>
+  &ltmy-notice
+    is-cookie-notice="true"
+    position="bottom"
+  >&lt;/my-notice>
+</pre>
+
+  <p><button onclick="reset()">Reset</button>
+</my-page>
+
+
+<script>
+  function reset () {
+    const NOTICE = document.querySelector('my-notice');
+
+    NOTICE._reset();
+    NOTICE._setVisibility();
+  }
+</script>
+
+<script type="module" src="../index.js"></script>

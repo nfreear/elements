@@ -1,0 +1,63 @@
+
+<meta name="robots" content="noindex">
+
+<template>
+  <style>
+  .my-notice-inner {
+    background: var(--my-notice-bg, #f8f8f8);
+    color: var(--my-notice-color, #333);
+    border: 1px solid #ddd;
+    font: 1rem/1.3 sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: .5rem 1rem;
+  }
+
+  .hide {
+    height: .1px;
+    padding: 0;
+    transition: all 1s;
+  }
+
+  .position-top {
+    top: 0;
+  }
+  .position-bottom {
+    bottom: 0;
+  }
+
+  .notice {
+    display: inline-block;
+    margin-top: .4rem;
+  }
+  .notice-buttons {
+    float: right;
+  }
+  .notice-buttons > * {
+    font: inherit;
+    padding: .2rem .8rem;
+    margin: .1rem 0;
+    margin-left: .5rem;
+    min-width: 5rem;
+  }
+  .is-cookie-notice [ data-button = dismiss ],
+  .not-cookie-notice [ data-button = accept ],
+  .not-cookie-notice [ data-button = reject ] {
+    display: none;
+  }
+  </style>
+
+  <div class="my-notice-inner">
+    <span class="notice">
+      <slot>
+        We use cookies on this site. See our <a href="#/cookie-policy.html">cookie policy</a>.
+      </slot>
+    </span>
+    <span class="notice-buttons">
+      <button data-button="accept" >Accept</button>
+      <button data-button="reject" >Reject</button>
+      <button data-button="dismiss">Dismiss</button>
+    </span>
+  </div>
+</template>
