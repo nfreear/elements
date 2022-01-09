@@ -1,5 +1,6 @@
 
 [![Node.js CI][ci-img]][ci]
+[![NPM package][npm-img]][npm]
 
 # My Web Components #
 
@@ -28,7 +29,7 @@ About [Web Components][mdn].
 <my-skip-link></my-skip-link>
 
 
-<my-options template-host="github.io">
+<my-options template-host="github.io"></my-options>
 
 <script src="https://nfreear.github.io/web-components/index.js"
   type="module" async crossorigin
@@ -43,4 +44,6 @@ About [Web Components][mdn].
 [ci-img]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml/badge.svg
 [demo]: https://nfreear.github.io/web-components/demo/
 [mit]: https://nfreear.mit-license.org/#2021
+[npm]: https://www.npmjs.com/package/ndf-web-components
+[npm-img]: https://img.shields.io/npm/v/ndf-web-components
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components

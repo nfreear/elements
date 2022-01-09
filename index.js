@@ -20,6 +20,7 @@ export { MyNoticeElement } from './src/components/MyNoticeElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
+export { getOpt, getOptUse, elemToClass } from './src/Options.js';
 export { translate } from './src/translate.js';
 
 // export { MyFoobarElement } from './src/components/MyFoobarElement.js';
