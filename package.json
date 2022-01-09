@@ -6,6 +6,10 @@
   "license": "TODO",
   "repository": "https://github.com/nfreear/web-components.git",
   "main": "./index.js",
+  "files": [
+    "src/*",
+    "src/**/*"
+  ],
   "scripts": {
     "start": "live-server --no-browser",
     "fix": "semistandard --fix",

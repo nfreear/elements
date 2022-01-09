@@ -5,6 +5,8 @@
 
 A collection of experimental Web Components, NOT yet open sourced!
 
+* [nfreear.github.io/web-components/demo][demo]
+
 ## Rationale ##
 
 * Experimental, particularly `<my-page>`, `<my-nav>` which are probably not for production !!
@@ -35,4 +37,5 @@ About [Web Components][mdn].
 
 [ci]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml
 [ci-img]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml/badge.svg
+[demo]: https://nfreear.github.io/web-components/demo/
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components

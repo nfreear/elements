@@ -17,6 +17,8 @@
   --my-spinner-lightness: 63%;
   --my-spinner-darken: 30%;
   --my-spinner-size: 40vh; /* Was: 12rem; */
+
+  --my-fork-me-color: #070; /* Green */
 }
 
 /* Fix Unstyled Flash of Content (FOUC).

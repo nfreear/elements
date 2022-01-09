@@ -21,8 +21,11 @@ exclude:
 
 # https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag
 webrick:
-  headers:
+  headers: # Not on Github Pages?
     Content-Language: en
     X-Robots-Tag: noindex
+
+plugins:
+  webrick
 
 # End.
