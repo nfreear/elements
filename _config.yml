@@ -26,6 +26,6 @@ webrick:
     X-Robots-Tag: noindex
 
 plugins:
-  webrick
+- webrick
 
 # End.
