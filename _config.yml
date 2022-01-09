@@ -2,6 +2,8 @@
 # Use Jekyll to exclude files from GitHub Pages.
 #
 exclude:
+# - assets
+# - assets/css/
 - Gemfile
 - Gemfile.lock
 - node_modules
@@ -14,5 +16,13 @@ exclude:
 - .nojekyll
 - package-lock.json
 - package.json
+- CHANGELOG.md
+- LICENSE.txt
+
+# https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag
+webrick:
+  headers:
+    Content-Language: en
+    X-Robots-Tag: noindex
 
 # End.

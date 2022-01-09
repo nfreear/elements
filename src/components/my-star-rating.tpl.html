@@ -67,6 +67,8 @@ Example:
   .radio-star-rating-set label svg {
     height: 100%;
     width: 100%; /* Width: 1235px !! */
+    position: relative;
+    top: -.2rem;
   }
 
   /* data-star = no */
@@ -74,10 +76,10 @@ Example:
     fill: var(--my-no-star-color, #ccc);
     X-stroke: #aaa;
     X-stroke-width: 3px;
+    transition: all .3s;
   }
 
   .radio-star-rating-set [ data-star = yes ] .path-star {
-    fill: red;
     fill: var(--my-star-color, #555);
   }
   </style>
@@ -85,11 +87,11 @@ Example:
   <fieldset class="radio-star-rating-set" data-stars="">
     <legend><slot> Rate me </slot></legend>
 
-    <label data-star="no" class="star-1" aria-label="1 star"  ><input type="radio" name="rsrg-1" data-rating="1" /></label>
-    <label data-star="no" class="star-2" aria-label="2 stars" ><input type="radio" name="rsrg-1" data-rating="2" /></label>
-    <label data-star="no" class="star-3" aria-label="3 stars" ><input type="radio" name="rsrg-1" data-rating="3" /></label>
-    <label data-star="no" class="star-4" aria-label="4 stars" ><input type="radio" name="rsrg-1" data-rating="4" /></label>
-    <label data-star="no" class="star-5" aria-label="5 stars" ><input type="radio" name="rsrg-1" data-rating="5" /></label>
+    <label data-star="no" class="star-1" aria-label="1 star"  ><input type="radio" name="rsrg-1" value="1" /></label>
+    <label data-star="no" class="star-2" aria-label="2 stars" ><input type="radio" name="rsrg-1" value="2" /></label>
+    <label data-star="no" class="star-3" aria-label="3 stars" ><input type="radio" name="rsrg-1" value="3" /></label>
+    <label data-star="no" class="star-4" aria-label="4 stars" ><input type="radio" name="rsrg-1" value="4" /></label>
+    <label data-star="no" class="star-5" aria-label="5 stars" ><input type="radio" name="rsrg-1" value="5" /></label>
   </fieldset>
 </template>
 

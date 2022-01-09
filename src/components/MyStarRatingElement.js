@@ -87,7 +87,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
 
   clickEventHandler (ev) {
     const LABEL = ev.target.parentElement;
-    const VALUE = parseInt(ev.target.getAttribute('data-rating')); // Was: 'data-star';
+    const VALUE = parseInt(ev.target.value); // Was: ev.target.getAttribute('data-rating'));
 
     if (ev.target.nodeName !== 'INPUT') { // NaN.
       this.unfocusStars();

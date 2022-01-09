@@ -42,6 +42,7 @@ pre {
 }
 
 button {
+  cursor: pointer;
   font: inherit;
   padding: .3rem 2rem;
 }
