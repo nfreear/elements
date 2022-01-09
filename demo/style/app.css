@@ -23,7 +23,7 @@
 */
 html {
   opacity: 0;
-  transition: opacity 1s ease 100ms;
+  transition: opacity .5s ease 50ms;
 }
 
 html.fouc.end {

@@ -1,7 +1,9 @@
 {
-  "private": true,
-  "name": "@nfreear/web-components",
+  "name": "@ndf/web-components",
+  "version": "1.0.0",
   "description": "Experimental Web Components | © 2021 Nick Freear.",
+  "author": "Nick Freear",
+  "license": "TODO",
   "repository": "https://github.com/nfreear/web-components.git",
   "main": "./index.js",
   "scripts": {
@@ -10,7 +12,7 @@
     "test": "semistandard"
   },
   "semistandard": {
-    "globals": [ "XX_customElements", "XX_HTMLElement" ]
+    "XX_globals": [ "customElements", "HTMLElement" ]
   },
   "devDependencies": {
     "live-server": "^1.2.1",

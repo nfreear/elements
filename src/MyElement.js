@@ -30,10 +30,21 @@ export class MyElement extends HTMLElement {
     customElements.define(klass.getTag(), klass);
   }
 
-  // URL is relative to the HTML page!
   getTemplateUrl (id) {
-    // const { templateHost } = getOptions();
-    const BASE = getOpt('templateHost') === 'github.io' ? 'https://nfreear.github.io/web-components' : '..';
+    const HOST = getOpt('templateHost');
+
+    // URL is relative to the HTML page!
+    let BASE = /^https:\//.test(HOST) ? HOST : '..';
+
+    switch (HOST) {
+      case 'github.io':
+        BASE = 'https://nfreear.github.io/web-components';
+        break;
+      case 'unpkg.com':
+        BASE = 'https://unpkg.com/@ndf/web-components@1.0.0';
+        break;
+      // NO: default:
+    }
 
     return `${BASE}/src/components/${id}.tpl.html`;
   }
