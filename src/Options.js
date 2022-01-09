@@ -43,3 +43,17 @@ export function elemToClass (elem) {
   const KLASS = elem.replace(/(^|-)([a-z])/g, (mtch, p1, p2) => p2.toUpperCase());
   return `${KLASS}Element`;
 }
+
+/**
+ * @public
+ */
+export function hasElem (sel) {
+  return document.querySelector(sel);
+}
+
+/*
+export async function ifElem (selector, callbackFn) {
+  if (document.querySelector(selector)) {
+    return await callbackFn();
+  }
+} */

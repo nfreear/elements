@@ -5,19 +5,23 @@
  * @license MIT
  */
 
-import { getOptUse } from './src/Options.js';
-export { MyOptionsElement } from './src/components/MyOptionsElement.js';
+import { getOptUse, hasElem } from './src/Options.js';
+// Was: export { MyOptionsElement } from './src/components/MyOptionsElement.js';
 
 export async function customImport (uses = null, base = '.') {
-  const USE = getOptUse(uses).map(async ({ elem, klass }) => {
-    const result = await import(`${base}/src/components/${klass}.js`);
+  if (hasElem('my-options')) {
+    await import(`${base}/src/components/MyOptionsElement.js`);
+  }
 
-    return { elem, klass, result };
+  const USED = getOptUse(uses).map(async ({ elem, klass }) => {
+    const mod = await import(`${base}/src/components/${klass}.js`);
+
+    return { elem, klass, mod };
   });
 
-  Promise.all(USE).then(data => console.debug('Custom:', data));
+  return Promise.all(USED);
 }
 
-if (document.querySelector('script[ src *= "custom.js" ]')) {
-  customImport();
+if (hasElem('script[ src *= "custom.js" ]')) {
+  customImport().then(MOD => console.debug('Custom load:', MOD));
 }
