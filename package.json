@@ -7,9 +7,11 @@
   "homepage": "https://nfreear.github.io/web-components/demo/",
   "repository": "https://github.com/nfreear/web-components.git",
   "type": "module",
-  "main": "./index.js",
+  "main": "index.js",
   "files": [
     "!**/.DS_Store",
+    "custom.js",
+    "index.js",
     "src/*",
     "src/**/*"
   ],

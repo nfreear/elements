@@ -16,8 +16,9 @@ export class MyOptionsElement extends MyElement {
     super();
 
     const templateHost = this.getAttribute('template-host') || 'local';
+    const use = this.getAttribute('use');
 
-    this.$$ = { templateHost };
+    this.$$ = { templateHost, use };
 
     setupOptions(this.$$);
 
