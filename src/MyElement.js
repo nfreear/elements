@@ -1,10 +1,13 @@
-/*!
-  Base class with functions to fetch templates, etc.
-
-  © Nick Freear, 02-Dec-2021.
-*/
+/**
+ * Base class with functions to fetch templates, etc.
+ *
+ * @copyright © Nick Freear, 02-Dec-2021.
+ * @license MIT
+ */
 
 import { getOpt } from './Options.js';
+
+const UNPKG = 'https://unpkg.com/ndf-web-components@1.0.0';
 
 const { customElements, DOMParser, fetch, HTMLElement } = window;
 
@@ -41,7 +44,7 @@ export class MyElement extends HTMLElement {
         BASE = 'https://nfreear.github.io/web-components';
         break;
       case 'unpkg.com':
-        BASE = 'https://unpkg.com/@ndf/web-components@1.0.0';
+        BASE = UNPKG;
         break;
       // NO: default:
     }

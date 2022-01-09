@@ -2,6 +2,7 @@
  * Experimental Web Components.
  *
  * @copyright © Nick Freear, 04-Dec-2021.
+ * @license MIT
  */
 
 export { MyMapElement } from './src/components/MyMapElement.js';

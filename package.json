@@ -1,12 +1,15 @@
 {
-  "name": "@ndf/web-components",
+  "name": "ndf-web-components",
   "version": "1.0.0",
-  "description": "Experimental Web Components | © 2021 Nick Freear.",
+  "description": "My experimental Web Components | © 2021 Nick Freear.",
   "author": "Nick Freear",
-  "license": "TODO",
+  "license": "MIT",
+  "homepage": "https://nfreear.github.io/web-components/demo/",
   "repository": "https://github.com/nfreear/web-components.git",
+  "type": "module",
   "main": "./index.js",
   "files": [
+    "!**/.DS_Store",
     "src/*",
     "src/**/*"
   ],
@@ -18,6 +21,12 @@
   "semistandard": {
     "XX_globals": [ "customElements", "HTMLElement" ]
   },
+  "keywords": [
+    "web components",
+    "components",
+    "custom elements",
+    "pwa"
+  ],
   "devDependencies": {
     "live-server": "^1.2.1",
     "semistandard": "^16.0.1"

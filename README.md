@@ -35,7 +35,12 @@ About [Web Components][mdn].
 ></script>
 ```
 
+## License
+
+* License [MIT][]
+
 [ci]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml
 [ci-img]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml/badge.svg
 [demo]: https://nfreear.github.io/web-components/demo/
+[mit]: https://nfreear.mit-license.org/#2021
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
