@@ -1,4 +1,4 @@
-<!doctype html> <title> Speech API </title>
+<!doctype html><html lang="en"><title> Speech API </title>
 
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,10 +78,10 @@
     console.debug('Select:', SELECT, VOICES);
   }
 
-  setTimeout(() => addVoicesToSelect(), 500);
+  speechSynthesis.onvoiceschanged = addVoicesToSelect;
+  // Was: setTimeout(() => addVoicesToSelect(), 500);
 
-  document.addEventListener('DOMContentLoaded', (event) => {
-    // addVoicesToSelect();
-    console.log('DOM fully loaded and parsed');
-  });
+  document.addEventListener('DOMContentLoaded', ev => console.debug('DOM loaded:', ev));
 </script>
+
+</html>
