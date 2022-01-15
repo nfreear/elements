@@ -6,7 +6,7 @@
 <style>
   button,
   select { font-size: inherit; padding: .3rem 2rem; }
-  #log { border: 1px solid #ccc; font-size: small; padding: .2rem; }
+  #log { border: 1px solid #bbb; font-size: small; padding: .3rem; }
 </style>
 
 <h1> Speech API </h1>
@@ -62,6 +62,11 @@
     const LOG = document.querySelector('#log');
     const VOICES = filterVoicesByLang(ALL ? '.*' : 'en.*');
 
+    if (SELECT.children.length) {
+      console.debug('Voices already loaded');
+      return;
+    }
+
     const VA = [];
 
     VOICES.forEach(vox => {
@@ -75,11 +80,13 @@
 
     LOG.textContent = `Voices: ${VA.length}\n${VA.join('\n')}`;
 
-    console.debug('Select:', SELECT, VOICES);
+    console.debug('Voices:', SELECT, VOICES);
   }
 
   speechSynthesis.onvoiceschanged = addVoicesToSelect;
-  // Was: setTimeout(() => addVoicesToSelect(), 500);
+  // Not: speechSynthesis.addEventListener('voiceschanged', ev => addVoicesToSelect(ev));
+
+  setTimeout(() => addVoicesToSelect(), 4000);
 
   document.addEventListener('DOMContentLoaded', ev => console.debug('DOM loaded:', ev));
 </script>
