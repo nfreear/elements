@@ -28,7 +28,9 @@
     }, {
       "type": "Feature",
       "properties": {
-        "popupContent": "This is Big Ben!"
+        "name": "Big Ben",
+        "popupContent": "This is Big Ben in London!",
+        "url": "https://www.latlong.net/place/big-ben-london-uk-8963.html"
       },
       "geometry": {
           "type": "Point",

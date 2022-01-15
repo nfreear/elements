@@ -47,7 +47,7 @@ export class MyMapElement extends MyElement {
       this.shadowRoot.appendChild(SC);
     }, 100); */
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const L = window.L;
 
       const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
@@ -61,11 +61,13 @@ export class MyMapElement extends MyElement {
       };
 
       if (attr.geojson) {
-        this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
+        await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
       }
 
+      // this._accessibilityFixes();
+
       console.debug('my-map:', L.version, this.$$, this);
-    }, 800); // Was: 250;
+    }, 1800); // Was: 250;
   }
 
   async loadGeoJson (geojson) {
@@ -78,16 +80,27 @@ export class MyMapElement extends MyElement {
     // const template = document.getElementById('geojson');
     // const geoJsonFeatures = JSON.parse(template.content.textContent);
 
+    let count = 0;
+
     const res = L.geoJSON(geoJsonFeatures,
       {
         pointToLayer: (feature, latlng) => {
-        // console.debug('pointToLayer:', feature, latlng, markerIcon);
-          return L.marker(latlng, { icon: this.markerIcon() });
+          // console.debug('pointToLayer:', feature, latlng);
+          const NAME = feature.properties.name;
+          count++;
+
+          return L.marker(latlng, {
+            alt: `Marker ${count}: ${NAME}`, // Accessibility !!
+            // title: `Marker ${count}: ${NAME}`,
+            icon: this._markerIcon()
+          });
         },
         onEachFeature: (feature, layer) => {
         // does this feature have a property named popupContent?
           if (feature.properties && feature.properties.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
+
+            layer.on('popupopen', ev => this._accessibilityFixPopup(ev));
           }
         }
       });
@@ -96,7 +109,7 @@ export class MyMapElement extends MyElement {
     return res;
   }
 
-  markerIcon () {
+  _markerIcon () {
     const L = window.L;
 
     return L.icon({
@@ -106,6 +119,27 @@ export class MyMapElement extends MyElement {
       iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
       shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
     });
+  }
+
+  _accessibilityFixes () {
+    const MARKERS = this.shadowRoot.querySelectorAll('.leaflet-marker-pane [ tabindex ]');
+
+    MARKERS.forEach(marker => { marker.title = marker.alt; });
+  }
+
+  _accessibilityFixPopup (ev) {
+    const CLOSE_BTN = ev.popup._closeButton; // ev.target._popup._closeButton;
+    // const CLOSE_BTN = this.shadowRoot.querySelector('.leaflet-popup-close-button');
+    const POPUP = ev.popup._wrapper.parentElement;
+
+    CLOSE_BTN.setAttribute('role', 'button');
+    CLOSE_BTN.setAttribute('aria-label', 'Close popup');
+    CLOSE_BTN.title = 'Close popup';
+    CLOSE_BTN.focus();
+
+    POPUP.setAttribute('role', 'dialog');
+
+    console.debug('Event:', ev);
   }
 }
 

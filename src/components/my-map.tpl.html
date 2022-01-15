@@ -62,11 +62,17 @@
     stroke: var(--my-map-path-color, #3388ff);
     stroke-width: var(--my-map-path-width, 3px);
   }
+
+  /* Accessibility fixes */
+  :focus {
+    outline: 3px solid var(--my-map-focus-color, navy) !important;
+    outline-offset: 1px;
+  }
   </style>
 
   <div id="desc" class="map-desc"><slot> Description of the map. </slot></div>
 
-  <div id="my-map" role="region" aria-label="Map" aria-describedby="desc">
+  <div id="my-map" role="region" aria-label="Embedded Map" aria-describedby="desc">
     <p class="my-loading">Loading map…</p>
   </div>
 
