@@ -1,0 +1,87 @@
+<!doctype html> <title> Speech API </title>
+
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  button,
+  select { font-size: inherit; padding: .3rem 2rem; }
+  #log { border: 1px solid #ccc; font-size: small; padding: .2rem; }
+</style>
+
+<h1> Speech API </h1>
+
+<p><label> Voices: <select id="vox"></select></label></p>
+
+<p><button onclick="speak()"> Speak </button></p>
+
+<pre id="log"><pre>
+
+
+<script>
+  /** NDF, 10-Jan-2022.
+   */
+
+  const { SpeechSynthesisUtterance, speechSynthesis } = window;
+
+  function speak (say = 'Hello world!') {
+    const voxRegex = '(Fiona|Goo*UK Eng*Female)';
+
+    // const VOICES = filterVoicesByLang('en(-GB|$)');
+    const VOX = findVoiceByName(voxRegex); // /(Fiona|Goo*UK Eng*Female)/);
+
+    const utterThis = new SpeechSynthesisUtterance(say);
+
+    // utterThis.lang = 'en';
+    utterThis.pitch = 1.5; // Default: 1; Range: 0-2;
+    utterThis.rate = 1;    // Default: 1; Range: 0.1-10;
+    utterThis.volume = 1;  // Range: 0-1;
+    utterThis.voice = VOX;
+
+    speechSynthesis.speak(utterThis);
+
+    console.debug('Speak:', utterThis, say, VOX);
+  }
+
+  function filterVoicesByLang (langPattern = 'en.*') {
+    const langRegex = new RegExp(langPattern, 'i');
+    const VOX = speechSynthesis.getVoices();
+    return VOX.filter(vox => langRegex.test(vox.lang));
+  }
+
+  function findVoiceByName (namePattern) {
+    const nameRegex = new RegExp(namePattern, 'i');
+    const VOX = speechSynthesis.getVoices();
+
+    return VOX.find(vox => nameRegex.test(vox.name));
+  }
+
+  function addVoicesToSelect () {
+    const ALL = /\?vox=all/.test(document.location.href);
+    const SELECT = document.querySelector('#vox');
+    const LOG = document.querySelector('#log');
+    const VOICES = filterVoicesByLang(ALL ? '.*' : 'en.*');
+
+    const VA = [];
+
+    VOICES.forEach(vox => {
+      const OPT = document.createElement('option');
+      OPT.value = vox.voiceURI;
+      OPT.textContent = `${vox.name}\t(${vox.lang})`;
+      SELECT.appendChild(OPT);
+
+      VA.push(OPT.textContent);
+    });
+
+    LOG.textContent = `Voices: ${VA.length}\n${VA.join('\n')}`;
+
+    console.debug('Select:', SELECT, VOICES);
+  }
+
+  setTimeout(() => addVoicesToSelect(), 500);
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    // addVoicesToSelect();
+    console.log('DOM fully loaded and parsed');
+  });
+</script>
