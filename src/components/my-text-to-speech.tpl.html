@@ -1,0 +1,40 @@
+
+<meta name="robots" content="noindex">
+
+<template>
+  <style>
+    button,
+    select {
+      font: inherit;
+      padding: .5rem;
+    }
+    button {
+      padding: .2rem 2rem;
+    }
+    select {
+      margin: 0 .5rem;
+      min-width: 10rem;
+    }
+    pre {
+      font-size: small;
+      line-height: 1.2;
+    }
+    label,
+    [ contenteditable = true ] {
+      X-padding: 0 .2rem;
+      outline-offset: .3rem;
+    }
+  </style>
+
+  <div id="utterance" contenteditable="true">
+    <slot> Hello! You can edit me. </slot>
+  </div>
+  <!-- <textarea><slot></slot></textarea> -->
+
+  <p>
+    <label id="vox">Voice:<select></select></label>
+    <button> Speak </button>
+  </p>
+
+  <pre id="log"><pre>
+</template>

@@ -60,3 +60,9 @@ my-star-rating {
 my-star-rating p {
   margin-top: 0;
 }
+
+.XX:focus,
+[ contenteditable = true ] {
+  X-padding: 0 .2rem;
+  outline-offset: .3rem;
+}

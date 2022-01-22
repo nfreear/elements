@@ -17,6 +17,8 @@ export { MyPageElement } from './src/components/MyPageElement.js';
 export { MyBusySpinnerElement } from './src/components/MyBusySpinnerElement.js';
 export { MyForkMeElement } from './src/components/MyForkMeElement.js';
 export { MyNoticeElement } from './src/components/MyNoticeElement.js';
+export { MyTextToSpeechElement } from './src/components/MyTextToSpeechElement.js';
+// export { MyCodeElement } from './src/components/MyCodeElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
