@@ -22,9 +22,9 @@ export class MyTextToSpeechElement extends MyElement {
     return 'my-text-to-speech'; // Was: 'my-speech-synthesis';
   }
 
-  constructor () {
+  /* constructor () { // "Useless constructor"!
     super();
-  }
+  } */
 
   connectedCallback () {
     const langRegex = this.getAttribute('lang-regex') || 'en.*';
