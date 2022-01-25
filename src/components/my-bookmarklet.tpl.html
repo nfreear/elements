@@ -1,0 +1,87 @@
+<!--
+  Themes: https://unpkg.com/browse/rainbow-code@2.1.7/themes/css/
+-->
+
+<template>
+  <link href="https://unpkg.com/rainbow-code@2.1.7/themes/css/pastie.css" rel="stylesheet" />
+  <script src="https://unpkg.com/rainbow-code@2.1.7/dist/rainbow.min.js" crossorigin="" async></script>
+
+  <style>
+    a[ href ^= javascript ] {
+      background: LightYellow;
+      border: 1px solid #ddd;
+      border-radius: .15rem;
+      cursor: move;
+      font-size: large;
+      letter-spacing: .07rem;
+      padding: .5rem 3rem;
+      transition: all 500ms;
+    }
+    a[ href ^= javascript ]:hover,
+    a[ href ^= javascript ]:focus {
+      background: #f8f8f8;
+      outline: 3px dashed navy;
+      outline-offset: .25rem;
+    }
+
+    a[ href ^= javascript ]::after {
+      content: url('#ico1');
+    }
+  </style>
+
+  <h2 id="name"> [ Name ] </h2>
+
+  <slot> [ Description of the bookmarklet ... ] </slot>
+
+  <p> Drag the link below to your browser's bookmarks or favourites bar. </p>
+
+  <p>
+    <a id="js-link" href="javascript:;" title="Drag me!">Hello</a>
+  </p>
+
+  <details open >
+    <summary> Bookmarklet Javascript </summary>
+
+    <pre><code class="language-javascript" data-language="javascript">console.warn('Hello world!')</code></pre>
+  </details>
+</template>
+
+<!--
+  bookmark-line.svg: https://remixicon.com/
+
+<style>
+.icon {
+  position: relative;
+  top: .5rem;
+  X-left: -2.2rem;
+}
+.icon svg {
+  height: 1.9rem;
+  width: 1.9rem;
+}
+svg .p2 {
+  fill: #55f;
+}
+svg .t1 {
+  display: none;
+}
+.X-icon::after,
+.X-svg.icon::after {
+  content: 'JS';
+  font-size: small;
+  position: relative;
+  top: -.7rem;
+  left: -1.7rem;
+}
+/* i.t2 {
+  font-size: x-small;
+  font-style: normal;
+  position: relative;
+  left: -1.4rem;
+} */
+</style>
+
+<span class="icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><!--<path fill="none" d="M0 0h24v24H0z"/>-//-><path id="ico1" class="p2" d="M5 2h14a1 1 0 0 1 1 1v19.143a.5.5 0 0 1-.766.424L12 18.03l-7.234 4.536A.5.5 0 0 1 4 22.143V3a1 1 0 0 1 1-1zm13 2H6v15.432l6-3.761 6 3.761V4z"/></svg>
+</span>
+-->
