@@ -4,10 +4,16 @@
  * @copyright © Nick Freear, 23-Jan-2022.
  */
 
+export async function leafletViaCdn () {
+  const Leaflet = await whenTimeout(() => window.L, 'Rainbow');
+  console.debug('Leaflet - CDN:', Leaflet);
+  return Leaflet;
+}
+
 export async function rainbowViaCdn () {
-  const RES = await whenTimeout(() => window.Rainbow, 'Rainbow');
-  console.debug('Rainbow - CDN:', RES);
-  return RES;
+  const Rainbow = await whenTimeout(() => window.Rainbow, 'Rainbow');
+  console.debug('Rainbow - CDN:', Rainbow);
+  return Rainbow;
 }
 
 /**

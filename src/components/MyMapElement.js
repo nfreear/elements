@@ -6,6 +6,7 @@
  * @WAS 'my-map.js'
 */
 
+import { leafletViaCdn } from '../external-cdn.js';
 import { MyElement } from '../MyElement.js';
 
 const { fetch } = window;
@@ -40,38 +41,29 @@ export class MyMapElement extends MyElement {
 
     // this.shadowRoot.querySelector('#caption').textContent = attr.caption;
 
-    /* setTimeout(() => {
-      const SC = document.createElement('script');
-      SC.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+    const L = await leafletViaCdn();
 
-      this.shadowRoot.appendChild(SC);
-    }, 100); */
+    const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
 
-    setTimeout(async () => {
-      const L = window.L;
+    const tiles = L.tileLayer(attr.tileUrl, {
+      attribution: attr.attribution
+    }).addTo(map);
 
-      const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
+    this.$$ = {
+      ...attr, map, mapElem, tiles, L
+    };
 
-      const tiles = L.tileLayer(attr.tileUrl, {
-        attribution: attr.attribution
-      }).addTo(map);
+    if (attr.geojson) {
+      await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
+    }
 
-      this.$$ = {
-        ...attr, map, mapElem, tiles, L
-      };
+    // this._accessibilityFixes();
 
-      if (attr.geojson) {
-        await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
-      }
-
-      // this._accessibilityFixes();
-
-      console.debug('my-map:', L.version, this.$$, this);
-    }, 1800); // Was: 250;
+    console.debug('my-map:', L.version, this.$$, this);
   }
 
   async loadGeoJson (geojson) {
-    const L = window.L;
+    const L = await leafletViaCdn();
 
     const resp = await fetch(geojson); // './data/landmarks.geo.json');
     const geoJsonFeatures = await resp.json();
