@@ -27,6 +27,24 @@
     a[ href ^= javascript ]::after {
       content: url('#ico1');
     }
+
+    details {
+      line-height: 1.3;
+      margin: 1rem 0;
+    }
+    details > summary {
+      background: var(--my-summary-background, LightYellow);
+      border: var(--my-default-border, 1px solid #ddd);
+      cursor: pointer;
+      padding: 1px .3rem;
+    }
+    details > summary::marker {
+      color: #11d;
+      font-size: 1.5rem;
+    }
+    details[ open ] > summary {
+      border-bottom: none;
+    }
   </style>
 
   <h2 id="name"> [ Name ] </h2>
