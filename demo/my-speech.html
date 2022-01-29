@@ -1,36 +1,46 @@
-<!doctype html><html lang="en"><title> my-speech-synthesis </title>
+<!doctype html><html lang="en"><title> my-text-to-speech </title>
 
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="stylesheet" href="style/app.css" />
 
-<style>
-  my-text-to-speech,
-  my-speech-synthesis { display: none; }
-  [ lang ^= en ] { display: block; }
-</style>
-
 <my-page>
-  <h2> my-speech-synthesis </h2>
+  <h2> my-text-to-speech </h2>
 
-  <my-text-to-speech lang="en">
+  <my-text-to-speech lang="en" rate="0.9">
     <div contenteditable="true">
-      <p> Hello world!
-      <p> My name is Bob!
+      <!--<p> Hello world!-->
+      <!--<p>If a dog chews shoes, whose shoes does he choose?</p>-->
+      <p>Rory the warrior and Roger the worrier were reared wrongly in a rural brewery.</p>
     </div>
   </my-text-to-speech>
 
-  <my-text-to-speech lang="fr" lang-regex="fr.*" vox-regex="(Amelie|Google français)">
-    Bonjour. Je m'appelle Bob!
+  <my-text-to-speech lang="es" lang-regex="es.*" rate="0.7" vox-regex="(Monica|Google español)">
+    <p data-en="Three sad tigers were eating wheat in a field.">
+      Tres tristes tigres tragaban trigo en un trigal.
+    </p>
   </my-text-to-speech>
 
-  <my-text-to-speech lang="zh-Hans" lang-regex="zh.*" vox-regex="(Ting-ting|Google 普通话)" data-pinyin="Nǐ hǎo shìjiè." data-orig="Hello world!">
-    你好世界。
+  <my-text-to-speech lang="fr" lang-regex="fr.*" rate="0.9" vox-regex="(Amelie|Google français)">
+    <p>Bonjour. Je m'appelle Amelie!</p>
+    <p data-en="5 dogs hunt 6 cats." >Cinq chiens chassent six chats.</p>
+  </my-text-to-speech>
+
+  <my-text-to-speech lang="zh-Hans" lang-regex="zh.*" vox-regex="(Ting-ting|Google 普通话)"  >
+    <!--<p data-pinyin="Nǐ hǎo shìjiè." data-en="Hello world!">你好世界。-->
+    <!--<p data-pinyin="xiào yīxiào, shí niánshào" data-en="A smile is the best remedy" >笑一笑,十年少。</p>-->
+    <p data-pinyin="yǒuyuán qiānlǐ lái xiāng huì" data-en="Fate has us meet from a 1000 miles away.">
+      有缘千里来相会
+    </p>
   </my-text-to-speech>
 
 </my-page>
 
-<script type="module" src="../index.js"></script>
+<script type="module" src="./app.js"></script>
 
+<!--
+https://www.mondly.com/blog/2019/08/23/71-best-tongue-twisters-to-perfect-your-english-pronunciation/;
+https://www.fluentin3months.com/chinese-proverbs/
+-->
 </html>

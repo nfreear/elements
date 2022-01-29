@@ -24,7 +24,7 @@
 /* Fix Unstyled Flash of Content (FOUC).
 */
 html {
-  opacity: 0;
+  /* opacity: 0; */
   transition: opacity .5s ease 50ms;
 }
 
@@ -61,8 +61,19 @@ my-star-rating p {
   margin-top: 0;
 }
 
+/* my-text-to-speech.
+*/
 .XX:focus,
 [ contenteditable = true ] {
   X-padding: 0 .2rem;
   outline-offset: .3rem;
+}
+
+my-text-to-speech,
+my-speech-synthesis { display: none; }
+[ data-tts-lang ^= en ] [ lang ^= en ],
+[ data-tts-lang ^= es ] [ lang ^= es ],
+[ data-tts-lang ^= fr ] [ lang ^= fr ],
+[ data-tts-lang ^= zh ] [ lang ^= zh ] {
+  display: block;
 }
