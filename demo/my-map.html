@@ -3,8 +3,7 @@
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<h1> my-map Web Component </h1>
-
+<link rel="stylesheet" href="style/app.css" />
 
 <my-map
   lat="51.505"
@@ -12,7 +11,21 @@
   zoom="13"
   geojson="./data/landmarks.geo.json"
 >
+  <h1> my-map Web Component </h1>
+
   <p> A map showing London landmarks. </p>
+
+  <my-code>
+  &lt;my-map
+    lat="51.505"
+    long="-0.09"
+    zoom="13"
+    geojson="./data/landmarks.geo.json"
+    >
+    &lt;p> Map description &lt;/p>
+  &lt;/my-map>
+</my-code>
+
 </my-map>
 
 
