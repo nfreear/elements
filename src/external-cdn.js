@@ -16,6 +16,12 @@ export async function rainbowViaCdn () {
   return Rainbow;
 }
 
+export async function terserViaCdn () {
+  const Terser = await whenTimeout(() => window.Terser, 'Terser');
+  console.debug('Terser - CDN:', Terser);
+  return Terser;
+}
+
 /**
  * When a time-dependent condition is met, resolve a promise.
  * If a timeout expires - reject the promise.

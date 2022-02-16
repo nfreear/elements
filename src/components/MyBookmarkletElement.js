@@ -6,6 +6,7 @@
 
 import { rainbowViaCdn } from '../external-cdn.js';
 import { MyElement } from '../MyElement.js';
+import { BookmarkletScript } from '../BookmarkletScript.js';
 
 const { fetch } = window;
 
@@ -30,16 +31,23 @@ export class MyBookmarkletElement extends MyElement {
 
     const RESP = await fetch(src);
     const rawScript = await RESP.text();
-    const markletScript = this._stripComments(rawScript);
+    // const markletScript = this._stripComments(rawScript);
 
-    scriptLinkEl.href = this._markletScriptLink(markletScript);
+    const bookmarklet = new BookmarkletScript();
+    const RES = await bookmarklet.parse(rawScript);
+
+    // const Terser = await terserViaCdn();
+    // const TERSER = await Terser.minify(rawScript, { sourceMap: false });
+    // console.debug('Terser:', TERSER);
+
+    scriptLinkEl.href = bookmarklet.scriptLink; // this._markletScriptLink(RES.minScript);
     scriptLinkEl.addEventListener('click', ev => {
       ev.preventDefault();
       console.debug('my-bookmarklet - Click block:', ev);
     });
     nameEl.textContent = name;
 
-    this._displayScript(codeEl, markletScript);
+    this._displayScript(codeEl, RES.displayScript);
 
     console.debug('my-bookmarklet:', name, src, this);
   }
@@ -62,7 +70,7 @@ export class MyBookmarkletElement extends MyElement {
     const RES = script.match(/\/\*\*?([^/]+)\*\//m);
     console.debug('Regex:', RES);
 
-    return script.replace(/\/\*\*?([^/]+)\*\/\n+/mg, '');
+    return script; // .replace(/\/\*\*?([.\n]+)\*\/\n+/mg, '');
   }
 
   _stripNewlinesSpaces (script) {
