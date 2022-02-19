@@ -16,8 +16,8 @@ export class BookmarkletScript {
   async parse (rawScript) {
     this.$$.rawScript = rawScript;
 
-    this.$$.minScript = await this._minify();
-    this.$$.displayScript = await this._beautify();
+    this.$$.minScript = await this._minify(rawScript);
+    this.$$.displayScript = await this._beautify(rawScript);
     this.$$.metaData = await this._getMetaData();
 
     return this.$$;
@@ -33,9 +33,9 @@ export class BookmarkletScript {
     return `(()=>{${code}})()`;
   }
 
-  async _minify () {
+  async _minify (rawScript) {
     const Terser = await terserViaCdn();
-    const RES = await Terser.minify(this.$$.rawScript, {
+    const RES = await Terser.minify(rawScript, {
       sourceMap: false,
       compress: {
         // expression: true,
@@ -51,9 +51,9 @@ export class BookmarkletScript {
     return this._anonymize(RES.code);
   }
 
-  async _beautify () {
+  async _beautify (rawScript) {
     const Terser = await terserViaCdn();
-    const RES = await Terser.minify(this.$$.rawScript, {
+    const RES = await Terser.minify(rawScript, {
       sourceMap: false,
       compress: false,
       mangle: false,
@@ -62,7 +62,7 @@ export class BookmarkletScript {
         beautify: true, // Legacy.
         braces: true,
         comments: false,
-        indent_level: 4
+        indent_level: 2
       }
     });
     return RES.code;

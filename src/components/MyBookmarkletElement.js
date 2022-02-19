@@ -49,7 +49,7 @@ export class MyBookmarkletElement extends MyElement {
 
     this._displayScript(codeEl, RES.displayScript);
 
-    console.debug('my-bookmarklet:', name, src, this);
+    console.debug('my-bookmarklet:', name, src, RES, this);
   }
 
   async _displayScript (elem, markletScript) {

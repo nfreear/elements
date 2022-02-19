@@ -14,8 +14,7 @@
  */
 
 (() => {
-  document.body.style.outline = '.5rem solid red;';
-  document.body.style.outlineOffset = '-1rem';
+  document.body.style = 'outline:4px solid red;outline-offset:-.2rem;';
 
   console.warn('I’m an example bookmarklet!');
 })();

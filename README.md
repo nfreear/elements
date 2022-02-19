@@ -4,7 +4,7 @@
 
 # My Web Components #
 
-A collection of experimental Web Components, NOT yet open sourced!
+A collection of experimental Web Components.
 
 * [nfreear.github.io/web-components/demo][demo]
 
@@ -34,6 +34,18 @@ About [Web Components][mdn].
 <script src="https://nfreear.github.io/web-components/index.js"
   type="module" async crossorigin
 ></script>
+```
+
+## Custom import
+
+```js
+import { customImport } from 'https://nfreear.github.io/web-components/custom.js';
+
+const MOD = await customImport('my-star-rating,my-map');
+```
+
+```html
+<my-star-rating></my-star-rating>
 ```
 
 ## License
