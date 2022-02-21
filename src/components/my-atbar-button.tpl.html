@@ -1,0 +1,53 @@
+
+<template lang="en">
+  <style>
+  #toolbar-launch {
+    position: absolute;
+    padding: 0;
+    top: -2px; /* Was: -3px; */
+    left: 50%;
+  }
+  #toolbar-launch img {
+    padding: 0;
+    opacity: .7; /* Was: 0.6 */
+  }
+  #toolbar-launch:focus img,
+  #toolbar-launch:hover img {
+    opacity: 1;
+    transition: opacity 1s;
+  }
+  </style>
+
+  <a
+    class="atbar-launch"
+    id="toolbar-launch"
+    role="button"
+    title="Launch ATbar to adjust this webpage, have it read aloud and other functions."
+    href="javascript:(function(){d=document;jf=d.createElement('script');
+jf.src='https://core.atbar.org/atbar/en/latest/atbar.min.js';
+jf.type='text/javascript';jf.id='ToolBar';d.getElementsByTagName('head')[0].appendChild(jf);})();"
+  ><img
+    src="https://core.atbar.org/resources/img/launcher.png"
+    alt="ATbar"
+  /></a>
+</template>
+
+<!--
+ SVG source: https://access.ecs.soton.ac.uk/projects/atbar,
+-->
+<template id="svg-logo">
+  <div class="inline-svg project-image" title="ATbar logo">
+    <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" viewBox="0 0 172.92 70.43">
+      <defs>
+        <linearGradient id="ATBar_Logo_svg__a" x1="86.46" x2="86.46" y1="69.86" y2=".57" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#e7e7e7"/>
+          <stop offset="1" stop-color="#fff"/>
+        </linearGradient>
+      </defs>
+      <rect width="171.78" height="69.28" x=".57" y=".57" fill="url(#ATBar_Logo_svg__a)" stroke="#aeaeae" stroke-miterlimit="22.93" stroke-width="1.15" rx="3.44"/>
+      <path fill="#f37541" fill-rule="nonzero" d="M26.89 38.04h12.05L32.95 21l-6.06 17.04zM15.71 54.11l14.36-38.65h5.8l14.4 38.65h-5.7l-4.09-11.56H25.27l-4.12 11.56h-5.44zm45.18 0V20.14h-12.2v-4.68h29.67v4.68h-12.2v33.97z"/>
+      <path fill="#164e7c" fill-rule="nonzero" d="M87.06 39.86c0 3.5.71 6.2 2.15 8.09 1.43 1.89 3.48 2.83 6.14 2.83a7.5 7.5 0 006.13-2.76c1.5-1.84 2.24-4.36 2.24-7.56 0-3.55-.72-6.29-2.17-8.23-1.44-1.93-3.49-2.9-6.14-2.9-2.79 0-4.88.88-6.26 2.63-1.39 1.77-2.09 4.39-2.09 7.9zM82.6 54.11V15.46h4.62V29.9a11.05 11.05 0 013.91-3.6 10.97 10.97 0 015.18-1.22c3.73 0 6.72 1.36 8.97 4.1 2.26 2.72 3.39 6.38 3.39 10.96 0 4.52-1.11 8.12-3.34 10.8-2.23 2.69-5.22 4.03-8.96 4.03-1.97 0-3.7-.36-5.18-1.08a11.14 11.14 0 01-3.97-3.32v3.54H82.6zm49.21-3.75a15.7 15.7 0 01-4.7 3.45c-1.64.77-3.4 1.16-5.26 1.16-2.87 0-5.11-.74-6.72-2.24-1.62-1.5-2.42-3.57-2.42-6.2 0-2.55.79-4.56 2.37-6.01 1.59-1.45 4.01-2.38 7.24-2.81l3.34-.36c2.4-.24 3.87-.49 4.41-.71.55-.22.91-.49 1.08-.83.18-.34.26-1.09.26-2.23 0-1.43-.52-2.5-1.57-3.23-1.05-.72-2.64-1.08-4.76-1.08-2.19 0-3.84.44-4.95 1.32s-1.67 2.18-1.67 3.9H114v-.22c0-2.83.99-5.08 2.99-6.72s4.74-2.47 8.24-2.47c3.77 0 6.53.71 8.31 2.12 1.77 1.4 2.66 3.61 2.66 6.61v14.06c0 1.2.13 1.98.39 2.32.27.35.75.53 1.43.53a5.62 5.62 0 00.52-.03l.72-.13v3.66a11.69 11.69 0 01-2.73.43c-1.58 0-2.76-.34-3.54-1.03-.79-.68-1.18-1.72-1.18-3.1v-.16zm-.45-10.55c-1.26.68-3.42 1.21-6.49 1.6l-2.44.34c-1.71.27-2.95.78-3.7 1.52-.75.73-1.13 1.8-1.13 3.21a4 4 0 001.32 3.22c.87.75 2.12 1.13 3.75 1.13 2.54 0 4.62-.64 6.25-1.92s2.44-2.91 2.44-4.91v-4.19zm12.26 14.3V26h4.57v5.03a9.34 9.34 0 013.06-4.23 7.84 7.84 0 014.73-1.4l.76.01c.16.01.32.04.48.08v4.97l-.42-.05-.71-.01c-2.52 0-4.44.69-5.76 2.06-1.32 1.38-1.98 3.38-1.98 6.01v15.64h-4.73z"
+      />
+    </svg>
+  </div>
+</template>

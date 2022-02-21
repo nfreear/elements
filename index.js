@@ -20,6 +20,7 @@ export { MyNoticeElement } from './src/components/MyNoticeElement.js';
 export { MyTextToSpeechElement } from './src/components/MyTextToSpeechElement.js';
 export { MyCodeElement } from './src/components/MyCodeElement.js';
 export { MyBookmarkletElement } from './src/components/MyBookmarkletElement.js';
+export { MyAtbarButtonElement } from './src/components/MyAtbarButtonElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
