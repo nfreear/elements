@@ -12,16 +12,10 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     return 'my-star-rating';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const name = this.getAttribute('name') || 'my-star-rating-1';
 
-    this.initialize({ name });
-  }
-
-  connectedCallback () {
-    console.debug('connectedCallback:', this);
+    await this.initialize({ name });
   }
 
   async initialize (attr) {

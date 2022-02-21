@@ -13,9 +13,7 @@ export class MyNoticeElement extends MyElement {
     return 'my-notice';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const position = this.getAttribute('position') || 'bottom';
     const isCookieNotice = this.getAttribute('is-cookie-notice') || true;
     const storageKey = this.getAttribute('storage-key') || 'my-cookie-notice';
@@ -23,7 +21,7 @@ export class MyNoticeElement extends MyElement {
 
     this.$$ = { position, isCookieNotice, storageKey, state };
 
-    this._initialize(this.$$);
+    await this._initialize(this.$$);
 
     // this.getTemplate('my-notice').then(() => this._initialize());
   }

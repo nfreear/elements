@@ -17,9 +17,7 @@ export class MyMapElement extends MyElement {
     return 'my-map';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const lat = parseFloat(this.getAttribute('lat') || 51.505);
     const long = parseFloat(this.getAttribute('long') || -0.09);
     const zoom = parseInt(this.getAttribute('zoom') || 14);
@@ -30,10 +28,12 @@ export class MyMapElement extends MyElement {
 
     const ATTRS = { lat, long, zoom, geojson, tileUrl, attribution };
 
-    this.initialize(ATTRS);
+    await this._initialize(ATTRS);
+
+    console.debug('my-map:', this.$$.L.version, this.$$, this);
   }
 
-  async initialize (attr) {
+  async _initialize (attr) {
     // .
     await this.getTemplate('my-map');
 
@@ -58,8 +58,6 @@ export class MyMapElement extends MyElement {
     }
 
     // this._accessibilityFixes();
-
-    console.debug('my-map:', L.version, this.$$, this);
   }
 
   async loadGeoJson (geojson) {

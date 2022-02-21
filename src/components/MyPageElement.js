@@ -10,9 +10,7 @@ export class MyPageElement extends MyElement {
     return 'my-page';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     /* const template = document.getElementById('my-page');
     const templateContent = template.content;
     const root = templateContent.cloneNode(true);

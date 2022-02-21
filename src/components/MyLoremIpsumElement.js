@@ -10,13 +10,10 @@ export class MyLoremIpsumElement extends MyElement {
     return 'my-lorem-ipsum';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     // const name = this.getAttribute('name') || 'A Name attribute';
 
-    // await
-    this.getTemplate('my-lorem-ipsum');
+    await this.getTemplate('my-lorem-ipsum');
 
     console.debug('my-lorem-ipsum:', this);
   }

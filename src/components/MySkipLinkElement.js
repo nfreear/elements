@@ -10,17 +10,12 @@ export class MySkipLinkElement extends MyElement {
     return 'my-skip-link';
   }
 
-  constructor () {
-    super();
-
-    console.debug('MySkipLinkElement');
-
+  async connectedCallback () {
     // this.setTagName('my-skip-link');
 
     // const href = this.getAttribute('href') || '#main-content';
 
-    // await
-    this.getTemplate('my-skip-link');
+    await this.getTemplate('my-skip-link');
 
     console.debug('my-skip-link:', this);
   }

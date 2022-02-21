@@ -12,9 +12,7 @@ export class MyOptionsElement extends MyElement {
     return 'my-options';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const templateHost = this.getAttribute('template-host') || 'local';
     const use = this.getAttribute('use');
 

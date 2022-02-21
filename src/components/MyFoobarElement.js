@@ -11,13 +11,14 @@ export class MyFoobarElement extends MyElement {
     return 'my-foobar';
   }
 
-  constructor () {
+  /* constructor () { // "Useless constructor"!
     super();
+  } */
 
+  async connectedCallback () {
     // const name = this.getAttribute('name') || 'A name attribute';
 
-    // await
-    this.getTemplate('my-foobar');
+    await this.getTemplate('my-foobar');
 
     console.debug('my-foobar:', this);
   }

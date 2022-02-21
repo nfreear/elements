@@ -13,12 +13,12 @@ export class MyForkMeElement extends MyElement {
     return 'my-fork-me';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const HREF = this.getAttribute('href') || 'https://github.com/#!my/repo';
 
-    this._initialize(HREF);
+    await this._initialize(HREF);
+
+    console.debug('my-fork-me:', HREF, this);
   }
 
   async _initialize (href) {
@@ -27,8 +27,6 @@ export class MyForkMeElement extends MyElement {
     const LINK = this.shadowRoot.querySelector('a');
 
     LINK.href = href;
-
-    console.debug('my-fork-me:', href, this);
   }
 }
 

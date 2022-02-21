@@ -15,13 +15,10 @@ export class MyBusySpinnerElement extends MyElement {
     return 'my-busy-spinner';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     // const name = this.getAttribute('name') || 'A name attribute';
 
-    // await
-    this.getTemplate('my-busy-spinner');
+    await this.getTemplate('my-busy-spinner');
 
     console.debug('my-busy-spinner:', this);
   }

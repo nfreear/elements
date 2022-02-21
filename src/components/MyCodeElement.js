@@ -16,14 +16,14 @@ export class MyCodeElement extends MyElement {
     return 'my-code';
   }
 
-  constructor () {
+  /* constructor () {
     super();
 
     // window.Prism = window.Prism || {};
     // Prism.manual = true;
 
     console.debug('my-code:', this);
-  }
+  } */
 
   async connectedCallback () {
     // _initialize();

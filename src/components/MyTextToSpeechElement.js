@@ -26,14 +26,14 @@ export class MyTextToSpeechElement extends MyElement {
     super();
   } */
 
-  connectedCallback () {
+  async connectedCallback () {
     const langRegex = this.getAttribute('lang-regex') || 'en.*';
     const voxRegex = this.getAttribute('vox-regex') || '(Fiona|Goo*UK Eng*Female)';
     const pitch = parseFloat(this.getAttribute('pitch')) || 1; // Default: 1; Range: 0-2;
     const rate = parseFloat(this.getAttribute('rate')) || 1; //   Default: 1; Range: 0.1-10;
     const volume = parseFloat(this.getAttribute('volume')) || 1; // Range: 0-1;
 
-    this._initialize({ langRegex, voxRegex, pitch, rate, volume });
+    await this._initialize({ langRegex, voxRegex, pitch, rate, volume });
   }
 
   async _initialize (ATTR = {}) {

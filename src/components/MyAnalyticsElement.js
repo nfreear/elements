@@ -16,9 +16,7 @@ export class MyAnalyticsElement extends MyElement {
     return 'my-analytics';
   }
 
-  constructor () {
-    super();
-
+  async connectedCallback () {
     const analyticsId = this.getAttribute('analytics-id') || 'UA-123456-XX';
     const anonymizeIp = this.getAttribute('anonymize-ip') || true;
     const debug = this.getAttribute('debug') || false;
