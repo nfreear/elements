@@ -1,8 +1,8 @@
-/*!
-  Boilerplate template.
-
-  © Nick Freear, 09-Dec-2021.
-*/
+/**
+ * Boilerplate template.
+ *
+ * @copyright © Nick Freear, 09-Dec-2021.
+ */
 
 import { MyElement } from '../MyElement.js';
 

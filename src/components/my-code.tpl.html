@@ -23,12 +23,19 @@
   details[ open ] > summary {
     border-bottom: none;
   }
+
+  /* Reduce animation-delay - set in pastie.css */
+  pre [ data-language ],
+  pre [ class ^= lang ] {
+    animation-duration: 50ms; /* Was: 50ms */
+    animation-delay: 500ms; /* Was: 2s */
+  }
   </style>
 
   <details open >
     <summary> Code example (<small>HTML</small>) </summary>
 
-    <pre><code class="language-XX" data-language="XX"><slot></slot></code></pre>
+    <pre><code class="language-XX" data-language="XX"><slot>console.debug('Hello world');</slot></code></pre>
   </details>
 </template>
 

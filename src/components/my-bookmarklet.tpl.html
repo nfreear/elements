@@ -53,6 +53,13 @@
       line-height: 1.4;
       padding: .6rem .4rem;
     }
+
+    /* Reduce animation-delay - set in pastie.css */
+    pre [ data-language ],
+    pre [ class ^= lang ] {
+      animation-duration: 50ms; /* Was: 50ms */
+      animation-delay: 500ms; /* Was: 2s */
+    }
   </style>
 
   <h2 id="name"> [ Name ] </h2>

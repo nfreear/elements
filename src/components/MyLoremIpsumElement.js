@@ -1,9 +1,12 @@
-/*!
-
-  © Nick Freear, 09-Dec-2021.
-*/
+/**
+ * Lorem Ipsum placeholder text.
+ *
+ * @copyright © Nick Freear, 09-Dec-2021.
+ */
 
 import { MyElement } from '../MyElement.js';
+
+const DEFAULT_PARAS = 4;
 
 export class MyLoremIpsumElement extends MyElement {
   static getTag () {
@@ -11,11 +14,22 @@ export class MyLoremIpsumElement extends MyElement {
   }
 
   async connectedCallback () {
-    // const name = this.getAttribute('name') || 'A Name attribute';
+    const paras = parseInt(this.getAttribute('paras') || DEFAULT_PARAS);
 
     await this.getTemplate('my-lorem-ipsum');
 
-    console.debug('my-lorem-ipsum:', this);
+    this._addClasses(paras);
+
+    console.debug('my-lorem-ipsum:', paras, this);
+  }
+
+  _addClasses (paras) {
+    const ELEM = this.shadowRoot.querySelector('article');
+
+    for (let idx = 1; idx <= paras; idx++) {
+      ELEM.classList.add(`n${idx}`);
+    }
+    // [...Array(paras).keys()].forEach(idx => ELEM.classList.add(`n${idx + 1}`))
   }
 }
 

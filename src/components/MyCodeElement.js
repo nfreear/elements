@@ -1,7 +1,7 @@
 /**
- * Boilerplate template.
+ * Display code with syntax highlighting.
  *
- *  © Nick Freear, 22-Jan-2022.
+ * @copyright © Nick Freear, 22-Jan-2022.
  *
  * @see https://craig.is/making/rainbows
  * @see https://github.com/ccampbell/rainbow/blob/master/src/language/html.js;

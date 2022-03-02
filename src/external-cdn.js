@@ -10,12 +10,14 @@ export async function leafletViaCdn () {
   return Leaflet;
 }
 
+// Used in: MyCode, MyBookmarklet.
 export async function rainbowViaCdn () {
   const Rainbow = await whenTimeout(() => window.Rainbow, 'Rainbow');
   console.debug('Rainbow - CDN:', Rainbow);
   return Rainbow;
 }
 
+// Used in: BookmarkletScript.
 export async function terserViaCdn () {
   const Terser = await whenTimeout(() => window.Terser, 'Terser');
   console.debug('Terser - CDN:', Terser);
