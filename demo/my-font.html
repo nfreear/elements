@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><title>my-font</title>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="style/app.css" />
+
+<style>
+:root {
+  --my-font-face: OpenDyslexic;
+}
+
+.my-font-loaded .sample {
+  /* color: red; */
+  font: 2rem/1.7 OpenDyslexic, MyFont, sans-serif;
+  word-spacing: -1.5rem;
+}
+</style>
+
+
+<my-page>
+  <h2> my-font </h2>
+
+  <p>Load a WOFF font file, and make it available for use in CSS styles.</p>
+  <p>
+    On this page we're loading the <a href="https://opendyslexic.org/">OpenDyslexic font</a>
+    — <q>a typeface designed against some common symptoms of dyslexia</q>.
+  </p>
+
+  <my-code>
+&lt;my-font
+  name="OpenDyslexic"
+  url="https://example.com/path/to/opendyslexic-latin.woff"
+  show-example="true"
+>&lt;/my-font>
+</my-code>
+
+  <my-font
+    name="OpenDyslexic"
+    url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff"
+    show-example="true"
+    class="sample"
+  ></my-font>
+</my-page>
+
+
+<script type="module" src="./app.js"></script>
+
+</html>
