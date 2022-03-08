@@ -19,20 +19,32 @@ export class MyFontElement extends MyElement {
   }
 
   async connectedCallback () {
-    const name = this.getAttribute('name') || 'MyFont';
+    const name = this.getAttribute('family') || 'MyFont'; // Was: 'name'
     const url = this.getAttribute('url'); // https://example.com/MyFont.woff;
-    const showExample = this.getAttribute('show-example') === 'true';
+    const showSample = this.getAttribute('show-sample') === 'true'; // Was: 'show-example'
+    const isIconFont = this.getAttribute('icon-font') === 'true';
+    const addStyle = this.getAttribute('add-style') === 'true';
+    const selector = this.getAttribute('selector') || '.my-font';
 
     console.assert(url, 'url');
 
     this.$$ = await this._loadFont(name, url);
 
-    if (showExample) { // && this.$$.ok
-      const ELEM = this._showAlphabetPlus();
-      this.attachShadow({ mode: 'open' }).appendChild(ELEM);
+    const TEMPLATES = await this.getTemplate('my-font');
+    const STYLE_TPL = TEMPLATES[isIconFont ? 1 : 2];
+
+    this._setupInnerStyle(name, showSample);
+
+    if (addStyle) {
+      this._documentAddStyle(STYLE_TPL, name, selector);
     }
 
-    console.debug('my-font:', this.$$, this);
+    /* if (showExample) { // && this.$$.ok
+      const ELEM = this._showAlphabetPlus();
+      this.attachShadow({ mode: 'open' }).appendChild(ELEM);
+    } */
+
+    console.debug('my-font:', TEMPLATES, this.$$, this);
 
     // console.warn('Arial?', document.fonts.check('1em Arial'));
     // console.warn('Comic Sans MS?', document.fonts.check('1em "Comic Sans MS"'));
@@ -45,6 +57,7 @@ export class MyFontElement extends MyElement {
     let ex;
     try {
       FONT = new FontFace(name, `url(${url})`);
+      FONT.display = 'swap';
       // wait for font to be loaded
       await FONT.load();
       // add font to document
@@ -64,6 +77,7 @@ export class MyFontElement extends MyElement {
     return { name, url, font: FONT, ok, ex };
   }
 
+  /** @ DEPRECATED */
   _showAlphabetPlus () {
     const JOIN = ' ';
     const SYM = '{ } [ ] ( ) < > ! + ? & % → ©';
@@ -79,12 +93,36 @@ export class MyFontElement extends MyElement {
     return ELEM;
   }
 
+  /** @ DEPRECATED */
   _alphaGen (startChar = 'a', endChar = 'z', joiner = null) {
     const BET = [];
     for (let idx = startChar.charCodeAt(0); idx <= endChar.charCodeAt(0); idx++) {
       BET.push(String.fromCharCode(idx));
     }
     return joiner ? BET.join(joiner) : BET;
+  }
+
+  _setupInnerStyle (name, showSample = false) {
+    const STYLE = this.shadowRoot.querySelector('style');
+    const SAMPLE = this.shadowRoot.querySelector('.sample');
+
+    STYLE.textContent = STYLE.textContent.replace(/_FONT_FAMILY_/, name);
+
+    if (showSample) {
+      SAMPLE.hidden = false;
+    }
+  }
+
+  _documentAddStyle (template, name, selector) {
+    const NODE_CSS_ICON = template.content.cloneNode(true);
+    const CSS_ICON = NODE_CSS_ICON.querySelector('style');
+
+    CSS_ICON.textContent = CSS_ICON.textContent.replace(/_FONT_FAMILY_/, name);
+    CSS_ICON.textContent = CSS_ICON.textContent.replace(/_SELECTOR_/, selector);
+
+    document.head.appendChild(NODE_CSS_ICON);
+
+    console.debug('Document - add style:', CSS_ICON);
   }
 }
 

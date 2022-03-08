@@ -7,12 +7,17 @@
 <style>
 :root {
   --my-font-face: OpenDyslexic;
+  --my-icon-font-size: 4rem;
 }
 
-.my-font-loaded .sample {
+.X_my-font-loaded .sample {
   /* color: red; */
   font: 2rem/1.7 OpenDyslexic, MyFont, sans-serif;
   word-spacing: -1.5rem;
+}
+
+my-font {
+  color: #555;
 }
 </style>
 
@@ -28,18 +33,34 @@
 
   <my-code>
 &lt;my-font
-  name="OpenDyslexic"
+  family="OpenDyslexic"
   url="https://example.com/path/to/opendyslexic-latin.woff"
-  show-example="true"
+  show-sample="true"
 >&lt;/my-font>
 </my-code>
 
   <my-font
-    name="OpenDyslexic"
-    url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff"
-    show-example="true"
-    class="sample"
+    family="OpenDyslexic"
+    url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff2"
+    show-sample="true"
   ></my-font>
+
+  <my-font
+    family="MaterialIcons"
+    url="https://unpkg.com/@fontsource/material-icons@4.5.2/files/material-icons-base-400-normal.woff2"
+    icon-font="true"
+    add-style="true"
+    selector="mi, my-icon"
+  ></my-font>
+
+  <p>
+    <my-icon>translate</my-icon>
+    <mi>accessibility_new</mi>
+    <mi>hearing_disabled</mi>
+    <mi>share</mi>
+  </p>
+
+
 </my-page>
 
 

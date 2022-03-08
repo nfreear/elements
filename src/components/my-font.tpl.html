@@ -1,0 +1,82 @@
+
+<meta name="robots" content="noindex">
+
+<template id="default">
+  <style>
+  * {
+    font-family: '_FONT_FAMILY_';
+    font-style: normal;
+    font-size: inherit;
+    letter-spacing: normal;
+    line-height: 1.7;
+    word-spacing: normal;
+    /* font-feature-settings: unset; */
+  }
+  .sample {
+    font-size: var(--my-font-size, 2rem);
+    X-display: none;
+  }
+  </style>
+
+  <p class="sample pangram-1" hidden >
+    Sphinx of black quartz, judge my vow.
+  </p>
+
+  <slot><!-- Empty --></slot>
+</template>
+
+
+<template id="icon-font-css">
+  <style id="my-icon-font-css">
+  :root {
+    --my-icon-font: '_FONT_FAMILY_';
+  }
+
+  _SELECTOR_ {
+    font-family: var(--my-icon-font);
+    font-weight: normal;
+    font-style: normal;
+    font-size: var(--my-icon-font-size, 24px); /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  </style>
+</template>
+
+
+<template id="font-css">
+  <style id="my-font-css">
+  :root {
+    --my-font-family: '_FONT_FAMILY_';
+  }
+
+  _MY_SELECTOR_ {
+    font-family: var(--my-font-family);
+    font-weight: var(--my-font-weight, normal);
+    font-style: normal;
+    font-size: var(--my-font-size, 1rem);
+    letter-spacing: normal;
+    line-height: 1.7;
+  }
+  </style>
+</template>
+
+<!--
+https://en.wikipedia.org/wiki/Pangram
+
+The quick brown fox jumps over the lazy dog.
+Sphinx of black quartz, judge my vow.
+
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9
+{ } [ ] ( ) < > ! + ? & % → ©
+-->
