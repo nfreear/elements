@@ -36,7 +36,7 @@ export class MyFontElement extends MyElement {
     this._setupInnerStyle(name, showSample);
 
     if (addStyle) {
-      this._documentAddStyle(STYLE_TPL, name, selector);
+      this._addDocumentStyle(STYLE_TPL, name, selector);
     }
 
     /* if (showExample) { // && this.$$.ok
@@ -113,16 +113,16 @@ export class MyFontElement extends MyElement {
     }
   }
 
-  _documentAddStyle (template, name, selector) {
-    const NODE_CSS_ICON = template.content.cloneNode(true);
-    const CSS_ICON = NODE_CSS_ICON.querySelector('style');
+  _addDocumentStyle (template, name, selector) {
+    const STYLE_NODE = template.content.cloneNode(true);
+    const STYLE = STYLE_NODE.querySelector('style');
 
-    CSS_ICON.textContent = CSS_ICON.textContent.replace(/_FONT_FAMILY_/, name);
-    CSS_ICON.textContent = CSS_ICON.textContent.replace(/_SELECTOR_/, selector);
+    STYLE.textContent = STYLE.textContent.replace(/_FONT_FAMILY_/, name);
+    STYLE.textContent = STYLE.textContent.replace(/_SELECTOR_/, selector);
 
-    document.head.appendChild(NODE_CSS_ICON);
+    document.head.appendChild(STYLE_NODE);
 
-    console.debug('Document - add style:', CSS_ICON);
+    console.debug('Document - add style:', STYLE);
   }
 }
 

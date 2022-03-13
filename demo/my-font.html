@@ -6,18 +6,13 @@
 
 <style>
 :root {
-  --my-font-face: OpenDyslexic;
-  --my-icon-font-size: 4rem;
-}
-
-.X_my-font-loaded .sample {
-  /* color: red; */
-  font: 2rem/1.7 OpenDyslexic, MyFont, sans-serif;
-  word-spacing: -1.5rem;
+  --my-font-size: 2.5rem;
+  --my-icon-font-size: var(--my-font-size);
 }
 
 my-font {
-  color: #555;
+  font-size: var(--my-font-size);
+  color: #444;
 }
 </style>
 
@@ -27,9 +22,49 @@ my-font {
 
   <p>Load a WOFF font file, and make it available for use in CSS styles.</p>
   <p>
-    On this page we're loading the <a href="https://opendyslexic.org/">OpenDyslexic font</a>
+    On this page we're loading several fonts using <a href="https://fontsource.org/">Fontsource</a>:</p>
+  <ul>
+    <li> <a href="https://opendyslexic.org/">OpenDyslexic font</a>
     — <q>a typeface designed against some common symptoms of dyslexia</q>.
+    <li> <a href="https://fonts.google.com/specimen/Ma+Shan+Zheng">Ma Shan Zheng</a>
+    — <q>reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple.</q>
+    <li> <a href="https://fonts.google.com/icons">Material Icons</a> — An icon font.
+  </ul>
+
+
+  <my-font
+    family="OpenDyslexic"
+    url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff2"
+    show-sample="true"
+    add-style="true"
+  ></my-font>
+
+  <my-font
+    lang="zh-hans"
+    family="Ma Shan Zheng"
+    url="https://unpkg.com/@fontsource/ma-shan-zheng@4.5.2/files/ma-shan-zheng-chinese-simplified-400-normal.woff2"
+    >
+    <p data-py="yǒuyuán qiānlǐ lái xiāng huì" data-en="Fate has us meet from a 1000 miles away.">
+      有缘千里来相会。ABC
+    </p>
+  </my-font>
+
+  <my-font
+    family="MaterialIcons"
+    url="https://unpkg.com/@fontsource/material-icons@4.5.2/files/material-icons-base-400-normal.woff2"
+    icon-font="true"
+    add-style="true"
+    selector="mi, my-icon, .material-icons"
+  ></my-font>
+
+  <p>
+    <span class="material-icons">settings</span>
+    <my-icon>translate</my-icon>
+    <mi>accessibility_new</mi>
+    <mi>hearing_disabled</mi>
+    <mi>share</mi>
   </p>
+
 
   <my-code>
 &lt;my-font
@@ -38,28 +73,6 @@ my-font {
   show-sample="true"
 >&lt;/my-font>
 </my-code>
-
-  <my-font
-    family="OpenDyslexic"
-    url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff2"
-    show-sample="true"
-  ></my-font>
-
-  <my-font
-    family="MaterialIcons"
-    url="https://unpkg.com/@fontsource/material-icons@4.5.2/files/material-icons-base-400-normal.woff2"
-    icon-font="true"
-    add-style="true"
-    selector="mi, my-icon"
-  ></my-font>
-
-  <p>
-    <my-icon>translate</my-icon>
-    <mi>accessibility_new</mi>
-    <mi>hearing_disabled</mi>
-    <mi>share</mi>
-  </p>
-
 
 </my-page>
 
