@@ -1,10 +1,10 @@
 /**
-  Add a "Fork me on GitHub" ribbon.
-
-  © Nick Freear, 09-Dec-2021.
-
-  @see http://simonwhitaker.github.io/github-fork-ribbon-css/
-*/
+ * Add a "Fork me on GitHub" ribbon.
+ *
+ * @copyright © Nick Freear, 09-Dec-2021.
+ *
+ * @see http://simonwhitaker.github.io/github-fork-ribbon-css/
+ */
 
 import { MyElement } from '../MyElement.js';
 

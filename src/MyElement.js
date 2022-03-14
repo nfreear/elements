@@ -33,7 +33,7 @@ export class MyElement extends HTMLElement {
     customElements.define(klass.getTag(), klass);
   }
 
-  getTemplateUrl (id) {
+  _getTemplateUrl (id) {
     const HOST = getOpt('templateHost');
 
     // URL is relative to the HTML page!
@@ -57,7 +57,7 @@ export class MyElement extends HTMLElement {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
 
-    const url = this.getTemplateUrl(tag);
+    const url = this._getTemplateUrl(tag);
 
     const resp = await fetch(url);
     const html = await resp.text();

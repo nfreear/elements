@@ -1,10 +1,13 @@
-/*!
- Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
-
-  Nick Freear, 27-Nov-2021.
-
+/**
+ * Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
+ *
+ * Contains accessibility fixes.
+ *
+ * @copyright © Nick Freear, 27-Nov-2021.
+ *
+ * @see https://leafletjs.com/
  * @WAS 'my-map.js'
-*/
+ */
 
 import { leafletViaCdn } from '../external-cdn.js';
 import { MyElement } from '../MyElement.js';

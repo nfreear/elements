@@ -1,9 +1,10 @@
-/*!
-
-  © Nick Freear, 04-Dec-2021.
-
-  Was: MyRadioStarRatingElement.
-*/
+/**
+ * A keyboard accessible interactive to give a star rating.
+ *
+ * @copyright © Nick Freear, 04-Dec-2021.
+ *
+ * @WAS MyRadioStarRatingElement.
+ */
 
 import { MyElement } from '../MyElement.js';
 
@@ -15,16 +16,16 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   async connectedCallback () {
     const name = this.getAttribute('name') || 'my-star-rating-1';
 
-    await this.initialize({ name });
+    await this._initialize({ name });
   }
 
-  async initialize (attr) {
+  async _initialize (attr) {
     const templates = await this.getTemplate('my-star-rating');
 
     const labels = this.shadowRoot.querySelectorAll('label');
     const fieldset = this.shadowRoot.querySelector('fieldset');
 
-    const hiddenInput = this.createHiddenInput(attr.name);
+    const hiddenInput = this._createHiddenInput(attr.name);
 
     this.after(hiddenInput);
 
@@ -32,18 +33,18 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
       ...attr, hiddenInput, labels, fieldset, templates
     };
 
-    this.appendStars(labels, templates[1]);
+    this._appendStars(labels, templates[1]);
 
-    fieldset.addEventListener('click', ev => this.clickEventHandler(ev));
+    fieldset.addEventListener('click', ev => this._clickEventHandler(ev));
     fieldset.addEventListener('mouseout', ev => {
-      this.unfocusStars();
+      this._unfocusStars();
       // console.debug('mouseout');
     });
 
     console.debug('my-star-rating (radio):', this.$$, this);
   }
 
-  createHiddenInput (name) {
+  _createHiddenInput (name) {
     const INPUT = document.createElement('input');
     INPUT.id = 'my-star-rating-input-1';
     INPUT.type = 'hidden';
@@ -53,7 +54,7 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     return INPUT;
   }
 
-  appendStars (labels, starSvgTemplate) {
+  _appendStars (labels, starSvgTemplate) {
     // const starSvgTemplate = templates[ 1 ];
     [...labels].forEach(label => {
       const starSvg = starSvgTemplate.content.cloneNode(true);
@@ -62,35 +63,35 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     });
   }
 
-  updateValue (value) {
+  _updateValue (value) {
     this.title = `${value} stars`;
     this.setAttribute('data-value', value);
     // this.$$.hiddenInput.setAttribute('data-value', value);
     this.$$.hiddenInput.value = value;
   }
 
-  unfocusStars () {
+  _unfocusStars () {
     [...this.$$.labels].map(label => label.classList.remove('focused'));
   }
 
-  updateState (VALUE) {
+  _updateState (VALUE) {
     [...this.$$.labels].forEach((label, idx) => {
       label.setAttribute('data-star', idx < VALUE ? 'yes' : 'no');
     });
   }
 
-  clickEventHandler (ev) {
+  _clickEventHandler (ev) {
     const LABEL = ev.target.parentElement;
     const VALUE = parseInt(ev.target.value); // Was: ev.target.getAttribute('data-rating'));
 
     if (ev.target.nodeName !== 'INPUT') { // NaN.
-      this.unfocusStars();
+      this._unfocusStars();
       return;
     }
 
-    this.updateValue(VALUE);
-    this.updateState(VALUE);
-    this.unfocusStars();
+    this._updateValue(VALUE);
+    this._updateState(VALUE);
+    this._unfocusStars();
 
     LABEL.classList.add('focused');
 

@@ -1,5 +1,5 @@
 /**
- * Javascript specific to the Demo.
+ * Javascript specific to the TTS Demo.
  *
  * @copyright © Nick Freear, 27-Jan-2022.
  */

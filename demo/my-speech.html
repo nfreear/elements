@@ -8,11 +8,14 @@
 <my-page>
   <h2> my-text-to-speech </h2>
 
+  <p> Text to speech (TTS) — Speech Synthesis — using the Web Speech API. </p>
+
+
   <my-text-to-speech lang="en" rate="0.9">
     <div contenteditable="true">
       <!--<p> Hello world!-->
       <!--<p>If a dog chews shoes, whose shoes does he choose?</p>-->
-      <p>Rory the warrior and Roger the worrier were reared wrongly in a rural brewery.</p>
+      <p><q>Rory the warrior and Roger the worrier were reared wrongly in a rural brewery.</q></p>
     </div>
   </my-text-to-speech>
 
@@ -35,8 +38,14 @@
     </p>
   </my-text-to-speech>
 
+
   <my-code>
-&lt;my-text-to-speech lang="fr" lang-regex="fr.*" rate="0.9" vox-regex="(Amelie|Google français)">
+&lt;my-text-to-speech
+  lang="fr"
+  lang-regex="fr.*"
+  rate="0.9"
+  vox-regex="(Amelie|Google français)"
+  >
   &lt;p>Bonjour. Je m'appelle Amelie!&lt;/p>
 &lt;/my-text-to-speech>
 </my-code>

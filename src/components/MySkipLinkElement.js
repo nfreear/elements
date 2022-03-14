@@ -1,7 +1,8 @@
-/*!
-
-  © Nick Freear, 08-Dec-2021.
-*/
+/**
+ * Add a "skip to main content" link which becomes visible on focus.
+ *
+ * @copyright Nick Freear, 08-Dec-2021.
+ */
 
 import { MyElement } from '../MyElement.js';
 

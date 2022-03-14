@@ -41,10 +41,14 @@ About [Web Components][mdn].
 ```js
 import { customImport } from 'https://nfreear.github.io/web-components/custom.js';
 
-const MOD = await customImport('my-star-rating,my-map');
+const MOD = await customImport('my-star-rating, my-skip-link');
 ```
 
+Then:
+
 ```html
+<my-skip-link></my-skip-link>
+
 <my-star-rating></my-star-rating>
 ```
 
