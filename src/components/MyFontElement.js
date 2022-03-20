@@ -1,5 +1,5 @@
 /**
- * Load a font using the "FontFace" interface (CSS3) - handle success and errors.
+ * Load a WOFF/2 font file using the "FontFace" interface (CSS3) - handle success and errors.
  *
  * @copyright © Nick Freear, 02-Mar-2022.
  *
@@ -104,10 +104,13 @@ export class MyFontElement extends MyElement {
   _setupInnerStyle (name, showSample = false) {
     const STYLE = this.shadowRoot.querySelector('style');
     const SAMPLE = this.shadowRoot.querySelector('.sample');
+    const LABEL = this.shadowRoot.querySelector('h3');
 
-    STYLE.textContent = STYLE.textContent.replace(/_FONT_FAMILY_/, name);
+    STYLE.textContent = STYLE.textContent.replace(/_FONT_FAMILY_/g, name);
 
     if (showSample) {
+      LABEL.textContent = `Font: ${name}`;
+      LABEL.hidden = false;
       SAMPLE.hidden = false;
     }
   }

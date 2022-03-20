@@ -10,7 +10,7 @@
   --my-icon-font-size: var(--my-font-size);
 }
 
-my-font {
+my-font .sample {
   font-size: var(--my-font-size);
   color: #444;
 }
@@ -20,12 +20,14 @@ my-font {
 <my-page>
   <h2> my-font </h2>
 
-  <p>Load a WOFF font file, and make it available for use in CSS styles.</p>
+  <p>Load a WOFF/2 font file, and make it available for use in CSS styles and Web pages.</p>
   <p>
     On this page we're loading several fonts using <a href="https://fontsource.org/">Fontsource</a>:</p>
   <ul>
-    <li> <a href="https://opendyslexic.org/">OpenDyslexic font</a>
-    — <q>a typeface designed against some common symptoms of dyslexia</q>.
+    <li> <a href="https://brailleinstitute.org/freefont">Atkinson Hyperlegible</a>
+    — named after Braille Institute founder, J. Robert Atkinson. <q>… it focuses on letterform distinction to increase character recognition, ultimately improving readability.</q>
+    <!-- <li> <a href="https://opendyslexic.org/">OpenDyslexic font</a>
+    — <q>a typeface designed against some common symptoms of dyslexia</q>. -->
     <li> <a href="https://fonts.google.com/specimen/Ma+Shan+Zheng">Ma Shan Zheng</a>
     — <q>reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple.</q>
     <li> <a href="https://fonts.google.com/icons">Material Icons</a> — An icon font.
@@ -33,20 +35,30 @@ my-font {
 
 
   <my-font
+    family="Atkinson Hyperlegible"
+    url="https://unpkg.com/@fontsource/atkinson-hyperlegible@4.5.3/files/atkinson-hyperlegible-latin-400-normal.woff2"
+    show-sample="true"
+    add-style="true"
+  ></my-font>
+
+  <!-- <my-font
     family="OpenDyslexic"
     url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff2"
     show-sample="true"
     add-style="true"
-  ></my-font>
+  ></my-font> -->
 
   <my-font
     lang="zh-hans"
     family="Ma Shan Zheng"
     url="https://unpkg.com/@fontsource/ma-shan-zheng@4.5.2/files/ma-shan-zheng-chinese-simplified-400-normal.woff2"
+    add-style="true"
+    selector=".sample"
     >
-    <p data-py="yǒuyuán qiānlǐ lái xiāng huì" data-en="Fate has us meet from a 1000 miles away.">
-      有缘千里来相会。ABC
-    </p>
+    <h3>Font: Ma Shan Zheng</h3>
+    <div class="sample" data-py="yǒuyuán qiānlǐ lái xiāng huì" data-en="Fate has us meet from a 1000 miles away.">
+      有缘千里来相会。ABCDEFG 012。
+    </div>
   </my-font>
 
   <my-font
@@ -57,19 +69,24 @@ my-font {
     selector="mi, my-icon, .material-icons"
   ></my-font>
 
+  <h3> Font: Material Icons </h3>
   <p>
     <span class="material-icons">settings</span>
     <my-icon>translate</my-icon>
     <mi>accessibility_new</mi>
+    <mi>elderly_woman</mi>
+    <mi>sign_language</mi>
     <mi>hearing_disabled</mi>
+    <mi>visibility_off</mi>
     <mi>share</mi>
+    <mi>favorite</mi>
   </p>
 
 
   <my-code>
 &lt;my-font
-  family="OpenDyslexic"
-  url="https://example.com/path/to/opendyslexic-latin.woff"
+  family="MyFont"
+  url="https://example.com/path/to/my-font-latin.woff2"
   show-sample="true"
 >&lt;/my-font>
 </my-code>

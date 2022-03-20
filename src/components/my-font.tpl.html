@@ -3,12 +3,12 @@
 
 <template id="default">
   <style>
-  * {
+  .sample {
     font-family: '_FONT_FAMILY_';
     font-style: normal;
     font-size: inherit;
     letter-spacing: normal;
-    line-height: 1.7;
+    line-height: 1.3;
     word-spacing: normal;
     /* font-feature-settings: unset; */
   }
@@ -16,13 +16,32 @@
     font-size: var(--my-font-size, 1.5rem);
     X-display: none;
   }
+  .sample p {
+    margin: 1.2rem 0;
+  }
+  article {
+    border: 1px solid #e6e6e6;
+    padding: 0 .3rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+    margin: .5rem 0;
+  }
   </style>
 
-  <p class="sample pangram-1" hidden >
-    Sphinx of black quartz, judge my vow.
-  </p>
+  <article>
+    <h3 id="sam-label" hidden ></h3>
 
-  <slot><!-- Empty --></slot>
+    <slot><!-- Empty --></slot>
+
+    <div class="sample" aria-labelledby="sam-label" hidden >
+      <p class="pangram-1">Sphinx of black quartz, judge my vow.</p>
+      <p class="num">0123456789-$€£{}</p>
+      <p class="uniq">B8 1Iil!</p><!-- bdpq -->
+      <p class="recog">QGEFpqirO0.</p>
+      <p class="dot"><!-- Ȧ -->Å&ouml;8ij%?¡¿,:</p>
+    </div>
+  </article>
 </template>
 
 
@@ -70,7 +89,8 @@
 </template>
 
 <!--
-https://en.wikipedia.org/wiki/Pangram
+* https://fontsource.org/fonts/liu-jian-mao-cao,
+* https://en.wikipedia.org/wiki/Pangram
 
 The quick brown fox jumps over the lazy dog.
 Sphinx of black quartz, judge my vow.
