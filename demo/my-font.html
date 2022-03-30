@@ -10,6 +10,13 @@
   --my-icon-font-size: var(--my-font-size);
 }
 
+my-font[ has-content ] {
+  border: 1px solid #e6e6e6;
+  display: block;
+  margin: 1rem 0;
+  padding: 0 .4rem;
+}
+
 my-font .sample {
   font-size: var(--my-font-size);
   color: #444;
@@ -24,44 +31,54 @@ my-font .sample {
   <p>
     On this page we're loading several fonts using <a href="https://fontsource.org/">Fontsource</a>:</p>
   <ul>
-    <li> <a href="https://brailleinstitute.org/freefont">Atkinson Hyperlegible</a>
-    — named after Braille Institute founder, J. Robert Atkinson. <q>… it focuses on letterform distinction to increase character recognition, ultimately improving readability.</q>
+    <li> <a href="#atkinson">Atkinson Hyperlegible</a>
     <!-- <li> <a href="https://opendyslexic.org/">OpenDyslexic font</a>
     — <q>a typeface designed against some common symptoms of dyslexia</q>. -->
-    <li> <a href="https://fonts.google.com/specimen/Ma+Shan+Zheng">Ma Shan Zheng</a>
-    — <q>reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple.</q>
-    <li> <a href="https://fonts.google.com/icons">Material Icons</a> — An icon font.
+    <li> <a href="#ma-shan-zheng">Ma Shan Zheng</a>
+    <li> <a href="#material">Material Icons</a>
   </ul>
 
 
   <my-font
+    id="atkinson"
     family="Atkinson Hyperlegible"
     url="https://unpkg.com/@fontsource/atkinson-hyperlegible@4.5.3/files/atkinson-hyperlegible-latin-400-normal.woff2"
     show-sample="true"
     add-style="true"
-  ></my-font>
+  >
+    <p>
+      <a href="https://brailleinstitute.org/freefont">Atkinson Hyperlegible</a>
+      — named after Braille Institute founder, J. Robert Atkinson.
+      <q>… it focuses on letterform distinction to increase character recognition, ultimately improving readability.</q>
+    </p>
+  </my-font>
 
   <!-- <my-font
     family="OpenDyslexic"
     url="https://unpkg.com/@fontsource/opendyslexic@4.5.2/files/opendyslexic-latin-400-normal.woff2"
-    show-sample="true"
-    add-style="true"
   ></my-font> -->
 
   <my-font
+    id="ma-shan-zheng"
     lang="zh-hans"
     family="Ma Shan Zheng"
     url="https://unpkg.com/@fontsource/ma-shan-zheng@4.5.2/files/ma-shan-zheng-chinese-simplified-400-normal.woff2"
     add-style="true"
     selector=".sample"
-    >
+  >
     <h3>Font: Ma Shan Zheng</h3>
+    <p>
+      <a href="https://fonts.google.com/specimen/Ma+Shan+Zheng">Ma Shan Zheng</a>
+      — <q>reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple.</q>
+    </p>
     <div class="sample" data-py="yǒuyuán qiānlǐ lái xiāng huì" data-en="Fate has us meet from a 1000 miles away.">
-      有缘千里来相会。ABCDEFG 012。
+      有缘千里来相会。ABCDEFG 012
     </div>
   </my-font>
 
+
   <my-font
+    id="material"
     family="MaterialIcons"
     url="https://unpkg.com/@fontsource/material-icons@4.5.2/files/material-icons-base-400-normal.woff2"
     icon-font="true"
@@ -70,6 +87,7 @@ my-font .sample {
   ></my-font>
 
   <h3> Font: Material Icons </h3>
+  <p><a href="https://fonts.google.com/icons">Material Icons</a> — An icon font.</p>
   <p>
     <span class="material-icons">settings</span>
     <my-icon>translate</my-icon>

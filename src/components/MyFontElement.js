@@ -25,23 +25,30 @@ export class MyFontElement extends MyElement {
     const addStyle = this.getAttribute('add-style') === 'true';
     const selector = this.getAttribute('selector') || '.my-font';
 
+    const hasContent = this.children.length || showSample;
+
     console.assert(url, 'url');
 
     this.$$ = await this._loadFont(name, url);
 
-    const TEMPLATES = await this.getTemplate('my-font');
-    const STYLE_TPL = TEMPLATES[isIconFont ? 1 : 2];
-
-    this._setupInnerStyle(name, showSample);
-
-    if (addStyle) {
-      this._addDocumentStyle(STYLE_TPL, name, selector);
+    if (hasContent) {
+      this.setAttribute('has-content', 'true');
     }
 
-    /* if (showExample) { // && this.$$.ok
-      const ELEM = this._showAlphabetPlus();
-      this.attachShadow({ mode: 'open' }).appendChild(ELEM);
-    } */
+    let TEMPLATES;
+
+    if (hasContent || addStyle) {
+      TEMPLATES = await this.getTemplate('my-font');
+      const STYLE_TPL = TEMPLATES[isIconFont ? 1 : 2];
+
+      if (hasContent) {
+        this._setupInnerStyle(name, showSample);
+      }
+
+      if (addStyle) {
+        this._addDocumentStyle(STYLE_TPL, name, selector);
+      }
+    }
 
     console.debug('my-font:', TEMPLATES, this.$$, this);
 

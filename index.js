@@ -22,6 +22,7 @@ export { MyCodeElement } from './src/components/MyCodeElement.js';
 export { MyBookmarkletElement } from './src/components/MyBookmarkletElement.js';
 export { MyAtbarButtonElement } from './src/components/MyAtbarButtonElement.js';
 export { MyFontElement } from './src/components/MyFontElement.js';
+export { MySearchElement } from './src/components/MySearchElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
