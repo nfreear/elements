@@ -23,15 +23,19 @@ A collection of experimental Web Components.
 
 About [Web Components][mdn].
 
+See also: [web-vitals-element][].
+
 ## Usage
+
+Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be accessed from Skypack.
 
 ```html
 <my-skip-link></my-skip-link>
 
 
-<my-options template-host="github.io"></my-options>
+<my-options template-host="unpkg.com"></my-options>
 
-<script src="https://nfreear.github.io/web-components/index.js"
+<script src="https://cdn.skypack.dev/ndf-web-components?min"
   type="module" async crossorigin
 ></script>
 ```
@@ -39,7 +43,7 @@ About [Web Components][mdn].
 ## Custom import
 
 ```js
-import { customImport } from 'https://nfreear.github.io/web-components/custom.js';
+import { customImport } from 'https://unpkg.com/ndf-web-components@1.1.0/custom.js';
 
 const MOD = await customImport('my-star-rating, my-skip-link');
 ```
@@ -62,4 +66,9 @@ Then:
 [mit]: https://nfreear.mit-license.org/#2021
 [npm]: https://www.npmjs.com/package/ndf-web-components
 [npm-img]: https://img.shields.io/npm/v/ndf-web-components
+[unpkg]: https://unpkg.com "A fast, global content delivery network for everything on npm"
+[up-cdn]: https://unpkg.com/ndf-web-components@1.1.0/index.js
+[skypack]: https://cdn.skypack.dev "A JavaScript Delivery Network for modern web apps"
+[sp-cdn]: https://cdn.skypack.dev/ndf-web-components
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
+[web-vitals-element]: https://github.com/stefanjudis/web-vitals-element
