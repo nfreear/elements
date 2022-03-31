@@ -24,12 +24,16 @@
     "src/**/*"
   ],
   "scripts": {
-    "start": "live-server --no-browser",
+    "start": "servor . 8080 --reload",
+    "start:x": "live-server --no-browser",
     "fix": "semistandard --fix",
     "test": "semistandard"
   },
   "semistandard": {
-    "XX_globals": [ "customElements", "HTMLElement" ]
+    "XX_globals": [
+      "customElements",
+      "HTMLElement"
+    ]
   },
   "keywords": [
     "web components",
@@ -38,7 +42,7 @@
     "pwa"
   ],
   "devDependencies": {
-    "live-server": "^1.2.1",
-    "semistandard": "^16.0.1"
+    "semistandard": "^16.0.1",
+    "servor": "^4.0.2"
   }
 }
