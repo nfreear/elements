@@ -7,7 +7,7 @@
 
 import { getOpt } from './Options.js';
 
-const UNPKG = 'https://unpkg.com/ndf-web-components@1.0.0';
+const UNPKG = `https://unpkg.com/ndf-web-components@${getOpt('version')}`;
 
 const { customElements, DOMParser, fetch, HTMLElement } = window;
 
@@ -26,11 +26,12 @@ export class MyElement extends HTMLElement {
     throw new Error('getTag() should be implemented in the child class!');
   }
 
-  static async define () {
+  static async define (name = null, options = null) {
     // await whenDOMReady();
     const klass = this;
+    const NAME = name ? name : klass.getTag();
 
-    customElements.define(klass.getTag(), klass);
+    customElements.define(NAME, klass, options);
   }
 
   _getTemplateUrl (id) {
@@ -40,9 +41,11 @@ export class MyElement extends HTMLElement {
     let BASE = /^https:\//.test(HOST) ? HOST : '..';
 
     switch (HOST) {
+      case 'ghp':
       case 'github.io':
         BASE = 'https://nfreear.github.io/web-components';
         break;
+      case 'unpkg':
       case 'unpkg.com':
         BASE = UNPKG;
         break;

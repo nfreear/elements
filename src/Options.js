@@ -4,7 +4,10 @@
   © Nick Freear, 11-Dec-2021.
 */
 
-const $_OPTIONS = { $$: {} };
+/** @see package.json */
+const version = '1.1.0';
+
+const $_OPTIONS = { $$: { version } };
 
 /**
  * @public
@@ -12,6 +15,10 @@ const $_OPTIONS = { $$: {} };
 export function getOpt (key = null) {
   return key && key in $_OPTIONS.$$ ? $_OPTIONS.$$[key] : $_OPTIONS.$$;
 }
+
+/* export function setVersion (version) {
+  $_OPTIONS.$$.version = version;
+} */
 
 /**
  * @private
