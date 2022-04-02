@@ -59,7 +59,7 @@ async function joinHtmlTemplateFiles (dir, fileNames, outputFile) {
       const M_ID = ATTR ? ATTR.match(/id="(.+?)"/) : null;
       const ID = M_ID ? M_ID[1] : null;
 
-      const TPL_ID = idx === 0 ? 'def' : (ID ? ID : idx);
+      const TPL_ID = idx === 0 ? 'def' : (ID || idx);
 
       console.log(`<template id="${BASE}__${TPL_ID}">\n${TEMPLATE}\n</template>\n`);
     }); // End template.

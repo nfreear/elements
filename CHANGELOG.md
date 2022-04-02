@@ -10,16 +10,17 @@
 
 New custom elements:
 
-* <my-atbar-button>
-* <my-bookmarklet>
-* <my-code>
-* <my-font>
-* <my-search>
-* <my-text-to-speech>
+* `<my-atbar-button>`
+* `<my-bookmarklet>`
+* `<my-code>`
+* `<my-font>`
+* `<my-search>`
+* `<my-text-to-speech>`
 
 ## Version 1.0.0
 
 * Date:  09-January-2022,
 * First publish to Npmjs.com
 
---
+---
+[← Readme](https://github.com/nfreear/web-components#readme)
