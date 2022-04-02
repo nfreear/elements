@@ -1,7 +1,8 @@
-/*!
-
-  NDF, 27-Nov-2021.
-*/
+/**
+ * Setup a page with minimum markup (experimental).
+ *
+ * @copyright © Nick Freear, 27-Nov-2021.
+ */
 
 import { MyElement } from '../MyElement.js';
 

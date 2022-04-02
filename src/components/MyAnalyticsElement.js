@@ -2,6 +2,7 @@
  * Easily embed Analytics without cookies ~ Yay!
  *
  * @copyright © Nick Freear, 28-June-2021.
+ *
  * @see https://gist.github.com/nfreear/0146258d72e9e1330b19a1ff2c143ff6,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id#using_localstorage_to_store_the_client_id,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,

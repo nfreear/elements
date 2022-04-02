@@ -1,8 +1,8 @@
-/*!
-  Translate selected page content.
-
-  © Nick Freear, 27-Nov-2021.
-*/
+/**
+ * Translate selected page content.
+ *
+ *  @copyright © Nick Freear, 27-Nov-2021.
+ */
 
 const { fetch, location } = window;
 

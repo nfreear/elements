@@ -1,8 +1,8 @@
-/*!
-  Options Element - set configuration options.
-
-  © Nick Freear, 11-Dec-2021.
-*/
+/**
+ * Options Element - set configuration options.
+ *
+ * @copyright © Nick Freear, 11-Dec-2021.
+ */
 
 import { MyElement } from '../MyElement.js';
 import { setupOptions } from '../Options.js';

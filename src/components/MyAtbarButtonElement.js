@@ -6,17 +6,23 @@
  * @version ATbar - Version 2.2.1
  * @version Powered by AtKit v1.6.2 (atkit release channel)
  *
- * @copyright © University of Southampton 2010-2013.
- * @author Sebastian Skuse, Magnus White and the Accessibility Team. Web and Internet Science, ECS.
- * @license "ATbar is available under the BSD open-source Licence."
- *
- * @see https://www.atbar.org/
  * @see https://access.ecs.soton.ac.uk/projects/atbar
  * @see https://github.com/AccessAtECS/ATBar
  * @see https://bitbucket.org/accessatecs/atbar/
  * @see https://web.archive.org/web/20180430085017/https://fixtheweb.net/
  * @see https://twitter.com/FixTheWeb
  * @see https://youtu.be/8Ik_LHmZx8Y
+ * @ignore
+ */
+
+/**
+ * ATbar
+ *
+ * @copyright © University of Southampton 2010-2013.
+ * @author Sebastian Skuse, Magnus White and the Accessibility Team. Web and Internet Science, ECS.
+ * @license "ATbar is available under the BSD open-source Licence."
+ *
+ * @see https://www.atbar.org/
  */
 
 import { MyElement } from '../MyElement.js';

@@ -1,6 +1,7 @@
 /**
- * Experimental Web Components.
+ * My Web Components (experimental)
  *
+ * @see https://github.com/nfreear/web-components
  * @copyright © Nick Freear, 04-Dec-2021.
  * @license MIT
  */

@@ -1,6 +1,9 @@
 /**
- * Only import the Web Components that you need!
+ * My Web Components (experimental)
  *
+ * Only import the elements that you need!
+ *
+ * @see https://github.com/nfreear/web-components
  * @copyright © Nick Freear, 09-Jan-2022.
  * @license MIT
  */
@@ -22,6 +25,6 @@ export async function customImport (uses = null, base = '.') {
   return Promise.all(USED);
 }
 
-if (hasElem('script[ src *= "custom.js" ]')) {
+if (hasElem('script[ src *= "/custom.js" ]')) {
   customImport().then(MOD => console.debug('Custom load:', MOD));
 }

@@ -1,7 +1,7 @@
 {
   "name": "ndf-web-components",
   "version": "1.1.0",
-  "description": "My experimental Web Components | © 2021 Nick Freear.",
+  "description": "My Web Components | © 2021 Nick Freear.",
   "author": "Nick Freear",
   "license": "MIT",
   "homepage": "https://nfreear.github.io/web-components/demo/",
@@ -24,8 +24,9 @@
     "src/**/*"
   ],
   "scripts": {
-    "start": "servor . 8080 --reload",
-    "start:x": "live-server --no-browser",
+    "build": "node ./src/build/template.js > ./template.html",
+    "start": "npx servor . 8080 --reload",
+    "start:old": "live-server --no-browser",
     "fix": "semistandard --fix",
     "test": "semistandard"
   },

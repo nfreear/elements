@@ -1,10 +1,11 @@
-/*!
-  Setup and get configuration options.
+/**
+ * Setup and get configuration options.
+ *
+ * @copyright © Nick Freear, 11-Dec-2021.
+ */
 
-  © Nick Freear, 11-Dec-2021.
-*/
-
-/** @see package.json */
+/** @see package.json
+ */
 const version = '1.1.0';
 
 const $_OPTIONS = { $$: { version } };
