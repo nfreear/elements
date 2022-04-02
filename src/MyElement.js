@@ -1,6 +1,9 @@
 /**
- * Base class with functions to fetch templates, etc.
+ * My Web Components.
  *
+ * MyElement - base class with functions to fetch templates, etc.
+ *
+ * @see https://github.com/nfreear/web-components
  * @copyright © Nick Freear, 02-Dec-2021.
  * @license MIT
  */
@@ -29,7 +32,7 @@ export class MyElement extends HTMLElement {
   static async define (name = null, options = null) {
     // await whenDOMReady();
     const klass = this;
-    const NAME = name ? name : klass.getTag();
+    const NAME = name || klass.getTag();
 
     customElements.define(NAME, klass, options);
   }
