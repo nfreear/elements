@@ -1,4 +1,9 @@
 
+## Version 1.2.0
+
+* Date:  15-April-2022,
+* Rename package from `ndf-web-components` to `ndf-elements` (#20)
+
 ## Version 1.1.0
 
 * Date:  30-March-2022,
@@ -23,4 +28,4 @@ New custom elements:
 * First publish to Npmjs.com
 
 ---
-[← Readme](https://github.com/nfreear/web-components#readme)
+[← Readme](https://github.com/nfreear/elements#readme)
