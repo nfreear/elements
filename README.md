@@ -35,7 +35,7 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 
 <my-options template-host="unpkg.com"></my-options>
 
-<script src="https://cdn.skypack.dev/ndf-web-components?min"
+<script src="https://cdn.skypack.dev/ndf-elements?min"
   type="module" async crossorigin
 ></script>
 ```
@@ -43,7 +43,7 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 ## Custom import
 
 ```js
-import { customImport } from 'https://unpkg.com/ndf-web-components@1.1.0/custom.js';
+import { customImport } from 'https://unpkg.com/ndf-elements@1.1.0/custom.js';
 
 const MOD = await customImport('my-star-rating, my-skip-link');
 ```
