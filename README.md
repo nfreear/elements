@@ -2,11 +2,11 @@
 [![Node.js CI][ci-img]][ci]
 [![NPM package][npm-img]][npm]
 
-# My Web Components #
+# My Elements #
 
-A collection of experimental Web Components.
+A collection of experimental custom elements (Web Components).
 
-* [nfreear.github.io/web-components/demo][demo]
+* [nfreear.github.io/elements/demo][demo]
 
 ## Rationale ##
 
@@ -58,17 +58,19 @@ Then:
 
 ## License
 
-* License [MIT][]
+* License: [MIT][].
 
-[ci]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml
-[ci-img]: https://github.com/nfreear/web-components/actions/workflows/node.js.yml/badge.svg
-[demo]: https://nfreear.github.io/web-components/demo/
+[ci]: https://github.com/nfreear/elements/actions/workflows/node.js.yml
+[ci-img]: https://github.com/nfreear/elements/actions/workflows/node.js.yml/badge.svg
+[demo]: https://nfreear.github.io/elements/demo/
 [mit]: https://nfreear.mit-license.org/#2021
-[npm]: https://www.npmjs.com/package/ndf-web-components
-[npm-img]: https://img.shields.io/npm/v/ndf-web-components
-[unpkg]: https://unpkg.com "A fast, global content delivery network for everything on npm"
-[up-cdn]: https://unpkg.com/ndf-web-components@1.1.0/index.js
-[skypack]: https://cdn.skypack.dev "A JavaScript Delivery Network for modern web apps"
-[sp-cdn]: https://cdn.skypack.dev/ndf-web-components
+[npm]: https://www.npmjs.com/package/ndf-elements
+[npm-img]: https://img.shields.io/npm/v/ndf-elements
+[unpkg]: https://unpkg.com
+  "A fast, global content delivery network for everything on npm"
+[up-cdn]: https://unpkg.com/ndf-elements@1.1.0/index.js
+[skypack]: https://cdn.skypack.dev
+  "A JavaScript Delivery Network for modern web apps"
+[sp-cdn]: https://cdn.skypack.dev/ndf-elements
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 [web-vitals-element]: https://github.com/stefanjudis/web-vitals-element

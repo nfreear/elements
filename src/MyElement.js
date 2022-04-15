@@ -1,5 +1,5 @@
 /**
- * My Web Components.
+ * My Elements.
  *
  * MyElement - base class with functions to fetch templates, etc.
  *
@@ -10,7 +10,7 @@
 
 import { getOpt } from './Options.js';
 
-const UNPKG = `https://unpkg.com/ndf-web-components@${getOpt('version')}`;
+const UNPKG = `https://unpkg.com/ndf-elements@${getOpt('version')}`;
 
 const { customElements, DOMParser, fetch, HTMLElement } = window;
 

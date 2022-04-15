@@ -1,11 +1,13 @@
 {
-  "name": "ndf-web-components",
-  "version": "1.1.0",
-  "description": "My Web Components | © 2021 Nick Freear.",
+  "name": "ndf-elements",
+  "x-old-name": "ndf-web-components",
+  "version": "1.2.0",
+  "description": "A collection of custom elements | Was: 'ndf-web-components'",
+  "x-copyright": "© 2021 Nick Freear.",
   "author": "Nick Freear",
   "license": "MIT",
-  "homepage": "https://nfreear.github.io/web-components/demo/",
-  "repository": "https://github.com/nfreear/web-components.git",
+  "homepage": "https://nfreear.github.io/elements/demo/",
+  "repository": "https://github.com/nfreear/elements.git",
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -26,9 +28,8 @@
   "scripts": {
     "build": "node ./src/build/template.js > ./template.html",
     "start": "npx servor . 8080 --reload",
-    "start:old": "live-server --no-browser",
-    "fix": "semistandard --fix",
-    "test": "semistandard"
+    "fix": "npx semistandard --fix",
+    "test": "npx semistandard"
   },
   "semistandard": {
     "XX_globals": [
@@ -37,6 +38,7 @@
     ]
   },
   "keywords": [
+    "ndf-web-components",
     "web components",
     "components",
     "custom elements",
