@@ -41,12 +41,13 @@ export class MyElement extends HTMLElement {
     const HOST = getOpt('templateHost');
 
     // URL is relative to the HTML page!
-    let BASE = /^https:\//.test(HOST) ? HOST : '..';
+    let BASE = /^https?:\//.test(HOST) ? HOST : '..';
 
     switch (HOST) {
       case 'ghp':
+      case 'ghpages':
       case 'github.io':
-        BASE = 'https://nfreear.github.io/web-components';
+        BASE = 'https://nfreear.github.io/elements'; // Was: 'web-components'
         break;
       case 'unpkg':
       case 'unpkg.com':

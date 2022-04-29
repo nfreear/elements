@@ -17,6 +17,10 @@ export function getOpt (key = null) {
   return key && key in $_OPTIONS.$$ ? $_OPTIONS.$$[key] : $_OPTIONS.$$;
 }
 
+/* export function setOpt (key, value = null) {
+  $_OPTIONS.$$[key] = value;
+} */
+
 /* export function setVersion (version) {
   $_OPTIONS.$$.version = version;
 } */
@@ -25,7 +29,9 @@ export function getOpt (key = null) {
  * @private
  */
 export function setupOptions (options) {
-  $_OPTIONS.$$ = options;
+  const DEFAULTS = $_OPTIONS.$$;
+
+  $_OPTIONS.$$ = { ...options, ...DEFAULTS };
 }
 
 /**
