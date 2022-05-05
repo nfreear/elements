@@ -1,12 +1,12 @@
 <meta name="robots" content="noindex">
 
 <!--
-  @TODO ~ Replace hard-coded date-text!
+  @TODO ~ Monitor hard-coded date-text!
+  @see https://github.com/nfreear/gaad-widget/blob/3.x/data/gaad.json
 -->
 <template>
   <style>
   .gaad-widget-js {
-    /* background: url('./gaad-logo.svg') #00385e no-repeat 0.35rem center; */
     background-color: var(--my-gaad-bg-color, #00385e);
     background-image: url('https://unpkg.com/gaad-widget@3.4.0/style/gaad-logo.svg');
     background-position: .35rem center;
@@ -19,21 +19,11 @@
     font: normal 1rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6em;
     margin: 0 auto 1.5em;
-    max-width: 39rem;
+    max-width: 40rem;
     min-height: 2rem;
     padding: 0.8em;
     padding-left: 67px;
     text-align: center;
-  }
-
-  .gaad-widget-js.black {
-    background-color: #333;
-  }
-  .gaad-widget-js.fontsize-1-em {
-    font-size: 1em;
-  }
-  .gaad-widget-js.fontsize-1-2em {
-    font-size: 1.2em;
   }
 
   .gaad-widget-js a {
@@ -78,9 +68,7 @@
   .gaad-widget-js .w .c {
     padding-left: 5px;
   }
-  .gaad-widget-js.put-hide .p {
-    display: none;
-  }
+  .gaad-widget-js.put-hide .p,
   .gaad-widget-js.ical-hide .c {
     display: none;
   }
@@ -94,15 +82,36 @@
       padding-left: 64px;
     }
   }
+
+  .gaad-widget-js .tx {
+    display: none;
+    font-style: normal;
+  }
+
+  [ data-year = '2022' ] .y2022,
+  [ data-year = '2023' ] .y2023,
+  [ data-year = '2024' ] .y2024,
+  [ data-year = '2025' ] .y2025,
+  [ data-year = '2026' ] .y2026 {
+    display: inline;
+  }
   </style>
 
   <div
     lang="en" dir="ltr"
-    id="id-gaad-widget"
-    class="gaad-widget-js blue no-embed is-before  put-hide"
+    class="gaad-widget-js put-hide"
     role="alert"
-    >Join us on Thursday May 19th, 2022 and mark the 11th
-    <a href="https://globalaccessibilityawarenessday.org/?utm_source=github&amp;utm_campaign=gaad-widget" target="_top" title="Global Accessibility Awareness Day (GAAD)"
+    data-year=""
+    >
+    Join us on Thursday May
+
+    <i class="tx y2022">19th, 2022 and mark the 11th</i>
+    <i class="tx y2023">18th, 2023 and mark the 12th</i>
+    <i class="tx y2024">16th, 2024 and mark the 13th</i>
+    <i class="tx y2025">15th, 2025 and mark the 14th</i>
+    <i class="tx y2026">21st, 2026 and mark the 15th</i>
+
+    <a href="https://accessibility.day/?utm_source=github&amp;utm_campaign=gaad-widget" target="_top" title="Global Accessibility Awareness Day (GAAD)"
     >Global Accessibility Awareness Day (GAAD)</a>.
     <div class="w">
       <a class="p" href="https://github.com/nfreear/gaad-widget#usage" aria-label="Put gaad-widget on your web site" title="Put gaad-widget on your web site (v3.4.0)" target="_top">↓</a>

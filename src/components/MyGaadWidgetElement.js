@@ -6,7 +6,7 @@
  * @see https://github.com/nfreear/gaad-widget
  * @copyright © Nick Freear, 05-May-2022.
  *
- * @TODO ~ Replace hard-coded date-text!
+ * @TODO ~ Monitor hard-coded date-text in template!
  */
 
 import { MyElement } from '../MyElement.js';
@@ -19,13 +19,15 @@ export class MyGaadWidgetElement extends MyElement {
   }
 
   async connectedCallback () {
-    // const name = this.getAttribute('name') || 'A name attribute';
+    const YEAR = new Date().getFullYear();
 
     if (this._shouldShow()) {
       await this.getTemplate('my-gaad-widget');
+
+      this._setDataYear(YEAR);
     }
 
-    console.debug('my-gaad-widget:', this._shouldShow(), this);
+    console.debug('my-gaad-widget:', YEAR, this._shouldShow(), this);
   }
 
   _shouldShow () {
@@ -34,6 +36,13 @@ export class MyGaadWidgetElement extends MyElement {
     const FORCE = /gaad=force/.test(location.search);
 
     return IS_MAY || FORCE;
+  }
+
+  _setDataYear (year) {
+    // const YEAR = new Date().getFullYear();
+    const WRAP = this.shadowRoot.querySelector('.gaad-widget-js');
+
+    WRAP.setAttribute('data-year', year);
   }
 }
 
