@@ -3,7 +3,7 @@
 
 <template id="my-skip-link-template">
   <style>
-    a[ href ] {
+  a[ href ] {
     font: 1.1rem sans-serif;
     height: 1px;
     width: 1px;
@@ -13,7 +13,7 @@
     top: 3px;
   }
   a:focus {
-    background: lightyellow; /* #ffffe0 */
+    background: var(--my-skip-background, lightyellow); /* #ffffe0 */
     border: 2px solid darkorange;
     border-radius: .25rem;
     color: blue;
@@ -21,11 +21,10 @@
     width: auto;
     padding: .5rem;
     transition: all .5s;
+    /* Fix: ensure link appears on top of other absolute/relative content. */
+    z-index: 999;
   }
   </style>
 
   <a href="#main-content"><slot> Skip to main content </slot></a>
 </template>
-
-
-<script></script>
