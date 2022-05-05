@@ -1,0 +1,113 @@
+<meta name="robots" content="noindex">
+
+<!--
+  @TODO ~ Replace hard-coded date-text!
+-->
+<template>
+  <style>
+  .gaad-widget-js {
+    /* background: url('./gaad-logo.svg') #00385e no-repeat 0.35rem center; */
+    background-color: var(--my-gaad-bg-color, #00385e);
+    background-image: url('https://unpkg.com/gaad-widget@3.4.0/style/gaad-logo.svg');
+    background-position: .35rem center;
+    background-repeat: no-repeat;
+    background-size: 3.8rem;
+    border: var(--my-gaad-border, 3px solid #f8c958);
+    border-radius: 7px;
+    color: var(--my-gaad-color, #fff);
+    display: block;
+    font: normal 1rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6em;
+    margin: 0 auto 1.5em;
+    max-width: 39rem;
+    min-height: 2rem;
+    padding: 0.8em;
+    padding-left: 67px;
+    text-align: center;
+  }
+
+  .gaad-widget-js.black {
+    background-color: #333;
+  }
+  .gaad-widget-js.fontsize-1-em {
+    font-size: 1em;
+  }
+  .gaad-widget-js.fontsize-1-2em {
+    font-size: 1.2em;
+  }
+
+  .gaad-widget-js a {
+    border-bottom: 2px dotted transparent;
+    color: var(--my-gaad-color, #fff);
+    text-decoration: underline;
+  }
+
+  .gaad-widget-js a:hover,
+  .gaad-widget-js a:focus {
+    border-color: var(--my-gaad-color, #fff);
+    color: #eee;
+    transition: all .7s;
+  }
+
+  .gaad-widget-js .w {
+    bottom: -8px;
+    display: block;
+    float: right;
+    position: relative;
+    right: -10px;
+  }
+  .gaad-widget-js .w a {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #ccc;
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 0 1px;
+    text-decoration: none;
+  }
+  .gaad-widget-js .w a:hover,
+  .gaad-widget-js .w a:focus {
+    background: #123;
+    border-color: #fff;
+    color: #fff;
+  }
+  .gaad-widget-js .w .p {
+    border-bottom: 2px dotted #ccc;
+    padding: 1px 9px 0;
+  }
+  .gaad-widget-js .w .c {
+    padding-left: 5px;
+  }
+  .gaad-widget-js.put-hide .p {
+    display: none;
+  }
+  .gaad-widget-js.ical-hide .c {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .gaad-widget-js.no-embed {
+      background-size: 3.4rem;
+      border-width: 2px;
+      X-font-size: 1.05em;
+      padding: 0.5em;
+      padding-left: 64px;
+    }
+  }
+  </style>
+
+  <div
+    lang="en" dir="ltr"
+    id="id-gaad-widget"
+    class="gaad-widget-js blue no-embed is-before  put-hide"
+    role="alert"
+    >Join us on Thursday May 19th, 2022 and mark the 11th
+    <a href="https://globalaccessibilityawarenessday.org/?utm_source=github&amp;utm_campaign=gaad-widget" target="_top" title="Global Accessibility Awareness Day (GAAD)"
+    >Global Accessibility Awareness Day (GAAD)</a>.
+    <div class="w">
+      <a class="p" href="https://github.com/nfreear/gaad-widget#usage" aria-label="Put gaad-widget on your web site" title="Put gaad-widget on your web site (v3.4.0)" target="_top">↓</a>
+      <a class="c" href="https://unpkg.com/gaad-widget@^3/data/gaad.en.ics" aria-label="Download an iCal calendar file" title="Download an iCal calendar file"
+      >📆</a>
+    </div>
+  </div>
+</template>
