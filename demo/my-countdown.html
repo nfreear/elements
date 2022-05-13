@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><title>my-countdown</title>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="style/app.css" />
+
+<style>
+:root {
+  --my-countdown-bg-label: #ddd;
+  --my-countdown-bg-num: #eee;
+}
+
+my-countdown {
+  border: 1px solid #ddd;
+  font: 1.1rem Georgia, serif;
+  margin: 1rem 0;
+  padding: .25rem;
+
+  X-background: yellow;
+  X-color: red;
+}
+
+my-countdown,
+my-countdown > .ft {
+  display: inline-block;
+  width: 13.5rem;
+}
+
+.big {
+  font-size: 1.8rem;
+}
+.big,
+.big .ft {
+  width: 22rem;
+}
+</style>
+
+<my-page>
+  <h2> my-countdown </h2>
+
+  <p></p>
+
+  <my-countdown class="big" datetime="2022-12-31 23:59:59"><div class="ft">Until midnight on 31<sup>st</sup> December 2022</div></my-countdown>
+
+  <my-code>
+  &lt;my-countdown
+    datetime="2022-12-31 23:59:59"
+    >Until midnight on 31st December 2022
+  &lt;/my-countdown>
+</my-code>
+</my-page>
+
+<script type="module" src="./app.js"></script>
+
+</html>

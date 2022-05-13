@@ -25,6 +25,7 @@ export { MyAtbarButtonElement } from './src/components/MyAtbarButtonElement.js';
 export { MyFontElement } from './src/components/MyFontElement.js';
 export { MySearchElement } from './src/components/MySearchElement.js';
 export { MyGaadWidgetElement } from './src/components/MyGaadWidgetElement.js';
+export { MyCountdownElement } from './src/components/MyCountdownElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
