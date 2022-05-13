@@ -1,0 +1,83 @@
+<!--
+  International Stuttering Awareness Day (ISAD).
+
+  https://github.com/nfreear/isad-widget
+
+  NDF, 06-May-2022.
+-->
+
+<template>
+  <style>
+  .isad-widget-js {
+    background-color: #f8f8f8;
+    background-image: url('https://unpkg.com/isad-widget@1.1.2/style/Teal_ribbon.svg');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 3px solid #82e0cd;
+    border-radius: 6px;
+    color: #16846d;
+    font: 1.1em sans-serif;
+    line-height: 1.6em;
+    margin: 0 0 1.5em;
+    min-height: 3em;
+    padding: 1em 45px 1em 8px;
+  }
+  .isad-widget-js:hover {
+    background-color: #fff;
+  }
+  .isad-widget-js i {
+    font-style: normal;
+  }
+  .isad-widget-js em {
+    font-style: italic;
+  }
+  .isad-widget-js .i-p1 {
+    display: block;
+  }
+  .isad-widget-js .i-conf,
+  .isad-widget-js .i-theme {
+    display: inline-block;
+    font-size: .95em;
+    padding-right: .3em;
+  }
+  .isad-widget-js a {
+    color: #16846d;
+    text-decoration: underline;
+  }
+  .isad-widget-js a:hover,
+  .isad-widget-js a:focus {
+    border-bottom: 2px dotted gray;
+  }
+  .isad-widget-js .sr-only,
+  .isad-widget-js a i {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+  }
+  .isad-widget-js.bsa {
+    border-color: #A1282B;
+    color: #222;
+  }
+  .isad-widget-js.bsa a {
+    color: #444;
+  }
+  </style>
+
+  <div
+    id="isad-widget"
+    data-isad-widget='{ "debug":true, "X-point_bsa":true, "X-days_before":100 }'
+    lang="en" dir="ltr"
+    role="alert"
+    class="isad-widget-js"
+    >
+    <i class="i-p1">The 22nd October is
+      <a href="http://isastutter.org/what-we-do/isad?utm_source=github&amp;utm_campaign=isad-widget"
+        >International Stuttering Awareness Day (ISAD)
+      </a>.
+    </i>
+    <em class="i-theme">2017 theme: <q>a world that understands stuttering.</q></em>
+  </div>
+</template>
