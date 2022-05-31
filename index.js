@@ -26,6 +26,9 @@ export { MyFontElement } from './src/components/MyFontElement.js';
 export { MySearchElement } from './src/components/MySearchElement.js';
 export { MyGaadWidgetElement } from './src/components/MyGaadWidgetElement.js';
 export { MyCountdownElement } from './src/components/MyCountdownElement.js';
+// export { MyNoCookieElement } from './src/components/MyNoCookieElement.js';
+export { MyLiveEditorElement } from './src/components/MyLiveEditorElement.js';
+// export { MyHelloRusElement } from './src/components/MyHelloRusElement.js';
 
 export { MyElement } from './src/MyElement.js';
 

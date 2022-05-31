@@ -1,0 +1,44 @@
+<!doctype html> <title> my-live-editor </title>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="style/app.css" />
+
+<my-page>
+  <h2> my-live-editor </h2>
+
+  <my-live-editor><style>
+p {
+  /* Change me! */
+  font-size: 24px;
+}
+</style>
+
+<p>
+  <span style="font-size: 1em">
+    This
+  </span>
+  <span style="font-size: 0.8em">
+    sentence
+  </span>
+  <span style="font-size: 0.6em">
+    is
+  </span>
+</p>
+
+<button>Hi</button>
+<script>
+setTimeout(() => {
+  ROOT.addEventListener('click', ev => {
+    console.warn('Live click:', ev);
+    // alert('Click!');
+  });
+  console.debug('OK');
+},
+1000);
+</script>
+</my-live-editor>
+
+</my-page>
+
+<script type="module" src="./app.js"></script>
