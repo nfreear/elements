@@ -6,8 +6,9 @@
   :host > .container {
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    line-height: 1.5;
   }
+
   @media (min-width: 960px) {
     :host > .container {
       flex-direction: row;
@@ -24,16 +25,17 @@
     border-radius: .2rem;
     display: block;
     height: calc(100% - 1.3rem);
-    X-margin-right: .1rem;
+    max-width: 100vw;
+    max-height: 28rem;
     min-height: 8rem;
     padding: .2rem;
   }
 
   .editor-pane {
     background: #fff;
+    line-height: 1.2;
     margin-right: .25rem;
-    font-size: .92rem;
-    font-family: monospace;
+    font: .88rem monospace;
     white-space: pre-wrap;
     word-break: keep-all;
     overflow-wrap: break-word;

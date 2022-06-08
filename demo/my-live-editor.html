@@ -10,7 +10,7 @@
   <my-live-editor><style>
 p {
   /* Change me! */
-  font-size: 24px;
+  font-size: 36px;
 }
 </style>
 
@@ -18,19 +18,20 @@ p {
   <span style="font-size: 1em">
     This
   </span>
-  <span style="font-size: 0.8em">
+  <span style="font-size: .8em">
     sentence
   </span>
-  <span style="font-size: 0.6em">
-    is
+  <span style="font-size: .6em">
+    is &hellip;?
   </span>
 </p>
 
 <button>Hi</button>
+
 <script>
 setTimeout(() => {
   ROOT.addEventListener('click', ev => {
-    console.warn('Live click:', ev);
+    console.log('Click:', ev);
     // alert('Click!');
   });
   console.debug('OK');

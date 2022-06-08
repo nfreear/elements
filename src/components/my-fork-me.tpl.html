@@ -15,8 +15,15 @@
   .orange:before {
     background-color: #f80;
   }
+
   .github-fork-ribbon:before {
     background-color: var(--my-fork-me-color, #c00);
+  }
+
+  .github-fork-ribbon:focus:before,
+  .github-fork-ribbon:hover:before {
+    background-color: var(--my-fork-me-focus-color, #e00);
+    transition: all .7s;
   }
   </style>
 

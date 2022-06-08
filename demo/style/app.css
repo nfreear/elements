@@ -18,7 +18,8 @@
   --my-spinner-darken: 30%;
   --my-spinner-size: 40vh; /* Was: 12rem; */
 
-  --my-fork-me-color: #070; /* Green */
+  --my-fork-me-color: #060; /* Green */
+  --my-fork-me-focus-color: #080;
 }
 
 /* Fix Unstyled Flash of Content (FOUC).
@@ -33,6 +34,10 @@ html.fouc.end {
 }
 
 .XX:not(:defined) { opacity: 0; }
+
+* {
+  border-radius: .2rem;
+}
 
 body > pre {
   display: none;

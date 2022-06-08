@@ -12,6 +12,7 @@ const STYLES = `
 .countdown { display: inline-block; line-height: 1.6; }
 .countdown > * { text-align: center; }
 span { background: var(--my-countdown-bg-num, transparent); display: inline-block; margin: 0 1.5%; width: 29%; }
+.with-seconds span { width: 22%; }
 tx { background: var(--my-countdown-bg-label, transparent); display: block; font-size: 75%; padding: .25rem 0; }
 num { display: block; font-size: 200%; min-height: 3rem; padding: .5rem 0; }
 footer { font-size: 70%; margin: .6rem 0; }
@@ -37,6 +38,8 @@ export class MyCountdownElement extends MyElement {
 
   async connectedCallback () {
     const datetime = this.getAttribute('datetime') || '2022-12-31 23:59:59';
+    const showSeconds = this.getAttribute('show-seconds') === 'true';
+
 
     const countdown = this._calculate(datetime);
     const ELEM = document.createElement('div');
@@ -44,7 +47,7 @@ export class MyCountdownElement extends MyElement {
 
     ELEM.innerHTML = this._template(countdown);
     ELEM.classList.add('countdown');
-    // ELEM.classList.add('red');
+    ELEM.classList.add(`${showSeconds ? 'with': 'no'}-seconds`);
     STYLE_EL.textContent = STYLES;
 
     this.attachShadow({ mode: 'open' }).appendChild(STYLE_EL);
@@ -64,12 +67,13 @@ export class MyCountdownElement extends MyElement {
   }
 
   _template (countdown) {
-    const { days, hours, minutes, deadline } = countdown;
+    const { days, hours, minutes, seconds, deadline } = countdown;
 
     return `
     <span class="dd"><num>${days}</num> <tx>days</tx></span>
     <span class="hh"><num>${hours}</num> <tx>hours</tx></span>
     <span class="mm"><num>${minutes}</num> <tx>minutes</tx></span>
+    <span class="ss"><num>${seconds}</num> <tx>seconds</tx></span>
     <footer><time datetime="${deadline}"><slot></slot></time></footer>
     `;
   }
