@@ -1,0 +1,104 @@
+
+<template>
+  <style>
+  table {
+    border: 1px solid #ddd; line-height: 2; X-width: 99%;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    min-width: 3.5rem;
+    text-align: center;
+  }
+  th {
+    background: #eee; color: #444;
+  }
+  button, summary {
+    cursor: pointer; font: inherit; padding: .2rem .5rem;
+  }
+  summary {
+    border: 1px solid #ccc; display: inline-block;
+  }
+
+  .details-inner {
+    border: 1px solid #ccc;
+    padding: .5rem;
+    position: absolute;
+  }
+
+  my-date-picker * {
+    border-radius: .2rem;
+    outline-offset: .3rem;
+    transition: all 500ms;
+  }
+
+  [ aria-current ] {
+    background: #eee;
+    color: #a00;
+    font-weight: bold;
+  }
+  [ aria-current ]:after {
+    content: ' [c]';
+    font-size: x-small;
+  }
+
+  [ aria-selected = true ] {
+    background: #ddd;
+    color: #080;
+    font-weight: bold;
+  }
+  [ aria-selected = true ]:after {
+    content: ' [s]';
+    font-size: x-small;
+  }
+
+  [ role = gridcell ][ tabindex ] {
+    cursor: pointer;
+  }
+
+  [ role = gridcell ][ tabindex ]:hover,
+  [ role = gridcell ][ tabindex ]:focus {
+    background: #eee;
+    border-color: black;
+  }
+  </style>
+
+  <details>
+    <summary><slot>📅 calendar</slot></summary>
+
+    <div class="details-inner">
+
+    <button class="prev">&larr; Previous</button>
+    <button class="next">Next &rarr;</button>
+
+    <table>
+      <caption>
+        <time datetime="2022-06">June 2022</time>
+      </caption>
+      <thead>
+        <tr>
+          <th>Sun</th> <th>Mon</th> <th>Tue</th> <th>Wed</th> <th>Thu</th> <th>Fri</th> <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody role="grid">
+        <tr>
+          <td>29</td> <td>30</td> <td>31</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td>
+        </tr>
+        <tr>
+          <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td> <td>11</td>
+        </tr>
+        <tr>
+          <td>12</td> <td>13</td> <td>14</td> <td>15</td> <td>16</td> <td>17</td> <td>18</td>
+        </tr>
+        <tr>
+          <td>19</td> <td>20</td> <td>21</td> <td>22</td> <td>23</td> <td>24</td> <td>25</td>
+        </tr>
+        <tr>
+          <td>26</td> <td>27</td> <td>28</td> <td>29</td> <td>30</td> <td>1</td> <td>2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    </div>
+  </details>
+</template>

@@ -29,6 +29,7 @@ export { MyCountdownElement } from './src/components/MyCountdownElement.js';
 // export { MyNoCookieElement } from './src/components/MyNoCookieElement.js';
 export { MyLiveEditorElement } from './src/components/MyLiveEditorElement.js';
 // export { MyHelloRusElement } from './src/components/MyHelloRusElement.js';
+export { MyDatePickerElement } from './src/components/MyDatePickerElement.js';
 
 export { MyElement } from './src/MyElement.js';
 

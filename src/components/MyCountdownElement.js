@@ -40,14 +40,13 @@ export class MyCountdownElement extends MyElement {
     const datetime = this.getAttribute('datetime') || '2022-12-31 23:59:59';
     const showSeconds = this.getAttribute('show-seconds') === 'true';
 
-
     const countdown = this._calculate(datetime);
     const ELEM = document.createElement('div');
     const STYLE_EL = document.createElement('style');
 
     ELEM.innerHTML = this._template(countdown);
     ELEM.classList.add('countdown');
-    ELEM.classList.add(`${showSeconds ? 'with': 'no'}-seconds`);
+    ELEM.classList.add(`${showSeconds ? 'with' : 'no'}-seconds`);
     STYLE_EL.textContent = STYLES;
 
     this.attachShadow({ mode: 'open' }).appendChild(STYLE_EL);
