@@ -30,7 +30,6 @@ export class MyUserThemeSwitchElement extends MyElement {
     const currentSetting = override || this._get() || prefersTheme;
 
     const TOGGLER = this.shadowRoot.querySelector('.dark-mode-toggler');
-    const BUTTONS = TOGGLER.querySelectorAll('button');
 
     const CURRENT_BTN = TOGGLER.querySelector(`[ data-theme = ${currentSetting} ]`);
 
@@ -39,23 +38,23 @@ export class MyUserThemeSwitchElement extends MyElement {
 
     TOGGLER.addEventListener('click', ev => this._clickHandler(ev));
 
-    console.debug('my-user-theme-switch:', this);
+    console.debug('my-user-theme-switch:', currentSetting, this);
   }
 
-  _apply(theme) {
+  _apply (theme) {
     document.documentElement.setAttribute('data-my-user-theme', theme);
   }
 
-  _save(theme) {
+  _save (theme) {
     localStorage.setItem('my-user-theme', theme);
     localStorage.setItem('my-user-theme.date', new Date().toISOString());
   }
 
-  _get() {
+  _get () {
     return localStorage.getItem('my-user-theme');
   }
 
-  _pressButton(BTN) {
+  _pressButton (BTN) {
     const BUTTONS = this.shadowRoot.querySelectorAll('button');
 
     // Reset.
@@ -64,7 +63,7 @@ export class MyUserThemeSwitchElement extends MyElement {
     BTN.setAttribute('aria-pressed', 'true');
   }
 
-  _clickHandler(ev) {
+  _clickHandler (ev) {
     ev.preventDefault();
 
     const THEME = ev.target.dataset.theme;
