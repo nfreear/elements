@@ -30,6 +30,7 @@ export { MyCountdownElement } from './src/components/MyCountdownElement.js';
 export { MyLiveEditorElement } from './src/components/MyLiveEditorElement.js';
 // export { MyHelloRusElement } from './src/components/MyHelloRusElement.js';
 export { MyDatePickerElement } from './src/components/MyDatePickerElement.js';
+export { MyUserThemeSwitchElement } from './src/components/MyUserThemeSwitchElement.js';
 
 export { MyElement } from './src/MyElement.js';
 

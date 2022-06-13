@@ -1,0 +1,100 @@
+
+<meta name="color-scheme" content="dark light">
+
+<template>
+  <style>
+  * {
+    X-border-radius: .25rem;
+    outline-offset: .5rem;
+    transition: all 150ms;
+  }
+
+  .dark-mode-toggler {
+    border: 2px solid pink;
+    border-radius: .25rem;
+    display: inline-block;
+  }
+  .dark-mode-toggler button {
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font: inherit;
+    padding: .6rem 0;
+    width: 6rem;
+  }
+  .dark-mode-toggler button:after {
+    content: ' '; /* &nbsp; */
+    display: inline-block;
+    min-width: .9rem;
+  }
+  .dark-mode-toggler [ aria-pressed = true  ] {
+    background: pink;
+    color: #111;
+  }
+  .dark-mode-toggler [ aria-pressed = true  ]:after {
+    content: '*';
+  }
+  </style>
+
+  <div class="dark-mode-toggler">
+    <button
+      data-theme="light" aria-pressed="false"
+      >Light
+    </button><button
+      data-theme="dark" aria-pressed="false"
+      >Dark
+    </button>
+  </div>
+</template>
+
+
+<template id="style">
+  <style id="my-user-theme-styles">
+  :root {
+    X-color-scheme: light dark; /* both supported */
+  }
+
+  [ data-my-user-theme = light ] {
+    --my-bg-color: #fdfdfd;
+    --my-text-color: #333;
+    --my-link-color: blue;
+    --my-stroke-color: red;
+  }
+
+  [ data-my-user-theme = dark ] {
+    --my-bg-color: #222;
+    --my-text-color: #fff;
+    --my-link-color: #adf; /* lightblue */
+    --my-stroke-color: pink;
+  }
+
+  * {
+    X-border-radius: .25rem;
+    outline-offset: .5rem;
+    transition: all 150ms;
+  }
+
+  body {
+    background-color: var(--my-bg-color);
+    color: var(--my-text-color);
+
+    font: 1rem/1.6 sans-serif;
+  }
+
+  a {
+    color: var(--my-link-color);
+    text-decoration: var(--my-stroke-color) wavy underline 3px;
+  }
+
+  /* @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #fff;
+    }
+    a {
+      color: lightblue;
+    }
+  } */
+
+  </style>
+</template>
