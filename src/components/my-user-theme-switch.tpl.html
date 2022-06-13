@@ -10,7 +10,7 @@
   }
 
   .dark-mode-toggler {
-    border: 2px solid pink;
+    border: 2px solid var(--my-stroke-color, pink);
     border-radius: .25rem;
     display: inline-block;
   }
@@ -28,7 +28,7 @@
     min-width: .9rem;
   }
   .dark-mode-toggler [ aria-pressed = true  ] {
-    background: pink;
+    background: var(--my-stroke-color, pink);
     color: #111;
   }
   .dark-mode-toggler [ aria-pressed = true  ]:after {
@@ -58,32 +58,25 @@
     --my-bg-color: #fdfdfd;
     --my-text-color: #333;
     --my-link-color: blue;
-    --my-stroke-color: red;
+    --my-stroke-color: darkorange;
   }
 
   [ data-my-user-theme = dark ] {
     --my-bg-color: #222;
     --my-text-color: #fff;
     --my-link-color: #adf; /* lightblue */
-    --my-stroke-color: pink;
-  }
-
-  * {
-    X-border-radius: .25rem;
-    outline-offset: .5rem;
-    transition: all 150ms;
+    --my-stroke-color: orange; /* pink */
   }
 
   body {
     background-color: var(--my-bg-color);
     color: var(--my-text-color);
-
-    font: 1rem/1.6 sans-serif;
   }
 
   a {
     color: var(--my-link-color);
-    text-decoration: var(--my-stroke-color) wavy underline 3px;
+    text-decoration: var(--my-stroke-color) underline 1px;
+    /* text-decoration: orange wavy underline 3px; */
   }
 
   /* @media (prefers-color-scheme: dark) {
@@ -95,6 +88,5 @@
       color: lightblue;
     }
   } */
-
   </style>
 </template>
