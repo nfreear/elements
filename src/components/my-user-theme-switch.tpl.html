@@ -4,14 +4,12 @@
 <template>
   <style>
   * {
-    X-border-radius: .25rem;
-    outline-offset: .5rem;
     transition: all 150ms;
   }
 
   .dark-mode-toggler {
     border: 2px solid var(--my-stroke-color, pink);
-    border-radius: .25rem;
+    border-radius: .2rem;
     display: inline-block;
   }
   .dark-mode-toggler button {
@@ -19,13 +17,17 @@
     border-radius: 0;
     cursor: pointer;
     font: inherit;
-    padding: .6rem 0;
-    width: 6rem;
+    padding: .6rem 1rem;
+    outline-offset: .3rem;
+    min-width: 4rem;
+  }
+  .layout-compact button {
+    padding: .1rem .5rem;
   }
   .dark-mode-toggler button:after {
     content: ' '; /* &nbsp; */
     display: inline-block;
-    min-width: .9rem;
+    min-width: .5rem;
   }
   .dark-mode-toggler [ aria-pressed = true  ] {
     background: var(--my-stroke-color, pink);
@@ -36,7 +38,7 @@
   }
   </style>
 
-  <div class="dark-mode-toggler">
+  <span class="dark-mode-toggler">
     <button
       data-theme="light" aria-pressed="false"
       >Light
@@ -44,7 +46,7 @@
       data-theme="dark" aria-pressed="false"
       >Dark
     </button>
-  </div>
+  </span>
 </template>
 
 

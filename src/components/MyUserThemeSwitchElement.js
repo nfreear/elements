@@ -17,6 +17,7 @@ export class MyUserThemeSwitchElement extends MyElement {
 
   async connectedCallback () {
     const addStyle = this.getAttribute('add-style') === 'true';
+    const isCompact = this.getAttribute('layout') === 'compact';
 
     const TEMPLATES = await this.getTemplate('my-user-theme-switch');
 
@@ -35,6 +36,8 @@ export class MyUserThemeSwitchElement extends MyElement {
 
     this._pressButton(CURRENT_BTN);
     this._apply(currentSetting);
+
+    TOGGLER.classList.add(`layout-${isCompact ? 'compact' : 'normal'}`);
 
     TOGGLER.addEventListener('click', ev => this._clickHandler(ev));
 
