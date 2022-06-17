@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <title> E-Book Search </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+  * {
+    border-radius: .2rem;
+    outline-offset: .15rem;
+    transition: all 250ms;
+  }
+  body {
+    background: #f8f8f8;
+    color: #333;
+    font: 1.05rem/1.6 sans-serif;
+    margin: .1rem auto;
+    max-width: 32rem;
+    padding: 0;
+  }
+  h1 {
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0;
+    margin-left: .9rem;
+  }
+  button {
+    cursor: pointer;
+  }
+  .visibly-hidden,
+  label[ for = gsc-i-id1 ] {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    X-clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .my-loading {
+    font-size: 1.1rem;
+    margin: 25vh 0;
+    text-align: center;
+  }
+  sep {
+    color: #888;
+    display: inline-block;
+    margin: 0 .6rem;
+  }
+
+  body .gsc-search-button-v2 {
+    padding: .6rem 27px;
+  }
+
+  .gsc-adBlock iframe {
+    opacity: 0.65;
+    X-zoom: 0.5;
+    transition: all 500ms;
+  }
+  .gsc-adBlock iframe:hover,
+  .gsc-adBlock iframe:focus {
+    opacity: 1;
+  }
+
+  .gsc-results .gsc-cursor-box .gsc-cursor-page {
+    display: inline-block;
+    font-size: 1rem;
+    X-border-bottom: 1px solid #999;
+    padding: .1rem .4rem;
+    text-decoration: underline !important;
+  }
+  </style>
+
+
+  <header>
+    <h1> E-Book Search </h1>
+
+    <sep>|</sep>
+    <a id="skip-to-results" href="#_search_result"
+      >Go to results</a>
+  </header>
+
+  <main>
+    <my-search cx="b326508aa8e80791b" label="e-Book Search">
+      <p class="my-loading"> Loading &hellip; </p>
+    </my-search>
+  </main>
+
+
+  <my-options template-host="ghp" use="my-search"></my-options>
+
+  <script type="module" src="https://nfreear.github.io/elements/custom.js"></script>
+
+  <script type="module">
+  const SKIP_LINK = document.querySelector('#skip-to-results');
+
+  SKIP_LINK.addEventListener('click', ev => {
+    ev.preventDefault();
+
+    const RESULT_EL = document.querySelector('.gsc-tabdActive .gsc-result:first-child');
+
+    if (RESULT_EL) {
+      RESULT_EL.setAttribute('tabindex', '-1');
+      RESULT_EL.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      setTimeout(() => RESULT_EL.focus(), 500);
+    }
+
+    console.debug('Skip:', RESULT_EL, ev);
+  });
+  </script>
+</html>
