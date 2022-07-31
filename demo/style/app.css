@@ -1,4 +1,5 @@
 
+@import '../../src/style/my-busy-spinner.css';
 
 :root {
   /* <my-star-rating>
@@ -12,11 +13,13 @@
   /* <my-busy-spinner>
   */
   --my-spinner-duration: 1.5s;
-  --X-spinner-color: #44f; /* hsl(240, 100%, 63%) */ /* teal hsl(180, 100, 25) */
+  --my-spinner-color: #135; /* hsl(240, 100%, 63%) */ /* teal hsl(180, 100, 25) */
   --my-spinner-hue: 240deg;
   --my-spinner-lightness: 63%;
   --my-spinner-darken: 30%;
-  --my-spinner-size: 40vh; /* Was: 12rem; */
+  --my-spinner-size: 20vh; /* Was: 12rem; 40vh */
+  --my-spinner-stroke: 2vh; /* .7rem */
+  --my-spinner-text: 'Loading. \APlease wait…';
 
   --my-fork-me-color: #060; /* Green */
   --my-fork-me-focus-color: #080;

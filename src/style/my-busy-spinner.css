@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+/**
+ *
+ * @author NDF, 26-Jun-2022.
+ * @see https://gist.github.com/nfreear/a71bfce05ef9bae03011ea33762c9d69
+ */
+
+.my-busy-spinner {
+  X-opacity: 0.3;
+}
+
+my-busy-spinner:before,
+.my-busy-spinner:before {
+  display: block;
+  position: absolute;
+  z-index: 999;
+  content: '';
+  border: var(--my-spinner-stroke, 8px) solid #c0c0c0;
+  border-top: var(--my-spinner-stroke, 8px) solid var(--my-spinner-color, black);
+  border-radius: 50%;
+  box-sizing: border-box;
+  width: var(--my-spinner-size, 60px);
+  height: var(--my-spinner-size, 60px);
+  animation: Spin 2s linear infinite;
+  top: 50vh;
+  left: 50%;
+  margin-top: calc(-0.5 * var(--my-spinner-size, 60px));
+  margin-left: calc(-0.5 * var(--my-spinner-size, 60px));
+}
+
+@keyframes Spin {
+  from { transform: rotate(0);     }
+  50%  { /* width: 2rem; height: 2rem; */ }
+  to   { transform: rotate(1turn); }
+}
+
+my-busy-spinner:after,
+.my-busy-spinner:after,
+[ lang ^= en ] .my-busy-spinner:after {
+  display: block;
+  position: absolute;
+  z-index: 998;
+  background: rgba(252, 252, 252, 0.8);
+  color: var(--my-spinner-color, black);
+  content: var(--my-spinner-text, 'Loading…');
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  padding-left: .5rem;
+  padding-top: calc(50vh + 1rem + calc(0.5 * var(--my-spinner-size, 60px)));
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.my-busy-spinner.lang-fr:after,
+[ XX-lang ^= fr ] .my-busy-spinner:after {
+  content: var(--my-spinner-text-fr, "Chargement. \AS’il vous plaît, attendez.");
+}
+
+.my-busy-spinner.lang-zh:after,
+[ XX-lang ^= zh ] .my-busy-spinner:after {
+  content: var(--my-spinner-text-zh, '正在加载。请稍等');
+}
