@@ -68,6 +68,41 @@
     outline: 3px solid var(--my-map-focus-color, navy) !important;
     outline-offset: 1px;
   }
+
+  .my-button.leaflet-control {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+  }
+
+  .my-icon {
+    height: 1.8rem !important;
+    width: 1.8rem !important;
+  }
+  .my-icon button {
+    border: none;
+    border-radius: .2rem;
+    background-color: transparent;
+    cursor: pointer;
+    padding: .2rem;
+  }
+  .my-button svg,
+  .my-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .my-button use,
+  .my-icon use {
+    fill: var(--my-map-marker-color, navy);
+  }
+
+  /* leaflet-messagebox.css */
+  .leaflet-control-messagebox {
+	  display: none; /* Initially hidden */
+	  border: 2px solid red;
+	  background-color: white;
+	  padding: 3px 10px;
+  }
   </style>
 
   <div id="desc" class="map-desc"><slot> Description of the map. </slot></div>
@@ -76,10 +111,32 @@
     <p class="my-loading">Loading map…</p>
   </div>
 
-  <script>
-    // console.debug('Hello world!');
-  </script>
+  <!-- <button id="locate-btn" aria-label="Locate me" class="my-button">
+    <svg viewBox="0 0 512 512"><use href="#fa-crosshairs"/></svg>
+  </button> -->
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+    <defs>
+      <path id="fa-location-dot" d=
+      "M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"
+      />
+      <!-- viewBox="0 0 320 512" -->
+      <path id="fa-map-pin" d=
+      "M320 144C320 223.5 255.5 288 176 288C96.47 288 32 223.5 32 144C32 64.47 96.47 0 176 0C255.5 0 320 64.47 320 144zM192 64C192 55.16 184.8 48 176 48C122.1 48 80 90.98 80 144C80 152.8 87.16 160 96 160C104.8 160 112 152.8 112 144C112 108.7 140.7 80 176 80C184.8 80 192 72.84 192 64zM144 480V317.1C154.4 319 165.1 319.1 176 319.1C186.9 319.1 197.6 319 208 317.1V480C208 497.7 193.7 512 176 512C158.3 512 144 497.7 144 480z"
+      />
+      <!-- viewBox="0 0 512 512" -->
+      <path id="fa-crosshairs" data-fa="location-crosshairs" d=
+      "M176 256C176 211.8 211.8 176 256 176C300.2 176 336 211.8 336 256C336 300.2 300.2 336 256 336C211.8 336 176 300.2 176 256zM256 0C273.7 0 288 14.33 288 32V66.65C368.4 80.14 431.9 143.6 445.3 224H480C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H445.3C431.9 368.4 368.4 431.9 288 445.3V480C288 497.7 273.7 512 256 512C238.3 512 224 497.7 224 480V445.3C143.6 431.9 80.14 368.4 66.65 288H32C14.33 288 0 273.7 0 256C0 238.3 14.33 224 32 224H66.65C80.14 143.6 143.6 80.14 224 66.65V32C224 14.33 238.3 0 256 0zM128 256C128 326.7 185.3 384 256 384C326.7 384 384 326.7 384 256C384 185.3 326.7 128 256 128C185.3 128 128 185.3 128 256z"
+      />
+    </defs>
+  </svg>
 </template>
+
+<!--!
+  Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com
+  License - https://fontawesome.com/license (Commercial License)
+  Copyright 2022 Fonticons, Inc.
+-->
 
 
 <!--<pre>

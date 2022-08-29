@@ -60,12 +60,14 @@ export class MyMapElement extends MyElement {
       await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
     }
 
-    // this._accessibilityFixes();
+    this._accessibilityFixes();
+  }
+
+  get _leaflet () {
+    return this.$$.L;
   }
 
   async loadGeoJson (geojson) {
-    const L = await leafletViaCdn();
-
     const resp = await fetch(geojson); // './data/landmarks.geo.json');
     const geoJsonFeatures = await resp.json();
 
@@ -73,21 +75,12 @@ export class MyMapElement extends MyElement {
     // const template = document.getElementById('geojson');
     // const geoJsonFeatures = JSON.parse(template.content.textContent);
 
-    let count = 0;
+    let count = 1;
 
-    const res = L.geoJSON(geoJsonFeatures,
+    const res = this._leaflet.geoJSON(geoJsonFeatures,
       {
-        pointToLayer: (feature, latlng) => {
-          // console.debug('pointToLayer:', feature, latlng);
-          const NAME = feature.properties.name;
-          count++;
+        pointToLayer: (feat, latLng) => this._svgMarker(feat, latLng, count++),
 
-          return L.marker(latlng, {
-            alt: `Marker ${count}: ${NAME}`, // Accessibility !!
-            // title: `Marker ${count}: ${NAME}`,
-            icon: this._markerIcon()
-          });
-        },
         onEachFeature: (feature, layer) => {
         // does this feature have a property named popupContent?
           if (feature.properties && feature.properties.popupContent) {
@@ -102,6 +95,27 @@ export class MyMapElement extends MyElement {
     return res;
   }
 
+  _svgMarker (feature, latLng, count) {
+    const name = feature.properties.name || '[none]';
+    const SVG_ID = 'fa-map-pin'; // 'fa-location-dot';
+
+    console.debug(`Marker ${count}: ${name}`, latLng, feature);
+
+    return this._leaflet.marker(latLng, {
+      draggable: false, // Accessibility fix (outline) ?
+      icon: this._leaflet.divIcon({
+        className: 'my-icon',
+        html: `<button aria-label="${name}">
+          <svg viewBox="0 0 384 512" aria-hidden="true">
+            <title>${name}</title>
+            <use href="#${SVG_ID}"/>
+          </svg>
+        </button>`
+      })
+    });
+  }
+
+  // DEPRECATED.
   _markerIcon () {
     const L = window.L;
 
@@ -115,9 +129,23 @@ export class MyMapElement extends MyElement {
   }
 
   _accessibilityFixes () {
-    const MARKERS = this.shadowRoot.querySelectorAll('.leaflet-marker-pane [ tabindex ]');
+    const MARKER_PANE = this.shadowRoot.querySelector('.leaflet-marker-pane');
+    const MARKERS = MARKER_PANE.querySelectorAll('.my-icon');
+    // const BUTTONS = MARKER_PANE.querySelectorAll('button');
 
-    MARKERS.forEach(marker => { marker.title = marker.alt; });
+    // MARKERS.forEach(marker => { marker.title = marker.alt; });
+    MARKERS.forEach(marker => {
+      marker.removeAttribute('tabindex');
+      marker.setAttribute('role', 'listitem');
+    });
+
+    /* setTimeout(() => {
+      BUTTONS.forEach(btn => { btn.style = ''; });
+    },
+    1000); */
+
+    MARKER_PANE.setAttribute('role', 'list');
+    MARKER_PANE.setAttribute('aria-label', 'Map markers');
   }
 
   _accessibilityFixPopup (ev) {
@@ -138,4 +166,4 @@ export class MyMapElement extends MyElement {
 
 MyMapElement.define();
 
-// Was: customElements.define('my-map', MyMap);
+// End.
