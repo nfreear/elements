@@ -15,6 +15,9 @@ import { MyElement } from '../MyElement.js';
 const { fetch } = window;
 // const L = window.L;
 
+// See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
+const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
 export class MyMapElement extends MyElement {
   static getTag () {
     return 'my-map';
@@ -26,10 +29,9 @@ export class MyMapElement extends MyElement {
     const zoom = parseInt(this.getAttribute('zoom') || 14);
     // const caption = this.getAttribute('caption') || 'A caption for the map.';
     const geojson = this.getAttribute('geojson') || null; // GeoJSON URL is relative to the HTML page!
-    const tileUrl = this.getAttribute('tileUrl') || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const attribution = this.getAttribute('attribute') || 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+    const attribution = null;
 
-    const ATTRS = { lat, long, zoom, geojson, tileUrl, attribution };
+    const ATTRS = { lat, long, zoom, geojson, tileUrl: this.tileUrl, attribution };
 
     await this._initialize(ATTRS);
 
@@ -49,8 +51,15 @@ export class MyMapElement extends MyElement {
     const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
 
     const tiles = L.tileLayer(attr.tileUrl, {
-      attribution: attr.attribution
+      apikey: this.apiKey,
+      attribution: this.attribution
     }).addTo(map);
+
+    L.control.scale({ maxWidth: 200 }).addTo(map);
+
+    /* L.DomEvent.on(tiles, 'tileerror', (ev) => {
+      console.error('Tile error:', ev);
+    }); */
 
     this.$$ = {
       ...attr, map, mapElem, tiles, L
@@ -65,6 +74,25 @@ export class MyMapElement extends MyElement {
 
   get _leaflet () {
     return this.$$.L;
+  }
+
+  get apiKey () {
+    const KEY = this.getAttribute('api-key') || null;
+    console.debug('my-map API key:', KEY);
+    return KEY;
+  }
+
+  get tileUrl () {
+    return this.getAttribute('tile-url') || this.getAttribute('tileUrl') || OSM_TILE_URL;
+  }
+
+  get attribution () {
+    const ATTR = this.getAttribute('attribution') || 'Map data &copy; {OSM} contributors, Imagery © {MB}';
+    return ATTR
+      .replace('{OSM}', '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+      .replace('{MB}', '<a href="https://www.mapbox.com/">Mapbox</a>')
+      .replace('{TF}', '<a href="http://www.thunderforest.com/">Thunderforest</a>')
+    ;
   }
 
   async loadGeoJson (geojson) {
