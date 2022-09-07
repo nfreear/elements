@@ -1,9 +1,11 @@
 <!doctype html><html lang="en" style="opacity:0"><title> my-busy-spinner </title>
 
+<meta charset="utf-8">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <link rel="stylesheet" href="style/app.css" />
+<!-- <link rel="stylesheet" href="../src/style/my-busy-spinner.css"> -->
 
 <my-page>
   <h2> my-busy-spinner </h2>
@@ -15,5 +17,13 @@
 </my-page>
 
 <script async type="module" src="../index.js"></script>
+
+<script>
+  const SPINNER = document.querySelector('my-busy-spinner');
+
+  setTimeout(() => SPINNER.setAttribute('hidden', ''), 2000);
+
+  setTimeout(() => SPINNER.removeAttribute('hidden'), 4000);
+</script>
 
 </html>
