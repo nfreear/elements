@@ -9,11 +9,11 @@
  * @WAS 'my-map.js'
  */
 
-import { leafletViaCdn } from '../external-cdn.js';
+// import { leafletViaCdn } from '../external-cdn.js';
 import { MyElement } from '../MyElement.js';
 
 const { fetch } = window;
-// const L = window.L;
+const LEAFLET_JS_CDN = 'https://unpkg.com/leaflet@1.9.1/dist/leaflet.js';
 
 // See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
 const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -46,7 +46,9 @@ export class MyMapElement extends MyElement {
 
     // this.shadowRoot.querySelector('#caption').textContent = attr.caption;
 
-    const L = await leafletViaCdn();
+    // Load non-module Javascript for side-effects (Leaflet added to window).
+    await import(LEAFLET_JS_CDN);
+    const { L } = window;
 
     const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
 
