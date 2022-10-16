@@ -8,7 +8,7 @@
 
 import { MyElement } from '../MyElement.js';
 
-const { crypto, fetch, location, postMessage, sessionStorage, URLSearchParams } = window;
+const { crypto, fetch, location, sessionStorage, URLSearchParams } = window;
 
 /* const KEY_STATE = 'my-indie-auth.state';
 const KEY_SUBMIT = 'my-indie-auth.submit';
@@ -58,7 +58,7 @@ export class MyIndieAuthElement extends MyElement {
     this._initializeLoginForm();
 
     if (this._authenticated) {
-      this._success();
+      this._success('already');
     } else {
       this._processAuthRedirect();
     }
@@ -73,8 +73,8 @@ export class MyIndieAuthElement extends MyElement {
     const FORM = this.$$.formElem = this.shadowRoot.querySelector('form');
     const ELEMS = FORM.elements;
 
-    const client_id = location.origin + '/';
-    const redirect_uri = location.origin + location.pathname;
+    const client_id = location.origin + '/'; /* eslint-disable-line camelcase */
+    const redirect_uri = location.origin + location.pathname; /* eslint-disable-line camelcase */
 
     const DATA = {
       time: new Date().toISOString(),
@@ -136,7 +136,7 @@ export class MyIndieAuthElement extends MyElement {
           body: BODY.toString()
         });
         const { status, ok } = RESP;
-        const { error, error_description, me } = await RESP.json();
+        const { /* error, */ error_description, me } = await RESP.json(); /* eslint-disable-line camelcase */
 
         console.debug('Auth resp:', ok, status, RESP);
 
@@ -148,7 +148,8 @@ export class MyIndieAuthElement extends MyElement {
         }
 
         if (ok) {
-          return this._success(status, me);
+          this._storeAuth(status, me);
+          return this._success();
         }
       } catch (ex) {
         return this._error(999, ex);
@@ -160,22 +161,10 @@ export class MyIndieAuthElement extends MyElement {
   }
 
   // const rootElem = document.documentElement;
-  _success (httpStatus, me, already = false) {
-    const message = `${this._authenticated ? 'Already a' : 'A'}uthenticated`;
-    const AUTH = this._authenticated
-      ? this._getAuth()
-      : {
-          httpStatus,
-          me,
-          message,
-          time: new Date().toISOString()
-        };
+  _success (already = false) {
+    const AUTH = this._getAuth();
+    const message = `${already ? 'Already a' : 'A'}uthenticated`;
 
-    if (!this._authenticated) {
-      this._setItem('auth', JSON.stringify(AUTH));
-    }
-
-    // this.dataset = AUTH;
     this.dataset.me = AUTH.me;
 
     this.$$.rootElem.dataset.myIndieAuthMe = AUTH.me;
@@ -188,9 +177,9 @@ export class MyIndieAuthElement extends MyElement {
       this.$$.innerElem.hidden = false;
     }
 
-    this._postMessage('success', this._getAuth());
+    this._postMessage(AUTH, 'success');
 
-    console.debug(`✔️ my-indie-auth - ${message}.`, me);
+    console.debug(`✔️ my-indie-auth - ${message}.`, AUTH.me);
   }
 
   _error (httpStatus, error) {
@@ -199,15 +188,15 @@ export class MyIndieAuthElement extends MyElement {
     this.$$.rootElem.dataset.myIndieAuthenticated = false;
     this.$$.statusElem.textContent = '❌ Authentication Error.';
 
-    this._postMessage('error', error);
+    this._postMessage(error, 'error');
 
     console.error('❌ my-indie-auth - Error:', { error });
   }
 
-  _postMessage (status, data) {
+  /* _postMessage (status, data) {
     const { origin } = location;
     return postMessage({ tag: MyIndieAuthElement.getTag(), status, data }, origin);
-  }
+  } */
 
   _storeAuth (httpStatus, me) {
     this._setItem('auth', JSON.stringify({

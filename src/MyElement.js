@@ -10,9 +10,10 @@
 
 import { getOpt } from './Options.js';
 
+const CHANNEL_NAME = 'ndf-elements-internal';
 const UNPKG = `https://unpkg.com/ndf-elements@${getOpt('version')}`;
 
-const { customElements, DOMParser, fetch, HTMLElement } = window;
+const { BroadcastChannel, customElements, DOMParser, fetch, HTMLElement } = window;
 
 export class MyElement extends HTMLElement {
   constructor () {
@@ -83,5 +84,23 @@ export class MyElement extends HTMLElement {
     console.debug('getTemplate (all):', url, allTemplates);
 
     return allTemplates;
+  }
+
+  _postMessage (data = {}, _type = null) {
+    if (!this.channel) {
+      this.channel = new BroadcastChannel(CHANNEL_NAME);
+    }
+    data.src = this.getTag();
+    data.type = _type || data.type;
+
+    return this.channel.postMessage(data);
+  }
+
+  _onMessage (callbackFn) {
+    if (!this.channel) {
+      this.channel = new BroadcastChannel(CHANNEL_NAME);
+    }
+
+    this.channel.addEventListener('message', ev => callbackFn ? callbackFn(ev) : console.debug('Message:', ev));
   }
 }
