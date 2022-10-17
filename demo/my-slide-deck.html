@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"> <title> my-slides test </title>
+
+<style>
+  .X.html.reveal-full-page {
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    X-height: calc(var(--vh,1vh) * 100);
+    overflow: hidden;
+  }
+
+  .X.reveal-viewport {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    line-height: 1;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+  }
+
+  my-slide-deck {
+    display: block;
+    height: 100%;
+    X-height: 100vh;
+   }
+</style>
+
+
+<!--
+  <my-slideshow>
+  <my-slide-deck>
+  <my-presentation>
+-->
+
+<my-slide-deck
+  preset="markdown+"
+  theme="black"
+  data-controls="true"
+  data-slide-number="true"
+>
+  <section data-markdown>
+    # Slide 1
+    * Bullet A.
+    * Bullet B.
+  </section>
+  <section data-markdown>
+    # Slide 2
+    * Bullet C.
+    * Bullet D.
+  </section>
+  <section data-markdown>
+    # Slide 3
+    * Bullet E.
+    * Bullet F.
+  </section>
+</my-slide-deck>
+
+<script type="module" src="../index.js"></script>
+
+</body>
+</html>

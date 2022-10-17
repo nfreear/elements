@@ -31,7 +31,7 @@ export { MyLiveEditorElement } from './src/components/MyLiveEditorElement.js';
 // export { MyHelloRusElement } from './src/components/MyHelloRusElement.js';
 export { MyDatePickerElement } from './src/components/MyDatePickerElement.js';
 export { MyUserThemeSwitchElement } from './src/components/MyUserThemeSwitchElement.js';
-// export { MySlidesElement } from './src/components/MySlidesElement.js';
+export { MySlideDeckElement } from './src/components/MySlideDeckElement.js';
 export { MyIndieAuthElement } from './src/components/MyIndieAuthElement.js';
 
 export { MyElement } from './src/MyElement.js';
