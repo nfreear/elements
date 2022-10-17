@@ -61,7 +61,8 @@ export class MyElement extends HTMLElement {
   }
 
   /**
-   * Fetch and attach HTML template from external file.
+   * Fetch and attach HTML template from an external file.
+   *
    * @see https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
    */
   async getTemplate (tag, id = null) {
@@ -94,14 +95,20 @@ export class MyElement extends HTMLElement {
    *
    * Security: safer than `innerHTML`
    */
-  _attachLocalTemplate (html) {
+  _attachLocalTemplate (templateHtml, attachShadow = true) {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    const doc = parser.parseFromString(templateHtml, 'text/html');
 
     const template = doc.querySelector('template');
-    const rootElem = template.content.cloneNode(true);
+    const docFragment = template.content.cloneNode(true);
 
-    this.attachShadow({ mode: 'open' }).appendChild(rootElem);
+    if (attachShadow) {
+      this.attachShadow({ mode: 'open' }).appendChild(docFragment);
+    } else {
+      this.appendChild(docFragment);
+    }
+
+    // return rootElem;
   }
 
   _postMessage (data = {}, _type = null) {
