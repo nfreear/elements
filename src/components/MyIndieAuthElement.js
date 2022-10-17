@@ -14,29 +14,31 @@ const { crypto, fetch, location, sessionStorage, URLSearchParams } = window;
 
 const TEMPLATE = `
 <template>
-<style>
-  form p > * { line-height: 1.5; margin: .4rem 0; }
-  button,input { font: inherit; }
-  button { padding: .3rem 1.7rem; }
-  input { padding: .3rem; width: 13rem; }
-  a[ href *= indieauth ] { float: right; margin: .5rem; text-decoration: none; }
-  a[ href *= indieauth ] > * { text-decoration: underline; }
-  a[ href *= indieauth ]::after { content: '🔒'; margin-left: .2rem; }
-</style>
-<p role="alert"></p>
+<p role="alert" part="alert"></p>
 <form action="https://indielogin.com/auth" method="get">
-  <p>
-    <label for="url">Web Address</label>
-    <input id="url" type="url" name="me" placeholder="yourdomain.com" required />
-    <button type="submit">Sign In</button>
-    <a href="https://indieauth.net/" title="OAuth for the open web"><small>IndieAuth</small></a>
-  </p>
+  <h2 part="h2">Login</h2>
+  <label for="url">Web Address</label>
+  <input id="url" type="url" name="me" placeholder="yourdomain.com" required part="input" />
+  <button part="button" type="submit">Sign In</button>
+  <a part="a" href="https://indieauth.net/" title="OAuth for the open web" target="_blank">
+    <u>IndieAuth</u><i part="sr-only"> Opens in a new window</i>🔒
+  </a>
   <input type="hidden" name="client_id" value="https://example.com/" />
   <input type="hidden" name="redirect_uri" value="https://example.com/redirect" />
   <input type="hidden" name="state" value="[todo]" />
 </form>
 <div id="wrap" hidden><slot><!-- Logged in content. --></slot></div>
 </template>
+`;
+
+export const STYLE = `
+form p > * { line-height: 1.5; margin: .4rem 0; }
+button,input { font: inherit; }
+button { padding: .3rem 1.7rem; }
+input { padding: .3rem; width: 13rem; }
+a[ href *= indieauth ] { float: right; margin: .5rem; text-decoration: none; }
+a[ href *= indieauth ] > * { text-decoration: underline; }
+a[ href *= indieauth ]::after { content: '🔒'; margin-left: .2rem; }
 `;
 
 export class MyIndieAuthElement extends MyElement {
@@ -46,6 +48,8 @@ export class MyIndieAuthElement extends MyElement {
 
   async connectedCallback () {
     this.$$ = {};
+
+    this._checkCSP();
 
     this._attachLocalTemplate(TEMPLATE);
     this._initializeLoginForm();
@@ -222,6 +226,15 @@ export class MyIndieAuthElement extends MyElement {
 
   _getItem (key) {
     return sessionStorage.getItem(`my-indie-auth.${key}`);
+  }
+
+  _checkCSP () {
+    const CSP = document.querySelector('meta[http-equiv = Content-Security-Policy][content]');
+    if (CSP) {
+      console.debug('CSP:', CSP.content.split(';'), CSP);
+    } else {
+      console.warn('Add a `Content-Security-Policy` HTTP header or <meta> element.');
+    }
   }
 }
 

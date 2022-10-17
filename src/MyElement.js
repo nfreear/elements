@@ -107,7 +107,6 @@ export class MyElement extends HTMLElement {
     } else {
       this.appendChild(docFragment);
     }
-
     // return rootElem;
   }
 
@@ -115,7 +114,7 @@ export class MyElement extends HTMLElement {
     if (!this.channel) {
       this.channel = new BroadcastChannel(CHANNEL_NAME);
     }
-    data.src = this.getTag();
+    data.src = this.constructor.getTag(); // Call static function!
     data.type = _type || data.type;
 
     return this.channel.postMessage(data);
