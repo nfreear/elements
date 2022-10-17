@@ -28,8 +28,10 @@
   "scripts": {
     "build": "node ./src/build/template.js > ./template.html",
     "start": "npx servor . 8080 --reload",
+    "inner:grep": "grep -rn '\\.innerHTML' src",
+    "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
     "fix": "npx semistandard --fix",
-    "test": "npx semistandard"
+    "test": "npx semistandard && npm run inner:count"
   },
   "semistandard": {
     "XX_globals": [

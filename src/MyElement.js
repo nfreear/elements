@@ -60,7 +60,10 @@ export class MyElement extends HTMLElement {
     return `${BASE}/src/components/${id}.tpl.html`;
   }
 
-  // https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
+  /**
+   * Fetch and attach HTML template from external file.
+   * @see https://gomakethings.com/getting-html-with-fetch-in-vanilla-js/
+   */
   async getTemplate (tag, id = null) {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
@@ -84,6 +87,21 @@ export class MyElement extends HTMLElement {
     console.debug('getTemplate (all):', url, allTemplates);
 
     return allTemplates;
+  }
+
+  /**
+   * Attach HTML template from local (M)JS file.
+   *
+   * Security: safer than `innerHTML`
+   */
+  _attachLocalTemplate (html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    const template = doc.querySelector('template');
+    const rootElem = template.content.cloneNode(true);
+
+    this.attachShadow({ mode: 'open' }).appendChild(rootElem);
   }
 
   _postMessage (data = {}, _type = null) {

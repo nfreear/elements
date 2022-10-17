@@ -1,6 +1,8 @@
 /**
  * Implementation of an "IndieAuth" client in the browser.
-
+ *
+ * @disclaimer Experimental - not for production. Use at your own risk!
+ *
  * @see https://indielogin.com/api
  * @see https://indieauth.net/
  * @copyright © Nick Freear, 03-Oct-2022.
@@ -10,13 +12,8 @@ import { MyElement } from '../MyElement.js';
 
 const { crypto, fetch, location, sessionStorage, URLSearchParams } = window;
 
-/* const KEY_STATE = 'my-indie-auth.state';
-const KEY_SUBMIT = 'my-indie-auth.submit';
-const KEY_AUTH = 'my-indie-auth.auth';
-const KEY_LOGOUT = 'my-indie-auth.logout';
-*/
-
 const TEMPLATE = `
+<template>
 <style>
   form p > * { line-height: 1.5; margin: .4rem 0; }
   button,input { font: inherit; }
@@ -39,6 +36,7 @@ const TEMPLATE = `
   <input type="hidden" name="state" value="[todo]" />
 </form>
 <div id="wrap" hidden><slot><!-- Logged in content. --></slot></div>
+</template>
 `;
 
 export class MyIndieAuthElement extends MyElement {
@@ -48,13 +46,8 @@ export class MyIndieAuthElement extends MyElement {
 
   async connectedCallback () {
     this.$$ = {};
-    // const name = this.getAttribute('name') || 'A name attribute';
 
-    const ROOT = document.createElement('div');
-    ROOT.innerHTML = TEMPLATE;
-
-    this.attachShadow({ mode: 'open' }).appendChild(ROOT);
-
+    this._attachLocalTemplate(TEMPLATE);
     this._initializeLoginForm();
 
     if (this._authenticated) {
