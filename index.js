@@ -33,6 +33,8 @@ export { MyDatePickerElement } from './src/components/MyDatePickerElement.js';
 export { MyUserThemeSwitchElement } from './src/components/MyUserThemeSwitchElement.js';
 export { MySlideDeckElement } from './src/components/MySlideDeckElement.js';
 export { MyIndieAuthElement } from './src/components/MyIndieAuthElement.js';
+export { MyFeedElement } from './src/components/MyFeedElement.js';
+export { MyFormElement } from './src/components/MyFormElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
