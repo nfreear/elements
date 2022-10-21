@@ -12,6 +12,7 @@ import { getOpt } from './Options.js';
 
 const CHANNEL_NAME = 'ndf-elements-internal';
 const UNPKG = `https://unpkg.com/ndf-elements@${getOpt('version')}`;
+const PURIFY_JS = 'https://unpkg.com/dompurify@2.4.0/dist/purify.min.js';
 
 const { BroadcastChannel, customElements, DOMParser, fetch, HTMLElement } = window;
 
@@ -110,6 +111,21 @@ export class MyElement extends HTMLElement {
     // return rootElem;
   }
 
+  /**
+   * If we do use `el.innerHTML` - prevent XSS attacks,
+   * @see https://github.com/cure53/DOMPurify#dompurify
+   */
+  async _saferHtml (dirtyHtml, elem) {
+    await import(PURIFY_JS);
+
+    const { DOMPurify } = window;
+    const ELEM = elem || this;
+
+    // Don't strip `part` attributes.
+    ELEM.innerHTML = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true }, ADD_ATTR: ['part'] });
+    console.debug('DOMPurify:', DOMPurify.removed);
+  }
+
   _postMessage (data = {}, _type = null) {
     if (!this.channel) {
       this.channel = new BroadcastChannel(CHANNEL_NAME);
@@ -128,3 +144,5 @@ export class MyElement extends HTMLElement {
     this.channel.addEventListener('message', ev => callbackFn ? callbackFn(ev) : console.debug('Message:', ev));
   }
 }
+
+export default MyElement;
