@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"> <title> my-feed test </title>
+
+<meta charset="utf-8" />
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+  my-feed::part(a) {
+    display: block;
+    padding: 2px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    X-resize: horizontal;
+    X-height: 1.5rem;
+  }
+
+  my-feed::part(a):focus,
+  my-feed::part(a):hover {
+    background-color: #eee;
+    X-white-space: normal;
+    overflow: visible;
+    X-transition: all 2s;
+  }
+</style>
+
+<my-page>
+  <h2> my-feed test </h2>
+
+  <h3> BBC News &mdash; Top Stories </h3>
+
+  <my-feed href="tojson:http://feeds.bbci.co.uk/news/rss.xml">Loading …</my-feed>
+
+  <h3> <a href="https://pinboard.in/u:ndf">Pinboard bookmarks (ndf)</a> </h3>
+
+  <my-feed href="tojson:https://feeds.pinboard.in/rss/u:ndf/">Loading bookmarks …</my-feed>
+
+</my-page>
+
+<script type="module" src="../index.js"></script>
+
+</html>
