@@ -4,9 +4,9 @@
  * @copyright © Nick Freear, 31-Jan-2022.
  */
 
-// import { minify } from 'https://unpkg.com/terser@5.10.0/main.js';
+// import { terserViaCdn } from './external-cdn.js';
 
-import { terserViaCdn } from './external-cdn.js';
+const TERSER_JS = 'https://unpkg.com/terser@5.10.0/dist/bundle.min.js';
 
 export class BookmarkletScript {
   constructor () {
@@ -33,8 +33,15 @@ export class BookmarkletScript {
     return `(()=>{${code}})()`;
   }
 
+  async _loadTerser () {
+    await import(TERSER_JS);
+    return window.Terser;
+    // Was: const Terser = await terserViaCdn();
+  }
+
   async _minify (rawScript) {
-    const Terser = await terserViaCdn();
+    const Terser = await this._loadTerser();
+
     const RES = await Terser.minify(rawScript, {
       sourceMap: false,
       compress: {
@@ -52,7 +59,8 @@ export class BookmarkletScript {
   }
 
   async _beautify (rawScript) {
-    const Terser = await terserViaCdn();
+    const Terser = await this._loadTerser();
+
     const RES = await Terser.minify(rawScript, {
       sourceMap: false,
       compress: false,

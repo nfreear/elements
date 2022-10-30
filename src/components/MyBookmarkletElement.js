@@ -17,17 +17,14 @@ export class MyBookmarkletElement extends MyElement {
 
   async connectedCallback () {
     const src = this.getAttribute('src') || null;
-    const name = this.getAttribute('name') || 'Hello!';
+    const name = this.getAttribute('name') || this.textContent || 'Bookmarklet';
+    const useTemplate = !this.getAttribute('no-template');
 
     if (!src) {
       throw new Error("The 'src' attribute is required on <my-bookmarklet>");
     }
 
-    await this.getTemplate('my-bookmarklet');
-
-    const codeEl = this.shadowRoot.querySelector('pre code');
-    const scriptLinkEl = this.shadowRoot.querySelector('#js-link');
-    const nameEl = this.shadowRoot.querySelector('#name');
+    const { codeEl, scriptLinkEl, nameEl } = await this._loadBmTemplate(useTemplate);
 
     const RESP = await fetch(src);
     const rawScript = await RESP.text();
@@ -36,20 +33,37 @@ export class MyBookmarkletElement extends MyElement {
     const bookmarklet = new BookmarkletScript();
     const RES = await bookmarklet.parse(rawScript);
 
-    // const Terser = await terserViaCdn();
-    // const TERSER = await Terser.minify(rawScript, { sourceMap: false });
-    // console.debug('Terser:', TERSER);
-
     scriptLinkEl.href = bookmarklet.scriptLink; // this._markletScriptLink(RES.minScript);
+
+    nameEl.textContent = name;
+
+    if (useTemplate) {
+      this._displayScript(codeEl, RES.displayScript);
+    }
+
+    console.debug('my-bookmarklet:', name, src, RES, this);
+  }
+
+  async _loadBmTemplate (useTemp) {
+    const ANC = document.createElement('a');
+
+    if (useTemp) {
+      await this.getTemplate('my-bookmarklet');
+    } else {
+      ANC.part = 'a';
+      this.attachShadow({ mode: 'open' }).appendChild(ANC);
+    }
+
+    const codeEl = useTemp ? this.shadowRoot.querySelector('pre code') : null;
+    const scriptLinkEl = useTemp ? this.shadowRoot.querySelector('#js-link') : ANC;
+    const nameEl = useTemp ? this.shadowRoot.querySelector('#name') : ANC;
+
     scriptLinkEl.addEventListener('click', ev => {
       ev.preventDefault();
       console.debug('my-bookmarklet - Click block:', ev);
     });
-    nameEl.textContent = name;
 
-    this._displayScript(codeEl, RES.displayScript);
-
-    console.debug('my-bookmarklet:', name, src, RES, this);
+    return { codeEl, scriptLinkEl, nameEl };
   }
 
   async _displayScript (elem, markletScript) {
