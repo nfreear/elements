@@ -1,7 +1,8 @@
 /**
  * My Web Components (experimental)
  *
- * @see https://github.com/nfreear/web-components
+ * @module elements
+ * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 04-Dec-2021.
  * @license MIT
  */
@@ -35,11 +36,14 @@ export { MySlideDeckElement } from './src/components/MySlideDeckElement.js';
 export { MyIndieAuthElement } from './src/components/MyIndieAuthElement.js';
 export { MyFeedElement } from './src/components/MyFeedElement.js';
 export { MyFormElement } from './src/components/MyFormElement.js';
+// export { MyTestElement } from './src/components/MyTestElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
 export { getOpt, getOptUse, elemToClass } from './src/Options.js';
 export { translate } from './src/translate.js';
+
+export default MyElement;
 
 // export { MyFoobarElement } from './src/components/MyFoobarElement.js';
 

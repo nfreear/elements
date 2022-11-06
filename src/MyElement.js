@@ -3,15 +3,17 @@
  *
  * MyElement - base class with functions to fetch templates, etc.
  *
- * @see https://github.com/nfreear/web-components
+ * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 02-Dec-2021.
  * @license MIT
  */
 
-import { getOpt } from './Options.js';
+// import { getOpt } from './Options.js';
+const OPTIONS_MJS = './Options.js';
 
 const CHANNEL_NAME = 'ndf-elements-internal';
-const UNPKG = `https://unpkg.com/ndf-elements@${getOpt('version')}`;
+const UNPKG = 'https://unpkg.com/ndf-elements@';
+// Was: const UNPKG = `https://unpkg.com/ndf-elements@${getOpt('version')}`;
 const PURIFY_JS = 'https://unpkg.com/dompurify@2.4.0/dist/purify.min.js';
 
 const { BroadcastChannel, customElements, DOMParser, fetch, HTMLElement } = window;
@@ -39,8 +41,13 @@ export class MyElement extends HTMLElement {
     customElements.define(NAME, klass, options);
   }
 
-  _getTemplateUrl (id) {
-    const HOST = getOpt('templateHost');
+  async _getOpt (key) {
+    const { getOpt } = await import(OPTIONS_MJS);
+    return getOpt(key);
+  }
+
+  async _getTemplateUrl (id) {
+    const HOST = await this._getOpt('templateHost');
 
     // URL is relative to the HTML page!
     let BASE = /^https?:\//.test(HOST) ? HOST : '..';
@@ -53,7 +60,7 @@ export class MyElement extends HTMLElement {
         break;
       case 'unpkg':
       case 'unpkg.com':
-        BASE = UNPKG;
+        BASE = UNPKG + await this._getOpt('version');
         break;
       // NO: default:
     }
@@ -70,7 +77,7 @@ export class MyElement extends HTMLElement {
     // const template = document.getElementById('my-map-template');
     // const templateContent = template.content;
 
-    const url = this._getTemplateUrl(tag);
+    const url = await this._getTemplateUrl(tag);
 
     const resp = await fetch(url);
     const html = await resp.text();

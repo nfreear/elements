@@ -3,7 +3,8 @@
  *
  * Only import the elements that you need!
  *
- * @see https://github.com/nfreear/web-components
+ * @module elements/custom
+ * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 09-Jan-2022.
  * @license MIT
  */
@@ -24,6 +25,8 @@ export async function customImport (uses = null, base = '.') {
 
   return Promise.all(USED);
 }
+
+export default customImport;
 
 if (hasElem('script[ src *= "/custom.js" ]')) {
   customImport().then(MOD => console.debug('Custom load:', MOD));
