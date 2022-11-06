@@ -8,13 +8,15 @@
 
 const TERSER_JS = 'https://unpkg.com/terser@5.10.0/dist/bundle.min.js';
 
+const { location } = window;
+
 export class BookmarkletScript {
   constructor () {
     this.$$ = {};
   }
 
-  async parse (rawScript) {
-    this.$$.rawScript = rawScript;
+  async parse (inputScript) {
+    const rawScript = this.$$.rawScript = this._replaceUrl(inputScript);
 
     this.$$.minScript = await this._minify(rawScript);
     this.$$.displayScript = await this._beautify(rawScript);
@@ -74,6 +76,10 @@ export class BookmarkletScript {
       }
     });
     return RES.code;
+  }
+
+  _replaceUrl (script) {
+    return script.replace(/%\{ORIGIN\}/, location.origin);
   }
 
   async _getMetaData () {
