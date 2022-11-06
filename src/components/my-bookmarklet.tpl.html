@@ -2,11 +2,13 @@
   Themes: https://unpkg.com/browse/rainbow-code@2.1.7/themes/css/
 -->
 
+<!--
+<script src="https://unpkg.com/terser@5.10.0/dist/bundle.min.js" crossorigin="" async ></script>
+-->
+
 <template>
   <link href="https://unpkg.com/rainbow-code@2.1.7/themes/css/pastie.css" rel="stylesheet" />
   <script src="https://unpkg.com/rainbow-code@2.1.7/dist/rainbow.min.js" crossorigin="" async></script>
-
-  <script src="https://unpkg.com/terser@5.10.0/dist/bundle.min.js" crossorigin="" async ></script>
 
   <style>
     a[ href ^= javascript ] {
@@ -69,7 +71,7 @@
   <p> Drag the link below to your browser's bookmarks or favourites bar. </p>
 
   <p>
-    <a id="js-link" href="javascript:;" title="Drag me!">Hello</a>
+    <a id="js-link" part="js-link" href="javascript:;" title="Drag me!">Hello</a>
   </p>
 
   <details open >
