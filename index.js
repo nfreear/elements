@@ -43,8 +43,6 @@ export { MyElement } from './src/MyElement.js';
 export { getOpt, getOptUse, elemToClass } from './src/Options.js';
 export { translate } from './src/translate.js';
 
-export default MyElement;
-
 // export { MyFoobarElement } from './src/components/MyFoobarElement.js';
 
 // End.

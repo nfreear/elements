@@ -11,7 +11,7 @@ A collection of experimental custom elements (Web Components).
 ## Rationale ##
 
 * Experimental, particularly `<my-page>`, `<my-nav>` which are probably not for production !!
-* Should be usable without a build system, minimalist,
+* Should be usable without (or with) a build system, minimalist,
 * Accessible and usable for end-users - use WAI-ARIA where appropriate!
 * Simple for developers to try out,
 * ES6 classes in JS files, with associated HTML + CSS in `<template>` in `.tpl.html` files,
