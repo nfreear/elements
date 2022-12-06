@@ -14,15 +14,15 @@ const TEMPLATE = `
 <template>
 <style>
   .outer { line-height: 1.6; }
-  .outer > * { border: 2px solid #ccc; border-radius: .25rem; padding: .5rem; }
+  .outer > * { border: 2px solid rgba(127,127,127, .5); border-radius: .25rem; padding: .5rem; }
   .outer > * > ul { padding-left: 1.2rem; margin: 0; }
   details[ open ] > summary { border-bottom: none; }
   pre { margin: 0; }
-  li { border-top: 1px solid #eee; margin: 0; padding-left: .7rem; }
+  li { border-top: 1px solid rgba(127,127,127, .1); margin: 0; padding-left: .7rem; }
   .outer details { line-height: 1; }
   li::after { content: ' ('attr(data-fn)')'; }
   li:nth-child(even),
-  summary { background-color: #f8f8f8; }
+  summary { background-color: rgba(127,127,127, .05); }
   var { color: purple; }
   [ data-fn = debug ],
   [ data-fn = info ] { color: navy; }
@@ -50,8 +50,7 @@ export class MyConsoleElement extends MyElement {
 
   constructor () {
     super();
-    this.$$ = { saved: false, asserts: { pass: 0, fail: 0 } };
-    // this.$$.asserts = { pass: 0, fail: 0 };
+    this.$$ = { saved: false, logCount: 0, asserts: { pass: 0, fail: 0 } };
     this._initialize();
   }
 
@@ -121,6 +120,8 @@ export class MyConsoleElement extends MyElement {
   }
 
   _privLog ([FN, PROPS], ...params) {
+    this.$$.logCount++;
+
     const PREFIX = PROPS ? PROPS.prefix : null;
     const RESULT = PROPS ? PROPS.result : null;
     const EL = document.createElement('li');
@@ -128,7 +129,7 @@ export class MyConsoleElement extends MyElement {
 
     EL.dataset.fn = FN;
     // EL.dataset.result = RESULT || '';
-    EL.setAttribute('part', 'li');
+    EL.setAttribute('part', `li ${FN} ${RESULT || ''} ${this._evenOdd}`);
 
     if (PREFIX) {
       EL.dataset.prefix = PREFIX;
@@ -191,6 +192,10 @@ export class MyConsoleElement extends MyElement {
     const { fail, pass } = this.$$.asserts;
     const TOTALS = `Tests:  <i data-result=pass>${pass} passed</i>, ${pass + fail} total.`;
     this._privLog(['log', { result: 'totals' }], TOTALS);
+  }
+
+  get _evenOdd () {
+    return this.$$.logCount % 2 === 0 ? 'even' : 'odd';
   }
 }
 

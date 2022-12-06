@@ -18,16 +18,19 @@ const TEMPLATE = `
   <style>
     form { margin: 1rem 0; }
     button { font: inherit; padding: .4rem .75rem; }
-    label { margin-right: 1rem; }
+    a, label { margin-right: .5rem; }
+    textarea { width: 8rem; }
+    [ name = out ] { width: 2rem; }
   </style>
   <form method="POST" action="https://validator.w3.org/nu/"
     target="_blank" acceptCharset="utf-8" enctype="multipart/form-data">
-    <button type="submit">Check me! 💙</button>
+    <button type="submit">Check HTML! 💙</button>
     <details>
       <summary>(data)</summary>
-      <label>Source? <input name="showsource" value="yes" checked type="checkbox"></label>
-      <label>Outline? <input name="showoutline" value="yes" checked type="checkbox"></label>
-      <label>JSON? <input name="out" value="json" checked type="checkbox"></label>
+      <a href="https://validator.w3.org/nu/about.html">Validator</a>
+      <label>Source <input name="showsource" value="yes" checked type="checkbox"></label>
+      <label>Outline <input name="showoutline" value="yes" checked type="checkbox"></label>
+      <label>Output <input name="out" value="html"></label>
       <label>Content <textarea name="content"></textarea></label>
     </details>
   </form>
@@ -39,29 +42,45 @@ export class MyTestElement extends MyElement {
     return 'my-test';
   }
 
-  connectedCallback () {
-    this.$$ = {};
+  async connectedCallback () {
+    // Doesn't work!
+    const autoRun = this.getAttribute('auto-run') === 'true';
+
+    this.$$ = { autoRun };
+
     this._attachLocalTemplate(TEMPLATE);
 
     this.$$.form = this.shadowRoot.querySelector('form');
 
-    // FORM.elements.content.value = this._getDocument(document);
+    this.$$.form.elements.content.value = this._getDocument(document);
 
     // Facilitate Bootstrap ;).
     this.style.display = 'block';
     this.classList.add('container');
 
-    this.$$.form.addEventListener('submit', ev => this._handleSubmit(ev));
+    // this.$$.form.addEventListener('submit', ev => this._handleSubmit(ev));
 
-    console.debug('my-test:', this);
+    if (autoRun) {
+      await this._run();
+    }
+
+    console.debug('my-test:', this.$$, this);
   }
 
-  async _run () {
-    return await this._handleSubmit();
+  async _run (form) {
+    const { data, res, req } = await this._fetchValidatorResult(form || this.$$.form);
+
+    const { accRelevant, accNotRel, filter } = this._filterAccessibilityRelevant(data.messages || []);
+
+    this.$$.result = { accRelevant, accNotRel, all: data, filter, res, req };
+
+    // console.debug('my-test, run:', this.$$);
+
+    return this.$$.result;
   }
 
-  get _data () {
-    return this.$$;
+  get _result () {
+    return this.$$.result;
   }
 
   async _handleSubmit (ev) {
@@ -71,19 +90,13 @@ export class MyTestElement extends MyElement {
 
     FORM.elements.content.value = this._getDocument(document);
 
-    const { data, res, req } = await this._fetchValidatorResult(FORM);
-
-    const { relevant, notRel, filterRE } = this._filterA11yRelevant(data.messages || []);
-
-    this.$$ = { ...this.$$, relevant, notRel, filterRE, data, res, req };
-
-    // console.debug('my-test, RES:', this.$$);
-
-    return this.$$;
+    return await this._run(FORM);
   }
 
   async _fetchValidatorResult (FORM) {
     const formData = new FormData(FORM);
+
+    formData.set('out', 'json');
     // formData.append('showoutline', 'yes');
     // formData.append('showimagereport', 'yes');
 
@@ -125,20 +138,20 @@ export class MyTestElement extends MyElement {
     return doc;
   }
 
-  _filterA11yRelevant (messages) {
+  _filterAccessibilityRelevant (messages) {
     const filterRE = filterStrings.join('|');
-    const notRel = [];
+    const accNotRel = [];
 
-    const relevant = messages.filter(it => {
+    const accRelevant = messages.filter(it => {
       const isRel = it.message.match(filterRE) !== null;
 
       if (!isRel) {
-        notRel.push(it);
+        accNotRel.push(it);
       }
       return isRel;
     });
 
-    return { relevant, notRel, filterRE };
+    return { accRelevant, accNotRel, filter: filterStrings };
   }
 }
 
