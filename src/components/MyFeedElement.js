@@ -36,9 +36,10 @@ export class MyFeedElement extends MyElement {
   }
 
   _makeListItem (item) {
-    const { guid, link, pubDate, title } = item;
+    const { guid, link, pubDate, title, url, time } = item;
+    // Be liberal in what we accept - 'link' or 'url'.
     return `<li>
-    <a part="a" data-guid="${guid}" href="${link}" title="${pubDate}">${title}</a>
+    <a part="a" data-guid="${guid || ''}" href="${link || url}" title="${pubDate || time}">${title}</a>
   </li>`;
   }
 
