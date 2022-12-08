@@ -18,10 +18,13 @@ export class MyFeedElement extends MyElement {
 
   async connectedCallback () {
     const HREF = this.getAttribute('href') || DEFAULT_RSS;
+    const INCLUDE = this.getAttribute('include');
 
     const { data, resp, req } = await this._fetchFeed(HREF);
 
-    const ITEMS = data.items.map(el => this._makeListItem(el));
+    const FILTERED = this._filterItems(data.items, INCLUDE);
+
+    const ITEMS = FILTERED.map(el => this._makeListItem(el));
 
     const listElem = document.createElement('ul'); // Was: 'ol'
 
@@ -29,17 +32,34 @@ export class MyFeedElement extends MyElement {
 
     this.attachShadow({ mode: 'open' }).appendChild(listElem);
 
-    this.dataset.title = data.feed.title;
+    this.dataset.title = data.feed ? data.feed.title : '';
+    this.dataset.time = data.feed ? data.feed.time : '';
     this.dataset.count = data.items.length;
 
     console.debug('my-feed:', data, resp, req, this);
   }
 
+  _filterItems (items, include) {
+    const INCLUDE = include ? include.split(/,[ ]+/) : null;
+    const REGEX = INCLUDE ? new RegExp(`(${INCLUDE.join('|')})`, 'i') : null;
+
+    const filtered = INCLUDE
+      ? items.filter(it => {
+        return it && it.tags && it.tags.some(tag => REGEX.test(tag));
+      })
+      : items;
+
+    console.debug('my-feed ~ Filtered:', INCLUDE, filtered);
+
+    return filtered;
+  }
+
   _makeListItem (item) {
-    const { guid, link, pubDate, title, url, time } = item;
+    const { guid, link, pubDate, title, url, time, tags } = item;
     // Be liberal in what we accept - 'link' or 'url'.
     return `<li>
-    <a part="a" data-guid="${guid || ''}" href="${link || url}" title="${pubDate || time}">${title}</a>
+    <a part="a" data-tags="${tags ? tags.join(',') : ''}" data-guid="${guid || ''}"
+       href="${link || url}" title="${pubDate || time}">${title}</a>
   </li>`;
   }
 
