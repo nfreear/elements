@@ -7,6 +7,7 @@
 A collection of experimental custom elements (Web Components).
 
 * [nfreear.github.io/elements/demo][demo]
+* [codepen.io/collection/..][pen]
 
 ## Rationale ##
 
@@ -63,6 +64,7 @@ Then:
 [ci]: https://github.com/nfreear/elements/actions/workflows/node.js.yml
 [ci-img]: https://github.com/nfreear/elements/actions/workflows/node.js.yml/badge.svg
 [demo]: https://nfreear.github.io/elements/demo/
+[pen]: https://codepen.io/collection/mrpzOQ
 [mit]: https://nfreear.mit-license.org/#2021
 [npm]: https://www.npmjs.com/package/ndf-elements
 [npm-img]: https://img.shields.io/npm/v/ndf-elements

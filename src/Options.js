@@ -37,10 +37,11 @@ export function setupOptions (options) {
 /**
  * @public
  */
-export function getOptUse (uses) {
-  const useStr = uses || getOpt('use');
+export function getOptUse (useStrOrArr) {
+  const use = useStrOrArr || getOpt('use');
 
-  const USE = useStr.split(/[, ]/).filter(it => it !== '');
+  // Support string or array input.
+  const USE = Array.isArray(use) ? use : use.split(/[, ]/).filter(it => it !== '');
 
   const elemKlassArray = USE.map(elem => {
     // if (elem === '') return null;

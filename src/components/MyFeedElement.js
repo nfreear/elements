@@ -40,7 +40,7 @@ export class MyFeedElement extends MyElement {
   }
 
   _filterItems (items, include) {
-    const INCLUDE = include ? include.split(/,[ ]+/) : null;
+    const INCLUDE = include ? include.split(/,[ ]*/) : null;
     const REGEX = INCLUDE ? new RegExp(`(${INCLUDE.join('|')})`, 'i') : null;
 
     const filtered = INCLUDE
