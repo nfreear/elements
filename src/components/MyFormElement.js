@@ -26,9 +26,14 @@ export class MyFormElement extends HTMLFormElement {
   }
 
   set _onsubmit (callbackFn) { /* eslint-disable-line accessor-pairs -- setWithoutGet */
-    this.addEventListener('submit', ev => {
+    const delayMs = parseInt(this.dataset.delay) || 1000;
+
+    this.addEventListener('submit', async (ev) => {
+      this.dataset.submitted = true;
       ev.preventDefault();
-      callbackFn && callbackFn(ev);
+      this._disableFormFields();
+      callbackFn && await callbackFn(ev);
+      setTimeout(() => this._enableFormFields(), delayMs);
     });
   }
 
@@ -50,6 +55,18 @@ export class MyFormElement extends HTMLFormElement {
   get _names () {
     const nameElems = this.querySelectorAll('[ name ]');
     return [...nameElems].map(el => el.name);
+  }
+
+  get _allFields () {
+    return [...this.querySelectorAll('button,input,textarea,select,fieldset')];
+  }
+
+  _disableFormFields () {
+    this._allFields.forEach(el => el.setAttribute('disabled', 'disabled'));
+  }
+
+  _enableFormFields () {
+    this._allFields.forEach(el => el.removeAttribute('disabled'));
   }
 }
 
