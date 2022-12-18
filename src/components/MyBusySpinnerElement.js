@@ -11,6 +11,43 @@
 
 import { MyElement } from '../MyElement.js';
 
+const TEMPLATE = `
+<template>
+  <style>
+    @keyframes Rotate {
+      0%   { transform: rotateZ(0deg); }
+      100% { transform: rotateZ(360deg); }
+    }
+    :host {
+      X-cursor: wait;
+    }
+    .css-spinner {
+      border-color: rgba(127,127,127, 0.5);
+      border-bottom-color: rgba(0,0,0, 0.75);
+      border-style: solid;
+      border-width: 3vh;
+      border-radius: 50%;
+      margin: 2rem auto;
+      height: 40vh;
+      width:  40vh;
+      animation-direction: normal;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear; /* << +1 ! */
+      animation-play-state: running;
+      animation-name: Rotate; /* Was: 'SpinnerZ' */
+    }
+    [ part = text ] {
+      font-size: large;
+      text-align: center;
+    }
+  </style>
+  <div part="spinner" class="css-spinner" role="img" aria-label="Loading"></div>
+  <p part="text" role="status" aria-live="polite"></p>
+  <div class="slot" hidden><slot> Loading … </slot></div>
+</template>
+`;
+
 export class MyBusySpinnerElement extends MyElement {
   static getTag () {
     return 'my-busy-spinner';
@@ -26,12 +63,18 @@ export class MyBusySpinnerElement extends MyElement {
     console.debug(`my-busy-spinner ~ ${name}: ${VALUE} ('${oldValue}', '${newValue}')`);
   }
 
-  async __connectedCallback () {
+  async connectedCallback () {
     // const name = this.getAttribute('name') || 'A name attribute';
 
+    await this._attachLocalTemplate(TEMPLATE);
     /** @WAS await this.getTemplate('my-busy-spinner'); */
 
-    console.debug('my-busy-spinner:', this);
+    const TEXT = this.textContent.trim() || 'Loading …'; // .shadowRoot.querySelector('.slot').textContent;
+    const statusElem = this.shadowRoot.querySelector('[ role = status ]');
+
+    setTimeout(() => { statusElem.textContent = TEXT; }, 100);
+
+    console.debug('my-busy-spinner:', TEXT, this);
   }
 }
 

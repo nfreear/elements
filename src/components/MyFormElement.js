@@ -26,14 +26,14 @@ export class MyFormElement extends HTMLFormElement {
   }
 
   set _onsubmit (callbackFn) { /* eslint-disable-line accessor-pairs -- setWithoutGet */
-    const delayMs = parseInt(this.dataset.delay) || 1000;
+    // const delayMs = parseInt(this.dataset.delay) || 1000;
 
     this.addEventListener('submit', async (ev) => {
       this.dataset.submitted = true;
       ev.preventDefault();
       this._disableFormFields();
       callbackFn && await callbackFn(ev);
-      setTimeout(() => this._enableFormFields(), delayMs);
+      // setTimeout(() => this._enableFormFields(), delayMs);
     });
   }
 

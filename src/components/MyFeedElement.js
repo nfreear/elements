@@ -67,6 +67,9 @@ export class MyFeedElement extends MyElement {
     const uri = this._parseUrl(href);
     const req = new Request(uri);
     const resp = await fetch(req);
+    if (!resp.ok) {
+      throw new Error(`MyFeedElement (fetch): ${resp.status} ~ ${uri}`);
+    }
     const data = await resp.json();
 
     return { data, resp, req };
