@@ -25,7 +25,7 @@
   --my-fork-me-focus-color: #080;
 }
 
-/* Fix Unstyled Flash of Content (FOUC).
+/* Fix Flash of Unstyled Content (FOUC).
 */
 html {
   /* opacity: 0; */
@@ -61,6 +61,10 @@ my-lorem-ipsum,
 my-star-rating {
   display: block;
   margin: 1rem 0;
+}
+
+my-map::part(marker) {
+  fill: navy;
 }
 
 /* The <p> in the <slot> within the Web Component !!

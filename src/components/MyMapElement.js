@@ -72,6 +72,9 @@ export class MyMapElement extends MyElement {
     }
 
     this._accessibilityFixes();
+
+    const PATH = this.shadowRoot.querySelector('.leaflet-overlay-pane path');
+    PATH && PATH.setAttribute('part', 'path');
   }
 
   get _leaflet () {
@@ -138,7 +141,7 @@ export class MyMapElement extends MyElement {
         html: `<button aria-label="${name}">
           <svg viewBox="0 0 384 512" aria-hidden="true">
             <title>${name}</title>
-            <use href="#${SVG_ID}"/>
+            <use part="marker" href="#${SVG_ID}"/>
           </svg>
         </button>`
       })
