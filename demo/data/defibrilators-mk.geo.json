@@ -1,0 +1,94 @@
+{
+  "#": [
+    "Title: 10 closest defibrillators to Central Milton Keynes, from Defib finder."
+    "Source: https://www.defibfinder.uk/",
+    "Map Pin: https://www.defibfinder.uk/images/icons/map-pin.svg",
+    "Copyright: Defib finder & The Circuit © 2022 The British Heart Foundation and partners.",
+    "Date accessed: 24-Dec-2022"
+  ],
+
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Milton Keynes City Council",
+        "popupContent": "Address: Milton Keynes Library, 555 Silbury Boulevard, Central Milton Keynes, Milton Keynes, MK9 3HL.",
+        "availableTimes": "Mon-Sat, 09:00 - 18:00 (Sunday not available)",
+        "id": "a940f2d0-50f9-48de-95ab-af500118cd1c",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.759549, 52.043657 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "John Lewis store",
+        "popupContent": "Address: John Lewis Partnership, 11 Field Walk, Central Milton Keynes, Milton Keynes, MK9 3EP.",
+        "availableTimes": "Mon-Sat, 09:30-19:00; Sunday, 10:30-16:30",
+        "id": "a7e693e3-ced6-4106-bc02-aee500ef9420",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.752437, 52.044849 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "Witan Gate House (Reception)",
+        "popupContent": "Address: Witan Gate House (Reception), 500-600 Witan Gate West, Milton Keynes, MK9 1ES.",
+        "availableTimes": "Mon-Fri, 08:00-17:00 (Sat-Sun not available)",
+        "id": "f3083ac9-9a38-4692-a0ab-ae2f00bf97a5",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.765041, 52.037017 ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "The Guinness Partnership",
+        "popupContent": "Address: Henshaw House, 851 Silbury Boulevard, Milton Keynes, MK9 3JZ.",
+        "availableTimes": "Mon-Fri, 09:00-17:00 (Sat-Sun not available)",
+        "id": "384d6c33-a1a4-4975-b58e-af4100aca937",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.752175, 52.046718 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "Mk Gallery",
+        "popupContent": "Address: Milton Keynes Art Gallery, 900 Midsummer Boulevard, Milton Keynes, MK9 3QA.",
+        "availableTimes": "Tues-Sat, 10:00-17:00 (Monday & Sunday not available)",
+        "id": "6ea82f74-35a6-4301-ad65-aeca00a6654e",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.748925, 52.044561 ]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {
+        "name": "Campbell Park Parish Council",
+        "popupContent": "Address: 1 Pencarrow Place, Fishermead, Milton Keynes, MK6 2AS.",
+        "availableTimes": "24/7 (Mon-Sun, always)",
+        "id": "dd5d04cb-e8c8-40ed-be1f-ad2d008e48db",
+        "url": null
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [ -0.746131, 52.037051 ]
+      }
+    }
+  ]
+}
