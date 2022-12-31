@@ -65,7 +65,7 @@ export class MyElement extends HTMLElement {
       // NO: default:
     }
 
-    return `${BASE}/src/components/${id}.tpl.html`;
+    return `${BASE}/src/templates/${id}.tpl.html`;
   }
 
   /**
