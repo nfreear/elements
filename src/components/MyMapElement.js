@@ -68,7 +68,15 @@ export class MyMapElement extends MyElement {
     };
 
     if (attr.geojson) {
-      await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
+      try {
+        await this.loadGeoJson(attr.geojson).then(res => res.addTo(map));
+      } catch (ex) {
+        if (ex instanceof SyntaxError) {
+          console.error('JSON Parsing Error -', ex);
+        } else {
+          console.error(ex);
+        }
+      }
     }
 
     this._accessibilityFixes();
