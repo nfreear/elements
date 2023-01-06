@@ -3,17 +3,30 @@
 
 <template id="default">
   <style>
-  article {
-    background: #fafafa;
-    color: #555;
-    border: 1px solid #ddd;
-    font: 1.02rem/1.8 Georgia, Times, serif;
-    max-width: 36rem;
-    padding: 0 1rem;
+  * {
+    outline-offset: .25rem;
   }
-  p {
+
+  /* Don't set / inherit line-height & paragraph margin. */
+  article,
+  [ part = art ] {
+    background: rgba(127,127,127, 0.06); /* #fafafa; */
+    /* color: #444; */
+    border: 1px solid rgba(127,127,127, 0.4); /* #ccc; */
+    font: 1rem Georgia, Times, serif;
+    line-height: inherit;
+    letter-spacing: inherit;
+    /* max-width: 40rem; */
+    padding: 1rem 1rem 0;
+  }
+  img {
+    border: 1px solid rgba(127,127,127, 0.3);
+    border-radius: .25rem;
+  }
+  p,
+  [ part = p ] {
     display: none;
-    margin: 1.8rem 0;
+    /* margin: 1.8rem 0; */
   }
 
   .n1 p:nth-of-type(1),
@@ -30,33 +43,47 @@
   }
   </style>
 
-  <article aria-labelledby="id-label">
-    <h2 id="id-label"> Lorem Ipsum </h2>
+  <article part="art" aria-labelledby="id-label">
+    <header part="hdr" id="id-label">
+      <slot>
+        <h2> Lorem Ipsum </h2>
+      </slot>
+    </header>
 
-    <a href="https://lipsum.com/">About Lorem Ipsum.</a>
+    <a part="a" href="https://lipsum.com/">About Lorem Ipsum.</a>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam placerat ipsum lectus, dignissim porta orci tincidunt ac. Nam vitae ex quam. Proin turpis dui, facilisis non efficitur eget, egestas sit amet mi. Nullam iaculis feugiat dui, non mattis turpis pretium sit amet. Sed sodales tristique nunc. Etiam nec nunc non libero accumsan vestibulum. Mauris ornare pharetra sodales. Phasellus sollicitudin, elit quis facilisis semper, erat ante finibus lacus, eu viverra urna augue nec lectus. In quis ex convallis, ultricies mi eu, consequat metus. Quisque justo libero, pulvinar non pretium quis, dignissim quis nisi. Vivamus eleifend sapien ligula, ac fringilla leo tempor vitae. Curabitur accumsan consectetur ex et tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent iaculis leo at nulla ultricies, in tincidunt mi convallis. Sed venenatis lobortis purus. Donec fermentum vestibulum felis, et egestas tellus.
+    <div part="div wrap">
 
-    <p>Fusce quis porttitor justo. Vestibulum ac lacus condimentum ante aliquam dictum sed lobortis ante. Quisque congue elit lobortis lacinia interdum. Praesent massa ligula, ultricies eget dolor vitae, aliquam semper tortor. Curabitur libero sapien, fermentum in mauris vel, bibendum faucibus velit. Duis ligula felis, mattis quis molestie vitae, tristique bibendum arcu. Nulla egestas dui ante, nec commodo est consequat sit amet.
+    <p part="p p1">
+      <a part="img" href="https://picsum.photos/">
+        <img alt="Photo from 'Lorem Picsum'" src="https://picsum.photos/360/240">
+      </a>
 
-    <p>Ut rutrum, turpis vitae condimentum elementum, ligula nisi congue erat, at pellentesque enim augue at nulla. Nullam quis nibh sodales, faucibus mi eu, mollis justo. In tincidunt in magna ut blandit. Nullam ligula felis, dignissim eget gravida quis, consectetur vel purus. Maecenas vestibulum, augue sit amet ornare hendrerit, quam lacus faucibus massa, iaculis tempus nunc purus in sapien. Vivamus sit amet consequat magna. Nullam lacinia non velit at aliquet. Quisque condimentum neque sit amet turpis venenatis, at egestas magna sollicitudin. Integer lobortis feugiat lacus, vel consequat nibh dapibus sit amet. In non nibh nec magna porta viverra.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam placerat ipsum lectus, dignissim porta orci tincidunt ac. Nam vitae ex quam. Proin turpis dui, facilisis non efficitur eget, egestas sit amet mi. Nullam iaculis feugiat dui, non mattis turpis pretium sit amet. Sed sodales tristique nunc. Etiam nec nunc non libero accumsan vestibulum. Mauris ornare pharetra sodales. Phasellus sollicitudin, elit quis facilisis semper, erat ante finibus lacus, eu viverra urna augue nec lectus. In quis ex convallis, ultricies mi eu, consequat metus. Quisque justo libero, pulvinar non pretium quis, dignissim quis nisi. <!-- Vivamus eleifend sapien ligula, ac fringilla leo tempor vitae. Curabitur accumsan consectetur ex et tincidunt. --> Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <!-- Praesent iaculis leo at nulla ultricies, in tincidunt mi convallis. Sed venenatis lobortis purus. Donec fermentum vestibulum felis, et egestas tellus. -->
 
-    <p>Integer maximus metus erat, sit amet porta est pellentesque nec. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam non interdum lorem. Morbi aliquam bibendum turpis. Proin tellus risus, sodales mattis ipsum vulputate, porttitor porttitor ligula. Aliquam enim turpis, faucibus non lobortis in, vehicula suscipit augue. Mauris velit est, rutrum vel convallis pulvinar, congue vel dolor.
+    <p part="p p2">Fusce quis porttitor justo. Vestibulum ac lacus condimentum ante aliquam dictum sed lobortis ante. Quisque congue elit lobortis lacinia interdum. Praesent massa ligula, ultricies eget dolor vitae, aliquam semper tortor. Curabitur libero sapien, fermentum in mauris vel, bibendum faucibus velit. Duis ligula felis, mattis quis molestie vitae, tristique bibendum arcu. Nulla egestas dui ante, nec commodo est consequat sit amet.
+
+    <p part="p p3">Ut rutrum, turpis vitae condimentum elementum, ligula nisi congue erat, at pellentesque enim augue at nulla. Nullam quis nibh sodales, faucibus mi eu, mollis justo. In tincidunt in magna ut blandit. Nullam ligula felis, dignissim eget gravida quis, consectetur vel purus. Maecenas vestibulum, augue sit amet ornare hendrerit, quam lacus faucibus massa, iaculis tempus nunc purus in sapien. Vivamus sit amet consequat magna. Nullam lacinia non velit at aliquet. Quisque condimentum neque sit amet turpis venenatis, at egestas magna sollicitudin. Integer lobortis feugiat lacus, vel consequat nibh dapibus sit amet. In non nibh nec magna porta viverra.
+
+    <p part="p p4">Integer maximus metus erat, sit amet porta est pellentesque nec. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam non interdum lorem. Morbi aliquam bibendum turpis. Proin tellus risus, sodales mattis ipsum vulputate, porttitor porttitor ligula. Aliquam enim turpis, faucibus non lobortis in, vehicula suscipit augue. Mauris velit est, rutrum vel convallis pulvinar, congue vel dolor.
 
     <!-- Generated 4 paragraphs, 357 words, 2468 bytes of Lorem Ipsum -->
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula bibendum ipsum, at luctus orci blandit sit amet. Donec eu massa quis nulla fermentum fermentum at ac massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae odio elit. Integer sollicitudin, justo eu mattis posuere, lectus orci vehicula erat, ac auctor libero lectus eget turpis. Nulla et magna lectus. Donec luctus quam justo, quis molestie augue tincidunt blandit.
+    <p part="p p5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula bibendum ipsum, at luctus orci blandit sit amet. Donec eu massa quis nulla fermentum fermentum at ac massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae odio elit. Integer sollicitudin, justo eu mattis posuere, lectus orci vehicula erat, ac auctor libero lectus eget turpis. Nulla et magna lectus. Donec luctus quam justo, quis molestie augue tincidunt blandit.
 
-    <p>Cras pharetra, ante eu varius venenatis, purus turpis aliquet massa, quis suscipit nisi ipsum ac mauris. Donec faucibus rutrum suscipit. Mauris nec nulla elementum, luctus tellus quis, varius velit. Maecenas at ex leo. Duis dignissim, tortor ac consectetur tempor, eros sapien porttitor massa, a vehicula sapien mi porttitor turpis. Ut tristique mattis auctor. Aliquam eu sollicitudin sapien. Aenean mollis aliquet iaculis. Cras euismod diam ac malesuada tristique.
+    <p part="p p6">Cras pharetra, ante eu varius venenatis, purus turpis aliquet massa, quis suscipit nisi ipsum ac mauris. Donec faucibus rutrum suscipit. Mauris nec nulla elementum, luctus tellus quis, varius velit. Maecenas at ex leo. Duis dignissim, tortor ac consectetur tempor, eros sapien porttitor massa, a vehicula sapien mi porttitor turpis. Ut tristique mattis auctor. Aliquam eu sollicitudin sapien. Aenean mollis aliquet iaculis. Cras euismod diam ac malesuada tristique.
 
-    <p>Cras mollis risus ac quam mollis facilisis id id enim. Donec at felis suscipit enim luctus laoreet. Aliquam tempus consequat maximus. Quisque luctus augue in est tempus tempor a vitae massa. Suspendisse potenti. Cras porttitor lectus orci, quis maximus nulla hendrerit luctus. Phasellus in velit rhoncus, luctus arcu sed, ultricies sem. Morbi at lorem tempor, faucibus diam id, elementum mi. Donec quis sem a tellus interdum vehicula vitae at metus.
+    <p part="p p7">Cras mollis risus ac quam mollis facilisis id id enim. Donec at felis suscipit enim luctus laoreet. Aliquam tempus consequat maximus. Quisque luctus augue in est tempus tempor a vitae massa. Suspendisse potenti. Cras porttitor lectus orci, quis maximus nulla hendrerit luctus. Phasellus in velit rhoncus, luctus arcu sed, ultricies sem. Morbi at lorem tempor, faucibus diam id, elementum mi. Donec quis sem a tellus interdum vehicula vitae at metus.
 
-    <p>Nunc a nibh tempus, convallis sem efficitur, porttitor enim. Suspendisse scelerisque metus magna, sed pharetra eros convallis eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec maximus efficitur massa luctus fringilla. Maecenas id nibh et risus cursus sollicitudin. Nunc varius, enim non elementum tincidunt, purus nunc pulvinar quam, in facilisis nibh nisi id felis. Curabitur sed dui est. Donec maximus lacus dui, condimentum lobortis sapien cursus et. Sed molestie est eget libero sollicitudin, sed mollis erat semper. Nam faucibus quis lacus ac gravida. Quisque luctus aliquam dictum. Vestibulum feugiat dapibus arcu. Praesent nec nulla tellus. Vestibulum eget ornare neque. Nam vestibulum malesuada eleifend. Vestibulum finibus urna dolor, eget sodales justo scelerisque at.
+    <p part="p p8">Nunc a nibh tempus, convallis sem efficitur, porttitor enim. Suspendisse scelerisque metus magna, sed pharetra eros convallis eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec maximus efficitur massa luctus fringilla. Maecenas id nibh et risus cursus sollicitudin. Nunc varius, enim non elementum tincidunt, purus nunc pulvinar quam, in facilisis nibh nisi id felis. Curabitur sed dui est. Donec maximus lacus dui, condimentum lobortis sapien cursus et. Sed molestie est eget libero sollicitudin, sed mollis erat semper. Nam faucibus quis lacus ac gravida. Quisque luctus aliquam dictum. Vestibulum feugiat dapibus arcu. Praesent nec nulla tellus. Vestibulum eget ornare neque. Nam vestibulum malesuada eleifend. Vestibulum finibus urna dolor, eget sodales justo scelerisque at.
 
-    <p>Praesent sed elit at odio fringilla ornare. Pellentesque dolor lectus, auctor vel auctor ac, ultrices luctus nulla. Morbi accumsan molestie lacus, non fringilla nisi condimentum sed. Nunc hendrerit, magna vitae iaculis molestie, mi augue imperdiet dui, quis tempor erat velit sit amet arcu. In hac habitasse platea dictumst. Suspendisse tincidunt mollis semper. Duis enim massa, sollicitudin ac neque quis, facilisis molestie urna.
+    <p part="p p9">Praesent sed elit at odio fringilla ornare. Pellentesque dolor lectus, auctor vel auctor ac, ultrices luctus nulla. Morbi accumsan molestie lacus, non fringilla nisi condimentum sed. Nunc hendrerit, magna vitae iaculis molestie, mi augue imperdiet dui, quis tempor erat velit sit amet arcu. In hac habitasse platea dictumst. Suspendisse tincidunt mollis semper. Duis enim massa, sollicitudin ac neque quis, facilisis molestie urna.
 
-    <p>Vivamus pellentesque diam vitae ultrices pretium. Mauris luctus gravida elit, non tincidunt nibh varius eu. Pellentesque vitae ipsum velit. Etiam rutrum tortor eu luctus auctor. Sed condimentum ante nisi, id finibus metus feugiat ultricies. Ut molestie lobortis ex porttitor aliquam. Nulla maximus libero at ligula condimentum, accumsan auctor sem euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse consectetur finibus ipsum, sed ultrices orci posuere ac.
+    <p part="p p10">Vivamus pellentesque diam vitae ultrices pretium. Mauris luctus gravida elit, non tincidunt nibh varius eu. Pellentesque vitae ipsum velit. Etiam rutrum tortor eu luctus auctor. Sed condimentum ante nisi, id finibus metus feugiat ultricies. Ut molestie lobortis ex porttitor aliquam. Nulla maximus libero at ligula condimentum, accumsan auctor sem euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse consectetur finibus ipsum, sed ultrices orci posuere ac.
 
     <!-- Generated 6 paragraphs, 456 words, 3146 bytes of Lorem Ipsum -->
+
+    </div>
+
   </article>
 </template>

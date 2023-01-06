@@ -6,7 +6,11 @@
 
 import { MyElement } from '../MyElement.js';
 
-const DEFAULT_PARAS = 4;
+const DEFAULT_PARAS = 2; // Was: 4;
+const DEFAULT_STYLE = `
+display: block;
+margin: 1rem auto;
+`;
 
 export class MyLoremIpsumElement extends MyElement {
   static getTag () {
@@ -19,6 +23,8 @@ export class MyLoremIpsumElement extends MyElement {
     await this.getTemplate('my-lorem-ipsum');
 
     this._addClasses(paras);
+
+    this.style = DEFAULT_STYLE;
 
     console.debug('my-lorem-ipsum:', paras, this);
   }
