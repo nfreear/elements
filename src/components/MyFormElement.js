@@ -21,8 +21,9 @@ export class MyFormElement extends HTMLFormElement {
 
   async connectedCallback () {
     this._onsubmit = async (ev) => console.debug('Submit:', this._formData, ev);
+    this._onreset = async (ev) => console.debug('Reset:', this._formData, ev);
 
-    console.debug('my-form:', this);
+    console.debug('my-form:', this.constructor.name, { o: this }, this);
   }
 
   set _onsubmit (callbackFn) { /* eslint-disable-line accessor-pairs -- setWithoutGet */
@@ -34,6 +35,25 @@ export class MyFormElement extends HTMLFormElement {
       this._disableFormFields();
       callbackFn && await callbackFn(ev);
       // setTimeout(() => this._enableFormFields(), delayMs);
+    });
+  }
+
+  set _onreset (callbackFn) { /* eslint-disable-line accessor-pairs -- setWithoutGet */
+    this.addEventListener('reset', async (ev) => {
+      ev.preventDefault();
+      this.dataset.reset = true;
+      this._enableFormFields();
+      callbackFn && await callbackFn(ev);
+    });
+  }
+
+  set _onclick (callbackFn) { /* eslint-disable-line accessor-pairs -- setWithoutGet */
+    const BTN = this.querySelector('[type = button]');
+
+    BTN && BTN.addEventListener('click', async (ev) => {
+      ev.preventDefault();
+      this.dataset.click = true;
+      callbackFn && await callbackFn(ev);
     });
   }
 
@@ -57,8 +77,10 @@ export class MyFormElement extends HTMLFormElement {
     return [...nameElems].map(el => el.name);
   }
 
+  /** All fields, except reset buttons.
+  */
   get _allFields () {
-    return [...this.querySelectorAll('button,input,textarea,select,fieldset')];
+    return [...this.querySelectorAll('button:not([type=reset]),input,textarea,select,fieldset')];
   }
 
   _disableFormFields () {
