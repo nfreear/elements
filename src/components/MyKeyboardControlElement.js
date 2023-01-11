@@ -1,13 +1,13 @@
 /**
  * Control a grid, listbox or similar widget with the arrows keys.
  *
+ * @TODO Currently needs left/right arrow keys for vertical listboxes.
+ *
  * @copyright © Nick Freear, 11-Jan-2023.
  * @see ./MyDatePickerElement.js
  */
 
 import MyElement from '../MyElement.js';
-
-// await customImport('my-date-picker');
 
 const HORIZ = {
   Left: -1,
@@ -27,28 +27,29 @@ export class MyKeyboardControlElement extends MyElement {
     return 'my-keyboard-control';
   }
 
+  get _isListbox () {
+    return this.dataset.role === 'listbox' || this.querySelector('[ role = listbox ]');
+  }
+
   get _gridSelector () {
-    return this.getAttribute('grid-selector') || 'table tbody';
+    return this._isListbox ? '[ role = listbox ]' : this.getAttribute('grid-selector') || 'table tbody';
   }
 
   get _cellSelector () {
-    return this.getAttribute('cell-selector') || 'td';
+    return this._isListbox ? '[ role = option ]' : this.getAttribute('cell-selector') || 'td';
   }
 
   async connectedCallback () {
     const NOW = new Date();
-    const today = new Date(this.getAttribute('today') || NOW);
+    // const today = new Date(this.getAttribute('today') || NOW);
     const selected = new Date(this.getAttribute('selected') || NOW);
 
-    // await this.getTemplate('my-date-picker');
+    const GRID = this.querySelector(this._gridSelector);
 
-    const GRID = this.querySelector(this._gridSelector); // '[ role = listbox ]');
-    // @WAS const GRID = this.shadowRoot.querySelector('table tbody');
+    const rows = this._isListbox ? [GRID] : GRID.querySelectorAll('tr');
+    const cells = GRID.querySelectorAll(this._cellSelector);
 
-    const rows = [GRID]; // .querySelectorAll('tr');
-    const cells = GRID.querySelectorAll(this._cellSelector); // '[ role = option ]');
-
-    this.$$ = { today, selected, rows, cells, GRID };
+    this.$$ = { grid: this._gridSelector, cell: this._cellSelector, selected, rows, cells, GRID };
 
     this._initialize();
 
@@ -62,7 +63,7 @@ export class MyKeyboardControlElement extends MyElement {
     this.$$.rows.forEach((row, week) => {
       row.setAttribute('data-week', week);
 
-      const R_CELLS = row.querySelectorAll(this._cellSelector); // ('[ role = option ]');
+      const R_CELLS = row.querySelectorAll(this._cellSelector);
       // @WAS: const R_CELLS = row.querySelectorAll('td');
 
       R_CELLS.forEach((cell, idx) => {
@@ -100,7 +101,8 @@ export class MyKeyboardControlElement extends MyElement {
 
   _setSelected (cell) {
     if (!cell) {
-      throw new Error('No selected cell');
+      return console.warn('Warning: no selected cell.');
+      // @WAS throw new Error('No selected cell');
     }
 
     cell.setAttribute('aria-selected', true);
