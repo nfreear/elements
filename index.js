@@ -38,6 +38,7 @@ export { MyFeedElement } from './src/components/MyFeedElement.js';
 export { MyFormElement } from './src/components/MyFormElement.js';
 export { MyTestElement } from './src/components/MyTestElement.js';
 export { MyConsoleElement } from './src/components/MyConsoleElement.js';
+export { MyKeyboardControlElement } from './src/components/MyKeyboardControlElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
