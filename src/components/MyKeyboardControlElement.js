@@ -1,12 +1,19 @@
 /**
- * Navigate a grid, listbox or similar widget using the arrows keys, etc.
+ * Adjust/navigate an ARIA-based control such as a grid, listbox or similar using the arrows keys, etc.
  *
- * @TODO Maybe rename to <my-keyboard-nav> ?
+ * The <my-keyboard-control> element automatically detects some control-types, including listbox and grid, and adjusts to 1- or 2-dimensional navigation accordingly.
+ *
  * @TODO Currently auto-detects grid and listbox. Add auto-detect for more?
+ * @TODO Maybe rename to <my-keyboard-nav> ?
  *
  * @copyright © Nick Freear, 11-Jan-2023.
+ * @see https://codepen.io/nfreear/pen/jOpLNxR
+ * @see https://w3.org/WAI/ARIA/apg/practices/keyboard-interface/
  * @see https://w3.org/WAI/ARIA/apg/example-index/grid/dataGrids.html
  * @see ./MyDatePickerElement.js
+ *
+ * @status experimental
+ * @since 1.3.0
  */
 
 import MyElement from '../MyElement.js';
@@ -40,7 +47,12 @@ export class MyKeyboardControlElement extends MyElement {
   /** Are we in 1-Dimensional mode?
    */
   get _is1Dim () {
-    return this.getAttribute('is1dim') === 'true' || this._isListbox;
+    const IS_1D = this.getAttribute('is1dim') === 'true'; // DEPRECATED.
+    return IS_1D || /(horiz|vert)/.test(this._orient) || this._isListbox;
+  }
+
+  get _orient () {
+    return this.getAttribute('orient');
   }
 
   get _isListbox () {
@@ -65,7 +77,7 @@ export class MyKeyboardControlElement extends MyElement {
     const rows = this._is1Dim ? [GRID] : GRID.querySelectorAll('tr');
     const cells = GRID.querySelectorAll(this._cellSelector);
 
-    this.$$ = { is1D: this._is1Dim, grid: this._gridSelector, cell: this._cellSelector, selected, rows, cells, GRID };
+    this.$$ = { is1D: this._is1Dim, orient: this._orient, grid: this._gridSelector, cell: this._cellSelector, selected, rows, cells, GRID };
 
     this._initialize();
 
@@ -126,25 +138,29 @@ export class MyKeyboardControlElement extends MyElement {
   }
 
   _clickHandler (ev) {
-    const DATE = ev.target.textContent;
+    const { target } = ev;
+    const TEXT = target.textContent;
 
     this._reset();
-    this._setSelected(ev.target);
-    this._fireSelectedEvent(ev.target, null, null, ev);
+    this._setSelected(target);
+    this._fireSelectedEvent(target, null, null, null, ev);
 
-    console.debug('click:', DATE, ev);
+    console.debug('click:', TEXT, ev);
   }
 
   _keyupHandler (ev) {
-    const COL = parseInt(ev.target.dataset.col) || 0;
-    const ROW = parseInt(ev.target.parentElement.dataset.row) || 0; // Aka "ROW"
+    const { key, altKey, ctrlKey, metaKey, shiftKey, target } = ev;
+
+    const IS_MOD_KEY = altKey || ctrlKey || metaKey || shiftKey;
+    const COL = parseInt(target.dataset.col) || 0;
+    const ROW = parseInt(target.parentElement.dataset.row) || 0; // Aka "ROW"
 
     // const BEFORE = ev.target.textContent;
-    const IS_ARROW = /Arrow/.test(ev.key);
-    const DIR = ev.key.replace(/Arrow/, '');
+    const IS_ARROW = /Arrow/.test(key);
+    const DIR = key.replace(/Arrow/, '');
     const IS_1D = this._is1Dim;
 
-    if (IS_ARROW) {
+    if (IS_ARROW && !IS_MOD_KEY) {
       ev.preventDefault();
 
       const COORDS = `${COL + this._horiz[DIR]},${IS_1D ? 0 : (ROW + VERT[DIR])}`;
@@ -155,7 +171,7 @@ export class MyKeyboardControlElement extends MyElement {
       if (CELL) {
         this._reset();
         this._setSelected(CELL);
-        this._fireSelectedEvent(CELL, DIR, COORDS, ev);
+        this._fireSelectedEvent(CELL, DIR, COORDS, key, ev);
         CELL.focus();
       }
 
@@ -165,9 +181,9 @@ export class MyKeyboardControlElement extends MyElement {
     }
   }
 
-  _fireSelectedEvent (cell, dir, coords, ev) {
+  _fireSelectedEvent (cell, dir, coords, key, ev) {
     const event = new CustomEvent('selected', {
-      detail: { cell, dir, coords, controls: this._getControlsElem(cell), origEvent: ev }
+      detail: { cell, dir, coords, key, controls: this._getControlsElem(cell), origEvent: ev }
     });
     this.dispatchEvent(event);
   }
