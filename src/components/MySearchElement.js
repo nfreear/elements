@@ -3,6 +3,7 @@
  *
  * @copyright © Nick Freear, 17-Mar-2022.
  *
+ * @see ../demo/my-search.html
  * @see https://cse.google.com/cse/all
  * @see https://developers.google.com/custom-search/docs/element
  */
@@ -19,8 +20,6 @@ export class MySearchElement extends MyElement {
     const CX = this.getAttribute('cx'); // || '001222343498871500969:-u73i2qfu2s';
     const label = this.getAttribute('label') || 'Search';
 
-    // const SEARCH_ELEM = document.querySelector('my-search');
-
     const elem = document.createElement('div');
     const labelElem = document.createElement('label');
 
@@ -32,6 +31,8 @@ export class MySearchElement extends MyElement {
 
     this.after(elem);
     this.after(labelElem);
+
+    this._addConfig();
 
     this.attachShadow({ mode: 'open' }).appendChild(this._script(CX));
 
@@ -50,6 +51,25 @@ export class MySearchElement extends MyElement {
     // s.parentNode.insertBefore(gcse, s);
 
     return GCSE;
+  }
+
+  _addConfig () {
+    window.__gcse = {
+      parsetags: 'onload', // Not: 'explicit', // Defaults to 'onload'
+      initializationCallback: R => console.debug('CSE init:', R),
+      searchCallbacks: {
+        image: {
+          /* starting: myImageSearchStartingCallback,
+          ready: myImageResultsReadyCallback,
+          rendered: myImageResultsRenderedCallback, */
+        },
+        web: {
+          starting: (N, q) => console.debug('CSE start:', N, q),
+          ready: R => console.debug('CSE ready:', R),
+          rendered: R => console.debug('CSE rendered:', R)
+        }
+      }
+    };
   }
 }
 

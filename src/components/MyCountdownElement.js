@@ -3,6 +3,7 @@
  *
  * @copyright © Nick Freear, 07-May-2022.
  *
+ * @see ../demo/my-countdown.html
  * @see https://geeksforgeeks.org/create-countdown-timer-using-javascript/
  */
 

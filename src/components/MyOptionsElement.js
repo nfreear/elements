@@ -1,7 +1,10 @@
 /**
- * Options Element - set configuration options.
+ * My Options element - set configuration options.
  *
  * @copyright © Nick Freear, 11-Dec-2021.
+ * @see ../demo/my-options.html
+ * @status beta
+ * @since 1.0.0
  */
 
 import { MyElement } from '../MyElement.js';

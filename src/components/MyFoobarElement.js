@@ -2,6 +2,8 @@
  * Boilerplate template.
  *
  * @copyright © Nick Freear, 09-Dec-2021.
+ * @status beta
+ * @since 1.0.0
  */
 
 import { MyElement } from '../MyElement.js';

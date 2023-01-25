@@ -1,11 +1,12 @@
 /**
- * My Elements.
- *
  * MyElement - base class with functions to fetch templates, etc.
  *
  * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 02-Dec-2021.
  * @license MIT
+ *
+ * @status beta
+ * @since 1.0.0
  */
 
 // import { getOpt } from './Options.js';

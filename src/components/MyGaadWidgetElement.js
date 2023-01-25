@@ -1,7 +1,7 @@
 /**
  * Global Accessibility Awareness Day (GAAD) - banner/widget.
  *
- * gaad-widget.js | © 2019 Nick Freear | License: MIT.
+ * @copyright gaad-widget.js | © 2019 Nick Freear | License: MIT.
  *
  * @see https://github.com/nfreear/gaad-widget
  * @copyright © Nick Freear, 05-May-2022.

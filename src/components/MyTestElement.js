@@ -2,8 +2,11 @@
  * Run the W3C / Nu Html Checker on the serialized DOM, possibly other tests ...?
  *
  * @copyright © Nick Freear, 05-Nov-2022.
+ *
  * @see https://codepen.io/nfreear/pen/PoaGGgB
  * @see https://validator.w3.org/nu/about.html
+ * @status experimental, for demos, Codepens etc.
+ * @since 1.3.0
  */
 
 import { MyElement } from '../MyElement.js';

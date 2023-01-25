@@ -2,6 +2,9 @@
  * Add a "skip to main content" link which becomes visible on focus.
  *
  * @copyright Nick Freear, 08-Dec-2021.
+ * @see ../demo/my-skip-link.html
+ * @status beta, my blog
+ * @since 1.0.0
  */
 
 import { MyElement } from '../MyElement.js';

@@ -3,6 +3,7 @@
  *
  * @copyright © Nick Freear, 10-Jan-2022.
  *
+ * @see https://codepen.io/nfreear/pen/eYKzbwJ
  * @see https://wicg.github.io/speech-api/#tts-section
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
  * @see https://translate.google.com/?sl=auto&tl=zh-CN&text=Hello%20world.&op=translate;
@@ -11,6 +12,9 @@
  * <my-speech>
  * <my-speech-synthesis> - MySpeechSynthesisElement
  * <my-text-to-speech>   - MyTextToSpeechElement
+ *
+ * @status experimental
+ * @since 1.X.0
  */
 
 import { MyElement } from '../MyElement.js';

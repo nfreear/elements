@@ -6,6 +6,9 @@
  * @see https://indielogin.com/api
  * @see https://indieauth.net/
  * @copyright © Nick Freear, 03-Oct-2022.
+ *
+ * @status experimental
+ * @since 1.3.0
  */
 
 import { MyElement } from '../MyElement.js';
@@ -231,7 +234,7 @@ export class MyIndieAuthElement extends MyElement {
   _checkCSP () {
     const CSP = document.querySelector('meta[http-equiv = Content-Security-Policy][content]');
     if (CSP) {
-      console.debug('CSP:', CSP.content.split(';'), CSP);
+      console.debug('CSP:', CSP.content.split(/;\s*/), CSP);
     } else {
       console.warn('Add a `Content-Security-Policy` HTTP header or <meta> element.');
     }

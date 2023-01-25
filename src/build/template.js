@@ -2,6 +2,8 @@
  * Concatenate all the templates into a single file.
  *
  * @copyright © Nick Freear, 31-March-2022.
+ * @status experimental
+ * @since 1.2.0
  */
 
 import * as fs from 'fs/promises';
@@ -16,7 +18,7 @@ const TPL_REGEX = /<template([^>]*)>(.*?)<\/template>/;
 // Will contain trailing slash
 const __dirname = new URL('.', import.meta.url).pathname;
 
-const INPUT_DIR = path.resolve(__dirname, '..', 'components');
+const INPUT_DIR = path.resolve(__dirname, '..', 'templates'); // @WAS: 'components'
 const OUTPUT_FILE = path.resolve(__dirname, '../..', 'dist', 'template.html');
 
 console.warn('Input Dir:', INPUT_DIR);

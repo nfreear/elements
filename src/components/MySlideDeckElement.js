@@ -1,8 +1,11 @@
 /**
  * Present a deck of slides - powered by Reveal.js.
  *
- * @see https://revealjs.com
  * @copyright © Nick Freear, 24-Sep-2022.
+ * @see ../demo/my-slide-deck.html
+ * @see https://revealjs.com
+ * @status alpha
+ * @since 1.3.0
  */
 
 import { MyElement } from '../MyElement.js';

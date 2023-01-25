@@ -2,6 +2,8 @@
  * Embed a bookmarklet Javascript.
  *
  * @copyright © Nick Freear, 23-Jan-2022.
+ *
+ * @see ../demo/my-bookmarklet.html
  */
 
 import { rainbowViaCdn } from '../external-cdn.js';

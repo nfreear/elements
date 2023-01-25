@@ -1,12 +1,17 @@
 /**
  * Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
  *
- * Contains accessibility fixes.
+ * Contains accessibility fixes and enhancements
  *
  * @copyright © Nick Freear, 27-Nov-2021.
  *
+ * @see https://codepen.io/nfreear/pen/KKeJKov
+ * @see ../demo/my-map.html
  * @see https://leafletjs.com/
  * @WAS 'my-map.js'
+ *
+ * @status beta
+ * @since 1.0.0
  */
 
 // import { leafletViaCdn } from '../external-cdn.js';
@@ -15,8 +20,15 @@ import { MyElement } from '../MyElement.js';
 const { fetch } = window;
 const LEAFLET_JS_CDN = 'https://unpkg.com/leaflet@1.9.1/dist/leaflet.js';
 
-// See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
-const OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+// Some defaults.
+const DEF = {
+  // Greenwich Observatory, London, UK. (Was: Central London 51.505,-0.09)
+  lat: 51.476852,
+  long: -0.000500,
+  zoom: 14,
+  // See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
+  osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+};
 
 export class MyMapElement extends MyElement {
   static getTag () {
@@ -24,9 +36,9 @@ export class MyMapElement extends MyElement {
   }
 
   async connectedCallback () {
-    const lat = parseFloat(this.getAttribute('lat') || 51.505);
-    const long = parseFloat(this.getAttribute('long') || -0.09);
-    const zoom = parseInt(this.getAttribute('zoom') || 14);
+    const lat = parseFloat(this.getAttribute('lat') || DEF.lat);
+    const long = parseFloat(this.getAttribute('long') || DEF.long);
+    const zoom = parseInt(this.getAttribute('zoom') || DEF.zoom);
     // const caption = this.getAttribute('caption') || 'A caption for the map.';
     const geojson = this.getAttribute('geojson') || null; // GeoJSON URL is relative to the HTML page!
     const attribution = null;
@@ -96,7 +108,7 @@ export class MyMapElement extends MyElement {
   }
 
   get tileUrl () {
-    return this.getAttribute('tile-url') || this.getAttribute('tileUrl') || OSM_TILE_URL;
+    return this.getAttribute('tile-url') || this.getAttribute('tileUrl') || DEF.osmTileUrl;
   }
 
   get attribution () {

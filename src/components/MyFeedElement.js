@@ -2,6 +2,11 @@
  * Display an RSS, Atom or similar feed.
  *
  * @copyright © Nick Freear, 20-Oct-2022.
+ *
+ * @see https://codepen.io/nfreear/pen/rNKwoNL
+ * @see ../demo/my-feed.html
+ * @status beta, my blog
+ * @since 1.3.0
  */
 
 import MyElement from '../MyElement.js';

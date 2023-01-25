@@ -1,7 +1,11 @@
 /**
- * My Console.
+ * My Console - redirect `console.log()` etc. to the HTML page.
  *
  * @copyright © Nick Freear, 16-Nov-2022.
+ *
+ * @see https://codepen.io/nfreear/pen/PoaEpVa
+ * @status experimental, for demos, Codepens etc.
+ * @since 1.3.0
  */
 
 import { MyElement } from '../MyElement.js';

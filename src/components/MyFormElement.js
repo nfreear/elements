@@ -1,7 +1,11 @@
 /**
- * <form is="my-form">
+ * Easily setup a Javascript-based form.
  *
+ * @example <form is="my-form">
  * @copyright © Nick Freear, 19-Oct-2022.
+ *
+ * @status beta
+ * @since 1.3.0
  */
 
 const { customElements, HTMLFormElement } = window;

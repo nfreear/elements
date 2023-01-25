@@ -1,12 +1,15 @@
 /**
  * A Busy Spinner animation - pure CSS.
  *
- * @copyright © Nick Freear, 2021-10-26.
+ * @copyright © Nick Freear, 26-Oct-2021.
  *
  * @see https://gist.github.com/nfreear/ae83b11a7572cd3122a181bb6ebb7fff,
  * @see https://gist.github.com/nfreear/a71bfce05ef9bae03011ea33762c9d69,
  * @see https://sap.github.io/ui5-webcomponents/playground/components/BusyIndicator/,
  * @see https://github.com/SAP/ui5-webcomponents/blob/master/packages/main/src/BusyIndicator.hbs,
+ *
+ * @status beta, my blog
+ * @since 1.0.0
 */
 
 import { MyElement } from '../MyElement.js';

@@ -1,9 +1,12 @@
 /**
- * A keyboard accessible interactive to give a star rating.
+ * A keyboard-accessible interactive to give a star rating.
  *
  * @copyright © Nick Freear, 04-Dec-2021.
  *
  * @WAS MyRadioStarRatingElement.
+ * @see ../demo/my-star-rating.html
+ * @status beta
+ * @since 1.0.0
  */
 
 import { MyElement } from '../MyElement.js';

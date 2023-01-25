@@ -7,6 +7,9 @@
  * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 09-Jan-2022.
  * @license MIT
+ *
+ * @status beta, my blog
+ * @since 1.1.0
  */
 
 import { getOptUse, hasElem } from './src/Options.js';
