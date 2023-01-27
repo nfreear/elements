@@ -26,8 +26,8 @@
     "src/**/*"
   ],
   "scripts": {
-    "build:docs": "node ./src/build/CustomElementParser.js > ./src/index.json",
-    "build:template": "node ./src/build/template.js > ./template.html",
+    "build:feed": "node ./src/build/feed.js > ./src/feed.json",
+    "build:template": "node ./src/build/template.js > ./src/template.html",
     "start": "npx servor --reload",
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",

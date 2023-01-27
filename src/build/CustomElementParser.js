@@ -8,48 +8,39 @@
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { URL } from 'url';
+// import { URL } from 'url';
 
-const LIMIT = 40; // 10; // 2;
+const FILE_LIMIT = 40; // 10; // 2;
 const MJS_EXT = '.js';
 
-const __dirname = new URL('.', import.meta.url).pathname;
+export default class CustomElementParser {
+  // .
+  constructor (fileLimit = FILE_LIMIT) {
+    this._fileLimit = fileLimit;
+  }
 
-const INPUT_DIR = path.resolve(__dirname, '..', 'components');
-const OUTPUT_FILE = path.resolve(__dirname, '..', '..', 'demo', 'index.json');
-
-console.warn('Input Dir:', INPUT_DIR);
-
-getJavascriptFiles(INPUT_DIR).then(files => parseJavascriptFiles(INPUT_DIR, files, OUTPUT_FILE));
-
-async function parseJavascriptFiles (dir, fileNames, outputFile) {
-  console.warn('File count:', fileNames.length);
-
-  const PROMS = await fileNames.map(async (file, fileIdx) => {
-    if (fileIdx >= LIMIT) return;
-
-    // const BASE = path.basename(file, MJS_EXT);
-
-    const FILE_PATH = path.resolve(dir, file);
-    const INPUT = await fs.readFile(FILE_PATH, 'utf8');
+  parse (str, idx = null, fileName = null) {
+    const $ = this;
 
     const DATA = {
+      idx,
       // Parse JSDoc comments.
-      summary: matchAndGet(INPUT, /\*\*\n \* (.+)/),
-      description: multiLineTrim(matchAndGet(INPUT, /\*\*\n \* ([^@]+)@/ms)), // WAS: /\*\*\n \* ([\w \n,!\.\*-]+)@/ms),
-      date: matchAndGet(INPUT, /@copyright © [\w ]+, ([\w-]+-202\d)/),
+      summary: $.matchAndGet(str, /\*\*\n \* (.+)/),
+      desc: $.multiLineTrim($.matchAndGet(str, /\*\*\n \* ([^@]+)@/ms)), // WAS: /\*\*\n \* ([\w \n,!\.\*-]+)@/ms),
+      date: $.matchAndGet(str, /@copyright © [\w ]+, ([\w-]+-202\d)/),
       isoDate: null,
-      since: matchAndGet(INPUT, /@since v?(\d\.\d.+)/),
-      status: matchAndGet(INPUT, /@status (.+)/),
-      todo: matchAndGet(INPUT, /@todo (.+)/i),
-      demoUrl: matchAndGet(INPUT, /@see (https:\/\/codepen.io\/nfreear\/.+|..\/demo\/[\w-]+\.html)/),
-      demoIsPen: !!matchAndGet(INPUT, /@see (https:\/\/codepen.io\/nfreear\/.+)/),
+      since: $.matchAndGet(str, /@since v?(\d\.\d.+)/),
+      status: $.matchAndGet(str, /@status (.+)/),
+      todo: $.matchAndGet(str, /@todo (.+)/i),
+      demoUrl: $.matchAndGet(str, $.demoUrlRegex),
+      demoIsPen: !!$.matchAndGet(str, $.demoIsPenRegex),
       // Parse Javascript code.
-      className: matchAndGet(INPUT, /class (\w+) extends/),
-      parentClass: matchAndGet(INPUT, /extends (\w+) \{/),
-      tagName: matchAndGet(INPUT, /getTag \(\) \{\n\s+return '([\w-]+)'/ms),
-      extTemplate: matchAndGet(INPUT, / {2}await this.getTemplate\('([\w-]+)/),
-      hasIntTemplate: !!matchAndGet(INPUT, /(this._attachLocalTemplate)/)
+      className: $.matchAndGet(str, $.classNameRegex),
+      parentClass: $.matchAndGet(str, $.parentClassRegex),
+      tagName: $.matchAndGet(str, $.tagNameRegex),
+      extTemplate: $.matchAndGet(str, $.extTemplateRegex),
+      hasIntTemplate: !!$.matchAndGet(str, $.intTemplateRegex),
+      fileName
     };
 
     DATA.isoDate = DATA.date ? new Date(DATA.date).toISOString().replace(/T.+/, '') : null;
@@ -57,26 +48,68 @@ async function parseJavascriptFiles (dir, fileNames, outputFile) {
     // console.log('Data:', file, DATA);
 
     return DATA;
-  });
+  }
 
-  const items = await Promise.all(PROMS);
+  async parseFiles (dir, fileNames) {
+    // console.warn('File count:', fileNames.length);
 
-  console.log(JSON.stringify({ items }, null, 2));
+    const PROMS = await fileNames.map(async (file, fileIdx) => {
+      if (fileIdx >= this._fileLimit) return;
 
-  return items;
-}
+      // const BASE = path.basename(file, MJS_EXT);
 
-async function getJavascriptFiles (dir) {
-  const FILES = await fs.readdir(dir, { withFileTypes: false });
+      const FILE_PATH = path.resolve(dir, file);
+      const INPUT = await fs.readFile(FILE_PATH, 'utf8');
 
-  return FILES.filter(file => path.extname(file) === MJS_EXT);
-}
+      return await this.parse(INPUT, fileIdx, file);
+    });
 
-function matchAndGet (input, regex, idx = 1) {
-  const MATCHES = input.match(regex);
-  return MATCHES ? MATCHES[idx] : null;
-}
+    return await Promise.all(PROMS);
+  }
 
-function multiLineTrim (inputStr) {
-  return inputStr.replace(/[\n *]+$/, '').replace(/\n \*/g, '\n');
+  async getFileList (dir, ext = MJS_EXT) {
+    const FILES = await fs.readdir(dir, { withFileTypes: false });
+
+    return FILES.filter(file => path.extname(file) === ext);
+  }
+
+  matchAndGet (inputStr, regex, idx = 1) {
+    const MATCHES = inputStr.match(regex);
+    return MATCHES ? MATCHES[idx] : null;
+  }
+
+  multiLineTrim (inputStr) {
+    return inputStr.replace(/[\n *]+$/, '').replace(/\n \*/g, '\n');
+  }
+
+  get demoUrlRegex () {
+    return /@see (https:\/\/codepen.io\/nfreear\/.+|..\/demo\/[\w-]+\.html)/;
+  }
+
+  get demoIsPenRegex () {
+    return /@see (https:\/\/codepen.io\/nfreear\/.+)/;
+  }
+
+  /** Parse Javascript code.
+   */
+
+  get classNameRegex () {
+    return /class (\w+) extends/;
+  }
+
+  get parentClassRegex () {
+    return /extends (\w+) \{/;
+  }
+
+  get tagNameRegex () {
+    return /getTag \(\) \{\n\s+return '([\w-]+)'/ms;
+  }
+
+  get extTemplateRegex () {
+    return / {2}await this.getTemplate\('([\w-]+)/;
+  }
+
+  get intTemplateRegex () {
+    return /(this._attachLocalTemplate)/;
+  }
 }
