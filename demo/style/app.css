@@ -1,7 +1,9 @@
 
-@import '../../src/style/my-busy-spinner.css';
+/* @import '../../src/style/my-busy-spinner.css'; */
 
 :root {
+  --my-page-color: #222;
+
   /* <my-star-rating>
   */
   --my-star-rating-max-size: 5rem;
@@ -65,6 +67,20 @@ my-star-rating {
 
 my-map::part(marker) {
   fill: navy;
+}
+
+my-feed::part(details) {
+  font-size: .95rem;
+  line-height: 1.4;
+}
+
+my-feed::part(sum) {
+  color: #444;
+  font-size: small;
+}
+
+my-feed::part(p) {
+  margin: .4rem 0;
 }
 
 /* The <p> in the <slot> within the Web Component !!

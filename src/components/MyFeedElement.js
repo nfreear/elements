@@ -3,15 +3,15 @@
  *
  * @copyright © Nick Freear, 20-Oct-2022.
  *
- * @see https://codepen.io/nfreear/pen/rNKwoNL
  * @see ../demo/my-feed.html
+ * @see https://codepen.io/nfreear/pen/rNKwoNL
  * @status beta, my blog
  * @since 1.3.0
  */
 
 import MyElement from '../MyElement.js';
 
-const { fetch, Request } = window;
+const { fetch, Request, location } = window;
 
 const RSS_TO_JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
 const DEFAULT_RSS = 'tojson:http://feeds.bbci.co.uk/news/rss.xml';
@@ -24,12 +24,13 @@ export class MyFeedElement extends MyElement {
   async connectedCallback () {
     const HREF = this.getAttribute('href') || DEFAULT_RSS;
     const INCLUDE = this.getAttribute('include');
+    const OPEN = this.getAttribute('details') === 'open';
 
     const { data, resp, req } = await this._fetchFeed(HREF);
 
     const FILTERED = this._filterItems(data.items, INCLUDE);
 
-    const ITEMS = FILTERED.map(el => this._makeListItem(el));
+    const ITEMS = FILTERED.map(el => this._makeListItem(el, OPEN));
 
     const listElem = document.createElement('ul'); // Was: 'ol'
 
@@ -59,17 +60,20 @@ export class MyFeedElement extends MyElement {
     return filtered;
   }
 
-  _makeListItem (item) {
-    const { guid, link, pubDate, title, url, time, tags } = item;
+  _makeListItem (item, open) {
+    const { guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
+    const CONTENT = content || content_html || ''; /* eslint-disable-line camelcase */
     // Be liberal in what we accept - 'link' or 'url'.
     return `<li>
     <a part="a" data-tags="${tags ? tags.join(',') : ''}" data-guid="${guid || ''}"
-       href="${link || url}" title="${pubDate || time}">${title}</a>
+       href="${link || url}" title="${pubDate || time || ''}">${title}</a>
+    <details part="details" ${open ? 'open' : ''}><summary part="sum">More</summary>${CONTENT}
   </li>`;
   }
 
   async _fetchFeed (href) {
     const uri = this._parseUrl(href);
+    // const uri = /\.\.?\/.+/.test(href) ? href : this._parseUrl(href);
     const req = new Request(uri);
     const resp = await fetch(req);
     if (!resp.ok) {
@@ -81,7 +85,8 @@ export class MyFeedElement extends MyElement {
   }
 
   _parseUrl (href) {
-    const PARSED = new URL(href);
+    const BASE = location.href;
+    const PARSED = new URL(href, BASE);
 
     if (PARSED.protocol === 'tojson:') {
       return RSS_TO_JSON + encodeURIComponent(PARSED.pathname);
