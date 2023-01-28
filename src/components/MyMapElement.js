@@ -1,7 +1,8 @@
 /**
- * Easily embed a map powered by Leaflet.js - optionally with a GeoJSON feed.
+ * Easily embed a map
  *
- * Contains accessibility fixes and enhancements
+ * powered by Leaflet.js - optionally with a GeoJSON feed.
+ * Contains accessibility fixes and enhancements.
  *
  * @copyright © Nick Freear, 27-Nov-2021.
  *

@@ -62,12 +62,14 @@ export class MyFeedElement extends MyElement {
 
   _makeListItem (item, open) {
     const { guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
-    const CONTENT = content || content_html || ''; /* eslint-disable-line camelcase */
+    // @TODO: security! - _saferHtml()
+    const CONTENT = content || content_html || null; /* eslint-disable-line camelcase */
+    const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${CONTENT}</details>` : null;
     // Be liberal in what we accept - 'link' or 'url'.
     return `<li>
     <a part="a" data-tags="${tags ? tags.join(',') : ''}" data-guid="${guid || ''}"
        href="${link || url}" title="${pubDate || time || ''}">${title}</a>
-    <details part="details" ${open ? 'open' : ''}><summary part="sum">More</summary>${CONTENT}
+    ${DETAILS || '&nbsp;'}
   </li>`;
   }
 

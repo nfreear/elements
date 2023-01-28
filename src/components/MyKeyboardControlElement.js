@@ -1,7 +1,8 @@
 /**
- * Adjust/navigate an ARIA-based control such as a grid, listbox or similar using the arrows keys, etc.
+ * Navigate a custom control using arrow keys.
  *
- * The <my-keyboard-control> element automatically detects some control-types, including listbox and grid, and adjusts to 1- or 2-dimensional navigation accordingly.
+ * Adjust an ARIA-based control such as a grid or listbox using the arrows keys.
+ * The <tt>&lt;my-keyboard-control></tt> element automatically detects some control-types, including listbox and grid, and adjusts to 1- or 2-dimensional navigation accordingly.
  *
  * @TODO Currently auto-detects grid and listbox. Add auto-detect for more?
  * @TODO Maybe rename to <my-keyboard-nav> ?
@@ -12,7 +13,7 @@
  * @see https://w3.org/WAI/ARIA/apg/example-index/grid/dataGrids.html
  * @see ./MyDatePickerElement.js
  *
- * @status experimental
+ * @status experimental, accessibility
  * @since 1.3.0
  */
 
@@ -115,7 +116,6 @@ export class MyKeyboardControlElement extends MyElement {
     // CELL_TODAY.setAttribute('aria-current', 'date');
     // CELL_TODAY.title = 'current';
 
-    /** @TODO */
     this._setSelected(CELL_SELECTED);
   }
 

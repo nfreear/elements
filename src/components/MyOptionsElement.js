@@ -1,5 +1,5 @@
 /**
- * My Options element - set configuration options.
+ * Set configuration options, including templateHost.
  *
  * @copyright © Nick Freear, 11-Dec-2021.
  * @see ../demo/my-options.html

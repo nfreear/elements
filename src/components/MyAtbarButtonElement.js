@@ -1,5 +1,6 @@
 /**
- * ATbar - A free tool that adds accessibility tools to any website.
+ * ATbar - Add accessibility tools to any website.
+ *
  * ATBar enables easy zooming, font changes, recolouring (and more) on almost any website.
  *
  * @version ATbar - Version 2.2.1
@@ -14,6 +15,7 @@
  * @see https://youtu.be/8Ik_LHmZx8Y
  * @ignore
  *
+ * @class MyAtbarButtonElement
  * @status experimental
  * @since 1.1.0
  */

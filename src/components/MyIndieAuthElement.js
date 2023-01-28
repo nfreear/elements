@@ -1,7 +1,7 @@
 /**
- * Implementation of an "IndieAuth" client in the browser.
+ * Implementation of an <q>IndieAuth</q> client in the browser
  *
- * @disclaimer Experimental - not for production. Use at your own risk!
+ * @TODO Experimental - not for production. Use at your own risk!
  *
  * @see https://indielogin.com/api
  * @see https://indieauth.net/

@@ -1,5 +1,7 @@
 /**
- * Load a WOFF/2 font file using the "FontFace" interface (CSS3) - handle success and errors.
+ * Load a font using the <q>FontFace</q> interface.
+ *
+ * Load a WOFF/2 font file using the CSS3 "FontFace" interface - handle success and errors.
  *
  * @copyright © Nick Freear, 02-Mar-2022.
  *

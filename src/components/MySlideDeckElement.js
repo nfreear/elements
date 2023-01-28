@@ -1,5 +1,7 @@
 /**
- * Present a deck of slides - powered by Reveal.js.
+ * Present a deck of slides
+ *
+ * - powered by Reveal.js.
  *
  * @copyright © Nick Freear, 24-Sep-2022.
  * @see ../demo/my-slide-deck.html

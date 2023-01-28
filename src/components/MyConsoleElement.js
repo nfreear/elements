@@ -1,10 +1,13 @@
 /**
- * My Console - redirect `console.log()` etc. to the HTML page.
+ * Redirect <tt>console.log()</tt>, etc. to the page.
+ *
+ * Supports <tt>assert</tt>, info, error, log and <tt>warn</tt> methods.
  *
  * @copyright © Nick Freear, 16-Nov-2022.
  *
  * @see https://codepen.io/nfreear/pen/PoaEpVa
- * @status experimental, for demos, Codepens etc.
+ * @class MyConsoleElement
+ * @status experimental, for demos, Codepen
  * @since 1.3.0
  */
 

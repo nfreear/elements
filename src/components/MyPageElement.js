@@ -1,8 +1,10 @@
 /**
- * Setup a page with minimum markup (experimental).
+ * Setup a page with minimum markup.
  *
  * @copyright © Nick Freear, 27-Nov-2021.
  * @see ../demo/my-page.html
+ * @status experimental
+ * @since 1.0.0
  */
 
 import { MyElement } from '../MyElement.js';

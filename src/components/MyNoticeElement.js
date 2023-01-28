@@ -1,5 +1,7 @@
 /**
- * A dismissable notice, e.g. an EU cookie-law notice!
+ * A dismissable notice.
+ *
+ * For example, an EU cookie-law notice!
  *
  * @copyright © Nick Freear, 07-Jan-2022.
  */

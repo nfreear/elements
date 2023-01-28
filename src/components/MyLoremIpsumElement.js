@@ -1,7 +1,9 @@
 /**
- * Lorem Ipsum placeholder text.
+ * Placeholder text.
  *
  * @copyright © Nick Freear, 09-Dec-2021.
+ * @status experimental
+ * @since 1.1.0
  */
 
 import { MyElement } from '../MyElement.js';

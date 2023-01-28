@@ -1,5 +1,5 @@
 /**
- * Text to speech (TTS) - Speech Synthesis - using the Web Speech API.
+ * Speech synthesis using the Web Speech API.
  *
  * @copyright © Nick Freear, 10-Jan-2022.
  *

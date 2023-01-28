@@ -1,10 +1,11 @@
 /**
- * Date picker / Calendar, with keyboard accessibility.
+ * A date picker / calendar widget
+ * - with keyboard accessibility.
  *
  * @copyright © Nick Freear, 08-Jun-2022.
  * @see https://codepen.io/nfreear/pen/GRBmrER
  * @see https://gist.github.com/nfreear/d61ec03df08618a2c8abc40a301c770d,
- * @status experimental
+ * @status experimental, accessibility
  * @since 1.3.0
  */
 

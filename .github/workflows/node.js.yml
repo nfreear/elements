@@ -47,6 +47,8 @@ jobs:
     - run: npm run build:feed
     - run: npm run build:template
     - run: npm test
+    - name: Delete 'node_modules'
+      run: rm -rf node_modules
     - name: Setup Pages
       uses: actions/configure-pages@v2
     - name: Upload artifact

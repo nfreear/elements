@@ -1,5 +1,6 @@
 /**
- * Switch between dark and light modes. Store the setting.
+ * Switch between dark and light modes.
+ * Store the setting.
  *
  * @copyright © Nick Freear, 11-June-2022.
  * @see https://gist.github.com/nfreear/3940b62ef375386de921b4eaa82ea804

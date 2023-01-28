@@ -1,5 +1,7 @@
 /**
- * Easily embed Analytics without cookies - Yay!
+ * Embed analytics without cookies.
+ *
+ * Easily embed Google Analytics - use <tt>localStorage</tt> instead of cookies, and anonyise the IP address.
  *
  * @copyright © Nick Freear, 28-June-2021.
  *
@@ -8,6 +10,8 @@
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id#using_localstorage_to_store_the_client_id,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,
  *
+ * @tagName my-analytics
+ * @class MyAnalyticsElement
  * @status beta, my blog
  * @since 1.0.0
  */
