@@ -1,7 +1,7 @@
 {
   "name": "ndf-elements",
   "x-old-name": "ndf-web-components",
-  "version": "1.2.0",
+  "version": "1.5.0",
   "description": "A collection of custom elements | Was: 'ndf-web-components'",
   "x-copyright": "© 2021 Nick Freear.",
   "author": "Nick Freear",
@@ -26,9 +26,10 @@
     "src/**/*"
   ],
   "scripts": {
+    "build:doc": "npx jsdoc -r -c ./jsdoc-conf.json",
     "build:feed": "node ./src/build/feed.js > ./src/feed.json",
     "build:template": "node ./src/build/template.js > ./src/template.html",
-    "start": "npx servor --reload",
+    "start": "npm run build:feed && npx servor --reload",
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
     "fix": "npx semistandard --fix",

@@ -15,9 +15,10 @@ exclude:
 - .github
 - .nojekyll
 - package-lock.json
-- package.json
+#- package.json
 - CHANGELOG.md
 - LICENSE.txt
+- README.md
 
 # https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#xrobotstag
 webrick:
