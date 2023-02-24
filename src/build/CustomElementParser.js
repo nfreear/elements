@@ -2,6 +2,8 @@
  * Collect meta-data about each custom element and MJS class.
  *
  * @copyright © Nick Freear, 12-Jan-2023.
+ *
+ * @class CustomElementParser
  * @status experimental
  * @since 1.3.0
  */

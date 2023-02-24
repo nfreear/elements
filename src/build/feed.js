@@ -1,9 +1,10 @@
 /**
- * Build a JSON Feed documenting the list of custom elements.
+ * Commandline: build a JSON Feed documenting the list of custom elements.
  *
  * @copyright © Nick Freear, 12-Jan-2023.
  * @status experimental
  * @since 1.3.0
+ * @file
  */
 
 import CustomElementParser from './CustomElementParser.js';
@@ -54,10 +55,10 @@ function metaDataToFeed (data) {
     // eslint-disable-next-line camelcase
     const content_html = `<p part="p">${desc}</p>
 <ul>
-<li><i>Demo:</i> <a href="${demoUrl || '#'}">${demoUrl}</a>
-<li><i>Status:</i> ${status || ''}
-<li><i>className:</i> <code>${className}</code>
-<li><i>tagName:</i> <code>&lt;${tagName}></code>
+<li><i part="k i">Demo:</i> <a href="${demoUrl || '#'}">${demoUrl}</a>
+<li><i part="k i">Status:</i> ${status || ''}
+<li><i part="k i">className:</i> <code>${className}</code>
+<li><i part="k i">tagName:</i> <code>&lt;${tagName}></code>
 </ul>`;
 
     return { id, title, url, tags, content_html, _ext: it };

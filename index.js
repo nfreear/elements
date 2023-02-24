@@ -1,13 +1,15 @@
 /**
- * My Web Components (experimental)
+ * My Elements.
  *
- * @module elements
+ * All exports.
+ *
  * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 04-Dec-2021.
  * @license MIT
  *
  * @status beta
  * @since 1.1.0
+ * @file
  */
 
 // MUST be first! (MyOptionsElement).

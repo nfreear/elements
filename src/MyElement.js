@@ -5,6 +5,7 @@
  * @copyright © Nick Freear, 02-Dec-2021.
  * @license MIT
  *
+ * @class MyElement
  * @status beta
  * @since 1.0.0
  */
@@ -127,11 +128,15 @@ export class MyElement extends HTMLElement {
     await import(PURIFY_JS);
 
     const { DOMPurify } = window;
-    const ELEM = elem || this;
 
     // Don't strip `part` attributes.
-    ELEM.innerHTML = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true }, ADD_ATTR: ['part'] });
+    const RES = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true }, ADD_ATTR: ['part'] });
     console.debug('DOMPurify:', DOMPurify.removed);
+
+    if (elem) {
+      elem.innerHTML = RES;
+    }
+    return RES;
   }
 
   _postMessage (data = {}, _type = null) {

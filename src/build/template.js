@@ -1,9 +1,10 @@
 /**
- * Concatenate all the templates into a single file.
+ * Commandline: concatenate all the HTML templates into a single file.
  *
  * @copyright © Nick Freear, 31-March-2022.
  * @status experimental
  * @since 1.2.0
+ * @file
  */
 
 import * as fs from 'fs/promises';
