@@ -38,7 +38,6 @@ export { MyGaadWidgetElement } from './src/components/MyGaadWidgetElement.js';
 export { MyCountdownElement } from './src/components/MyCountdownElement.js';
 // export { MyNoCookieElement } from './src/components/MyNoCookieElement.js';
 export { MyLiveEditorElement } from './src/components/MyLiveEditorElement.js';
-// export { MyHelloRusElement } from './src/components/MyHelloRusElement.js';
 export { MyDatePickerElement } from './src/components/MyDatePickerElement.js';
 export { MyUserThemeSwitchElement } from './src/components/MyUserThemeSwitchElement.js';
 export { MySlideDeckElement } from './src/components/MySlideDeckElement.js';
@@ -48,6 +47,8 @@ export { MyFormElement } from './src/components/MyFormElement.js';
 export { MyTestElement } from './src/components/MyTestElement.js';
 export { MyConsoleElement } from './src/components/MyConsoleElement.js';
 export { MyKeyboardControlElement } from './src/components/MyKeyboardControlElement.js';
+// @since v1.5.0
+export { MyLocalStorageElement } from './src/components/MyLocalStorageElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
