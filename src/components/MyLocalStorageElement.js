@@ -1,5 +1,5 @@
 /**
- * Easily store an form field value to `localStorage`.
+ * Easily store a form field value to `localStorage`.
  * Also supports `sessionStorage`.
  *
  * @copyright © Nick Freear, 24-Jan-2023.
@@ -29,7 +29,7 @@ export class MyLocalStorageElement extends MyElement {
   }
 
   set value (val) {
-    console.debug();
+    // console.debug();
     this.storage.setItem(`${this.key}.value`, val);
     this.storage.setItem(`${this.key}.date`, new Date().toISOString());
   }
@@ -96,11 +96,12 @@ export class MyLocalStorageElement extends MyElement {
   }
 
   _hasValue (target) {
-    const OK = /(INPUT|SELECT|TEXTAREA)/.test(target.tagName);
-    if (!OK) {
+    const OK = /^(INPUT|SELECT|TEXTAREA)/.test(target.tagName);
+    const INPUT_ISH = target.type && typeof target.value !== 'undefined'; // formAssociated.
+    if (!OK && !INPUT_ISH) {
       throw new Error(`Target element not supported: ${target.tagName}`);
     }
-    return OK;
+    return OK || INPUT_ISH;
   }
 }
 

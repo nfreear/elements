@@ -45,7 +45,7 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 
 ```js
 import customImport from 'https://nfreear.github.io/elements/custom.js';
-// import customImport from 'https://unpkg.com/ndf-elements@1.1.0/custom.js';
+// import customImport from 'https://unpkg.com/ndf-elements@1.5.0/custom.js';
 
 const MOD = await customImport('my-star-rating, my-skip-link');
 ```

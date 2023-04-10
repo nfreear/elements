@@ -49,6 +49,7 @@ export { MyConsoleElement } from './src/components/MyConsoleElement.js';
 export { MyKeyboardControlElement } from './src/components/MyKeyboardControlElement.js';
 // @since v1.5.0
 export { MyLocalStorageElement } from './src/components/MyLocalStorageElement.js';
+export { MySiteCounterElement } from './src/components/MySiteCounterElement.js';
 
 export { MyElement } from './src/MyElement.js';
 
