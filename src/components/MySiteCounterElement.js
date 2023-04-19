@@ -1,6 +1,6 @@
 /**
  * Minimalist, privacy-focussed site analytics, built on GoatCounter.
- * No cookies. No tracking of IP address.
+ * No cookies. No tracking of IP address. No external Javascript.
  *
  * @copyright © Nick Freear, 08-April-2023.
  *
@@ -25,23 +25,46 @@ export class MySiteCounterElement extends MyElement {
     throw new Error('The "gcid" attribute is missing.');
   }
 
+  get _guardLocalhost () {
+    if (this.getAttribute('allow-localhost')) return true;
+    if (location.hostname === 'localhost') return false;
+
+    return true;
+  }
+
+  get _guardMyself () {
+    return location.hash !== '#toggle-goatcounter';
+  }
+
   connectedCallback () {
+    if (!this._guardMyself) {
+      return console.debug('my-site-counter:', 'Not counting myself!');
+    }
+    if (!this._guardLocalhost) {
+      return console.debug('my-site-counter:', 'Not counting localhost');
+    }
+
     const PARAM = this._getQueryParams();
 
     const SP = new URLSearchParams(PARAM);
     const IMG = document.createElement('img');
 
-    IMG.src = this._counterImageUrl(SP.toString());
+    IMG.src = this._goatCounterImageUrl(this.gcid, SP.toString());
     IMG.alt = ''; // Accessibility: a decorative image.
     IMG.loading = 'eager';
+    IMG.onerror = (ev) => {
+      const { target } = ev; // error, message - Undefined (cross-origin).
+      console.error('my-site-counter ERROR:', this.gcid, IMG.src, target, ev);
+    };
+    IMG.onload = (ev) => {
+      console.debug('my-site-counter OK (GoatCounter):', this.gcid, PARAM, this);
+    };
 
     this.attachShadow({ mode: 'open' }).appendChild(IMG);
-
-    console.debug('my-site-counter (GoatCounter):', this.gcid, PARAM, this);
   }
 
-  _counterImageUrl (query) {
-    return `https://${this.gcid}.goatcounter.com/count?${query}`;
+  _goatCounterImageUrl (gcId, query) {
+    return `https://${gcId}.goatcounter.com/count?${query}`;
   }
 
   _getQueryParams () {
