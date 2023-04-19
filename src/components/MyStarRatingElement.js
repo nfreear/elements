@@ -16,6 +16,13 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     return 'my-star-rating';
   }
 
+  get events () {
+    return [
+      { sel: 'fieldset', name: 'click', fn: '_clickEventHandler' },
+      { sel: 'fieldset', name: 'mouseout', fn: '_unfocusStars' }
+    ];
+  }
+
   async connectedCallback () {
     const name = this.getAttribute('name') || 'my-star-rating-1';
 
@@ -26,23 +33,16 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
     const templates = await this.getTemplate('my-star-rating');
 
     const labels = this.shadowRoot.querySelectorAll('label');
-    const fieldset = this.shadowRoot.querySelector('fieldset');
 
     const hiddenInput = this._createHiddenInput(attr.name);
 
     this.after(hiddenInput);
 
-    this.$$ = {
-      ...attr, hiddenInput, labels, fieldset, templates
-    };
+    this.$$ = { ...attr, hiddenInput, labels, templates };
 
     this._appendStars(labels, templates[1]);
 
-    fieldset.addEventListener('click', ev => this._clickEventHandler(ev));
-    fieldset.addEventListener('mouseout', ev => {
-      this._unfocusStars();
-      // console.debug('mouseout');
-    });
+    this._addEventHandlers();
 
     console.debug('my-star-rating (radio):', this.$$, this);
   }

@@ -156,6 +156,19 @@ export class MyElement extends HTMLElement {
 
     this.channel.addEventListener('message', ev => callbackFn ? callbackFn(ev) : console.debug('Message:', ev));
   }
+
+  get events () { return []; } // { sel: '#button', name: 'click', fn: '_clickHandler' }
+
+  _addEventHandlers () {
+    this.events.forEach((IT) => {
+      const ELEM = this.shadowRoot.querySelector(IT.sel);
+      const METHOD = this[IT.fn];
+      if (!ELEM || typeof METHOD !== 'function') {
+        throw new Error(`Add event handlers failed: '${IT.sel}' or '${IT.fn}'`);
+      }
+      ELEM.addEventListener(IT.name, (ev) => METHOD.call(this, ev));
+    });
+  }
 }
 
 export default MyElement;
