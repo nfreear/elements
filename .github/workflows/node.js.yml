@@ -2,18 +2,15 @@
 
 name: Deploy
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+on: [push, pull_request]
+# See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+env:
+  NODE_VERSION: 18
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
@@ -29,18 +26,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 16.x ]
-        # node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v4
+    - name: Set up Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ env.NODE_VERSION }}
+        check-latest: true
         # cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
@@ -52,12 +44,12 @@ jobs:
     - name: Setup Pages
       uses: actions/configure-pages@v2
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v2
       with:
         # Upload entire repository.
         path: '.'
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@v2
 
 # End.
