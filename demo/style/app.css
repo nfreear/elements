@@ -110,9 +110,12 @@ my-star-rating p {
 
 my-text-to-speech,
 my-speech-synthesis { display: none; }
+
+[ data-tts-lang ^= da ] [ lang ^= da ],
 [ data-tts-lang ^= en ] [ lang ^= en ],
 [ data-tts-lang ^= es ] [ lang ^= es ],
 [ data-tts-lang ^= fr ] [ lang ^= fr ],
+[ data-tts-lang ^= la ] [ lang ^= la ],
 [ data-tts-lang ^= zh ] [ lang ^= zh ] {
   display: block;
 }

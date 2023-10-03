@@ -26,6 +26,7 @@
     "src/**/*"
   ],
   "scripts": {
+    "build": "npm run build:feed && npm run build:template",
     "build:doc": "npx jsdoc -r -c ./jsdoc-conf.json",
     "build:feed": "node ./src/build/feed.js > ./src/feed.json",
     "build:template": "node ./src/build/template.js > ./src/template.html",

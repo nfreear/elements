@@ -1,6 +1,6 @@
 # https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
 
-name: Node.js CI
+name: Deploy
 
 on:
   push:
@@ -44,8 +44,8 @@ jobs:
         # cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm run build:feed
-    - run: npm run build:template
+    #- run: npm run build:feed
+    #- run: npm run build:template
     - run: npm test
     - name: Delete 'node_modules'
       run: rm -rf node_modules

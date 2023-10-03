@@ -47,7 +47,7 @@ async function buildJsonFeed () {
 
 function metaDataToFeed (data) {
   const items = data.map(it => {
-    const { summary, desc, status, demoUrl, className, tagName, fileName } = it;
+    const { summary, desc, status, demoUrl, className, parentClass, tagName, fileName } = it;
     const id = tagName;
     const title = `${tagName}: ${summary}`;
     const tags = status ? status.split(/, ?/) : [];
@@ -58,6 +58,7 @@ function metaDataToFeed (data) {
 <li><i part="k i">Demo:</i> <a href="${demoUrl || '#'}">${demoUrl}</a>
 <li><i part="k i">Status:</i> ${status || ''}
 <li><i part="k i">className:</i> <code>${className}</code>
+<li><i part="k i">parentClass:</i> <code>${parentClass}</code>
 <li><i part="k i">tagName:</i> <code>&lt;${tagName}></code>
 </ul>`;
 
