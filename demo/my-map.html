@@ -34,8 +34,16 @@
 </my-map>
 
 
-<script type="module" src="../index.js"></script>
+<script type="module" src="../app.js"></script>
 
+<script type="module">
+  const myMap = document.querySelector('my-map');
+
+  const L = await myMap.getLeaflet();
+  const MAP = await myMap.getMap();
+
+  console.debug('>> Leaflet:', L.version, MAP, L);
+</script>
 
 <pre>
 

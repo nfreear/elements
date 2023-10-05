@@ -15,11 +15,16 @@
  * @since 1.0.0
  */
 
-// import { leafletViaCdn } from '../external-cdn.js';
-import { MyElement } from '../MyElement.js';
+import MyElement from '../MyElement.js';
 
 const { fetch } = window;
-const LEAFLET_JS_CDN = 'https://unpkg.com/leaflet@1.9.1/dist/leaflet.js';
+
+const LEAFLET_CDN_LIBS = [
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
+  // 'https://unpkg.com/leaflet.locale@0.1.0/Leaflet.locale.js',
+  'https://unpkg.com/leaflet.a11y@0.3.0/Leaflet.a11y.js'
+];
 
 // Some defaults.
 const DEF = {
@@ -36,7 +41,17 @@ export class MyMapElement extends MyElement {
     return 'my-map';
   }
 
+  async getLeaflet () {
+    return this._whenReady(() => this.$$.L);
+  }
+
+  async getMap () {
+    return this._whenReady(() => this.$$.map);
+  }
+
   async connectedCallback () {
+    this.$$ = {};
+
     const lat = parseFloat(this.getAttribute('lat') || DEF.lat);
     const long = parseFloat(this.getAttribute('long') || DEF.long);
     const zoom = parseInt(this.getAttribute('zoom') || DEF.zoom);
@@ -59,11 +74,9 @@ export class MyMapElement extends MyElement {
 
     // this.shadowRoot.querySelector('#caption').textContent = attr.caption;
 
-    // Load non-module Javascript for side-effects (Leaflet added to window).
-    await import(LEAFLET_JS_CDN);
-    const { L } = window;
+    const L = await this._importLeafletLibs();
 
-    const map = L.map(mapElem).setView([attr.lat, attr.long], attr.zoom);
+    const map = L.map(mapElem, { a11yPlugin: true }).setView([attr.lat, attr.long], attr.zoom);
 
     const tiles = L.tileLayer(attr.tileUrl, {
       apikey: this.apiKey,
@@ -96,6 +109,16 @@ export class MyMapElement extends MyElement {
 
     const PATH = this.shadowRoot.querySelector('.leaflet-overlay-pane path');
     PATH && PATH.setAttribute('part', 'path');
+  }
+
+  /** Load non-module Javascript for side-effects (Leaflet added to window).
+   */
+  async _importLeafletLibs () {
+    await this._importJs(LEAFLET_CDN_LIBS);
+    // await import(LEAFLET_JS_CDN);
+    const { L } = window;
+    this.$$.L = L;
+    return L;
   }
 
   get _leaflet () {

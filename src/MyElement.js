@@ -169,6 +169,29 @@ export class MyElement extends HTMLElement {
       ELEM.addEventListener(IT.name, (ev) => METHOD.call(this, ev));
     });
   }
+
+  /** _whenReady: Wait for 'testCallbackFunc' to return truthy value, then resolve the promise.
+   * @return Promise
+   */
+  async _whenReady (testCallbackFunc, intervalMs = 250) {
+    console.assert(testCallbackFunc);
+    return new Promise((resolve) => {
+      const intId = setInterval(() => {
+        const VALUE = testCallbackFunc();
+        if (VALUE) {
+          clearInterval(intId);
+          resolve(VALUE);
+        }
+      }, parseInt(intervalMs));
+    });
+  }
+
+  /** Load non-module Javascript for side-effects (Leaflet added to window).
+   */
+  async _importJs (importArray) {
+    const promises = importArray.map(async (js) => await import(js));
+    return await Promise.all(promises);
+  }
 }
 
 export default MyElement;

@@ -16,6 +16,9 @@
     },
     "./custom": {
       "import": "./custom.js"
+    },
+    "./my-map": {
+      "import": "./src/components/MyMapElement.js"
     }
   },
   "files": [
