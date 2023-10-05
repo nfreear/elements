@@ -15,7 +15,8 @@
   <h1> my-map Web Component </h1>
 
   <p> Easily embed a map powered by <a href="https://leafletjs.com/">Leaflet.js</a>
-    — optionally with a GeoJSON feed. Includes accessibility fixes.
+    — optionally with a GeoJSON feed.
+    Uses <a href="https://github.com/nfreear/leaflet.a11y">Leaflet.a11y</a>
   </p>
 
   <p> A map showing London landmarks. </p>
@@ -34,7 +35,7 @@
 </my-map>
 
 
-<script type="module" src="../app.js"></script>
+<script type="module" src="./app.js"></script>
 
 <script type="module">
   const myMap = document.querySelector('my-map');

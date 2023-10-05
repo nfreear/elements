@@ -9,7 +9,6 @@
  * @see https://codepen.io/nfreear/pen/KKeJKov
  * @see ../demo/my-map.html
  * @see https://leafletjs.com/
- * @WAS 'my-map.js'
  *
  * @status beta
  * @since 1.0.0
@@ -105,7 +104,7 @@ export class MyMapElement extends MyElement {
       }
     }
 
-    this._accessibilityFixes();
+    // Was: this._accessibilityFixes();
 
     const PATH = this.shadowRoot.querySelector('.leaflet-overlay-pane path');
     PATH && PATH.setAttribute('part', 'path');
@@ -115,7 +114,6 @@ export class MyMapElement extends MyElement {
    */
   async _importLeafletLibs () {
     await this._importJs(LEAFLET_CDN_LIBS);
-    // await import(LEAFLET_JS_CDN);
     const { L } = window;
     this.$$.L = L;
     return L;
@@ -163,7 +161,7 @@ export class MyMapElement extends MyElement {
           if (feature.properties && feature.properties.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
 
-            layer.on('popupopen', ev => this._accessibilityFixPopup(ev));
+            // Was: layer.on('popupopen', ev => this._accessibilityFixPopup(ev));
           }
         }
       });
@@ -200,44 +198,15 @@ export class MyMapElement extends MyElement {
       iconSize: [25, 41],
       iconAnchor: [10, 41],
       popupAnchor: [2, -40],
-      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-      shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+      iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
     });
   }
 
   _accessibilityFixes () {
-    const MARKER_PANE = this.shadowRoot.querySelector('.leaflet-marker-pane');
-    const MARKERS = MARKER_PANE.querySelectorAll('.my-icon');
-    // const BUTTONS = MARKER_PANE.querySelectorAll('button');
-
-    // MARKERS.forEach(marker => { marker.title = marker.alt; });
-    MARKERS.forEach(marker => {
-      marker.removeAttribute('tabindex');
-      marker.setAttribute('role', 'listitem');
-    });
-
-    /* setTimeout(() => {
-      BUTTONS.forEach(btn => { btn.style = ''; });
-    },
-    1000); */
-
-    MARKER_PANE.setAttribute('role', 'list');
-    MARKER_PANE.setAttribute('aria-label', 'Map markers');
   }
 
   _accessibilityFixPopup (ev) {
-    const CLOSE_BTN = ev.popup._closeButton; // ev.target._popup._closeButton;
-    // const CLOSE_BTN = this.shadowRoot.querySelector('.leaflet-popup-close-button');
-    const POPUP = ev.popup._wrapper.parentElement;
-
-    CLOSE_BTN.setAttribute('role', 'button');
-    CLOSE_BTN.setAttribute('aria-label', 'Close popup');
-    CLOSE_BTN.title = 'Close popup';
-    CLOSE_BTN.focus();
-
-    POPUP.setAttribute('role', 'dialog');
-
-    console.debug('Event:', ev);
   }
 }
 
