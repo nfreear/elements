@@ -8,8 +8,8 @@
  * @since 1.3.0
  */
 
-import * as fs from 'fs/promises';
-import * as path from 'path';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 // import { URL } from 'url';
 
 const FILE_LIMIT = 40; // 10; // 2;
@@ -81,7 +81,8 @@ export default class CustomElementParser {
   }
 
   multiLineTrim (inputStr) {
-    return inputStr.replace(/[\n *]+$/, '').replace(/\n \*/g, '\n');
+    // console.error('>> multiLineTrim:', inputStr);
+    return inputStr ? inputStr.replace(/[\n *]+$/, '').replace(/\n \*/g, '\n') : '';
   }
 
   get demoUrlRegex () {

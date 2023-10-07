@@ -176,11 +176,11 @@ export class MyElement extends HTMLElement {
   async _whenReady (testCallbackFunc, reason, intervalMs = 250, timeoutMs = 2500) {
     console.assert(testCallbackFunc);
     return new Promise((resolve, reject) => {
-      const toId = setTimeout (() => reject(`whenReady: ${reason}`), timeoutMs);
+      const toId = setTimeout(() => reject(new Error(`whenReady: ${reason}`)), timeoutMs);
       const intId = setInterval(() => {
         const VALUE = testCallbackFunc();
         if (VALUE) {
-          clearTimeout(toId)
+          clearTimeout(toId);
           clearInterval(intId);
           resolve(VALUE);
         }
@@ -189,7 +189,7 @@ export class MyElement extends HTMLElement {
   }
 
   async _sleep (sleepMs = 200, value) {
-    return new Promise(resolve => setTimeout(() => resolve(value), delayMs)); // callbackFunc(value));
+    return new Promise((resolve) => setTimeout(() => resolve(value), sleepMs)); // callbackFunc(value));
   }
 
   /** Load non-module Javascript for side-effects (Leaflet added to window).

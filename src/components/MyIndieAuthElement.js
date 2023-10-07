@@ -78,8 +78,8 @@ export class MyIndieAuthElement extends MyElement {
 
     const DATA = {
       time: new Date().toISOString(),
-      client_id,
-      redirect_uri,
+      client_id, /* eslint-disable-line camelcase */
+      redirect_uri, /* eslint-disable-line camelcase */
       action: FORM.action,
       state: crypto.randomUUID() // += parseInt(Math.random() * 1000000);
     };

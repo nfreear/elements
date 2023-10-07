@@ -8,8 +8,8 @@
  */
 
 import CustomElementParser from './CustomElementParser.js';
-import * as path from 'path';
-import { URL } from 'url';
+import * as path from 'node:path';
+import { URL } from 'node:url';
 
 const GH_URL = 'https://github.com/nfreear/elements/tree/main/src/components';
 // const LIMIT = 40; // 10; // 2;
@@ -62,7 +62,7 @@ function metaDataToFeed (data) {
 <li><i part="k i">tagName:</i> <code>&lt;${tagName}></code>
 </ul>`;
 
-    return { id, title, url, tags, content_html, _ext: it };
+    return { id, title, url, tags, content_html, _ext: it }; /* eslint-disable-line camelcase */
   });
 
   const _date = new Date().toISOString();
