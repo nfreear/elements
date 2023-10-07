@@ -173,12 +173,14 @@ export class MyElement extends HTMLElement {
   /** _whenReady: Wait for 'testCallbackFunc' to return truthy value, then resolve the promise.
    * @return Promise
    */
-  async _whenReady (testCallbackFunc, intervalMs = 250) {
+  async _whenReady (testCallbackFunc, reason, intervalMs = 250, timeoutMs = 2500) {
     console.assert(testCallbackFunc);
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+      const toId = setTimeout (() => reject(`whenReady: ${reason}`), timeoutMs);
       const intId = setInterval(() => {
         const VALUE = testCallbackFunc();
         if (VALUE) {
+          clearTimeout(toId)
           clearInterval(intId);
           resolve(VALUE);
         }
@@ -186,10 +188,16 @@ export class MyElement extends HTMLElement {
     });
   }
 
+  async _sleep (sleepMs = 200, value) {
+    return new Promise(resolve => setTimeout(() => resolve(value), delayMs)); // callbackFunc(value));
+  }
+
   /** Load non-module Javascript for side-effects (Leaflet added to window).
    */
   async _importJs (importArray) {
-    const promises = importArray.map(async (js) => await import(js));
+    const promises = importArray.map(async (js) => {
+      return await import(js);
+    });
     return await Promise.all(promises);
   }
 }

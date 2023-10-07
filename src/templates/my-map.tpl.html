@@ -29,6 +29,34 @@
       max-height: 540px;
       min-height: 180px;
   }
+  .my-loading {
+    font-size: 1.3rem;
+    margin: 1.3rem;
+  }
+
+  .my-icon {
+    height: 1.8rem !important;
+    width: 1.8rem !important;
+  }
+  .my-icon button {
+    border: none;
+    border-radius: .2rem;
+    background-color: transparent;
+    cursor: pointer;
+    padding: .2rem;
+  }
+  .my-button svg,
+  .my-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .my-button use,
+  .my-icon use {
+    fill: var(--my-map-marker-color, navy);
+  }
+</style>
+
+<style type="X-deprecated">
   #my-map.leaflet-container {
     font-size: .95rem;
   }

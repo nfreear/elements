@@ -21,7 +21,7 @@ const { fetch } = window;
 const LEAFLET_CDN_LIBS = [
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
-  // 'https://unpkg.com/leaflet.locale@0.1.0/Leaflet.locale.js',
+  'https://unpkg.com/leaflet.translate@0.2.0/Leaflet.translate.js',
   'https://unpkg.com/leaflet.a11y@0.3.0/Leaflet.a11y.js'
 ];
 
@@ -40,12 +40,14 @@ export class MyMapElement extends MyElement {
     return 'my-map';
   }
 
+  get lang () { return this.getAttribute('lang') || ''; }
+
   async getLeaflet () {
-    return this._whenReady(() => this.$$.L);
+    return await this._whenReady(() => this.$$.L, 'getLeaflet');
   }
 
   async getMap () {
-    return this._whenReady(() => this.$$.map);
+    return await this._whenReady(() => this.$$.map, 'getMap');
   }
 
   async connectedCallback () {
@@ -74,6 +76,8 @@ export class MyMapElement extends MyElement {
     // this.shadowRoot.querySelector('#caption').textContent = attr.caption;
 
     const L = await this._importLeafletLibs();
+
+    L.translate.load(this.lang);
 
     const map = L.map(mapElem, { a11yPlugin: true }).setView([attr.lat, attr.long], attr.zoom);
 
@@ -115,6 +119,7 @@ export class MyMapElement extends MyElement {
   async _importLeafletLibs () {
     await this._importJs(LEAFLET_CDN_LIBS);
     const { L } = window;
+    await this._whenReady(() => L && L.i18n && L.l10n, 'import Leaflet');
     this.$$.L = L;
     return L;
   }

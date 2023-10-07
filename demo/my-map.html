@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="style/app.css" />
 
 <my-map
+  lang="en-Test"
   lat="51.505"
   long="-0.09"
   zoom="13"
@@ -42,6 +43,10 @@
 
   const L = await myMap.getLeaflet();
   const MAP = await myMap.getMap();
+
+  L.popup()
+    .setLatLng([51.513, -0.09])
+    .setContent('I am a standalone popup.').openOn(MAP);
 
   console.debug('>> Leaflet:', L.version, MAP, L);
 </script>
