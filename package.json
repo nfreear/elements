@@ -7,7 +7,10 @@
   "author": "Nick Freear",
   "license": "MIT",
   "homepage": "https://nfreear.github.io/elements/demo/",
-  "repository": "https://github.com/nfreear/elements.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfreear/elements.git"
+  },
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -17,33 +20,24 @@
     "./custom": {
       "import": "./custom.js"
     },
+    "my": {
+      "import": "./my.js"
+    },
     "./my-map": {
       "import": "./src/components/MyMapElement.js"
     }
   },
-  "files": [
-    "!**/.DS_Store",
-    "custom.js",
-    "index.js",
-    "src/*",
-    "src/**/*"
-  ],
   "scripts": {
     "build": "npm run build:feed && npm run build:template",
     "build:doc": "npx jsdoc -r -c ./jsdoc-conf.json",
     "build:feed": "node ./src/build/feed.js > ./src/feed.json",
     "build:template": "node ./src/build/template.js > ./src/template.html",
+    "copy": "node ./scripts/copy.mjs",
     "start": "npm run build:feed && npx servor --reload",
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
     "fix": "npx semistandard --fix",
     "test": "npx semistandard && npm run inner:count"
-  },
-  "semistandard": {
-    "XX_globals": [
-      "customElements",
-      "HTMLElement"
-    ]
   },
   "keywords": [
     "ndf-web-components",
@@ -51,6 +45,9 @@
     "components",
     "custom elements",
     "pwa"
+  ],
+  "workspaces": [
+    "packages/*"
   ],
   "devDependencies": {
     "semistandard": "^17.0.0",

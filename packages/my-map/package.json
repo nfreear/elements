@@ -1,0 +1,30 @@
+{
+  "name": "my-map",
+  "description": "Easily embed a map powered by Leaflet.",
+  "version": "1.5.1",
+  "type": "module",
+  "main": "index.js",
+  "author": "Nick Freear",
+  "license": "MIT",
+  "homepage": "https://nfreear.github.io/elements/demo/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfreear/elements.git"
+  },
+  "scripts": {
+    "start": "servor"
+  },
+  "keywords": [
+    "leaflet",
+    "leafletjs",
+    "map",
+    "web components",
+    "components",
+    "custom elements",
+    "pwa"
+  ],
+  "files": [
+    "!example",
+    "src"
+  ]
+}

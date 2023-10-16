@@ -1,12 +1,56 @@
 
-*test.html
+packages/**/example
+packages/**/My*.js
+packages/**/Options.js
+packages/**/*.html
+packages/**/package-lock.json
+packages/**/node_modules
+
+jsdoc*
+plugins
+out
+
+MyEditorElement.js
+template.html
+
+# CustomElementParser.js
+index.json
+src/*.json
+
+spa
+
+_tests
+_old
+what-the-flow
+
+leaflet-locate-button.js
+leaflet-messagebox.js
+
+*-dark.html
+
+# my-speech*
+my-details*
+my-gaad.html
+
+my-hello-r*
+MyHelloR*
+my-no-co*
+MyNoCo*
+demo/my-user*
+
+*.mjs
+/*.html
+*2.html
+*test*.html
+# *Test*
 # utilities.js
 experiment
-leaflet*
+# leaflet*
 when-do
 Untitled
 
 *BAK*
+*COPY*
 .env
 .DS_Store
 node_modules
