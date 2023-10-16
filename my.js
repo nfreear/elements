@@ -1,0 +1,23 @@
+/**
+ * Import custom elements via a `my.js?use=my-elem,..` URL parameter.
+ *
+ * @example <script src="my.js?use=my-map,my-..." type="module"></script>
+ * @license MIT
+ */
+
+import { elemToClass } from './src/Options.js';
+
+const base = '.';
+const url = new URL(import.meta.url);
+const USE = url.searchParams.get('use');
+const ELEM = USE ? USE.split(',') : [];
+
+const KLASS = ELEM.map((el) => {
+  const klass = elemToClass(el);
+  const path = `${base}/src/components/${klass}.js`;
+  return { el, klass, path };
+});
+
+await KLASS.forEach(async ({ path }) => await import(path));
+
+console.debug('My.js:', KLASS, url);
