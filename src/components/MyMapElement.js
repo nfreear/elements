@@ -119,7 +119,7 @@ export class MyMapElement extends MyElement {
   async _importLeafletLibs () {
     await this._importJs(LEAFLET_CDN_LIBS);
     const { L } = window;
-    await this._whenReady(() => L && L.i18n && L.l10n, 'import Leaflet');
+    await this._whenReady(() => L && L.Map, 'import Leaflet'); // Was: L && L.i18n && L.l10n,
     this.$$.L = L;
     return L;
   }

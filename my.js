@@ -9,8 +9,8 @@ import { elemToClass } from './src/Options.js';
 
 const base = '.';
 const url = new URL(import.meta.url);
-const USE = url.searchParams.get('use');
-const ELEM = USE ? USE.split(',') : [];
+const USE = url.search.match(/\?(use=)?(my-[a-z,-]+)/); // url.searchParams.get('use');
+const ELEM = USE ? USE[2].split(',') : [];
 
 const KLASS = ELEM.map((el) => {
   const klass = elemToClass(el);
