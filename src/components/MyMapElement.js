@@ -21,7 +21,7 @@ const { fetch } = window;
 const LEAFLET_CDN_LIBS = [
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
-  'https://unpkg.com/leaflet.translate@0.2.0/Leaflet.translate.js',
+  'https://unpkg.com/leaflet.translate@0.3.0/Leaflet.translate.js',
   'https://unpkg.com/leaflet.a11y@0.3.0/Leaflet.a11y.js'
 ];
 
@@ -30,10 +30,45 @@ const DEF = {
   // Greenwich Observatory, London, UK. (Was: Central London 51.505,-0.09)
   lat: 51.476852,
   long: -0.000500,
-  zoom: 14,
+  zoom: 13, // Was 14
   // See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
   osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 };
+
+const TEMPLATE = `
+<template>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+<style>
+.map-desc {
+  color: #333;
+  font: 1rem sans-serif;
+  max-width: 35rem;
+  margin: 0 auto;
+}
+#my-map {
+  border: 1px solid #ddd;
+  border-radius: .2rem;
+  height: 82vh; /* Was: 78 vh */
+  max-height: 540px;
+  min-height: 180px;
+}
+.my-loading {
+  font-size: 1.3rem;
+  margin: 1.3rem;
+}
+.leaflet-marker-icon {
+  border: 1px solid var(--marker-color, navy);
+  border-radius: 5px;
+}
+</style>
+<div id="desc" class="map-desc"><slot> Description of the map. </slot></div>
+<div id="my-map" role="region" aria-describedby="desc">
+  <p class="my-loading">Loading map…</p>
+</div>
+</template>
+`;
 
 export class MyMapElement extends MyElement {
   static getTag () {
@@ -42,12 +77,13 @@ export class MyMapElement extends MyElement {
 
   get lang () { return this.getAttribute('lang') || ''; }
 
-  async getLeaflet () {
-    return await this._whenReady(() => this.$$.L, 'getLeaflet');
-  }
-
-  async getMap () {
+  /* async getMap () {
     return await this._whenReady(() => this.$$.map, 'getMap');
+  } */
+
+  async getLeafletMap () {
+    await this._whenReady(() => this.$$.map && this.$$.L, 'getMap');
+    return { L: this.$$.L, map: this.$$.map };
   }
 
   async connectedCallback () {
@@ -69,7 +105,7 @@ export class MyMapElement extends MyElement {
 
   async _initialize (attr) {
     // .
-    await this.getTemplate('my-map');
+    this._attachLocalTemplate(TEMPLATE); // Was: await this.getTemplate('my-map');
 
     const mapElem = this.shadowRoot.querySelector('#my-map');
 
@@ -77,7 +113,9 @@ export class MyMapElement extends MyElement {
 
     const L = await this._importLeafletLibs();
 
-    L.translate.load(this.lang);
+    if (L.translate) {
+      L.translate.load(this.lang);
+    }
 
     const map = L.map(mapElem, { a11yPlugin: true }).setView([attr.lat, attr.long], attr.zoom);
 
