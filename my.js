@@ -18,6 +18,7 @@ const KLASS = ELEM.map((el) => {
   return { el, klass, path };
 });
 
-await KLASS.forEach(async ({ path }) => await import(path));
+const PR = KLASS.map(async ({ path }) => await import(path));
+await Promise.all(PR);
 
 console.debug('My.js:', KLASS, url);
