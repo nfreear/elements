@@ -10,7 +10,10 @@
   "homepage": "https://nfreear.github.io/elements/demo/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nfreear/elements.git"
+    "url": "git+https://github.com/nfreear/elements.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nfreear/elements/issues"
   },
   "keywords": [
     "leaflet",
