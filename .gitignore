@@ -1,3 +1,4 @@
+lerna.json
 
 packages/**/example
 packages/**/My*.js
@@ -11,6 +12,7 @@ plugins
 out
 
 MyEditorElement.js
+MyAnimat*Element.js
 template.html
 
 # CustomElementParser.js
@@ -38,7 +40,6 @@ my-no-co*
 MyNoCo*
 demo/my-user*
 
-*.mjs
 /*.html
 *2.html
 *test*.html
@@ -50,7 +51,7 @@ when-do
 Untitled
 
 *BAK*
-*COPY*
+# *COPY*
 .env
 .DS_Store
 node_modules

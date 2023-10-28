@@ -1,7 +1,7 @@
 /**
  * Import custom elements via a `my.js?use=my-elem,..` URL parameter.
  *
- * @example <script src="my.js?use=my-map,my-..." type="module"></script>
+ * @example <script src="path/to/my.js?use=my-map,my-..." type="module"></script>
  * @license MIT
  */
 

@@ -1,0 +1,28 @@
+
+lerna.json
+_config.yml
+.github
+demo
+scripts
+packages
+src/build/*
+src/leaflet*
+src/plugins/*
+out/*
+.DS_Store
+# feed.json
+jsdoc-conf.json
+MyEditorElement.js
+MyAnimat*Element.js
+template.html
+
+_BAK*
+_tests*
+_old*
+when-do
+what-the-flow
+
+# !custom.js
+# !index.js
+# !src/*
+# !src/**/*

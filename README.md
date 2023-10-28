@@ -4,14 +4,14 @@
 
 # My Elements #
 
-A collection of experimental custom elements (Web Components).
+A collection of useful custom elements (Web Components).
 
 * [nfreear.github.io/elements/demo][demo]
 * [codepen.io/collection/mrpzOQ][pen]
 
 ## Rationale ##
 
-* Experimental, particularly `<my-page>`, `<my-nav>` which are probably not for production !!
+* Some experimental, particularly `<my-page>`, `<my-nav>` which are probably not for production !!
 * Should be usable without (or with) a build system, minimalist,
 * Accessible and usable for end-users - use WAI-ARIA where appropriate!
 * Simple for developers to try out,

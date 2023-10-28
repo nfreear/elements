@@ -11,8 +11,8 @@ const PACKAGES = [
     paths: [
       'src/MyElement.js',
       'src/Options.js',
-      'src/components/MyMapElement.js',
-      'src/templates/my-map.tpl.html'
+      'src/components/MyMapElement.js'
+      // Deprecated: 'src/templates/my-map.tpl.html'
     ]
   }
 ];
