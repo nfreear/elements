@@ -4,6 +4,7 @@
   "version": "1.5.1",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
   "author": "Nick Freear",
   "license": "MIT",
   "homepage": "https://nfreear.github.io/elements/demo/",

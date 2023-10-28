@@ -21,8 +21,8 @@ const { fetch } = window;
 const LEAFLET_CDN_LIBS = [
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
-  'https://unpkg.com/leaflet.translate@0.3.0/Leaflet.translate.js',
-  'https://unpkg.com/leaflet.a11y@0.3.0/Leaflet.a11y.js'
+  'https://unpkg.com/leaflet.translate@0.6.0/Leaflet.translate.js',
+  'https://unpkg.com/leaflet.a11y@0.6.0/Leaflet.a11y.js'
 ];
 
 // Some defaults.
@@ -63,7 +63,7 @@ const TEMPLATE = `
   border-radius: 5px;
 }
 </style>
-<div id="desc" class="map-desc"><slot> Description of the map. </slot></div>
+<div id="desc" class="map-desc"><slot><p> Description of the map. </p></slot></div>
 <div id="my-map" role="region" aria-describedby="desc">
   <p class="my-loading">Loading map…</p>
 </div>
@@ -75,32 +75,51 @@ export class MyMapElement extends MyElement {
     return 'my-map';
   }
 
-  get lang () { return this.getAttribute('lang') || ''; }
+  get latLng () { return this.getLatLong(this); }
 
-  /* async getMap () {
-    return await this._whenReady(() => this.$$.map, 'getMap');
-  } */
+  get zoom () { return parseInt(this.getAttribute('zoom') || DEF.zoom); }
 
+  getLatLong (elem) {
+    const str = elem.getAttribute('latlng') || `${DEF.lat}, ${DEF.long}`;
+    const parts = str.split(/, ?/) || [0, 0];
+    return this._leaflet.latLng(parseFloat(parts[0]), parseFloat(parts[1]));
+    // return [parseFloat(parts[0]), parseFloat(parts[1])];
+  }
+
+  /** The CSS selector to use to query for HTML `<marker>` elements.
+   *  @default '[latlng]' - Any HTML element with a `latlng` attribute.
+   */
+  get markerSelector () {
+    return this.getAttribute('marker-selector') || '[latlng]';
+  }
+
+  /** The name of a marker JS constructor available on the `L` global.
+   *  @default 'Marker'
+   */
+  get markerClass () {
+    return this.getAttribute('marker-class') || 'Marker';
+  }
+
+  /** Asynchronously get references to Leaflet and the map object.
+   * @return { L, map } (Promise)
+   */
   async getLeafletMap () {
-    await this._whenReady(() => this.$$.map && this.$$.L, 'getMap');
+    await this._whenReady(() => this.$$.map && this.$$.L, 'getLeafletMap');
     return { L: this.$$.L, map: this.$$.map };
   }
 
   async connectedCallback () {
     this.$$ = {};
 
-    const lat = parseFloat(this.getAttribute('lat') || DEF.lat);
-    const long = parseFloat(this.getAttribute('long') || DEF.long);
-    const zoom = parseInt(this.getAttribute('zoom') || DEF.zoom);
     // const caption = this.getAttribute('caption') || 'A caption for the map.';
     const geojson = this.getAttribute('geojson') || null; // GeoJSON URL is relative to the HTML page!
     const attribution = null;
 
-    const ATTRS = { lat, long, zoom, geojson, tileUrl: this.tileUrl, attribution };
+    const ATTRS = { latLng: {}, zoom: this.zoom, geojson, tileUrl: this.tileUrl, attribution };
 
     await this._initialize(ATTRS);
 
-    console.debug('my-map:', this.$$.L.version, this.$$, this);
+    console.debug('<my-map>:', this.$$.L.version, this.$$, this);
   }
 
   async _initialize (attr) {
@@ -117,7 +136,7 @@ export class MyMapElement extends MyElement {
       L.translate.load(this.lang);
     }
 
-    const map = L.map(mapElem, { a11yPlugin: true }).setView([attr.lat, attr.long], attr.zoom);
+    const map = L.map(mapElem, { a11yPlugin: true }).setView(this.latLng, attr.zoom);
 
     const tiles = L.tileLayer(attr.tileUrl, {
       apikey: this.apiKey,
@@ -131,7 +150,7 @@ export class MyMapElement extends MyElement {
     }); */
 
     this.$$ = {
-      ...attr, map, mapElem, tiles, L
+      ...attr, latLng: this.latLng, map, mapElem, tiles, L
     };
 
     if (attr.geojson) {
@@ -146,7 +165,7 @@ export class MyMapElement extends MyElement {
       }
     }
 
-    // Was: this._accessibilityFixes();
+    this._queryAddChildMarkers();
 
     const PATH = this.shadowRoot.querySelector('.leaflet-overlay-pane path');
     PATH && PATH.setAttribute('part', 'path');
@@ -183,6 +202,27 @@ export class MyMapElement extends MyElement {
       .replace('{MB}', '<a href="https://www.mapbox.com/">Mapbox</a>')
       .replace('{TF}', '<a href="http://www.thunderforest.com/">Thunderforest</a>')
     ;
+  }
+
+  /** Construct a marker object.
+   */
+  marker (latLng, options = {}) {
+    return new this._leaflet[this.markerClass](latLng, options);
+  }
+
+  _queryAddChildMarkers () {
+    const markerElems = this.querySelectorAll(this.markerSelector) || [];
+    const markers = [...markerElems].map((markerEl, idx) => {
+      const latLng = this.getLatLong(markerEl);
+      const popupContent = markerEl.textContent;
+      const options = { ...markerEl.dataset };
+      const marker = this.marker(latLng, options).addTo(this.$$.map);
+      if (popupContent) {
+        marker.bindPopup(popupContent);
+      }
+      return { latLng, popupContent, options, marker };
+    });
+    console.debug('queryAddChildMarkers:', markers);
   }
 
   async loadGeoJson (geojson) {
@@ -244,12 +284,6 @@ export class MyMapElement extends MyElement {
       iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
       shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
     });
-  }
-
-  _accessibilityFixes () {
-  }
-
-  _accessibilityFixPopup (ev) {
   }
 }
 

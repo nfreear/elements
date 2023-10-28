@@ -8,11 +8,13 @@
 
 <my-map
   lang="en-Test"
-  lat="51.505"
-  long="-0.09"
+  latlng="51.505,-0.09"
   zoom="13"
   geojson="./data/landmarks.geo.json"
 >
+  <marker latlng="51.505, -0.09" hidden>Hello, I'm a popup!</marker>
+  <i latlng="51.507,-0.094" data-fa-id="star" hidden>A 2nd popup</i>
+
   <h1> my-map Web Component </h1>
 
   <p> Easily embed a map powered by <a href="https://leafletjs.com/">Leaflet.js</a>
@@ -24,11 +26,12 @@
 
   <my-code>
   &lt;my-map
-    lat="51.505"
-    long="-0.09"
+    latlng="51.505,-0.09"
     zoom="13"
     geojson="./data/landmarks.geo.json"
     >
+    &lt;marker latlng="51.505, -0.09" hidden>Hello, I'm a popup!&lt;/marker>
+
     &lt;p> Map description &lt;/p>
   &lt;/my-map>
 </my-code>
@@ -41,14 +44,13 @@
 <script type="module">
   const myMap = document.querySelector('my-map');
 
-  const L = await myMap.getLeaflet();
-  const MAP = await myMap.getMap();
+  const { L, map } = await myMap.getLeafletMap();
 
   L.popup()
     .setLatLng([51.513, -0.09])
-    .setContent('I am a standalone popup.').openOn(MAP);
+    .setContent('I am a standalone popup.').openOn(map);
 
-  console.debug('>> Leaflet:', L.version, MAP, L);
+  console.debug('>> Leaflet:', L.version, map, L);
 </script>
 
 <pre>
