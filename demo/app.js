@@ -4,7 +4,7 @@
  * @copyright © Nick Freear, 27-Jan-2022.
  */
 
-import '../index.js';
+import * as MY from '../index.js';
 
 // For "my-speech.html" ~ <my-text-to-speech>
 const queryString = window.location.href;
@@ -15,4 +15,4 @@ const LANG = mtLang ? mtLang[1] + (mtLang[2] || '') : 'en';
 
 document.body.setAttribute('data-tts-lang', LANG);
 
-console.debug('app.js (index.js)');
+console.debug('app.js (index.js):', MY);

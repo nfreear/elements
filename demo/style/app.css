@@ -53,10 +53,19 @@ pre {
   padding: .5rem;
 }
 
-button {
-  cursor: pointer;
+button,
+input {
   font: inherit;
   padding: .3rem 2rem;
+}
+
+input:focus {
+  background: #ffff9d;
+}
+
+fieldset {
+  border: 2px solid #aaa;
+  padding: 1rem;
 }
 
 my-lorem-ipsum,
@@ -92,6 +101,13 @@ my-feed::part(i) {
   display: inline-block;
   font-style: normal;
   min-width: 5.5rem;
+}
+
+my-paste-target input {
+  font-size: larger;
+  text-align: center;
+  margin-right: .7rem;
+  width: 3rem;
 }
 
 /* The <p> in the <slot> within the Web Component !!
