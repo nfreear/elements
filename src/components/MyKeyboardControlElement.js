@@ -17,9 +17,7 @@
  * @since 1.3.0
  */
 
-import MyElement from '../MyElement.js';
-
-const { CustomEvent } = window;
+const { customElements, CustomEvent, HTMLElement } = window || globalThis;
 
 const HORIZ = {
   Left: -1,
@@ -40,7 +38,7 @@ const BOTH = {
   Down: 1
 };
 
-export class MyKeyboardControlElement extends MyElement {
+export class MyKeyboardControlElement extends HTMLElement {
   static getTag () {
     return 'my-keyboard-control';
   }
@@ -68,7 +66,13 @@ export class MyKeyboardControlElement extends MyElement {
     return this._isListbox ? '[ role = option ]' : this.getAttribute('cell-selector') || 'td';
   }
 
+  get _addStyle () {
+    return this.getAttribute('add-style');
+  }
+
   async connectedCallback () {
+    this._coord = { x: 0, y: 0 };
+
     const NOW = new Date();
     // const today = new Date(this.getAttribute('today') || NOW);
     const selected = new Date(this.getAttribute('selected') || NOW);
@@ -149,19 +153,19 @@ export class MyKeyboardControlElement extends MyElement {
   }
 
   _keyupHandler (ev) {
-    const { key, altKey, ctrlKey, metaKey, shiftKey, target } = ev;
+    const { key, target } = ev;
 
-    const IS_MOD_KEY = altKey || ctrlKey || metaKey || shiftKey;
     const COL = parseInt(target.dataset.col) || 0;
     const ROW = parseInt(target.parentElement.dataset.row) || 0; // Aka "ROW"
 
     // const BEFORE = ev.target.textContent;
-    const IS_ARROW = /Arrow/.test(key);
-    const DIR = key.replace(/Arrow/, '');
+    const DIR = this._arrowDirection(ev); // key.replace(/Arrow/, '');
     const IS_1D = this._is1Dim;
 
-    if (IS_ARROW && !IS_MOD_KEY) {
+    if (this._isArrowKey(ev) && !this._isModKey(ev)) {
       ev.preventDefault();
+
+      this._setCoordFromEvent(ev);
 
       const COORDS = `${COL + this._horiz[DIR]},${IS_1D ? 0 : (ROW + VERT[DIR])}`;
       // @WAS: const COORDS = `${COL + HORIZ[DIR]},${WEEK + VERT[DIR]}`;
@@ -175,9 +179,32 @@ export class MyKeyboardControlElement extends MyElement {
         CELL.focus();
       }
 
+      this._setStyleFromCoord();
+
       // AFTER = BEFORE + step;
 
-      console.debug(`keyup: "${COORDS}"`, COL, ROW, IS_ARROW, DIR, ev);
+      console.debug(`keyup: "${COORDS}"`, this._coord, COL, ROW, this._isArrowKey(ev), DIR, ev);
+    }
+  }
+
+  _isModKey (ev) {
+    return ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey;
+  }
+
+  _isArrowKey (ev) { return /Arrow/.test(ev.key); }
+
+  _arrowDirection (ev) { return ev.key.replace(/Arrow/, ''); }
+
+  _setCoordFromEvent (ev) {
+    const DIR = this._arrowDirection(ev);
+    this._coord.x += HORIZ[DIR];
+    this._coord.y += VERT[DIR];
+  }
+
+  _setStyleFromCoord () {
+    if (this._addStyle) {
+      this.style.setProperty('--my-kc-x', this._coord.x + 'px');
+      this.style.setProperty('--my-kc-y', this._coord.y + 'px');
     }
   }
 
@@ -202,4 +229,6 @@ export class MyKeyboardControlElement extends MyElement {
   }
 }
 
-MyKeyboardControlElement.define();
+customElements.define(MyKeyboardControlElement.getTag(), MyKeyboardControlElement);
+
+// End.
