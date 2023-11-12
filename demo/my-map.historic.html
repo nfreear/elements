@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><title> Historic Maps </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { background: #fafafa; margin: 0; }
+h1 {
+  font-size: x-large;
+  margin: .6rem 0;
+}
+details > * {
+  border: 1px solid #aaa;
+  border-radius: .2rem;
+  padding: .4rem .8rem;
+  width: 34rem;
+  max-width: 97%;
+}
+details > div {
+  background: rgba(255,255,255, .93);
+  border-top: none;
+  position: absolute;
+  z-index: 999999;
+}
+button, input {
+  font-size: inherit;
+  padding: .3rem .7rem;
+}
+my-map::part(map) {
+  height: 88vh;
+}
+</style>
+
+<my-map
+  zoom="14"
+  tile-url="https://api.maptiler.com/tiles/uk-osgb63k1885/{z}/{x}/{y}.png?key={apikey}"
+  api-key="50989pBsEFYDspzgw3P3"
+  attribution="© {MT} | © {NLS} ({gb1in})"
+>
+  <h1> Historic Maps </h1>
+  <details>
+    <summary> About </summary>
+    <div>
+      <form id="searchForm" role="search">
+        <p>
+          <label>Search <input name="q" type="search" placeholder="Place"></label>
+          <button>Search</button>
+        </p>
+      <form>
+      <p>
+        <small>Map: <q>Great Britain, Ordnance Survey, One-Inch to the mile (1:63,360), 'Hills' edition, 1885-1903</q></small>
+        (<a href="https://maps.nls.uk/projects/api/#gb1inch">NLS</a>)
+      </p>
+    </div>
+  </details>
+</my-map>
+
+
+<script type="importmap"> {
+  "imports": {
+    "my-map": "../my.js?my-map",
+    "fullScreen": "https://unpkg.com/leaflet.fullscreen@3.0.0/Control.FullScreen.js"
+  }
+} </script>
+
+<script type="module">
+import 'my-map';
+// import 'fullScreen';
+
+const { fetch, location } = window;
+const param = new URLSearchParams(location.search);
+
+const EL = document.querySelector('my-map');
+const { L, map } = await EL.getLeafletMap();
+
+if (param.has('ll')) {
+  const llStr = param.get('ll');
+  const part = llStr.split(',');
+  const latLng = [ parseFloat(part[0]), parseFloat(part[1]) ];
+  map.flyTo(latLng);
+  console.debug('>> flyTo:', latLng);
+}
+
+// L.control.fullscreen({}).addTo(map);
+
+const FORM = document.querySelector('#searchForm');
+FORM.addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const QUERY = ev.target.elements.q.value;
+  const geoUrl = `https://api.maptiler.com/geocoding/${encodeURIComponent(QUERY)}.json?key=${EL.apiKey}&country=gb&limit=4`;
+
+  const RES = await fetch(geoUrl);
+  const DATA = await RES.json();
+
+  const PLACE = DATA.features.find((f) => f.place_type[0] === 'place');
+  const LOC = PLACE ? PLACE.center : null;
+  if (LOC) {
+    map.flyTo([ LOC[1], LOC[0] ]);
+  }
+  console.debug(`Search: ${QUERY}`, LOC, PLACE, DATA, geoUrl, ev);
+});
+</script>
