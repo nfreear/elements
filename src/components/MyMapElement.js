@@ -208,6 +208,7 @@ export class MyMapElement extends MyElement {
   }
 
   get attribution () {
+    const YEAR = new Date().getFullYear();
     const ATTR = this.getAttribute('attribution') || 'Map data &copy; {OSM} contributors, Imagery © {MB}';
     return ATTR
       .replace('{OSM}', '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
@@ -216,6 +217,8 @@ export class MyMapElement extends MyElement {
       .replace('{MT}', '<a href="https://www.maptiler.com/copyright/" part="att mt">MapTiler</a>')
       .replace('{NLS}', '<a href="https://maps.nls.uk/projects/api/" part="att nls">National Library of Scotland</a>')
       .replace('{gb1in}', '<a href="https://maps.nls.uk/projects/api/#gb1inch" title="Great Britain, Ordnance Survey one-inch to the mile (1:63,360), \'Hills\' edition, 1885-1903">GB 1in</a>')
+      .replace('{OS}', '<a href="https://osdatahub.os.uk/legal/overview">Ordnance Survey</a>')
+      .replace('{OSC}', `Contains <a href="https://osdatahub.os.uk/legal/overview" title="Ordnance Survey">OS data</a> © Crown copyright and database rights ${YEAR}`)
     ;
   }
 
