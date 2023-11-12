@@ -46,12 +46,13 @@ const TEMPLATE = `
   font: 1rem sans-serif;
   max-width: 35rem;
   margin: 0 auto;
+  padding: 0 .2rem;
 }
 #my-map {
   border: 1px solid #ddd;
   border-radius: .2rem;
   height: 82vh; /* Was: 78 vh */
-  max-height: 540px;
+  max-height: 100%; /* Was: 540px */
   min-height: 180px;
 }
 .my-loading {
@@ -62,9 +63,20 @@ const TEMPLATE = `
   border: 1px solid var(--marker-color, navy);
   border-radius: 5px;
 }
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255,255,255, 0.9);
+}
+a[ href *= "maptiler.com" ] {
+  background-image: url(https://www.klokantech.com/img/projects/maptiler-logo.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  padding-right: 1.1rem;
+}
 </style>
 <div id="desc" class="map-desc"><slot><p> Description of the map. </p></slot></div>
-<div id="my-map" role="region" aria-describedby="desc">
+<div id="my-map" role="region" aria-describedby="desc" part="map">
   <p class="my-loading">Loading map…</p>
 </div>
 </template>
@@ -80,7 +92,7 @@ export class MyMapElement extends MyElement {
   get zoom () { return parseInt(this.getAttribute('zoom') || DEF.zoom); }
 
   getLatLong (elem) {
-    const str = elem.getAttribute('latlng') || `${DEF.lat}, ${DEF.long}`;
+    const str = elem.getAttribute('latlng') || elem.dataset.latlng || `${DEF.lat}, ${DEF.long}`;
     const parts = str.split(/, ?/) || [0, 0];
     return this._leaflet.latLng(parseFloat(parts[0]), parseFloat(parts[1]));
     // return [parseFloat(parts[0]), parseFloat(parts[1])];
@@ -139,11 +151,11 @@ export class MyMapElement extends MyElement {
     const map = L.map(mapElem, { a11yPlugin: true }).setView(this.latLng, attr.zoom);
 
     const tiles = L.tileLayer(attr.tileUrl, {
-      apikey: this.apiKey,
+      apiKey: this.apiKey,
       attribution: this.attribution
     }).addTo(map);
 
-    L.control.scale({ maxWidth: 200 }).addTo(map);
+    // Was: L.control.scale({ maxWidth: 200 }).addTo(map);
 
     /* L.DomEvent.on(tiles, 'tileerror', (ev) => {
       console.error('Tile error:', ev);
@@ -201,6 +213,9 @@ export class MyMapElement extends MyElement {
       .replace('{OSM}', '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
       .replace('{MB}', '<a href="https://www.mapbox.com/">Mapbox</a>')
       .replace('{TF}', '<a href="http://www.thunderforest.com/">Thunderforest</a>')
+      .replace('{MT}', '<a href="https://www.maptiler.com/copyright/" part="att mt">MapTiler</a>')
+      .replace('{NLS}', '<a href="https://maps.nls.uk/projects/api/" part="att nls">National Library of Scotland</a>')
+      .replace('{gb1in}', '<a href="https://maps.nls.uk/projects/api/#gb1inch" title="Great Britain, Ordnance Survey one-inch to the mile (1:63,360), \'Hills\' edition, 1885-1903">GB 1in</a>')
     ;
   }
 
@@ -214,8 +229,10 @@ export class MyMapElement extends MyElement {
     const markerElems = this.querySelectorAll(this.markerSelector) || [];
     const markers = [...markerElems].map((markerEl, idx) => {
       const latLng = this.getLatLong(markerEl);
-      const popupContent = markerEl.textContent;
-      const options = { ...markerEl.dataset };
+      const data = markerEl.dataset;
+      const alt = data.alt || markerEl.title || markerEl.textContent;
+      const popupContent = data.popup || markerEl.textContent;
+      const options = { alt, ...data };
       const marker = this.marker(latLng, options).addTo(this.$$.map);
       if (popupContent) {
         marker.bindPopup(popupContent);
