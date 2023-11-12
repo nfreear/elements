@@ -42,6 +42,8 @@ export { MyLocalStorageElement } from './MyLocalStorageElement.js';
 export { MySiteCounterElement } from './MySiteCounterElement.js';
 // export { MyEditorElement } from './MyEditorElement.js';
 export { MyMathElement } from './MyMathElement.js';
+// @since v1.7.0
 export * from './MyPasteTargetElement.js';
+export * from './MyDevWarningElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';

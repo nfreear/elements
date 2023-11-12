@@ -7,9 +7,7 @@
  * @class MyBookmarkletElement
  */
 
-import { rainbowViaCdn } from '../external-cdn.js';
-import { MyElement } from '../MyElement.js';
-import { BookmarkletScript } from '../BookmarkletScript.js';
+import MyElement from '../MyElement.js';
 
 const { fetch } = window;
 
@@ -18,13 +16,31 @@ export class MyBookmarkletElement extends MyElement {
     return 'my-bookmarklet';
   }
 
+  get name () { return this.getAttribute('name') || this.textContent || 'Bookmarklet'; }
+
+  get _bookmarkletScriptJs () { return '../BookmarkletScript.js'; }
+  get _externalCdnJs () { return '../external-cdn.js'; }
+
+  fromFunction (theFunction) {
+    console.assert(typeof theFunction === 'function');
+    const EL = document.createElement('a');
+    const FUNC = theFunction.toString();
+    const BODY = FUNC.slice(FUNC.indexOf('{') + 1, FUNC.lastIndexOf('}'));
+
+    EL.href = `javascript:${BODY}`;
+    EL.textContent = this.name;
+    EL.setAttribute('part', 'a');
+    this.attachShadow({ mode: 'open' }).appendChild(EL);
+    console.debug(`my-bookmarklet. From function - "${this.name}":`, BODY);
+  }
+
   async connectedCallback () {
     const src = this.getAttribute('src') || null;
-    const name = this.getAttribute('name') || this.textContent || 'Bookmarklet';
     const useTemplate = !this.getAttribute('no-template');
 
     if (!src) {
-      throw new Error("The 'src' attribute is required on <my-bookmarklet>");
+      return console.debug("my-bookmarklet: No 'src' attribute is specified.");
+      // Was: throw new Error("The 'src' attribute is required on <my-bookmarklet>");
     }
 
     const { codeEl, scriptLinkEl, nameEl } = await this._loadBmTemplate(useTemplate);
@@ -33,18 +49,19 @@ export class MyBookmarkletElement extends MyElement {
     const rawScript = await RESP.text();
     // const markletScript = this._stripComments(rawScript);
 
+    const { BookmarkletScript } = await import(this._bookmarkletScriptJs);
     const bookmarklet = new BookmarkletScript();
     const RES = await bookmarklet.parse(rawScript);
 
     scriptLinkEl.href = bookmarklet.scriptLink; // this._markletScriptLink(RES.minScript);
 
-    nameEl.textContent = name;
+    nameEl.textContent = this.name;
 
     if (useTemplate) {
       this._displayScript(codeEl, RES.displayScript);
     }
 
-    console.debug('my-bookmarklet:', name, src, RES, this);
+    console.debug('my-bookmarklet:', this.name, src, RES, this);
   }
 
   async _loadBmTemplate (useTemp) {
@@ -70,6 +87,7 @@ export class MyBookmarkletElement extends MyElement {
   }
 
   async _displayScript (elem, markletScript) {
+    const { rainbowViaCdn } = await import(this._externalCdnJs);
     const Rainbow = await rainbowViaCdn();
 
     Rainbow.color(markletScript, 'javascript', (hiCode) => {
