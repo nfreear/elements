@@ -3,7 +3,7 @@
   "x-old-name": "ndf-web-components",
   "version": "1.6.0",
   "description": "A collection of useful custom elements.",
-  "x-copyright": "© 2021 Nick Freear.",
+  "x-copyright": "© 2021-2024 Nick Freear.",
   "author": "Nick Freear",
   "license": "MIT",
   "homepage": "https://nfreear.github.io/elements/demo/",
