@@ -45,5 +45,6 @@ export { MyMathElement } from './MyMathElement.js';
 // @since v1.7.0
 export * from './MyPasteTargetElement.js';
 export * from './MyDevWarningElement.js';
+export * from './MyCodepenButtonElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';
