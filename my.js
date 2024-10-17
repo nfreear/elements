@@ -1,5 +1,5 @@
 /**
- * Import custom elements via a `my.js?use=my-elem,..` URL parameter.
+ * Dynamically import custom elements via a `my.js?use=my-elem,..` URL parameter.
  *
  * @example <script src="path/to/my.js?use=my-map,my-..." type="module"></script>
  * @license MIT
@@ -21,4 +21,5 @@ const KLASS = ELEM.map((el) => {
 const PR = KLASS.map(async ({ path }) => await import(path));
 await Promise.all(PR);
 
+console.assert(KLASS.length, 'No custom elements imported.');
 console.debug('My.js:', KLASS, url);
