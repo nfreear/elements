@@ -7,7 +7,7 @@
   "module": "index.js",
   "author": "Nick Freear",
   "license": "MIT",
-  "homepage": "https://nfreear.github.io/elements/demo/",
+  "homepage": "https://nfreear.github.io/elements/demo/my-map.html",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nfreear/elements.git"
@@ -19,6 +19,8 @@
     "leaflet",
     "leafletjs",
     "map",
+    "my-elements",
+    "ndf-elements",
     "web components",
     "components",
     "custom elements",

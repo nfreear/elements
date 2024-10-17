@@ -6,8 +6,8 @@
  *
  * @copyright © Nick Freear, 27-Nov-2021.
  *
- * @see https://codepen.io/nfreear/pen/KKeJKov
  * @see ../demo/my-map.html
+ * @see https://codepen.io/nfreear/pen/KKeJKov
  * @see https://leafletjs.com/
  *
  * @status beta

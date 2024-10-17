@@ -6,6 +6,8 @@
 
 <link rel="stylesheet" href="style/app.css" />
 
+<my-codepen-button import="https://unpkg.com/@nfreear/my-map"
+>
 <my-map
   lang="en-Test"
   latlng="51.505,-0.09"
@@ -23,25 +25,27 @@
   </p>
 
   <p> A map showing London landmarks. </p>
-
-  <my-code>
-  &lt;my-map
-    latlng="51.505,-0.09"
-    zoom="13"
-    geojson="./data/landmarks.geo.json"
-    >
-    &lt;marker latlng="51.505, -0.09" hidden>Hello, I'm a popup!&lt;/marker>
-
-    &lt;p> Map description &lt;/p>
-  &lt;/my-map>
-</my-code>
-
 </my-map>
 
+</my-codepen-button>
 
-<script type="module" src="./app.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "my-map-etc": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-map", "my-codepen-button" ]
+  }
+}
+</script>
+
+<!-- <script type="module" src="./app.js"></script> -->
 
 <script type="module">
+  import 'my-map-etc';
+
   const myMap = document.querySelector('my-map');
 
   const { L, map } = await myMap.getLeafletMap();

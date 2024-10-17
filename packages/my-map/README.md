@@ -55,7 +55,7 @@ To add copyright links to the `attribution` attribute, use the following short-c
 * `{MT}`  — [MapTiler](https://www.maptiler.com/copyright/),
 * `{NLS}` — [National Library of Scotland](https://maps.nls.uk/projects/api/),
 * `{OSM}` — [OpenStreetMap](https://www.openstreetmap.org/copyright),
-* `{OSC}`  — [Ordnance Survey (Crown &copy;)][oslegal] ([OS API][]),
+* `{OSC}` — [Ordnance Survey (Crown &copy;)][oslegal] ([OS API][]),
 * `{TF}`  — [ThunderForest](https://www.thunderforest.com/),
 
 ## License
@@ -68,7 +68,7 @@ To add copyright links to the `attribution` attribute, use the following short-c
 [wc-img]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
 [leaflet-img]: https://img.shields.io/badge/leaflet-1.9.4-green.svg?style=flat
 [codepen]: https://codepen.io/nfreear/pen/KKeJKov
-[demo]: https://nfreear.github.io/elements/demo/
+[demo]: https://nfreear.github.io/elements/demo/my-map.html
 [mit]: https://github.com/nfreear/elements/blob/main/LICENSE.txt
 [npm]: https://www.npmjs.com/package/@nfreear/my-map
 [npm-img]: https://img.shields.io/npm/v/%40nfreear/my-map
