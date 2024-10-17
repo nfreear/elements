@@ -3,32 +3,26 @@
   "x-old-name": "ndf-web-components",
   "version": "1.6.0",
   "description": "A collection of useful custom elements.",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
   "x-copyright": "© 2021-2024 Nick Freear.",
   "author": "Nick Freear",
-  "license": "MIT",
   "homepage": "https://nfreear.github.io/elements/demo/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nfreear/elements.git"
+    "url": "git+https://github.com/nfreear/elements.git"
   },
   "bugs": {
     "url": "https://github.com/nfreear/elements/issues"
   },
-  "type": "module",
-  "main": "index.js",
   "exports": {
-    ".": {
-      "import": "./index.js"
-    },
-    "./custom": {
-      "import": "./custom.js"
-    },
-    "./my": {
-      "import": "./my.js"
-    },
-    "./my-map": {
-      "import": "./src/components/MyMapElement.js"
-    }
+    ".": "./index.js",
+    "./custom": "./custom.js",
+    "./my": "./my.js",
+    "./i.js": "./i.js",
+    "./base": "./src/myElement.js",
+    "./my-map": "./src/components/MyMapElement.js"
   },
   "scripts": {
     "build": "npm run build:feed && npm run build:template && npm run copy",
