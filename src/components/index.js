@@ -46,5 +46,7 @@ export { MyMathElement } from './MyMathElement.js';
 export * from './MyPasteTargetElement.js';
 export * from './MyDevWarningElement.js';
 export * from './MyCodepenButtonElement.js';
+export * from './MyElementFilterElement.js';
+export * from './MyInputElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';

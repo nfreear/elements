@@ -1,0 +1,59 @@
+<html>
+<meta charset="utf-8">
+
+<style>
+  label {
+    display: block;
+    margin: .3rem 0;
+    padding: .2rem 0;
+  }
+
+  [ data-my-element-filter = out ] {
+    display: none;
+  }
+
+  my-element-filter::part(input) {
+    font-size: inherit;
+    padding: .2rem .5rem;
+  }
+
+  fieldset {
+    margin-top: 1rem;
+  }
+</style>
+
+<h1> my-element-filter idea </h1>
+
+<h2><label id="groupLabel">Choose a fruit</label></h2>
+
+<my-element-filter selector="fieldset > label">
+
+  <fieldset aria-labelledby="groupLabel">
+    <!-- <legend>Choose a fruit</legend> -->
+    <label><input type="checkbox" value="apple"> Apple</label>
+    <label><input type="checkbox" value="banana"> Banana</label>
+    <label><input type="checkbox" value="cherry"> Cherry — I'm a very, very, very, very long sentence.</label>
+    <label><input type="checkbox" value="damson"> Damson</label>
+    <label><input type="checkbox" value="elderberry"> Elderberry</label>
+    <label><input type="checkbox" value="fig"> Fig</label>
+    <label><input type="checkbox" value="goosebery"> Gooseberry</label>
+    <label><input type="checkbox" value="hucklebery"> Huckleberry</label>
+    <label><input type="checkbox" value="jackfruit"> Jackfruit</label>
+    <label><input type="checkbox" value="kiwi"> Kiwi</label>
+    <label><input type="checkbox" value="lemon"> Lemon</label>
+
+  </fieldset>
+
+</my-element-filter>
+
+
+<p>
+  <my-input autocomplete="email" type="email">
+    <input />
+  </my-input>
+</p>
+
+
+<script src="../index.js" type="module"></script>
+
+</html>
