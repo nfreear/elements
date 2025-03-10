@@ -48,6 +48,9 @@ export class MyElementFilterElement extends MyElement {
     this._attachLocalTemplate(TEMPLATE);
 
     const searchField = this.shadowRoot.querySelector('#search');
+    const labelElement = this.shadowRoot.querySelector('label');
+
+    labelElement.textContent = this.label;
 
     searchField.addEventListener('input', (ev) => this._inputEventHandler(ev));
 
