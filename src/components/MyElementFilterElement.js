@@ -10,13 +10,13 @@
 
 import { MyElement } from '../MyElement.js';
 
-// const { customElements, HTMLElement } = window;
-
-const MIN_SIZE = 2;
+const MIN_SIZE = 1;
 const TEMPLATE = `
 <template>
-  <label part="label" for="search">Filter</label>
-  <input part="input" id="search" type="search">
+  <span part="row">
+    <label part="label" for="search"></label>
+    <input part="input" id="search" type="search">
+  </span>
   <slot></slot>
 </template>
 `;
@@ -34,12 +34,16 @@ export class MyElementFilterElement extends MyElement {
     return selector;
   }
 
-  connectedCallback () {
-    this.elements = this.querySelectorAll(this.selector);
+  get label () {
+    return this.getAttribute('label') || 'Filter';
+  }
 
-    if (!this.elements) {
-      throw new Error(`No elements found with selector: ${this.selector}`);
-    }
+  get minlength () {
+    return this.getAttribute('minlength') || MIN_SIZE;
+  }
+
+  connectedCallback () {
+    this.elements = null;
 
     this._attachLocalTemplate(TEMPLATE);
 
@@ -50,11 +54,23 @@ export class MyElementFilterElement extends MyElement {
     console.debug('my-element-filter:', this.elements.length, this);
   }
 
+  _getElements () {
+    if (!this.elements) {
+      this.elements = this.querySelectorAll(this.selector);
+    }
+    if (!this.elements) {
+      throw new Error(`No elements found with selector: ${this.selector}`);
+    }
+  }
+
   _inputEventHandler (ev) {
+    // Late initialization - allow other (custom element) JS to run first!
+    this._getElements();
+
     const QUERY = ev.target.value.trim().toLowerCase();
     let count = 0;
 
-    if (QUERY.length >= MIN_SIZE) {
+    if (QUERY.length >= this.minlength) {
       this.elements.forEach((el) => {
         const TEXT = el.textContent.toLowerCase();
         const FOUND = TEXT.includes(QUERY);
@@ -72,6 +88,7 @@ export class MyElementFilterElement extends MyElement {
 
     this.setAttribute('value', QUERY);
     this.setAttribute('count', count);
+    this.setAttribute('total', this.elements.length);
 
     console.debug('input:', count, QUERY, ev);
   }
