@@ -16,12 +16,18 @@ const TEMPLATE = `
   <span part="row">
     <label part="label" for="search"></label>
     <input part="input" id="search" type="search">
+    <output part="output"></output>
   </span>
-  <slot></slot>
+  <x-data part="slot">
+    <slot></slot>
+  </x-data>
 </template>
 `;
 
 export class MyElementFilterElement extends MyElement {
+  /*
+    Public API.
+  */
   static getTag () {
     return 'my-element-filter';
   }
@@ -38,37 +44,62 @@ export class MyElementFilterElement extends MyElement {
     return this.getAttribute('label') || 'Filter';
   }
 
+  get autocomplete () {
+    return this.getAttribute('autocomplete');
+  }
+
   get minlength () {
     return this.getAttribute('minlength') || MIN_SIZE;
   }
 
-  connectedCallback () {
-    this.elements = null;
+  get outputTemplate () {
+    return this.getAttribute('output-template') || '%d results';
+  }
 
+  get value () {
+    return this._searchField.value;
+  }
+
+  set value (data) {
+    this._inputEventHandler(this._mockEvent(data));
+    this._searchField.value = data;
+  }
+
+  /*
+    Life cycle callbacks.
+  */
+  connectedCallback () {
     this._attachLocalTemplate(TEMPLATE);
 
-    const searchField = this.shadowRoot.querySelector('#search');
     const labelElement = this.shadowRoot.querySelector('label');
 
     labelElement.textContent = this.label;
+    this._searchField.setAttribute('autocomplete', this.autocomplete);
 
-    searchField.addEventListener('input', (ev) => this._inputEventHandler(ev));
+    this._searchField.addEventListener('input', (ev) => this._inputEventHandler(ev));
 
-    console.debug('my-element-filter:', this.elements.length, this);
+    console.debug('my-element-filter:', [this]);
   }
 
-  _getElements () {
-    if (!this.elements) {
-      this.elements = this.querySelectorAll(this.selector);
+  /*
+    Private helpers.
+  */
+  get _searchField () { return this.shadowRoot.querySelector('#search'); }
+
+  get elements () { return this._privElements || []; }
+
+  _loadElements () {
+    if (!this._privElements) {
+      this._privElements = this.querySelectorAll(this.selector);
     }
-    if (!this.elements) {
+    if (!this._privElements) {
       throw new Error(`No elements found with selector: ${this.selector}`);
     }
   }
 
   _inputEventHandler (ev) {
     // Late initialization - allow other (custom element) JS to run first!
-    this._getElements();
+    this._loadElements();
 
     const QUERY = ev.target.value.trim().toLowerCase();
     let count = 0;
@@ -93,7 +124,16 @@ export class MyElementFilterElement extends MyElement {
     this.setAttribute('count', count);
     this.setAttribute('total', this.elements.length);
 
+    this._setOutput(count);
+
     console.debug('input:', count, QUERY, ev);
+  }
+
+  _mockEvent (value) { return { mockEvent: true, target: { value } }; }
+
+  _setOutput (count) {
+    const outputElement = this.shadowRoot.querySelector('output');
+    outputElement.value = this.outputTemplate.replace('%d', count);
   }
 }
 

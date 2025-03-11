@@ -17,6 +17,10 @@
     padding: .2rem .5rem;
   }
 
+  ::part(output) {
+    font-style: italic;
+  }
+
   fieldset {
     margin-top: 1rem;
   }
@@ -24,10 +28,15 @@
 
 <h1> my-element-filter idea </h1>
 
-<h2><label id="groupLabel">Choose a fruit</label></h2>
+<h2 id="groupLabel">Choose a fruit</h2>
 
-<my-element-filter selector="fieldset > label" label="Filter fruits" minlength="1">
-
+<my-element-filter
+  selector="fieldset > label"
+  label="Filter fruits"
+  minlength="1"
+  autocomplete="name"
+  output-template="%d results found!"
+  >
   <fieldset aria-labelledby="groupLabel">
     <!-- <legend>Choose a fruit</legend> -->
     <label><input type="checkbox" value="apple"> Apple</label>
@@ -55,5 +64,13 @@
 
 
 <script src="../index.js" type="module"></script>
+
+<script type="module">
+  setTimeout(() => {
+    const filterElem = document.querySelector('my-element-filter');
+    filterElem.value = 'a';
+  },
+  250);
+</script>
 
 </html>
