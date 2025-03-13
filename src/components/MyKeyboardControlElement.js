@@ -17,7 +17,7 @@
  * @since 1.3.0
  */
 
-const { customElements, CustomEvent, HTMLElement } = window || globalThis;
+const { CustomEvent, HTMLElement } = window || globalThis;
 
 const HORIZ = {
   Left: -1,
@@ -229,6 +229,4 @@ export class MyKeyboardControlElement extends HTMLElement {
   }
 }
 
-customElements.define(MyKeyboardControlElement.getTag(), MyKeyboardControlElement);
-
-// End.
+// Was: customElements.define(MyKeyboardControlElement.getTag(), MyKeyboardControlElement);

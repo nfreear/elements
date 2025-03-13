@@ -29,5 +29,3 @@ export class MyForkMeElement extends MyElement {
     LINK.href = href;
   }
 }
-
-MyForkMeElement.define();

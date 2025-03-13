@@ -140,5 +140,3 @@ export class MyFontElement extends MyElement {
     console.debug('Document - add style:', STYLE);
   }
 }
-
-MyFontElement.define();

@@ -12,7 +12,7 @@
  * @see https://w3.org/WAI/WCAG22/Techniques/failures/F109
  */
 
-const { customElements, HTMLElement } = window || globalThis;
+const { HTMLElement } = window || globalThis;
 
 /**
  * @class    MyPasteTargetElement
@@ -116,6 +116,4 @@ export class MyPasteTargetElement extends HTMLElement {
   }
 }
 
-customElements.define(MyPasteTargetElement.getTag(), MyPasteTargetElement);
-
-// End.
+// Was: customElements.define(MyPasteTargetElement.getTag(), MyPasteTargetElement);

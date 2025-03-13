@@ -96,5 +96,3 @@ export class MyFeedElement extends MyElement {
     return PARSED.href;
   }
 }
-
-MyFeedElement.define();

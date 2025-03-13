@@ -45,5 +45,3 @@ export class MyGaadWidgetElement extends MyElement {
     WRAP.setAttribute('data-year', year);
   }
 }
-
-MyGaadWidgetElement.define();

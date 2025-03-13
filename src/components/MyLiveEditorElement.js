@@ -40,5 +40,3 @@ export class MyLiveEditorElement extends MyElement {
     console.debug('my-live-editor:', this.innerHTML, this);
   }
 }
-
-MyLiveEditorElement.define();

@@ -104,5 +104,3 @@ export class MyLocalStorageElement extends MyElement {
     return OK || INPUT_ISH;
   }
 }
-
-MyLocalStorageElement.define();

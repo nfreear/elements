@@ -58,5 +58,3 @@ export class MyMathElement extends MyElement {
     });
   }
 }
-
-MyMathElement.define();

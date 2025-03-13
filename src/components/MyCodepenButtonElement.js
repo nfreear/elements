@@ -87,5 +87,3 @@ import '${this._import}';
     }
   }
 }
-
-MyCodepenButtonElement.define();

@@ -87,5 +87,3 @@ export class MyNoticeElement extends MyElement {
     }));
   }
 }
-
-MyNoticeElement.define();

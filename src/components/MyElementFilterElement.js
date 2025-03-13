@@ -4,6 +4,7 @@
  * @copyright © Nick Freear, 09-Mar-2025.
  *
  * @see https://codepen.io/nfreear/pen/LEYjYEK
+ * @see https://github.com/nfreear/elements
  * @status beta
  * @since 1.7.0
  */
@@ -136,5 +137,3 @@ export class MyElementFilterElement extends MyElement {
     outputElement.value = this.outputTemplate.replace('%d', count);
   }
 }
-
-MyElementFilterElement.define();

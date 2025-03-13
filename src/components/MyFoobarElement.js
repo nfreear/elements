@@ -30,6 +30,5 @@ export class MyFoobarElement extends MyElement {
   }
 }
 
-MyFoobarElement.define();
-
+// Was: MyFoobarElement.define();
 // Was: customElements.define('my-foobar', MyFoobarElement);

@@ -69,5 +69,3 @@ export class MyCodeElement extends MyElement {
     console.debug('my-code:', 'connectedCallback.', this);
   }
 }
-
-MyCodeElement.define();

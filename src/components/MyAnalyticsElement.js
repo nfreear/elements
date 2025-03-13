@@ -94,4 +94,4 @@ export class MyAnalyticsElement extends MyElement {
   }
 }
 
-MyAnalyticsElement.define();
+// Was: MyAnalyticsElement.define();

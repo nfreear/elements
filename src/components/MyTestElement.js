@@ -158,5 +158,3 @@ export class MyTestElement extends MyElement {
     return { accRelevant, accNotRel, filter: filterStrings };
   }
 }
-
-MyTestElement.define();

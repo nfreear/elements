@@ -3,10 +3,11 @@
  *
  * @example <my-input type="email"> <input type="text"> </my-input>
  * @copyright © Nick Freear, 10-Mar-2025.
+ * @see https://github.com/nfreear/elements
  * @since 1.7.0
  */
 
-const { customElements, HTMLElement } = window;
+const { HTMLElement } = window;
 
 export class MyInputElement extends HTMLElement {
   get _cssSelector () {
@@ -37,4 +38,4 @@ export class MyInputElement extends HTMLElement {
   }
 }
 
-customElements.define('my-input', MyInputElement);
+// Was: customElements.define('my-input', MyInputElement);

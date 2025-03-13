@@ -240,5 +240,3 @@ export class MyIndieAuthElement extends MyElement {
     }
   }
 }
-
-MyIndieAuthElement.define();

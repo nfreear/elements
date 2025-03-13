@@ -7,6 +7,7 @@
 
 import { elemToClass } from './src/Options.js';
 
+const { customElements } = window;
 const base = '.';
 
 try {
@@ -21,11 +22,14 @@ try {
     return { el, klass, path };
   });
 
-  const PR = KLASS.map(async ({ path }) => await import(path));
+  const PR = KLASS.map(async ({ klass, path }) => {
+    const MOD = await import(path);
+    customElements.define(MOD[klass].getTag(), MOD[klass]);
+  });
   await Promise.all(PR);
 
   console.assert(KLASS.length, 'No custom elements imported.');
-  console.debug('i.js:', KLASS, import.meta.url);
+  console.debug('i.js:', KLASS);
 } catch (err) {
   console.error(err);
 }

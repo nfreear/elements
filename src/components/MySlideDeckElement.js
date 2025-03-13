@@ -96,5 +96,3 @@ export class MySlideDeckElement extends MyElement {
     this.appendChild(LINK);
   }
 }
-
-MySlideDeckElement.define();

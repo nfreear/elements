@@ -127,5 +127,3 @@ export class MyTextToSpeechElement extends MyElement {
     console.debug('Voices:', SELECT, VOICES);
   }
 }
-
-MyTextToSpeechElement.define();

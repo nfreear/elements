@@ -102,4 +102,4 @@ export class MyStarRatingElement extends MyElement { // HTMLInputElement {
   }
 }
 
-MyStarRatingElement.define(); //, { extends: 'input' });
+// Was: MyStarRatingElement.define(); //, { extends: 'input' });

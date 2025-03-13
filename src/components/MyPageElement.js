@@ -62,5 +62,3 @@ export class MyPageElement extends MyElement {
     });
   }
 }
-
-MyPageElement.define();

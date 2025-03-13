@@ -206,7 +206,7 @@ export class MyConsoleElement extends MyElement {
   }
 }
 
-MyConsoleElement.define();
+// Was: MyConsoleElement.define();
 
 /**
  * @author Angus Croll.

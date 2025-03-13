@@ -84,5 +84,3 @@ export class MyBusySpinnerElement extends MyElement {
     console.debug('my-busy-spinner:', TEXT, this);
   }
 }
-
-MyBusySpinnerElement.define();

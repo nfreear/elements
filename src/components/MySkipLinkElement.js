@@ -26,6 +26,5 @@ export class MySkipLinkElement extends MyElement {
   }
 }
 
-MySkipLinkElement.define();
-
+// Was: MySkipLinkElement.define();
 // Was: customElements.define('my-skip-link', MySkipLinkElement);

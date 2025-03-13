@@ -112,5 +112,3 @@ export class MyBookmarkletElement extends MyElement {
     return script.replace(/\n/g, '').replace(/[ ]{2,}/g, ' ');
   }
 }
-
-MyBookmarkletElement.define();

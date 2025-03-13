@@ -82,5 +82,3 @@ export class MySiteCounterElement extends MyElement {
     };
   }
 }
-
-MySiteCounterElement.define();

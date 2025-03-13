@@ -26,5 +26,3 @@ export class MyOptionsElement extends MyElement {
     console.debug('my-options:', this.$$, this);
   }
 }
-
-MyOptionsElement.define();

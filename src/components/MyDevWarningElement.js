@@ -59,5 +59,3 @@ icon::after {
     console.warn('my-dev-warning:', 'Not Production Ready!', this);
   }
 }
-
-MyDevWarningElement.define();

@@ -40,5 +40,3 @@ export class MyLoremIpsumElement extends MyElement {
     // [...Array(paras).keys()].forEach(idx => ELEM.classList.add(`n${idx + 1}`))
   }
 }
-
-MyLoremIpsumElement.define();

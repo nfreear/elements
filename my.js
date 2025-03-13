@@ -7,6 +7,8 @@
 
 import { elemToClass } from './src/Options.js';
 
+const { customElements } = window;
+
 const base = '.';
 const url = new URL(import.meta.url);
 const USE = url.search.match(/\?(use=)?(my-[a-z,-]+)/); // url.searchParams.get('use');
@@ -18,7 +20,10 @@ const KLASS = ELEM.map((el) => {
   return { el, klass, path };
 });
 
-const PR = KLASS.map(async ({ path }) => await import(path));
+const PR = KLASS.map(async ({ klass, path }) => {
+  const MOD = await import(path);
+  customElements.define(MOD[klass].getTag(), MOD[klass]);
+});
 await Promise.all(PR);
 
 console.assert(KLASS.length, 'No custom elements imported.');

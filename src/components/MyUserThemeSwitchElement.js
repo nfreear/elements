@@ -93,4 +93,4 @@ export class MyUserThemeSwitchElement extends MyElement {
   }
 }
 
-MyUserThemeSwitchElement.define();
+// Was: MyUserThemeSwitchElement.define();

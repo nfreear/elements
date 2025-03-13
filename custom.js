@@ -15,6 +15,8 @@
 import { getOptUse, hasElem } from './src/Options.js';
 // Was: export { MyOptionsElement } from './src/components/MyOptionsElement.js';
 
+const { customElements } = window;
+
 /**
  * Dynamically import just the custom elements that you need!
  * @param {string|array} use List or array of tag-names.
@@ -28,6 +30,8 @@ export async function customImport (uses = null, base = '.') {
 
   const USED = getOptUse(uses).map(async ({ elem, klass }) => {
     const mod = await import(`${base}/src/components/${klass}.js`);
+
+    customElements.define(mod[klass].getTag(), mod[klass]);
 
     return { elem, klass, mod };
   });

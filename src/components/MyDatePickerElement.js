@@ -128,5 +128,3 @@ export class MyDatePickerElement extends MyElement {
     }
   }
 }
-
-MyDatePickerElement.define();

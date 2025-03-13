@@ -307,6 +307,4 @@ export class MyMapElement extends MyElement {
   }
 }
 
-MyMapElement.define();
-
 // End.

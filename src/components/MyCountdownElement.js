@@ -97,5 +97,3 @@ export class MyCountdownElement extends MyElement {
     return { days, hours, minutes, seconds, deadline: deadlineStr, diff, expired: diff < 0 };
   }
 }
-
-MyCountdownElement.define();

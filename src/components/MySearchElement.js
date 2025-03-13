@@ -73,6 +73,5 @@ export class MySearchElement extends MyElement {
   }
 }
 
-MySearchElement.define();
-
+// Was: MySearchElement.define();
 // Was: customElements.define('my-foobar', MyFoobarElement);

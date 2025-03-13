@@ -45,5 +45,3 @@ export class MyAtbarButtonElement extends MyElement {
     console.debug('my-atbar-button:', this);
   }
 }
-
-MyAtbarButtonElement.define();

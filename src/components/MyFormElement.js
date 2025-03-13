@@ -95,5 +95,3 @@ export class MyFormElement extends HTMLFormElement {
     this._allFields.forEach(el => el.removeAttribute('disabled'));
   }
 }
-
-MyFormElement.define();
