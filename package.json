@@ -6,7 +6,7 @@
   "type": "module",
   "main": "index.js",
   "license": "MIT",
-  "x-copyright": "© 2021-2024 Nick Freear.",
+  "x-copyright": "© 2021-2025 Nick Freear.",
   "author": "Nick Freear",
   "homepage": "https://nfreear.github.io/elements/demo/",
   "repository": {
@@ -21,8 +21,9 @@
     "./custom": "./custom.js",
     "./my": "./my.js",
     "./i.js": "./i.js",
-    "./base": "./src/myElement.js",
-    "./my-map": "./src/components/MyMapElement.js"
+    "./base": "./src/MyMinElement.js",
+    "./my-map": "./src/components/MyMapElement.js",
+    "./web": "./web.js"
   },
   "scripts": {
     "build": "npm run build:feed && npm run build:template && npm run copy",
