@@ -5,9 +5,9 @@
  * @status beta
  * @since 1.7.0
  */
-import MyElement from '../MyElement.js';
+import MyMinElement from '../MyMinElement.js';
 
-export class MyDevWarningElement extends MyElement {
+export class MyDevWarningElement extends MyMinElement {
   static getTag () {
     return 'my-dev-warning';
   }

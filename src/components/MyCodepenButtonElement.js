@@ -5,7 +5,7 @@
  * @since 06-Oct-2024.
  */
 
-import MyElement from '../MyElement.js';
+import MyMinElement from '../MyMinElement.js';
 
 const TEMPLATE = `
 <template>
@@ -38,7 +38,7 @@ const PEN_TEMPLATE = {
   js_external: ''
 };
 
-export class MyCodepenButtonElement extends MyElement {
+export class MyCodepenButtonElement extends MyMinElement {
   static getTag () {
     return 'my-codepen-button';
   }

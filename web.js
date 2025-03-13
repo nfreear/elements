@@ -1,7 +1,6 @@
 /**
  * My Elements.
- *
- * All exports.
+ * All exports - for direct inclusion in web pages.
  *
  * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 04-Dec-2021.
