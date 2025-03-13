@@ -15,6 +15,7 @@
 export * from './src/components/index.js';
 
 export { MyElement } from './src/MyElement.js';
+export { MyMinElement } from './src/MyMinElement.js';
 
 export { getOpt, getOptUse, elemToClass } from './src/Options.js';
 export { translate } from './src/translate.js';

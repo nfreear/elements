@@ -63,7 +63,19 @@
 </p>
 
 
-<script src="../index.js" type="module"></script>
+<script type="importmap">
+{
+  "imports": {
+    "my-element-filter": "../index.js"
+  }
+}
+</script>
+
+<script type="module">
+  import { MyElementFilterElement } from 'my-element-filter';
+
+  customElements.define('my-element-filter', MyElementFilterElement);
+</script>
 
 <script type="module">
   setTimeout(() => {

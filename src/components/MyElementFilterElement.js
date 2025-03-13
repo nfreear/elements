@@ -9,7 +9,7 @@
  * @since 1.7.0
  */
 
-import { MyElement } from '../MyElement.js';
+import MyMinElement from '../MyMinElement.js';
 
 const MIN_SIZE = 1;
 const TEMPLATE = `
@@ -25,7 +25,7 @@ const TEMPLATE = `
 </template>
 `;
 
-export class MyElementFilterElement extends MyElement {
+export class MyElementFilterElement extends MyMinElement {
   /*
     Public API.
   */
