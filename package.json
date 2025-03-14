@@ -23,6 +23,7 @@
     "./i.js": "./i.js",
     "./base": "./src/MyMinElement.js",
     "./my-map": "./src/components/MyMapElement.js",
+    "./an-form": "./src/an-form.js",
     "./web": "./web.js"
   },
   "scripts": {

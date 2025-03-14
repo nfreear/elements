@@ -4,7 +4,7 @@
  * @copyright © Nick Freear, 27-Jan-2022.
  */
 
-import * as MY from '../index.js';
+import * as MY from '../web.js';
 
 // For "my-speech.html" ~ <my-text-to-speech>
 const queryString = window.location.href;
