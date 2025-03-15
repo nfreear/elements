@@ -46,8 +46,13 @@ async function buildJsonFeed () {
 }
 
 function metaDataToFeed (data) {
+  console.assert(data, '"data" should not be empty, in metaDataToFeed');
+
   const items = data.map(it => {
-    const { summary, desc, status, demoUrl, className, parentClass, tagName, fileName } = it;
+    console.assert(it, '"it" should be an object, in metaDataToFeed');
+    const { skip, summary, desc, status, demoUrl, className, parentClass, tagName, fileName } = it;
+    if (skip) return it;
+
     const id = tagName;
     const title = `${tagName}: ${summary}`;
     const tags = status ? status.split(/, ?/) : [];

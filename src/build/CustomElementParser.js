@@ -12,7 +12,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 // import { URL } from 'url';
 
-const FILE_LIMIT = 40; // 10; // 2;
+const FILE_LIMIT = 50; // Was: 40;
 const MJS_EXT = '.js';
 
 export default class CustomElementParser {
@@ -47,16 +47,19 @@ export default class CustomElementParser {
 
     DATA.isoDate = DATA.date ? new Date(DATA.date).toISOString().replace(/T.+/, '') : null;
 
-    // console.log('Data:', file, DATA);
+    console.assert(DATA, `DATA should be an object: ${fileName}`);
 
     return DATA;
   }
 
   async parseFiles (dir, fileNames) {
     // console.warn('File count:', fileNames.length);
+    console.warn('>> FILES:', fileNames);
 
     const PROMS = await fileNames.map(async (file, fileIdx) => {
-      if (fileIdx >= this._fileLimit) return;
+      if (fileIdx >= this._fileLimit) return { skip: true, sizeLimit: true };
+
+      if (file === 'index.js') return { skip: true, file };
 
       // const BASE = path.basename(file, MJS_EXT);
 

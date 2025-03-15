@@ -61,7 +61,10 @@ export class MyFeedElement extends MyElement {
   }
 
   _makeListItem (item, open) {
-    const { guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
+    const { skip, guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
+
+    if (skip) return '<!-- skip -->';
+
     // @TODO: security! - _saferHtml()
     const CONTENT = content || content_html || null; /* eslint-disable-line camelcase */
     const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${CONTENT}</details>` : null;
