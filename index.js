@@ -13,6 +13,7 @@ export { MyDevWarningElement } from './src/components/MyDevWarningElement.js';
 export { MyCodepenButtonElement } from './src/components/MyCodepenButtonElement.js';
 export { MyElementFilterElement } from './src/components/MyElementFilterElement.js';
 export { MyInputElement } from './src/components/MyInputElement.js';
+export { MyLiveBridgeElement } from './src/components/MyLiveBridgeElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 // export { * } from './src/Options.js';

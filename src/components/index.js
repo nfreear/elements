@@ -47,6 +47,7 @@ export * from './MyPasteTargetElement.js';
 export * from './MyDevWarningElement.js';
 export * from './MyCodepenButtonElement.js';
 export * from './MyElementFilterElement.js';
-export * from './MyInputElement.js';
+export { MyInputElement } from './MyInputElement.js';
+export { MyLiveBridgeElement } from './MyLiveBridgeElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';
