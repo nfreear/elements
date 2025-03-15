@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<link rel="stylesheet" href="style/app.css" />
+
+<my-page>
+
+<h2> my-live-bridge demo </h2>
+
+<h3> Demo A: Built-in DOM 'click' event </h3>
+
+<my-live-bridge
+  id="demo_A"
+  event="click"
+  message="Hello world! '{value}' '{text}'"
+  >
+  <p>
+    <output></output>
+  </p>
+
+  <p>
+    <button value="DOM A">Click me! (DOM)</button>
+  </p>
+</my-live-bridge>
+
+
+<h3> Demo B: CustomEvent event </h3>
+
+<my-live-bridge
+  id="demo_B"
+  event="my-demo:click"
+  message="Hi! '{event}' '{dataset.val}' '{detail.rand}' '{text}'"
+  >
+  <p>
+    <output></output>
+  </p>
+
+  <p>
+    <button data-val="custom B">Click me! (custom)</button>
+  </p>
+</my-live-bridge>
+
+</my-page>
+
+
+<script type="importmap">
+{
+  "imports": {
+    "my-live-bridge": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-live-bridge", "my-page" ]
+  }
+}
+</script>
+
+<!-- <script type="module" src="./app.js"></script> -->
+
+<script type="module">
+  import 'my-live-bridge';
+
+  const demoBButton = document.querySelector('#demo_B button');
+
+  demoBButton.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    const EVENT = new CustomEvent('my-demo:click', {
+      bubbles: true, // Critical!
+      detail: {
+        rand: parseInt(100 * Math.random()),
+        isoDate: new Date().toISOString(),
+        text: ev.target.innerContent,
+        value: ev.target.value,
+        origEvent: ev
+      }
+    });
+    ev.target.dispatchEvent(EVENT);
+
+    // console.debug('Click B:', EVENT, ev);
+  });
+
+  console.debug('>> my-live-bridge demo');
+</script>

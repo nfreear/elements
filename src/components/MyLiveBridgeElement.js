@@ -1,6 +1,7 @@
 /**
- * Listen for a bubbling event, and update a live-region with data.
+ * Listen for a DOM or CustomEvent event, and update a live-region with data.
  *
+ * @see https://codepen.io/nfreear/pen/XJWVRPK
  * @see https://codepen.io/nfreear/pen/QwWOdWN
  * @copyright © Nick Freear, 15-Mar-2025.
  * @status beta
@@ -37,7 +38,7 @@ export class MyLiveBridgeElement extends HTMLElement {
   connectedCallback () {
     console.assert(this.event, '"event" - attribute required');
     console.assert(this.message, '"message" - attribute required.');
-    console.assert(this.liveRegion, 'Live region required.');
+    console.assert(this.liveRegion, 'A live region element is required.');
 
     this.addEventListener(this.event, (ev) => this._eventHandler(ev));
 
@@ -45,7 +46,7 @@ export class MyLiveBridgeElement extends HTMLElement {
   }
 
   _eventHandler (ev) {
-    this.liveRegion.textContent = this._getMessage(ev);
+    this.liveRegion.textContent = this._formatMessage(ev);
 
     // Optional animation.
     this.liveRegion.dataset.myLiveBridge = true;
@@ -57,7 +58,32 @@ export class MyLiveBridgeElement extends HTMLElement {
     console.debug(this.event, ev);
   }
 
-  _getMessage (ev) {
+  _oldGetMessage (ev) {
     return this.message.replace('{value}', ev.target.value);
+  }
+
+  _isCustomEvent (ev) {
+    return ev.type.match(/.+:.+/);
+  }
+
+  _formatMessage (ev) {
+    const REPLACE = [
+      { pattern: '{value}', replace: ev.target.value },
+      { pattern: '{text}', replace: ev.target.textContent },
+      { pattern: '{event}', replace: ev.type }, // Debugging?
+      { // Support 'data-*' attributes.
+        pattern: /\{dataset\.(\w+)\}/,
+        replace: (str, match) => ev.target.dataset[match] || null
+      }, {
+        pattern: /\{detail\.(\w+)\}/,
+        replace: (str, match) => this._isCustomEvent(ev) ? ev.detail[match] : null
+      }
+    ];
+
+    let message = this.message;
+    REPLACE.forEach(({ pattern, replace }) => {
+      message = message.replace(pattern, replace);
+    });
+    return message;
   }
 }

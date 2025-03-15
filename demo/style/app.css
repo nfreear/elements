@@ -59,6 +59,14 @@ input {
   padding: .3rem 2rem;
 }
 
+output {
+  border: 2px solid gray;
+  display: inline-block;
+  min-height: 1rem;
+  min-width: 1rem;
+  padding: 1rem;
+}
+
 input:focus {
   background: #ffff9d;
 }
