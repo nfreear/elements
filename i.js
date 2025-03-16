@@ -31,7 +31,12 @@ try {
   console.assert(KLASS.length, 'No custom elements imported.');
   console.debug('i.js:', KLASS);
 } catch (err) {
-  console.error(err);
+  const M = err.stack.match(/(failed to fetch|error loading) dyn.*\/(\w+)\.js/i);
+  if (M) {
+    console.error('404 Error:', M[2], '~', err);
+  } else {
+    console.error('ERROR:', err);
+  }
 }
 
 /*
