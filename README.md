@@ -12,10 +12,10 @@ A collection of useful custom elements (Web Components).
 ## Rationale ##
 
 * Some experimental, particularly `<my-page>`, `<my-nav>` which are probably not for production !!
-* Should be usable without (or with) a build system, minimalist,
+* Should be usable with or without a build system, minimalist,
 * Accessible and usable for end-users - use WAI-ARIA where appropriate!
 * Simple for developers to try out,
-* ES6 classes in JS files, with associated HTML + CSS in `<template>` in `.tpl.html` files,
+* ES6 classes in JS files (with associated HTML + CSS in `<template>` in `.tpl.html` files - DEPRECATED),
 * Self-contained where possible - SVG icons embedded in `<template>`, except `<my-map>` (Leaflet.js)
 * Use shadow DOM where possible - see notes on forms (below?)
 * A playground, plus some components that I will use in my blog etc.
@@ -42,6 +42,32 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 ```
 
 ## Custom import
+
+Dynamically import just what you want, using an `importmap`.
+
+HTML:
+```
+<my-live-bridge event="click" message="Hello world!">
+  <p aria-live="polite"></p>
+
+  <p><button>Click me!</button></p>
+</my-live-bridge>
+
+<script type="importmap">
+{
+  "imports": {
+    "my-elements": "https://unpkg.com/ndf-elements@^1/i.js"
+  },
+  "myElements": {
+    "use": [ "my-live-bridge", "my-dev-warning" ]
+  }
+}
+</script>
+
+<script type="module"> import 'my-elements' </script>
+```
+
+## Legacy custom import
 
 ```js
 import customImport from 'https://nfreear.github.io/elements/custom.js';
