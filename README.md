@@ -43,10 +43,10 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 
 ## Custom import
 
-Dynamically import just what you want, using an `importmap`.
+Dynamically import just the custom elements you want, using an `importmap`.
 
 HTML:
-```
+```html
 <my-live-bridge event="click" message="Hello world!">
   <p aria-live="polite"></p>
 
@@ -64,14 +64,14 @@ HTML:
 }
 </script>
 
-<script type="module"> import 'my-elements' </script>
+<script type="module"> import 'my-elements'; </script>
 ```
 
 ## Legacy custom import
 
+Dynamically import just the custom elements you want.
 ```js
-import customImport from 'https://nfreear.github.io/elements/custom.js';
-// import customImport from 'https://unpkg.com/ndf-elements@1.5.0/custom.js';
+import customImport from 'https://unpkg.com/ndf-elements@^1/custom.js';
 
 const MOD = await customImport('my-star-rating, my-skip-link');
 ```
