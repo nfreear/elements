@@ -17,6 +17,7 @@ export { MyElement } from './src/MyElement.js';
 export { MyMinElement } from './src/MyMinElement.js';
 
 export { getOpt, getOptUse, elemToClass } from './src/Options.js';
+export { importMapOpt } from './src/importMapOpt.js';
 export { translate } from './src/translate.js';
 
 // End.

@@ -17,4 +17,5 @@ export { MyLiveBridgeElement } from './src/components/MyLiveBridgeElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 // export { * } from './src/Options.js';
+export { importMapOpt } from './src/importMapOpt.js';
 export { translate } from './src/translate.js';
