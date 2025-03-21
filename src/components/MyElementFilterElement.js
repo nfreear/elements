@@ -110,14 +110,12 @@ export class MyElementFilterElement extends MyMinElement {
         const TEXT = el.textContent.toLowerCase();
         const FOUND = TEXT.includes(QUERY);
 
-        // el.hidden = !FOUND;
         el.dataset.myElementFilter = FOUND ? 'in' : 'out';
         count += FOUND ? 1 : 0;
       });
     } else {
       this.elements.forEach((el) => {
         el.removeAttribute('data-my-element-filter');
-        // el.dataset.myElementFilter = '';
       });
     }
 

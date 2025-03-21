@@ -41,7 +41,7 @@ Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be 
 ></script>
 ```
 
-## Custom import
+## Dynamic import
 
 Dynamically import just the custom elements you want, using an `importmap`.
 

@@ -4,12 +4,10 @@
  * @see https://github.com/nfreear/elements
  * @copyright © Nick Freear, 02-Dec-2021.
  * @license MIT
- *
  * @class MyMinElement
  * @status beta
  * @since 1.7.0
  */
-
 const { DOMParser, HTMLElement } = window;
 
 export class MyMinElement extends HTMLElement {
@@ -23,14 +21,12 @@ export class MyMinElement extends HTMLElement {
   }
 
   static getTag () {
-    // Example: return 'my-element';
     throw new Error('getTag() should be implemented in the child class!');
   }
 
   /**
-   * Attach HTML template from local (M)JS file.
-   *
-   * Security: safer than `innerHTML`
+   * Attach HTML template from local JS file.
+   * @security Safer than `innerHTML`
    */
   _attachLocalTemplate (templateHtml, attachShadow = true) {
     const parser = new DOMParser();
