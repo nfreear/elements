@@ -7,7 +7,6 @@
  * @status beta
  * @since 1.7.0
  */
-
 const { HTMLElement } = window;
 
 export class MyInputElement extends HTMLElement {
@@ -23,13 +22,17 @@ export class MyInputElement extends HTMLElement {
     return [
       'autocomplete',
       'maxlength',
+      'minlength',
       'pattern',
+      'required',
+      'role', // ARIA
       'type'
     ];
   }
 
-  async connectedCallback () {
+  connectedCallback () {
     this._inputElement = this.querySelector(this._cssSelector);
+    console.assert(this._inputElement, 'An <input> or <select> element is required');
 
     const FOUND = this._attributes.map((attr) => {
       const value = this.getAttribute(attr);
@@ -39,8 +42,24 @@ export class MyInputElement extends HTMLElement {
       return { attr, value };
     });
 
-    console.debug('my-input:', FOUND, this);
+    const ARIA = this._transferDataAriaAttributes();
+
+    console.debug('my-input:', FOUND, ARIA, this);
+  }
+
+  // ARIA: https://www.w3.org/TR/wai-aria-1.2/#aria-attributes
+  get _dataAriaRegex () { return /^data-(aria-[a-z]{4,17})$/; }
+
+  _transferDataAriaAttributes () {
+    const ARIA = [...this.attributes].map(({ name, value }) => {
+      const match = name.match(this._dataAriaRegex);
+      if (match) {
+        const attr = match[1];
+        this._inputElement.setAttribute(attr, value);
+        return { attr, value };
+      }
+      return null;
+    });
+    return ARIA.filter(el => el);
   }
 }
-
-// Was: customElements.define('my-input', MyInputElement);

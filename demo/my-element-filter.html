@@ -57,8 +57,11 @@
 
 
 <p>
-  <my-input autocomplete="email" type="email">
-    <input />
+  <my-input autocomplete="email" type="email"
+    data-aria-required="true" data-aria-errormessage="Email is required"
+    data-aria-abc="ERROR"
+    >
+    <label>my-input test <input /></label>
   </my-input>
 </p>
 
@@ -67,14 +70,18 @@
 {
   "imports": {
     "my-element-filter": "../index.js"
+  },
+  "myElements": {
+    "use": [ "my-element-filter", "my-input" ]
   }
 }
 </script>
 
 <script type="module">
-  import { MyElementFilterElement } from 'my-element-filter';
+  import { MyElementFilterElement, MyInputElement } from 'my-element-filter';
 
   customElements.define('my-element-filter', MyElementFilterElement);
+  customElements.define('my-input', MyInputElement);
 </script>
 
 <script type="module">
