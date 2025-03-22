@@ -49,5 +49,6 @@ export * from './MyCodepenButtonElement.js';
 export * from './MyElementFilterElement.js';
 export { MyInputElement } from './MyInputElement.js';
 export { MyLiveBridgeElement } from './MyLiveBridgeElement.js';
+export { MyCaptchaElement } from './MyCaptchaElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';

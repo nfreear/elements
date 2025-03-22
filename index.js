@@ -14,6 +14,7 @@ export { MyCodepenButtonElement } from './src/components/MyCodepenButtonElement.
 export { MyElementFilterElement } from './src/components/MyElementFilterElement.js';
 export { MyInputElement } from './src/components/MyInputElement.js';
 export { MyLiveBridgeElement } from './src/components/MyLiveBridgeElement.js';
+export { MyCaptchaElement } from './src/components/MyCaptchaElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 // export { * } from './src/Options.js';
