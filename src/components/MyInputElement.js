@@ -15,7 +15,7 @@ export class MyInputElement extends HTMLElement {
   }
 
   get _cssSelector () {
-    return 'input, select';
+    return 'input, select, textarea';
   }
 
   get _attributes () {
@@ -25,14 +25,13 @@ export class MyInputElement extends HTMLElement {
       'minlength',
       'pattern',
       'required',
-      'role', // ARIA
       'type'
     ];
   }
 
   connectedCallback () {
     this._inputElement = this.querySelector(this._cssSelector);
-    console.assert(this._inputElement, 'An <input> or <select> element is required');
+    console.assert(this._inputElement, 'An <input>, <select> or <textarea> element is required');
 
     const FOUND = this._attributes.map((attr) => {
       const value = this.getAttribute(attr);
@@ -48,7 +47,7 @@ export class MyInputElement extends HTMLElement {
   }
 
   // ARIA: https://www.w3.org/TR/wai-aria-1.2/#aria-attributes
-  get _dataAriaRegex () { return /^data-(aria-[a-z]{4,17})$/; }
+  get _dataAriaRegex () { return /^data-(role|aria-[a-z]{4,17})$/; }
 
   _transferDataAriaAttributes () {
     const ARIA = [...this.attributes].map(({ name, value }) => {
