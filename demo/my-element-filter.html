@@ -24,11 +24,30 @@
   fieldset {
     margin-top: 1rem;
   }
+
+  ::part(dialog) {
+    border-radius: .5rem;
+  }
+
+  ::part(p) {
+    font-size: larger;
+    margin: 1rem 1rem 3rem;
+  }
+
+  ::part(button),
+  button {
+    display: block;
+    font-size: inherit;
+    padding: .7rem 1.4rem;
+    margin: auto;
+  }
 </style>
 
 <h1> my-element-filter idea </h1>
 
 <h2 id="groupLabel">Choose a fruit</h2>
+
+<form>
 
 <my-element-filter
   selector="fieldset > label"
@@ -66,11 +85,27 @@
   </my-input>
 </p>
 
+<p>
+  <my-captcha
+    sitekey=""
+    selector="#hidden_captcha"
+    message="Hello! Please prove you’re not a robot."
+  >
+  </my-captcha>
+  <input id="hidden_captcha">
+</p>
+
+<p>
+  <button type="submit">Submit</button>
+</p>
+
+</form>
+
 
 <script type="importmap">
 {
   "imports": {
-    "my-element-filter": "../index.js"
+    "my-elements": "../index.js"
   },
   "myElements": {
     "use": [ "my-element-filter", "my-input" ]
@@ -79,10 +114,11 @@
 </script>
 
 <script type="module">
-  import { MyElementFilterElement, MyInputElement } from 'my-element-filter';
+  import { MyElementFilterElement, MyInputElement, MyCaptchaElement } from 'my-elements';
 
   customElements.define('my-element-filter', MyElementFilterElement);
   customElements.define('my-input', MyInputElement);
+  customElements.define('my-captcha', MyCaptchaElement);
 </script>
 
 <script type="module">

@@ -12,9 +12,7 @@ const TEMPLATE = `
 <template>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <dialog part="dialog">
-    <p part="p">
-      Please prove you’re not a robot.</slot>
-    </p>
+    <p part="p"></p>
     <form method="dialog">
       <button part="button" type="submit">OK</button>
     </form>
@@ -29,8 +27,16 @@ export class MyCaptchaElement extends MyMinElement {
     return KEY;
   }
 
+  get message () {
+    return this.getAttribute('message') || 'Please prove you’re not a robot.';
+  }
+
   get capture () {
     return !!this.getAttribute('capture');
+  }
+
+  get selector () {
+    return this.getAttribute('selector');
   }
 
   get value () { return this._responseElem.value; }
@@ -44,6 +50,8 @@ export class MyCaptchaElement extends MyMinElement {
     this.after(ELEM);
 
     this._attachLocalTemplate(TEMPLATE);
+    const PARA = this.shadowRoot.querySelector('p');
+    PARA.textContent = this.message;
 
     const OPT = this.capture ? { capture: true } : null;
 
@@ -54,6 +62,7 @@ export class MyCaptchaElement extends MyMinElement {
 
   _submitEventHandler (ev) {
     if (this.success) {
+      this._cascadeValue();
       console.debug('my-captcha - OK:', this.value);
     } else {
       const dialog = this.shadowRoot.querySelector('dialog');
@@ -79,6 +88,14 @@ export class MyCaptchaElement extends MyMinElement {
     const ELEM = document.querySelector('#g-recaptcha-response');
     console.assert(ELEM, '#g-recaptcha-response - Not found (my-captcha)');
     return ELEM;
+  }
+
+  _cascadeValue () {
+    if (this.selector) {
+      const INPUT = document.querySelector(this.selector);
+      console.assert(INPUT, `<input> - Not found: ${this.selector}`);
+      INPUT.value = this.value;
+    }
   }
 }
 

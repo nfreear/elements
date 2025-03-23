@@ -24,6 +24,7 @@
     "./base": "./src/MyMinElement.js",
     "./my-map": "./src/components/MyMapElement.js",
     "./an-form": "./src/an-form.js",
+    "./experiment": "./src/experiment.js",
     "./web": "./web.js"
   },
   "scripts": {
