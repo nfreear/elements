@@ -1,7 +1,7 @@
 {
   "name": "ndf-elements",
   "x-old-name": "ndf-web-components",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "My collection of useful custom elements.",
   "type": "module",
   "main": "index.js",
