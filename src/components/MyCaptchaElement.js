@@ -21,6 +21,8 @@ const TEMPLATE = `
 `;
 
 export class MyCaptchaElement extends MyMinElement {
+  static getTag () { return 'my-captcha'; }
+
   get sitekey () {
     const KEY = this.getAttribute('sitekey');
     console.assert(KEY, 'The "sitekey" attribute is required (my-captcha)');
@@ -57,6 +59,8 @@ export class MyCaptchaElement extends MyMinElement {
 
     this._form.addEventListener('submit', (ev) => this._submitEventHandler(ev), OPT);
 
+    window.addEventListener('message', (ev) => this._onIframeMessage(ev), false);
+
     console.debug('my-captcha:', this.sitekey, this);
   }
 
@@ -76,6 +80,16 @@ export class MyCaptchaElement extends MyMinElement {
       }
       console.debug('my-captcha - Show dialog.');
     }
+  }
+
+  get _trustedOrigins () {
+    return ['https://www.google.com'];
+  }
+
+  _onIframeMessage (msg) {
+    if (!this._trustedOrigins.includes(msg.origin)) { return; }
+
+    console.debug('my-captcha - Iframe message:', msg.data, msg);
   }
 
   get _form () {
