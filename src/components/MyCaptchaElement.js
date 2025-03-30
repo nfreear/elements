@@ -1,15 +1,17 @@
 /**
  * Wrapper around Google reCAPTCHA, using a modal 'dialog'.
  *
+ * @see https://www.google.com/recaptcha/admin (Legacy)
  * @copyright NDF, 21-March-2025.
  * @status experimental
  * @since 1.7.0
  */
 import MyMinElement from '../MyMinElement.js';
 
-// <slot> doesn't seem to work in <dialog>!
+// <slot> doesn't seem to work inside <dialog>!
 const TEMPLATE = `
 <template>
+  <slot></slot>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <dialog part="dialog">
     <p part="p"></p>
@@ -23,21 +25,21 @@ const TEMPLATE = `
 export class MyCaptchaElement extends MyMinElement {
   static getTag () { return 'my-captcha'; }
 
-  get sitekey () {
+  get sitekey () { // Required (token)
     const KEY = this.getAttribute('sitekey');
     console.assert(KEY, 'The "sitekey" attribute is required (my-captcha)');
     return KEY;
   }
 
-  get message () {
+  get message () { // Optional (string)
     return this.getAttribute('message') || 'Please prove you’re not a robot.';
   }
 
-  get capture () {
+  get capture () { // Optional (boolean)
     return !!this.getAttribute('capture');
   }
 
-  get selector () {
+  get selector () { // Optional.
     return this.getAttribute('selector');
   }
 
@@ -49,9 +51,10 @@ export class MyCaptchaElement extends MyMinElement {
     const ELEM = document.createElement('div');
     ELEM.classList.add('g-recaptcha');
     ELEM.dataset.sitekey = this.sitekey;
-    this.after(ELEM);
+    this.appendChild(ELEM); // Was: this.after(ELEM);
 
     this._attachLocalTemplate(TEMPLATE);
+    const DIALOG = this.shadowRoot.querySelector('dialog form');
     const PARA = this.shadowRoot.querySelector('p');
     PARA.textContent = this.message;
 
@@ -59,15 +62,17 @@ export class MyCaptchaElement extends MyMinElement {
 
     this._form.addEventListener('submit', (ev) => this._submitEventHandler(ev), OPT);
 
+    DIALOG.addEventListener('submit', (ev) => this._onDialogClose(ev));
+
     window.addEventListener('message', (ev) => this._onIframeMessage(ev), false);
 
-    console.debug('my-captcha:', this.sitekey, this);
+    console.debug('my-captcha:', this.sitekey.length, this.sitekey, this);
   }
 
   _submitEventHandler (ev) {
     if (this.success) {
       this._cascadeValue();
-      console.debug('my-captcha - OK:', this.value);
+      console.debug('my-captcha - OK:', this.value.length, this.value.substring(0, 32), '…');
     } else {
       const dialog = this.shadowRoot.querySelector('dialog');
       dialog.showModal();
@@ -89,7 +94,22 @@ export class MyCaptchaElement extends MyMinElement {
   _onIframeMessage (msg) {
     if (!this._trustedOrigins.includes(msg.origin)) { return; }
 
-    console.debug('my-captcha - Iframe message:', msg.data, msg);
+    this._cascadeValue(); // Reset!
+    const DT = new Date().toTimeString();
+    console.debug('my-captcha - Iframe message:', msg.data, DT, msg);
+  }
+
+  _onDialogClose (ev) {
+    // Accessibility: set focus back on the <iframe>.
+    setTimeout(() => {
+      this._iframeElem.removeAttribute('role');
+      this._iframeElem.setAttribute('tabindex', '-1');
+      this._iframeElem.focus();
+      this._iframeElem.removeAttribute('tabindex');
+
+      console.debug('my-captcha - Dialog close:', ev);
+    },
+    100);
   }
 
   get _form () {
@@ -98,9 +118,15 @@ export class MyCaptchaElement extends MyMinElement {
     return FORM;
   }
 
+  get _iframeElem () {
+    const ELEM = this.querySelector('iframe[src ^= "https://www.google.com/rec"]');
+    console.assert(ELEM, '<iframe> - Not found');
+    return ELEM;
+  }
+
   get _responseElem () {
-    const ELEM = document.querySelector('#g-recaptcha-response');
-    console.assert(ELEM, '#g-recaptcha-response - Not found (my-captcha)');
+    const ELEM = this.querySelector('#g-recaptcha-response'); // Was: document.que...
+    console.assert(ELEM, '#g-recaptcha-response - Element not found (my-captcha)');
     return ELEM;
   }
 

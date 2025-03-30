@@ -43,7 +43,11 @@
   }
 </style>
 
+<title> my-element-filter </title>
+
 <h1> my-element-filter idea </h1>
+
+&hellip;
 
 <h2 id="groupLabel">Choose a fruit</h2>
 
@@ -87,11 +91,13 @@
 
 <p>
   <my-captcha
-    sitekey=""
-    selector="#hidden_captcha"
+    capture="true"
+    sitekey="6Lc9DgMrAAAAAJMlezY7LWg8IpPCOGm51rEZDbnx"
     message="Hello! Please prove you’re not a robot."
-  >
+    selector="#hidden_captcha"
+    >
   </my-captcha>
+
   <input id="hidden_captcha">
 </p>
 
@@ -105,15 +111,16 @@
 <script type="importmap">
 {
   "imports": {
+    "custom-elements": "../i.js",
     "my-elements": "../index.js"
   },
   "myElements": {
-    "use": [ "my-element-filter", "my-input" ]
+    "use": [ "my-element-filter", "my-input", "my-captcha" ]
   }
 }
 </script>
 
-<script type="module">
+<script type="X__module">
   import { MyElementFilterElement, MyInputElement, MyCaptchaElement } from 'my-elements';
 
   customElements.define('my-element-filter', MyElementFilterElement);
@@ -122,11 +129,22 @@
 </script>
 
 <script type="module">
+  import 'custom-elements';
+</script>
+
+<script type="module">
   setTimeout(() => {
     const filterElem = document.querySelector('my-element-filter');
     filterElem.value = 'a';
   },
   250);
+
+  const FORM = document.querySelector('form');
+  FORM.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    console.debug('submit:', ev);
+    setTimeout(() => alert('Form submit'), 500);
+  });
 </script>
 
 </html>
