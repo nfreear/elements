@@ -9,7 +9,7 @@
 
 import MyElement from '../MyElement.js';
 
-const { fetch } = window;
+const { fetch, location } = window;
 
 export class MyBookmarkletElement extends MyElement {
   static getTag () {
@@ -17,6 +17,8 @@ export class MyBookmarkletElement extends MyElement {
   }
 
   get name () { return this.getAttribute('name') || this.textContent || 'Bookmarklet'; }
+
+  get originPlaceholder () { return '{__ORIGIN__}'; }
 
   get _bookmarkletScriptJs () { return '../BookmarkletScript.js'; }
   get _externalCdnJs () { return '../external-cdn.js'; }
@@ -26,12 +28,17 @@ export class MyBookmarkletElement extends MyElement {
     const EL = document.createElement('a');
     const FUNC = theFunction.toString();
     const BODY = FUNC.slice(FUNC.indexOf('{') + 1, FUNC.lastIndexOf('}'));
+    const SCRIPT = this._fixScriptUrl(BODY);
 
-    EL.href = `javascript:${BODY}`;
+    EL.href = `javascript:${SCRIPT}`;
     EL.textContent = this.name;
     EL.setAttribute('part', 'a');
     this.attachShadow({ mode: 'open' }).appendChild(EL);
-    console.debug(`my-bookmarklet. From function - "${this.name}":`, BODY);
+    console.debug(`my-bookmarklet. From function - "${this.name}":`, SCRIPT);
+  }
+
+  _fixScriptUrl (script) {
+    return script.replace(this.originPlaceholder, location.origin);
   }
 
   async connectedCallback () {
