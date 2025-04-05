@@ -1,0 +1,53 @@
+/*
+  Position the native HTML <dialog> element.
+
+  Copyright © Nick Freear, 05-April-2025.
+*/
+
+dialog {
+  &[ data-position ] {
+    margin: 0;
+  }
+
+  &[ data-position = top-left ] {
+    /* Empty on purpose! */
+  }
+
+  &[ data-position = top ] {
+    width: 100%;
+  }
+
+  &[ data-position = left ] {
+    height: 100%;
+  }
+
+  &[ data-position = right ] {
+    transform: translateX(-100%);
+    left: 100%;
+    height: 100%;
+  }
+
+  &[ data-position = bottom ] {
+    transform: translateY(-100%);
+    top: 100%;
+    width: 100%;
+  }
+
+  &[ data-position = bottom-left ] {
+    transform: translateY(-100%);
+    top: 100%;
+  }
+
+  &[ data-position = bottom-right ] {
+    transform: translate(-100%, -100%);
+    left: 100%;
+    top: 100%;
+  }
+
+  &[ data-position = top-right ] {
+    transform: translateX(-100%);
+    left: 100%;
+  }
+}
+
+/* End. */
