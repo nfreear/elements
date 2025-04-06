@@ -7,11 +7,9 @@
  * @class MyBookmarkletElement
  */
 
-import MyElement from '../MyElement.js';
+const { HTMLElement, location } = window;
 
-const { fetch, location } = window;
-
-export class MyBookmarkletElement extends MyElement {
+export class MyBookmarkletElement extends HTMLElement {
   static getTag () {
     return 'my-bookmarklet';
   }
@@ -20,11 +18,8 @@ export class MyBookmarkletElement extends MyElement {
 
   get originPlaceholder () { return '{__ORIGIN__}'; }
 
-  get _bookmarkletScriptJs () { return '../BookmarkletScript.js'; }
-  get _externalCdnJs () { return '../external-cdn.js'; }
-
   fromFunction (theFunction) {
-    console.assert(typeof theFunction === 'function');
+    console.assert(typeof theFunction === 'function', 'Expecting function as parameter.');
     const EL = document.createElement('a');
     const FUNC = theFunction.toString();
     const BODY = FUNC.slice(FUNC.indexOf('{') + 1, FUNC.lastIndexOf('}'));
@@ -42,80 +37,6 @@ export class MyBookmarkletElement extends MyElement {
   }
 
   async connectedCallback () {
-    const src = this.getAttribute('src') || null;
-    const useTemplate = !this.getAttribute('no-template');
-
-    if (!src) {
-      return console.debug("my-bookmarklet: No 'src' attribute is specified.");
-      // Was: throw new Error("The 'src' attribute is required on <my-bookmarklet>");
-    }
-
-    const { codeEl, scriptLinkEl, nameEl } = await this._loadBmTemplate(useTemplate);
-
-    const RESP = await fetch(src);
-    const rawScript = await RESP.text();
-    // const markletScript = this._stripComments(rawScript);
-
-    const { BookmarkletScript } = await import(this._bookmarkletScriptJs);
-    const bookmarklet = new BookmarkletScript();
-    const RES = await bookmarklet.parse(rawScript);
-
-    scriptLinkEl.href = bookmarklet.scriptLink; // this._markletScriptLink(RES.minScript);
-
-    nameEl.textContent = this.name;
-
-    if (useTemplate) {
-      this._displayScript(codeEl, RES.displayScript);
-    }
-
-    console.debug('my-bookmarklet:', this.name, src, RES, this);
-  }
-
-  async _loadBmTemplate (useTemp) {
-    const ANC = document.createElement('a');
-
-    if (useTemp) {
-      await this.getTemplate('my-bookmarklet');
-    } else {
-      ANC.part = 'a';
-      this.attachShadow({ mode: 'open' }).appendChild(ANC);
-    }
-
-    const codeEl = useTemp ? this.shadowRoot.querySelector('pre code') : null;
-    const scriptLinkEl = useTemp ? this.shadowRoot.querySelector('#js-link') : ANC;
-    const nameEl = useTemp ? this.shadowRoot.querySelector('#name') : ANC;
-
-    scriptLinkEl.addEventListener('click', ev => {
-      ev.preventDefault();
-      console.debug('my-bookmarklet - Click block:', ev);
-    });
-
-    return { codeEl, scriptLinkEl, nameEl };
-  }
-
-  async _displayScript (elem, markletScript) {
-    const { rainbowViaCdn } = await import(this._externalCdnJs);
-    const Rainbow = await rainbowViaCdn();
-
-    Rainbow.color(markletScript, 'javascript', (hiCode) => {
-      elem.innerHTML = hiCode;
-
-      console.debug('Rainbow:', markletScript);
-    });
-  }
-
-  _markletScriptLink (script) {
-    return 'javascript:' + this._stripNewlinesSpaces(script);
-  }
-
-  _stripComments (script) {
-    const RES = script.match(/\/\*\*?([^/]+)\*\//m);
-    console.debug('Regex:', RES);
-
-    return script; // .replace(/\/\*\*?([.\n]+)\*\/\n+/mg, '');
-  }
-
-  _stripNewlinesSpaces (script) {
-    return script.replace(/\n/g, '').replace(/[ ]{2,}/g, ' ');
+    console.debug('my-bookmarklet:', this.name, this);
   }
 }

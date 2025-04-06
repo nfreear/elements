@@ -1,4 +1,4 @@
-<!doctype html><html lang="en" style="opacity:0"><title> my-bookmarklet </title>
+<!doctype html><html lang="en"><title> my-bookmarklet </title>
 
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,20 +10,41 @@
 
   <p> Embed a bookmarklet Javascript. </p>
 
-  <p> Uses <a href="https://terser.org/">terser</a> and <a href="https://craig.is/making/rainbows">Rainbow</a>. </p>
+  <!-- <p> Uses <a href="https://terser.org/">terser</a> and <a href="https://craig.is/making/rainbows">Rainbow</a>. </p>-->
 
   <my-bookmarklet
-    src="./data/example.bookmarklet.js"
     name="Hello!"
-
-    param-name="bm"
-    src-template="./data/%.bookmarklet.js"
     >
     <p> This is an example 'Hello world!' bookmarklet. </p>
   </my-bookmarklet>
 
 </my-page>
 
-<script type="module" src="../index.js"></script>
+
+<script type="importmap"> {
+  "imports": {
+    "my-bookmarklet": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-bookmarklet" ]
+  }
+} </script>
+
+
+<script type="module">
+import 'my-bookmarklet';
+
+const bookmarklet = document.querySelector('my-bookmarklet');
+
+bookmarklet.fromFunction(bookmarkletSource);
+
+function bookmarkletSource () {
+  document.body.style = 'outline:4px solid red;outline-offset:-.2rem;';
+
+  console.warn('I’m an example bookmarklet!');
+}
+</script>
+
+<!--<script type="module" src="../index.js"></script> -->
 
 </html>
