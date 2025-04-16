@@ -15,6 +15,8 @@ export { MyElementFilterElement } from './src/components/MyElementFilterElement.
 export { MyInputElement } from './src/components/MyInputElement.js';
 export { MyLiveBridgeElement } from './src/components/MyLiveBridgeElement.js';
 export { MyCaptchaElement } from './src/components/MyCaptchaElement.js';
+export { MyLoomEmbedElement } from './src/components/MyLoomEmbedElement.js';
+export { MyYoutubeEmbedElement } from './src/components/MyYoutubeEmbedElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 // export { * } from './src/Options.js';

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+  <style>
+    body {
+      margin: auto;
+      max-width: 36rem;
+    }
+
+    ::part(iframe) {
+      border: 1px solid silver;
+      border-radius: .3rem;
+      X_min-height: 16rem;
+      X_width: 100%;
+    }
+  </style>
+
+  <title>my-loom-embed</title>
+
+  <h1>my-loom-embed</h1>
+
+  <p>
+    <my-loom-embed>
+      <a href="https://www.loom.com/share/51892e0880d84ee8a79c5765123af051?sid=239afe53-f8bc-4f00-bdde-f731cbdb68fc"
+      >Enhancing Modal Dialog Accessibility</a>
+    </my-loom-embed>
+  </p>
+
+  <p>
+    <my-youtube-embed>
+      <a href="https://youtu.be/M7lc1UVf-VE">Video</a>
+    </my-youtube-embed>
+  </p>
+
+
+<script type="importmap"> {
+  "imports": {
+    "my-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-loom-embed", "my-youtube-embed" ],
+    "X_use": "my-loom-embed"
+  }
+} </script>
+
+<script type="module">
+  import 'my-elements';
+</script>
+
+</html>

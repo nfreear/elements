@@ -50,5 +50,7 @@ export * from './MyElementFilterElement.js';
 export { MyInputElement } from './MyInputElement.js';
 export { MyLiveBridgeElement } from './MyLiveBridgeElement.js';
 export { MyCaptchaElement } from './MyCaptchaElement.js';
+export { MyLoomEmbedElement } from './MyLoomEmbedElement.js';
+export { MyYoutubeEmbedElement } from './MyYoutubeEmbedElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';
