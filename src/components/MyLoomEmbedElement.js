@@ -11,7 +11,7 @@ export class MyLoomEmbedElement extends HTMLElement {
   static getTag () { return 'my-loom-embed'; }
 
   get childAnchorElem () {
-    const EL = this.querySelector('a[ href ]');
+    const EL = this.querySelector('a[ href *= "loom.com" ]');
     console.assert(EL, '<a href="https://www.loom.com.."> - Not found (required child element)');
     return EL;
   }
@@ -27,7 +27,7 @@ export class MyLoomEmbedElement extends HTMLElement {
     return M ? M[2] : null;
   }
 
-  get height () { return parseInt(this.getAttribute('height') || 320); }
+  get height () { return parseInt(this.getAttribute('height') || 390); }
   get width () { return parseInt(this.getAttribute('width')) || '100%'; } // '640',
 
   connectedCallback () {
@@ -40,16 +40,26 @@ export class MyLoomEmbedElement extends HTMLElement {
 
     shadow.appendChild(slotElem);
     shadow.appendChild(iframeElem);
+    console.debug('my-loom-embed:', this._iframeAttr);
+  }
+
+  get _iframeAttr () {
+    return {
+      src: this._embedUrl,
+      title: 'Loom player',
+      part: 'iframe',
+      width: this.width,
+      height: this.height,
+      frameborder: 0,
+      allowfullscreen: ''
+    };
   }
 
   _setupIframeElement () {
     const iframeEl = document.createElement('iframe');
-    iframeEl.src = this._embedUrl;
-    iframeEl.title = 'Loom Player';
-    iframeEl.setAttribute('part', 'iframe');
-    iframeEl.setAttribute('width', this.width);
-    iframeEl.setAttribute('height', this.height);
-    iframeEl.setAttribute('allowfullscreen', '');
+    Object.entries(this._iframeAttr).forEach(([key, val]) => iframeEl.setAttribute(key, val));
+    /* for (const [key, value] of Object.entries(this._iframeAttr)) {
+      iframeEl.setAttribute(key, value); } */
     return iframeEl;
   }
 

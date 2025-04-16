@@ -20,6 +20,8 @@ export class MySkipLinkElement extends HTMLElement {
   /** @return {string} */
   get href () { return this.getAttribute('href') || '#main-content'; }
 
+  get _hrefRegex () { return /^#[\w_-]+$/; }
+
   connectedCallback () {
     const shadow = this.attachShadow({ mode: 'open' });
 
@@ -31,7 +33,7 @@ export class MySkipLinkElement extends HTMLElement {
 
   /** @return {string} */
   _testHref () {
-    console.assert(/^#\w+$/.test(this.href), `'href' - Unexpected value: ${this.href}`);
+    console.assert(this._hrefRegex.test(this.href), `'href' - Unexpected value: ${this.href}`);
     const EL = document.querySelector(this.href);
     console.assert(EL, `Skip-link destination element - Not found: ${this.href}`);
     return this.href;
@@ -56,7 +58,7 @@ export class MySkipLinkElement extends HTMLElement {
   get _stylesheet () {
     return `
 a[ href ] {
-  font: 1.1rem sans-serif;
+  font: larger sans-serif;
   height: 1px;
   width: 1px;
   position: absolute;
@@ -66,12 +68,12 @@ a[ href ] {
 }
 a:focus {
   background: var(--my-skip-background, lightyellow); /* #ffffe0 */
-  border: 2px solid darkorange;
+  border: 3px solid darkorange;
   border-radius: .25rem;
-  color: blue;
+  color: var(--my-skip-color, blue);
   height: auto;
   width: auto;
-  padding: .5rem;
+  padding: .6rem;
   transition: all .5s;
   /* Fix: ensure link appears on top of other absolute/relative content. */
   z-index: 999;
