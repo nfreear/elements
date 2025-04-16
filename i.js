@@ -13,6 +13,7 @@ const base = '.';
 
 try {
   const ELEM = importMapOpt('myElements', 'use');
+  console.assert(Array.isArray(ELEM), 'myElements.use - Should be an array.');
 
   const KLASS = ELEM.map((el) => {
     const klass = elemToClass(el);
@@ -22,6 +23,9 @@ try {
 
   const PR = KLASS.map(async ({ klass, path }) => {
     const MOD = await import(path);
+    // console.debug('class:', MOD[klass]); // HTMLElement.prototype.isPrototypeOf(MOD[klass]));
+    console.assert(typeof MOD[klass] === 'function', `Should be an exported class: ${klass}`);
+    console.assert(MOD[klass].getTag, '"getTag()" - Static function not found.');
     customElements.define(MOD[klass].getTag(), MOD[klass]);
   });
   await Promise.all(PR);
