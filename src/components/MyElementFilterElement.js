@@ -1,19 +1,22 @@
+import MyMinElement from '../MyMinElement.js';
+
 /**
  * Filter a collection of elements, based on the value of a search input field.
  *
- * @copyright © Nick Freear, 09-Mar-2025.
- *
- * @see https://codepen.io/nfreear/pen/LEYjYEK
- * @see https://github.com/nfreear/elements
- * @status beta
- * @since 1.7.0
+ * @customElement element-filter
+ * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
  */
+export class MyElementFilterElement extends MyMinElement {
+  /*
+    Public API.
+  */
+  /** @return {string} */
+  static getTag () {
+    return 'my-element-filter';
+  }
 
-import MyMinElement from '../MyMinElement.js';
-
-const MIN_SIZE = 1;
-const TEMPLATE = `
-<template>
+  get _template () {
+    return `<template>
   <span part="row">
     <label part="label" for="search"></label>
     <input part="input" id="search" type="search">
@@ -24,15 +27,12 @@ const TEMPLATE = `
   </x-data>
 </template>
 `;
-
-export class MyElementFilterElement extends MyMinElement {
-  /*
-    Public API.
-  */
-  static getTag () {
-    return 'my-element-filter';
   }
 
+  /** Attribute (required) - a CSS selector for the collection of elements to filter.
+   * (Queried relative to `this` element - `this.querySelectorAll(this.selector)`.)
+   * @return {string}
+   */
   get selector () {
     const selector = this.getAttribute('selector');
     if (!selector) {
@@ -41,22 +41,31 @@ export class MyElementFilterElement extends MyMinElement {
     return selector;
   }
 
+  /** Attribute (optional)- text label for the filter input field.
+   * @return {string}
+   */
   get label () {
     return this.getAttribute('label') || 'Filter';
   }
 
+  /** @return {string} */
   get autocomplete () {
     return this.getAttribute('autocomplete');
   }
 
+  /** @return {number} */
   get minlength () {
-    return this.getAttribute('minlength') || MIN_SIZE;
+    return parseInt(this.getAttribute('minlength') || 1); // MIN_SIZE
   }
 
+  /** @return {string} */
   get outputTemplate () {
     return this.getAttribute('output-template') || '%d results';
   }
 
+  /** Get/ set the value of the filter input field.
+   * @return {string}
+   */
   get value () {
     return this._searchField.value;
   }
@@ -66,11 +75,11 @@ export class MyElementFilterElement extends MyMinElement {
     this._searchField.value = data;
   }
 
-  /*
-    Life cycle callbacks.
-  */
+  /** Life cycle callbacks.
+   * @return {void}
+   */
   connectedCallback () {
-    this._attachLocalTemplate(TEMPLATE);
+    this._attachLocalTemplate(this._template); // TEMPLATE);
 
     const labelElement = this.shadowRoot.querySelector('label');
 
@@ -85,6 +94,8 @@ export class MyElementFilterElement extends MyMinElement {
   /*
     Private helpers.
   */
+
+  /** @return {HTMLInputElement} */
   get _searchField () { return this.shadowRoot.querySelector('#search'); }
 
   get elements () { return this._privElements || []; }
@@ -135,3 +146,5 @@ export class MyElementFilterElement extends MyMinElement {
     outputElement.value = this.outputTemplate.replace('%d', count);
   }
 }
+
+export default MyElementFilterElement;

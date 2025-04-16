@@ -1,5 +1,6 @@
-<!doctype html><html lang="en" style="opacity:0"><title> my-analytics </title>
+<!doctype html><html lang="en"><title> my-analytics </title>
 
+<meta charset="utf-8">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -25,15 +26,26 @@
 </my-page>
 
 
-<!-- <my-analytics
+<my-analytics
   analytics-id="UA-8330079-10"
   anonymize-ip="true"
   debug="true"
   no-cookies="true"
 >
-</my-analytics> -->
+</my-analytics>
 
 
-<script type="module" src="../index.js"></script>
+<script type="importmap"> {
+  "imports": {
+    "my-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-analytics" ]
+  }
+} </script>
+
+<script type="module">
+  import 'my-elements';
+</script>
 
 </html>

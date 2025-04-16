@@ -1,3 +1,6 @@
+
+const { HTMLElement, localStorage } = window;
+
 /**
  * Embed analytics without cookies.
  *
@@ -5,44 +8,42 @@
  *
  * @copyright © Nick Freear, 28-June-2021.
  *
- * @see ../demo/my-analytics.html
+ * @demo ../demo/my-analytics.html
  * @see https://gist.github.com/nfreear/0146258d72e9e1330b19a1ff2c143ff6,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id#using_localstorage_to_store_the_client_id,
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,
  *
- * @tagName my-analytics
+ * @customElement my-analytics
  * @class MyAnalyticsElement
  * @status beta, my blog
  * @since 1.0.0
  */
-
-import { MyElement } from '../MyElement.js';
-
-const { localStorage } = window;
-
-export class MyAnalyticsElement extends MyElement {
+export class MyAnalyticsElement extends HTMLElement {
   static getTag () {
     return 'my-analytics';
   }
 
+  get analyticsId () { return this.getAttribute('analytics-id') || 'UA-123456-XX'; }
+
+  get anonymizeIp () { return this.getAttribute('anonymize-ip') || true; }
+
+  get debug () { return this.getAttribute('debug') || false; }
+
+  get _storageKey () { return 'ga:clientId'; }
+
   async connectedCallback () {
-    const analyticsId = this.getAttribute('analytics-id') || 'UA-123456-XX';
-    const anonymizeIp = this.getAttribute('anonymize-ip') || true;
-    const debug = this.getAttribute('debug') || false;
-    const storageKey = 'ga:clientId';
+    this.$$ = { };
 
-    this.$$ = { analyticsId, anonymizeIp, debug, storageKey };
+    this._asyncGa();
+    this._sendPageView();
+    this._appendAsyncScript();
 
-    this.asyncGa();
-    this.sendPageView(analyticsId, storageKey);
-    this.appendAsyncScript(debug);
-
-    // Was: this.injectScript(debug);
+    // Was: this._injectScript(debug);
     // Was: this.sendPageView(analyticsId, storageKey);
   }
 
   // DEPRECATED!
-  injectScript (debug) { // : void {
+  _injectScript (debug) { // : void {
     /* eslint-disable */
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       /* @ts-ignore */
@@ -52,46 +53,46 @@ export class MyAnalyticsElement extends MyElement {
     /* eslint-enable */
   }
 
-  appendAsyncScript (debug) {
+  _appendAsyncScript () {
     const SCR = document.createElement('script');
-    SCR.src = `https://www.google-analytics.com/analytics${debug ? '_debug' : ''}.js`;
+    SCR.src = `https://www.google-analytics.com/analytics${this.debug ? '_debug' : ''}.js`;
     SCR.async = 'async';
     this.attachShadow({ mode: 'open' }).appendChild(SCR);
   }
 
-  asyncGa () {
+  _asyncGa () {
     /* eslint-disable-next-line */
     window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments); }; ga.l = +new Date();
   }
 
-  anonymizeIp () {
-    if (this.$$.anonymizeIp) {
+  _doAnonymizeIp () {
+    if (this.anonymizeIp) {
       window.ga('set', 'anonymizeIp', true);
     }
   }
 
-  sendPageView (analyticsId, storageKey) { // : void {
+  _sendPageView () {
     const ga = window.ga; // (window as any).ga;
 
     if (window.localStorage) {
-      ga('create', analyticsId, {
+      ga('create', this.analyticsId, {
         storage: 'none',
-        clientId: localStorage.getItem(storageKey)
+        clientId: localStorage.getItem(this._storageKey)
       });
       ga((tracker) /*: void */ => {
-        localStorage.setItem(storageKey, tracker.get('clientId'));
+        localStorage.setItem(this._storageKey, tracker.get('clientId'));
       });
     } else {
-      ga('create', analyticsId, 'auto');
+      ga('create', this.analyticsId, 'auto');
     }
 
-    this.anonymizeIp();
+    this._doAnonymizeIp();
 
     ga('send', 'pageview');
 
-    console.debug('my-analytics (Google) ~ sendPageView:', this.$$, this);
+    console.debug('my-analytics (Google) ~ sendPageView:', this.analyticsId, this);
     console.debug('ga (Google):', ga);
   }
 }
 
-// Was: MyAnalyticsElement.define();
+export default MyAnalyticsElement;

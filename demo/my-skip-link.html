@@ -1,9 +1,17 @@
-<!doctype html><html lang="en" style="opacity:0"><title> Skip link </title>
+<!doctype html><html lang="en" X_style="opacity:0"><title> Skip link </title>
 
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="stylesheet" href="style/app.css" />
+
+<my-skip-link></my-skip-link>
+
+<header>
+  <p><a href="#">Header link</a></p>
+</header>
+
+<main id="main-content">
 
 <my-page>
   <h2> Skip link </h2>
@@ -20,6 +28,21 @@
 
 </my-page>
 
-<script type="module" src="../index.js"></script>
+</main>
+
+<!--<script type="module" src="../index.js"></script>-->
+
+<script type="importmap"> {
+  "imports": {
+    "my-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-skip-link" ]
+  }
+} </script>
+
+<script type="module">
+  import 'my-elements';
+</script>
 
 </html>
