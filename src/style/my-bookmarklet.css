@@ -1,0 +1,35 @@
+/*
+ Source: https://github.com/nfreear/bookmarklets/blob/master/html/style/app.css
+*/
+
+my-bookmarklet::part(a) {
+  background: #def;
+  border: 4px dotted #999;
+  border-radius: .2rem;
+  cursor: copy;
+  display: block;
+  font-size: larger;
+  letter-spacing: .03rem;
+  margin: 2rem 0;
+  padding: .8rem;
+  text-align: center;
+}
+
+my-bookmarklet::part(a):focus,
+my-bookmarklet::part(a):hover {
+  background: #fff;
+  border-color: black;
+  transition: all 1s;
+}
+
+::part(a),
+* {
+  outline-offset: .2rem;
+}
+
+.my-bm-page body {
+  font-family: sans-serif;
+  margin: auto;
+  max-width: 36rem;
+  padding: 0 1rem;
+}
