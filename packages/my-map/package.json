@@ -4,7 +4,10 @@
   "version": "1.6.0",
   "type": "module",
   "main": "index.js",
-  "module": "index.js",
+  "exports": {
+    ".": "index.js",
+    "./element": "./src/components/MyMapElement.js"
+  },
   "author": "Nick Freear",
   "license": "MIT",
   "homepage": "https://nfreear.github.io/elements/demo/my-map.html",
@@ -28,6 +31,7 @@
   ],
   "files": [
     "!example",
-    "src"
+    "src/MyElement.js",
+    "src/components/MyMapElement.js"
   ]
 }

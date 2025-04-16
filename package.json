@@ -57,6 +57,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@polymer/iron-component-page": "^4.0.1",
     "semistandard": "^17.0.0",
     "servor": "^4.0.2"
   }

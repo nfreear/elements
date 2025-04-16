@@ -1,0 +1,24 @@
+{
+  "name": "element-filter",
+  "version": "",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "index.js",
+    "./element": "./src/components/MyElementFilterElement.js"
+  },
+  "license": "MIT",
+  "files": [
+    "src/MyMinElement.js",
+    "src/components/MyElementFilterElement.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nfreear/elements.git"
+  },
+  "scripts": {
+    "start": "cd ../.. && npx servor"
+  },
+  "description": "Filter a collection of elements, based on the value of a search input field.",
+  "author": "Nick Freear"
+}
