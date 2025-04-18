@@ -2,61 +2,62 @@
  * Custom site search.
  *
  * @copyright © Nick Freear, 17-Mar-2022.
- *
- * @see ../demo/my-search.html
+ * @customElem my-search
+ * @demo ../demo/my-search.html
  * @see https://cse.google.com/cse/all
  * @see https://developers.google.com/custom-search/docs/element
  */
+export class MySearchElement extends window.HTMLElement {
+  static getTag () { return 'my-search'; }
 
-import { MyElement } from '../MyElement.js';
-
-export class MySearchElement extends MyElement {
-  static getTag () {
-    return 'my-search';
+  get cx () {
+    const CX = this.getAttribute('cx'); // || '001222343498871500969:-u73i2qfu2s';
+    console.assert(CX, '"cx" - Required attribute');
+    return CX;
   }
 
-  async connectedCallback () {
-    const id = '___gcse_0';
-    const CX = this.getAttribute('cx'); // || '001222343498871500969:-u73i2qfu2s';
-    const label = this.getAttribute('label') || 'Search';
+  get label () { return this.getAttribute('label') || 'Search'; }
 
-    const elem = document.createElement('div');
-    const labelElem = document.createElement('label');
-
-    elem.classList.add('gcse-search');
-    elem.setAttribute('data-mobileLayout', 'true');
-
-    labelElem.textContent = label;
-    labelElem.setAttribute('for', 'gsc-i-id1');
-
-    this.after(elem);
-    this.after(labelElem);
+  connectedCallback () {
+    const ELEMS = this._createElements();
 
     this._addConfig();
 
-    this.attachShadow({ mode: 'open' }).appendChild(this._script(CX));
+    this.appendChild(ELEMS.label);
+    this.appendChild(ELEMS.search);
+    this.appendChild(this._scriptElem());
 
-    this.$$ = { CX, id, label, elem, labelElem };
-
-    console.debug('my-search:', this.$$, this);
+    console.debug('my-search:', this.cx, this);
   }
 
-  _script (cx) {
+  _createElements () {
+    const search = document.createElement('div'); // const id = '___gcse_0';
+    const label = document.createElement('label');
+
+    search.classList.add('gcse-search');
+    // search.dataset.enableAutoComplete = true; ??
+    search.dataset.mobileLayout = 'forced';
+
+    label.textContent = this.label;
+    label.setAttribute('for', 'gsc-i-id1');
+
+    return { search, label };
+  }
+
+  _scriptElem () {
     const GCSE = document.createElement('script');
-    // GCSE.type = 'text/javascript';
     GCSE.async = true;
-    GCSE.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    GCSE.src = `https://cse.google.com/cse.js?cx=${this.cx}`;
 
     // var s = document.getElementsByTagName('script')[0];
     // s.parentNode.insertBefore(gcse, s);
-
     return GCSE;
   }
 
   _addConfig () {
     window.__gcse = {
       parsetags: 'onload', // Not: 'explicit', // Defaults to 'onload'
-      initializationCallback: R => console.debug('CSE init:', R),
+      initializationCallback: () => console.debug('CSE init.'),
       searchCallbacks: {
         image: {
           /* starting: myImageSearchStartingCallback,
@@ -65,13 +66,12 @@ export class MySearchElement extends MyElement {
         },
         web: {
           starting: (N, q) => console.debug('CSE start:', N, q),
-          ready: R => console.debug('CSE ready:', R),
-          rendered: R => console.debug('CSE rendered:', R)
+          ready: (R) => console.debug('CSE ready:', R),
+          rendered: (R) => console.debug('CSE rendered:', R)
         }
       }
     };
   }
 }
 
-// Was: MySearchElement.define();
-// Was: customElements.define('my-foobar', MyFoobarElement);
+export default MySearchElement;

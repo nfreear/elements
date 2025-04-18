@@ -2,10 +2,10 @@
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <link rel="stylesheet" href="style/app.css" />
+  <link rel="stylesheet" href="style/app.v2.css" />
 
   <my-page>
-    <h2> my-search </h2>
+    <h1> my-search </h1>
 
     <p> Custom site search. </p>
 
@@ -13,6 +13,15 @@
 
   </my-page>
 
-  <script type="module" src="../index.js"></script>
+  <script type="importmap"> {
+    "imports": {
+      "ndf-elements": "../i.js"
+    },
+    "myElements": {
+      "use": [ "my-search" ]
+    }
+  } </script>
+
+  <script type="module"> import 'ndf-elements'; </script>
 
 </html>

@@ -1,0 +1,81 @@
+/*
+  Newer demo page styles.
+*/
+
+my-element-filter label {
+  display: block;
+  margin: .3rem 0;
+  padding: .2rem 0;
+}
+
+[ data-my-element-filter = out ] {
+  display: none;
+}
+
+my-element-filter::part(output) {
+  font-style: italic;
+}
+
+my-captcha::part(p) {
+  font-size: larger;
+  margin: 1rem 1rem 3rem;
+}
+
+/*
+  Generic page styles.
+*/
+
+::part(dialog),
+dialog {
+  border-radius: .5rem;
+}
+
+::part(button),
+button {
+  color: inherit;
+  display: block;
+  font-size: inherit;
+  padding: .8rem 1.6rem;
+  margin: auto;
+}
+
+[ type = submit ] {
+  margin-top: 2.5rem;
+}
+
+::part(input),
+input[ type = email ],
+input[ type = text ] {
+  color: inherit;
+  font-size: inherit;
+  margin-left: .3rem;
+  padding: .3rem .5rem;
+}
+
+/* CSS copied from reCAPTCHA! */
+fieldset {
+  background: #f9f9f9;
+  border-radius: 3px;
+  border: 1px solid silver;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, .08);
+  margin-top: 1rem;
+}
+
+h2 {
+  border-top: 3px solid silver;
+  margin-top: 2.5rem;
+  padding-top: .5rem;
+}
+
+::part(input),
+* {
+  outline-offset: .25rem;
+}
+
+body {
+  color: #222;
+  font-family: sans-serif;
+  margin: auto;
+  max-width: 36rem;
+  padding: 0 1rem;
+}

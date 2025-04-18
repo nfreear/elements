@@ -1,57 +1,19 @@
-<html>
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-  label {
-    display: block;
-    margin: .3rem 0;
-    padding: .2rem 0;
-  }
+<link rel="stylesheet" href="style/app.v2.css">
 
-  [ data-my-element-filter = out ] {
-    display: none;
-  }
+<title> my-element-filter demo </title>
 
-  my-element-filter::part(input) {
-    font-size: inherit;
-    padding: .2rem .5rem;
-  }
-
-  ::part(output) {
-    font-style: italic;
-  }
-
-  fieldset {
-    margin-top: 1rem;
-  }
-
-  ::part(dialog) {
-    border-radius: .5rem;
-  }
-
-  ::part(p) {
-    font-size: larger;
-    margin: 1rem 1rem 3rem;
-  }
-
-  ::part(button),
-  button {
-    display: block;
-    font-size: inherit;
-    padding: .7rem 1.4rem;
-    margin: auto;
-  }
-</style>
-
-<title> my-element-filter </title>
-
-<h1> my-element-filter idea </h1>
-
-&hellip;
-
-<h2 id="groupLabel">Choose a fruit</h2>
+<h1> Demo </h1>
 
 <form>
+
+<h2><tt>&lt;my-element-filter></tt></h2>
+
+<h3 id="groupLabel">Choose a fruit</h3>
 
 <my-element-filter
   selector="fieldset > label"
@@ -61,7 +23,6 @@
   output-template="%d results found!"
   >
   <fieldset aria-labelledby="groupLabel">
-    <!-- <legend>Choose a fruit</legend> -->
     <label><input type="checkbox" value="apple"> Apple</label>
     <label><input type="checkbox" value="banana"> Banana</label>
     <label><input type="checkbox" value="cherry"> Cherry — I'm a very, very, very, very long sentence.</label>
@@ -73,32 +34,35 @@
     <label><input type="checkbox" value="jackfruit"> Jackfruit</label>
     <label><input type="checkbox" value="kiwi"> Kiwi</label>
     <label><input type="checkbox" value="lemon"> Lemon</label>
-
   </fieldset>
 
 </my-element-filter>
 
 
+<h2><tt>&lt;my-input></tt></h2>
 <p>
-  <my-input autocomplete="email" type="email"
-    data-aria-required="true" data-aria-errormessage="Email is required"
-    data-aria-abc="ERROR"
-    data-role="XX"
+  <my-input
+    autocomplete="email"
+    type="email"
+    data-aria-required="true"
     >
-    <label>my-input test <input /></label>
+    <label>Email <input type="text"><!-- <input> that I don't control. --></label>
   </my-input>
 </p>
 
+
+<h2><tt>&lt;my-captcha></tt></h2>
+
 <p>
   <my-captcha
-    capture="true"
+    event-capture="true"
     sitekey="6Lc9DgMrAAAAAJMlezY7LWg8IpPCOGm51rEZDbnx"
     message="Hello! Please prove you’re not a robot."
-    selector="#hidden_captcha"
+    input-selector="#hidden_captcha"
     >
   </my-captcha>
 
-  <input id="hidden_captcha">
+  <input id="hidden_captcha" type="hidden">
 </p>
 
 <p>
@@ -111,31 +75,26 @@
 <script type="importmap">
 {
   "imports": {
-    "custom-elements": "../i.js",
-    "my-elements": "../index.js"
-  },
-  "myElements": {
-    "use": [ "my-element-filter", "my-input", "my-captcha" ]
+    "local:ndf-elements": "../index.js",
+    "unpkg:ndf-elements": "https://unpkg.com/ndf-elements@^1",
+    "ghp:ndf-elements": "https://nfreear.github.io/elements/index.js"
   }
 }
 </script>
 
-<script type="X__module">
-  import { MyElementFilterElement, MyInputElement, MyCaptchaElement } from 'my-elements';
-
-  customElements.define('my-element-filter', MyElementFilterElement);
-  customElements.define('my-input', MyInputElement);
-  customElements.define('my-captcha', MyCaptchaElement);
-</script>
-
 <script type="module">
-  import 'custom-elements';
+  import { MyElementFilterElement, MyInputElement, MyCaptchaElement } from 'local:ndf-elements';
+
+  window.customElements.define('my-element-filter', MyElementFilterElement);
+  window.customElements.define('my-input', MyInputElement);
+  window.customElements.define('my-captcha', MyCaptchaElement);
 </script>
+
 
 <script type="module">
   setTimeout(() => {
     const filterElem = document.querySelector('my-element-filter');
-    filterElem.value = 'a';
+    // filterElem.value = 'a';
   },
   250);
 

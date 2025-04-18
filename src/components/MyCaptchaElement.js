@@ -1,51 +1,65 @@
+
+import MyMinElement from '../MyMinElement.js';
+
 /**
- * Wrapper around Google reCAPTCHA, using a modal 'dialog'.
+ * Wrapper around Google reCAPTCHA (v2 checkbox), using a modal 'dialog'.
  *
  * @see https://www.google.com/recaptcha/admin (Legacy)
+ * @see https://developers.google.com/recaptcha/docs/display#auto_render (v2)
  * @copyright NDF, 21-March-2025.
+ * @customElement my-captcha
+ * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
  * @status experimental
  * @since 1.7.0
  */
-import MyMinElement from '../MyMinElement.js';
-
-// <slot> doesn't seem to work inside <dialog>!
-const TEMPLATE = `
-<template>
-  <slot></slot>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <dialog part="dialog">
-    <p part="p"></p>
-    <form method="dialog">
-      <button part="button" type="submit">OK</button>
-    </form>
-  </dialog>
-</template>
-`;
-
 export class MyCaptchaElement extends MyMinElement {
   static getTag () { return 'my-captcha'; }
 
-  get sitekey () { // Required (token)
+  // <slot> doesn't seem to work inside <dialog>!
+  get _template () {
+    return `
+  <template>
+    <slot></slot>
+    <script src="https://www.google.com/recaptcha/api.js?hl=${this._lang}" async defer></script>
+    <dialog part="dialog">
+      <p part="p">${this.message}</p>
+      <form method="dialog">
+        <button part="button" type="submit">OK</button>
+      </form>
+    </dialog>
+  </template>
+  `;
+  }
+
+  /** Attribute (required) - sitekey.
+   * @return {string} */
+  get sitekey () {
     const KEY = this.getAttribute('sitekey');
     console.assert(KEY, 'The "sitekey" attribute is required (my-captcha)');
     return KEY;
   }
 
-  get message () { // Optional (string)
+  /** Attribute (optional) - Dialog message.
+   * @return {string} */
+  get message () {
     return this.getAttribute('message') || 'Please prove you’re not a robot.';
   }
 
-  get capture () { // Optional (boolean)
-    return !!this.getAttribute('capture');
+  /** Attribute (optional) - whether to listen for form submit in the capturing phase.
+   * @return {boolean} */
+  get eventCapture () {
+    return !!this.getAttribute('event-capture');
   }
 
-  get selector () { // Optional.
-    return this.getAttribute('selector');
+  get inputSelector () { // Optional.
+    return this.getAttribute('input-selector');
   }
 
   get value () { return this._responseElem.value; }
 
   get success () { return this.value !== ''; }
+
+  get _lang () { return this.lang || 'en'; }
 
   connectedCallback () {
     const ELEM = document.createElement('div');
@@ -53,14 +67,12 @@ export class MyCaptchaElement extends MyMinElement {
     ELEM.dataset.sitekey = this.sitekey;
     this.appendChild(ELEM); // Was: this.after(ELEM);
 
-    this._attachLocalTemplate(TEMPLATE);
+    this._attachLocalTemplate(this._template);
     const DIALOG = this.shadowRoot.querySelector('dialog form');
-    const PARA = this.shadowRoot.querySelector('p');
-    PARA.textContent = this.message;
 
-    const OPT = this.capture ? { capture: true } : null;
+    const OPT = this.eventCapture ? { capture: true } : null;
 
-    this._form.addEventListener('submit', (ev) => this._submitEventHandler(ev), OPT);
+    this._closestForm.addEventListener('submit', (ev) => this._onFormSubmit(ev), OPT);
 
     DIALOG.addEventListener('submit', (ev) => this._onDialogClose(ev));
 
@@ -69,7 +81,7 @@ export class MyCaptchaElement extends MyMinElement {
     console.debug('my-captcha:', this.sitekey.length, this.sitekey, this);
   }
 
-  _submitEventHandler (ev) {
+  _onFormSubmit (ev) {
     if (this.success) {
       this._cascadeValue();
       console.debug('my-captcha - OK:', this.value.length, this.value.substring(0, 32), '…');
@@ -79,7 +91,7 @@ export class MyCaptchaElement extends MyMinElement {
 
       ev.preventDefault();
 
-      if (this.capture) {
+      if (this.eventCapture) {
         ev.stopPropagation();
         ev.stopImmediatePropagation();
       }
@@ -112,7 +124,7 @@ export class MyCaptchaElement extends MyMinElement {
     100);
   }
 
-  get _form () {
+  get _closestForm () {
     const FORM = this.closest('form');
     console.assert(FORM, '<form> - Not found (my-captcha)');
     return FORM;
@@ -131,10 +143,10 @@ export class MyCaptchaElement extends MyMinElement {
   }
 
   _cascadeValue () {
-    if (this.selector) {
-      const INPUT = document.querySelector(this.selector);
-      console.assert(INPUT, `<input> - Not found: ${this.selector}`);
-      INPUT.value = this.value;
+    if (this.inputSelector) {
+      const inputElem = document.querySelector(this.inputSelector);
+      console.assert(inputElem, `<input> - Not found: ${this.inputSelector}`);
+      inputElem.value = this.value;
     }
   }
 }
