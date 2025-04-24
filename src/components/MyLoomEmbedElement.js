@@ -1,20 +1,14 @@
 
-const { HTMLElement } = window;
+import MyIframeElement from './MyIframeElement.js';
 
 /**
  * Embed a loom video.
  * @customElement my-loom-embed
- * @demo example/index.html
+ * @demo https://nfreear.github.io/elements/demo/my-loom-embed.html
  * @see https://dev.loom.com/docs/embed-sdk/api#oembed
  */
-export class MyLoomEmbedElement extends HTMLElement {
+export class MyLoomEmbedElement extends MyIframeElement {
   static getTag () { return 'my-loom-embed'; }
-
-  get childAnchorElem () {
-    const EL = this.querySelector('a[ href *= "loom.com" ]');
-    console.assert(EL, '<a href="https://www.loom.com.."> - Not found (required child element)');
-    return EL;
-  }
 
   get _embedUrl () { return `https://www.loom.com/embed/${this.videoId}`; }
 
@@ -27,19 +21,18 @@ export class MyLoomEmbedElement extends HTMLElement {
     return M ? M[2] : null;
   }
 
-  get height () { return parseInt(this.getAttribute('height') || 390); }
-  get width () { return parseInt(this.getAttribute('width')) || '100%'; } // '640',
-
-  connectedCallback () {
+  async connectedCallback () {
     const shadow = this.attachShadow({ mode: 'open' });
     const slotElem = document.createElement('slot');
 
-    window.addEventListener('message', (msg) => this._onMessageEvent(msg));
-
     const iframeElem = this._setupIframeElement();
+
+    const playerjs = await this._loadPlayerJs();
+    this._attachPlayerJsListeners(playerjs, iframeElem);
 
     shadow.appendChild(slotElem);
     shadow.appendChild(iframeElem);
+
     console.debug('my-loom-embed:', this._iframeAttr);
   }
 
@@ -61,14 +54,6 @@ export class MyLoomEmbedElement extends HTMLElement {
     /* for (const [key, value] of Object.entries(this._iframeAttr)) {
       iframeEl.setAttribute(key, value); } */
     return iframeEl;
-  }
-
-  _onMessageEvent (ev) {
-    if (ev.origin !== 'https://www.loom.com') {
-      return;
-    }
-    const DATA = JSON.parse(ev.data);
-    console.debug('Loom - message:', DATA.event, DATA, ev);
   }
 }
 

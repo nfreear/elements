@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+  <meta charset="utf-8">
 
   <style>
     body {
@@ -20,15 +21,29 @@
   <h1>my-loom-embed</h1>
 
   <p>
-    <my-loom-embed>
-      <a href="https://www.loom.com/share/51892e0880d84ee8a79c5765123af051?sid=239afe53-f8bc-4f00-bdde-f731cbdb68fc"
-      >Enhancing Modal Dialog Accessibility</a>
+    <my-loom-embed debug="true">
+      <a href="https://www.loom.com/share/96f6324c0ff94509be60cc47931ab3ef?sid=328ef299-30d9-4fe4-8e0e-62c03c5cffab"
+      >Loom: Refreshing my blog — April 2025</a>
     </my-loom-embed>
   </p>
 
+  <my-transcript
+    open
+    origin="https://www.loom.com"
+    href="./data/test-video.vtt"
+  >
+  </my-transcript>
+
+  <!-- <p>
+    <my-loom-embed>
+      <a href="https://www.loom.com/share/51892e0880d84ee8a79c5765123af051?sid=239afe53-f8bc-4f00-bdde-f731cbdb68fc"
+      >Loom: Enhancing Modal Dialog Accessibility</a>
+    </my-loom-embed>
+  </p> -->
+
   <p>
     <my-youtube-embed>
-      <a href="https://youtu.be/M7lc1UVf-VE">Video</a>
+      <a href="https://youtu.be/M7lc1UVf-VE">YouTube Developers Live: Embedded Web Player Customization</a>
     </my-youtube-embed>
   </p>
 
@@ -38,7 +53,7 @@
     "my-elements": "../i.js"
   },
   "myElements": {
-    "use": [ "my-loom-embed", "my-youtube-embed" ],
+    "use": [ "my-loom-embed", "my-youtube-embed", "my-transcript" ],
     "X_use": "my-loom-embed"
   }
 } </script>
