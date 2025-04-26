@@ -1,28 +1,26 @@
+
+const { HTMLElement, location } = window;
+
 /**
  * Minimalist, privacy-focussed site analytics, built on GoatCounter.
  * No cookies. No tracking of IP address. No external Javascript.
  *
  * @copyright © Nick Freear, 08-April-2023.
  *
- * @see https://codepen.io/nfreear/pen/NWOPoXO
+ * @customElement my-site-counter
+ * @demo https://codepen.io/nfreear/pen/NWOPoXO
  * @see https://www.goatcounter.com/help/pixel
  * @see https://github.com/arp242/goatcounter/blob/master/public/count.js#L54
  * @example <img src="https://MYCODE.goatcounter.com/count?p=/test">
  */
+export class MySiteCounterElement extends HTMLElement {
+  static getTag () { return 'my-site-counter'; }
 
-import MyElement from '../MyElement.js';
-
-const { location } = window;
-
-export class MySiteCounterElement extends MyElement {
-  static getTag () {
-    return 'my-site-counter';
-  }
-
+  /** @return {string} */
   get gcid () {
     const GC_ID = this.getAttribute('gcid');
     if (GC_ID) return GC_ID;
-    throw new Error('The "gcid" attribute is missing.');
+    throw new Error('The "gcid" required attribute is missing.');
   }
 
   get _guardLocalhost () {
@@ -44,41 +42,53 @@ export class MySiteCounterElement extends MyElement {
       return console.debug('my-site-counter:', 'Not counting localhost');
     }
 
-    const PARAM = this._getQueryParams();
+    const imgElement = this._createPixelImageElement();
 
-    const SP = new URLSearchParams(PARAM);
+    this.attachShadow({ mode: 'open' }).appendChild(imgElement);
+  }
+
+  _createPixelImageElement () {
     const IMG = document.createElement('img');
 
-    IMG.src = this._goatCounterImageUrl(this.gcid, SP.toString());
+    IMG.src = this._goatCounterImageUrl;
     IMG.alt = ''; // Accessibility: a decorative image.
+    IMG.setAttribute('aria-hidden', true);
     IMG.loading = 'eager';
     IMG.onerror = (ev) => {
       const { target } = ev; // error, message - Undefined (cross-origin).
       console.error('my-site-counter ERROR:', this.gcid, IMG.src, target, ev);
     };
     IMG.onload = (ev) => {
-      console.debug('my-site-counter OK (GoatCounter):', this.gcid, PARAM, this);
+      console.debug('my-site-counter OK (GoatCounter):', this.gcid, this._queryParams, this);
     };
-
-    this.attachShadow({ mode: 'open' }).appendChild(IMG);
+    return IMG;
   }
 
-  _goatCounterImageUrl (gcId, query) {
-    return `https://${gcId}.goatcounter.com/count?${query}`;
+  get _goatCounterImageUrl () {
+    const urlParams = new URLSearchParams(this._queryParams);
+    return `https://${this.gcid}.goatcounter.com/count?${urlParams.toString()}`;
   }
 
-  _getQueryParams () {
+  get _screenSizeAndScale () {
     const { width, height } = window.screen;
     const SCALE = parseInt(window.devicePixelRatio);
 
+    return `${parseInt(width)},${parseInt(height)},${SCALE}`;
+  }
+
+  get _cacheBusting () { return Math.random().toString(36).substr(2, 8); }
+
+  get _queryParams () {
     return {
       p: location.pathname,
       t: document.title || '[none]',
       r: document.referrer || '',
       e: false, // Event.
       q: '', // Query, campaign.
-      s: `${parseInt(width)},${parseInt(height)},${SCALE}`,
-      rnd: Math.random().toString(36).substr(2, 8) // Cache-busting.
+      s: this._screenSizeAndScale,
+      rnd: this._cacheBusting
     };
   }
 }
+
+export default MySiteCounterElement;
