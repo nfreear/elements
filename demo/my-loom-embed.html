@@ -14,11 +14,29 @@
       X_min-height: 16rem;
       X_width: 100%;
     }
+
+    my-transcript {
+      line-height: 1.3;
+    }
+
+    my-transcript::part(li) {
+      border: 1px dotted #ccc;
+      padding: .2rem;
+      margin: .3rem 0;
+    }
+
+    my-transcript::part(active) {
+      background: #eee;
+      border: 1px outset #444;
+      transition: all 250ms;
+    }
   </style>
 
-  <title>my-loom-embed</title>
+  <title>Media embeds</title>
 
-  <h1>my-loom-embed</h1>
+  <h1>Media embeds</h1>
+
+  <h2>my-loom-embed</h2>
 
   <p>
     <my-loom-embed debug="true">
@@ -26,6 +44,8 @@
       >Loom: Refreshing my blog — April 2025</a>
     </my-loom-embed>
   </p>
+
+  <h2>my-transcript</h2>
 
   <my-transcript
     open
@@ -41,6 +61,8 @@
     </my-loom-embed>
   </p> -->
 
+  <h2>my-youtube-embed</h2>
+
   <p>
     <my-youtube-embed>
       <a href="https://youtu.be/M7lc1UVf-VE">YouTube Developers Live: Embedded Web Player Customization</a>
@@ -53,8 +75,7 @@
     "my-elements": "../i.js"
   },
   "myElements": {
-    "use": [ "my-loom-embed", "my-youtube-embed", "my-transcript" ],
-    "X_use": "my-loom-embed"
+    "use": [ "my-loom-embed", "my-youtube-embed", "my-transcript" ]
   }
 } </script>
 

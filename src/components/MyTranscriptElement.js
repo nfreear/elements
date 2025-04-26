@@ -14,23 +14,19 @@ const { fetch } = window;
 export class MyTranscriptElement extends MyMinElement {
   static getTag () { return 'my-transcript'; }
 
+  get open () { return this.hasAttribute('open') ? 'open' : ''; }
+
   get _template () {
     return `
 <template>
-  <style> [ data-active = true] { border: 1px solid #b00; } </style>
-  <details part="details">
+  <style> [ part *= ' active' ] { border: 1px solid #b00; } </style>
+  <details part="details" ${this.open}>
     <summary part="summary">Transcript</summary>
-    <ol part="ol"></ol>
+    <ol part="ol list"></ol>
   </details>
 </template>
 `;
   }
-
-  /* get embedId () {
-    const ID = this.getAttribute('embed-id');
-    console.assert(ID, 'embed-id - Attribute required.');
-    return ID;
-  } */
 
   get href () {
     const captionUrl = this.getAttribute('href');
@@ -44,16 +40,12 @@ export class MyTranscriptElement extends MyMinElement {
     return _origin;
   }
 
-  get open () { return this.hasAttribute('open'); }
-
   get _vttParserJs () { return 'https://unpkg.com/@plussub/srt-vtt-parser@^2/dist/index.js'; }
 
   async connectedCallback () {
     await this._fetchAndParseCaptionFile();
 
     this._attachLocalTemplate(this._template);
-    const detailsElem = this.shadowRoot.querySelector('details');
-    detailsElem.open = this.open;
 
     this._listItems = this._createCaptionElements();
 
@@ -93,7 +85,7 @@ export class MyTranscriptElement extends MyMinElement {
   }
 
   _resetCaptionElements () {
-    this._listItems.forEach(it => { it.dataset.active = false; });
+    this._listItems.forEach((el) => { el.setAttribute('part', 'li inactive'); });
   }
 
   _queryCaptionElement (cid) {
@@ -124,7 +116,8 @@ export class MyTranscriptElement extends MyMinElement {
       if (caption) {
         this._resetCaptionElements();
         const itemElem = this._queryCaptionElement(caption.id);
-        itemElem.dataset.active = true;
+        itemElem.setAttribute('part', 'li active');
+        // itemElem.dataset.active = true;
 
         console.debug('playerjs - Found:', seconds, caption);
       } else {

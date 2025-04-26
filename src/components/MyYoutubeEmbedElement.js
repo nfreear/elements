@@ -5,7 +5,7 @@ const { HTMLElement } = window;
  * Embed a YouTube video, exposing YT's iframe API.
  *
  * @customElement my-youtube-embed
- * @demo example/index.html
+ * @demo https://nfreear.github.io/elements/demo/my-loom-embed.html
  * @see https://developers.google.com/youtube/iframe_api_reference
  *
  * <my-youtube-embed>
@@ -17,7 +17,7 @@ export class MyYoutubeEmbedElement extends HTMLElement {
 
   get childAnchorElem () {
     const EL = this.querySelector('a[ href ]');
-    console.assert(EL, '<a href="https://youtube.."> - Not found (required child element)');
+    console.assert(EL, '<a href="https://youtube.."> - Required child element not found.');
     return EL;
   }
 
@@ -25,11 +25,12 @@ export class MyYoutubeEmbedElement extends HTMLElement {
 
   get _urlRegex () { return /(youtu.be\/|youtube.com\/watch\?v=)(.+)/; }
 
-  get videoId () {
+  get video () {
     const ytUrl = this.childAnchorElem.href;
+    const text = this.childAnchorElem.textContent;
     const M = ytUrl.match(this._urlRegex);
     console.assert(M, `YouTube URL doesn't match: ${ytUrl}`);
-    return M ? M[2] : null;
+    return M ? { id: M[2], text } : null;
   }
 
   get height () { return parseInt(this.getAttribute('height') || 390); }
@@ -52,10 +53,10 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     window.onYouTubeIframeAPIReady = () => {
       const { YT } = window;
       console.debug('onYouTubeIframeAPIReady:', YT.PlayerState, YT);
-      this._player = new YT.Player(playerElem, { // 'player', {
+      this._player = new YT.Player(playerElem, {
         height: this.height,
-        width: this.width, // '640',
-        videoId: this.videoId, // 'M7lc1UVf-VE',
+        width: this.width,
+        videoId: this.video.id, // 'M7lc1UVf-VE',
         playerVars: {
           playsinline: 1
         },
@@ -110,5 +111,3 @@ export class MyYoutubeEmbedElement extends HTMLElement {
 }
 
 export default MyYoutubeEmbedElement;
-
-// customElements.define('my-youtube-embed', MyYoutubeEmbedElement);
