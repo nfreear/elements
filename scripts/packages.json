@@ -1,0 +1,7 @@
+{
+  "base": "packages",
+  "packages": [
+    { "id": "element-filter" },
+    { "id": "my-map" }
+  ]
+}
