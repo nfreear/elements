@@ -34,9 +34,9 @@ export class MyTranscriptElement extends MyMinElement {
     return captionUrl;
   }
 
-  get origin () {
-    const _origin = this.getAttribute('origin');
-    console.assert(_origin, 'origin (iframe) - Attribute required.');
+  get embedOrigin () {
+    const _origin = this.getAttribute('embed-origin');
+    console.assert(_origin, 'embed-origin (iframe) - Attribute required.');
     return _origin;
   }
 
@@ -105,7 +105,7 @@ export class MyTranscriptElement extends MyMinElement {
    * @see https://github.com/embedly/player.js
    */
   _onMessageEvent (ev) {
-    if (ev.origin !== this.origin) { return; }
+    if (ev.origin !== this.embedOrigin) { return; }
 
     const DATA = JSON.parse(ev.data);
     const { event, value } = DATA;

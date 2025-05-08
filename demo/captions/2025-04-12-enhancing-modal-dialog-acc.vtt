@@ -1,0 +1,297 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.541
+<v 0>Hi, so I wanted to talk to you today about</v>
+
+2
+00:00:04,542 --> 00:00:09,139
+the, about modal dialogs and about
+
+3
+00:00:09,517 --> 00:00:14,352
+the dialog position package that was recently published
+
+4
+00:00:14,655 --> 00:00:19,082
+on the NPM website. Registry, and you can see it there.
+
+5
+00:00:19,083 --> 00:00:21,705
+Uhm, so we often,
+
+6
+00:00:21,706 --> 00:00:24,520
+uhm, as accessibility consultants,
+
+7
+00:00:25,179 --> 00:00:27,691
+we often come across problems with,
+
+8
+00:00:27,692 --> 00:00:32,216
+with keyboard, uhm, accessibility in relation
+
+9
+00:00:32,217 --> 00:00:35,756
+to, in relation to modal dialogues, uhm,
+
+10
+00:00:35,767 --> 00:00:40,597
+either things like the focus not being moved into a modal dialog,
+
+11
+00:00:40,598 --> 00:00:42,813
+uhm, when it's,
+
+12
+00:00:43,127 --> 00:00:48,093
+when it's opened, or that focus is not restricted to
+
+13
+00:00:48,094 --> 00:00:51,260
+the modal dialog. or indeed when we close the dialog,
+
+14
+00:00:51,261 --> 00:00:55,818
+uhm, focus is not returned to the triggering
+
+15
+00:00:55,819 --> 00:00:59,384
+element. Uhm, and so,
+
+16
+00:00:59,385 --> 00:01:02,231
+uh, in the past,
+
+17
+00:01:02,232 --> 00:01:05,173
+or, you know, in the recent past,
+
+18
+00:01:05,705 --> 00:01:11,605
+we would have had to rely on quite a lot of ARIA and quite
+
+19
+00:01:11,606 --> 00:01:15,117
+a lot of Javascript, uhm,
+
+20
+00:01:15,128 --> 00:01:19,585
+to Good. So here's the APG,
+
+21
+00:01:19,586 --> 00:01:24,267
+uhm, version that uses 330 lines
+
+22
+00:01:25,152 --> 00:01:27,275
+to implement a modal dialog,
+
+23
+00:01:27,755 --> 00:01:30,603
+and 330 lines of JavaScript,
+
+24
+00:01:30,604 --> 00:01:32,805
+uhm, and so,
+
+25
+00:01:32,806 --> 00:01:38,602
+obviously, it's quite a challenge, and it's quite a challenge to
+
+26
+00:01:38,603 --> 00:01:39,988
+try to get things right, and it's quite a challenge to make things, to
+
+27
+00:01:39,989 --> 00:01:42,602
+make the modal dialog accessible,
+
+28
+00:01:42,603 --> 00:01:45,774
+uhm, but fortunately, it's certainly now,
+
+29
+00:01:45,775 --> 00:01:47,870
+we have the native,
+
+30
+00:01:48,296 --> 00:01:51,069
+eh, eh, eh, native element,
+
+31
+00:01:51,164 --> 00:01:55,772
+HTML, HTML, native, eh, eh, eh, eh, eh, eh,
+
+32
+00:01:55,773 --> 00:02:00,559
+eh, native element. And that, erm, does a lot of the
+
+33
+00:02:00,663 --> 00:02:03,180
+heavy lifting for us,
+
+34
+00:02:03,181 --> 00:02:08,000
+so it's, it's very, it's very good at managing
+
+35
+00:02:10,396 --> 00:02:13,036
+the focus of the keyboard.
+
+36
+00:02:13,037 --> 00:02:16,765
+In the way that we want,
+
+37
+00:02:17,475 --> 00:02:20,646
+and indeed, it is now widely supported.
+
+38
+00:02:20,951 --> 00:02:23,323
+So it's supported, erm, it says on,
+
+39
+00:02:23,628 --> 00:02:25,834
+on this website, on this website. And I use,
+
+40
+00:02:26,224 --> 00:02:29,544
+it's supported by around, erm, I have 6% of,
+
+41
+00:02:29,545 --> 00:02:32,369
+erm, I have 6% of browsers globally.
+
+42
+00:02:33,078 --> 00:02:37,649
+Which is pretty good. Erm, the one
+
+43
+00:02:37,650 --> 00:02:40,876
+thing that the term people might be asking now is how,
+
+44
+00:02:40,957 --> 00:02:43,294
+how to, Why you position, erm,
+
+45
+00:02:43,295 --> 00:02:45,336
+how I push the native dialog,
+
+46
+00:02:45,529 --> 00:02:49,555
+erm, on the page. Erm, it is,
+
+47
+00:02:49,556 --> 00:02:52,620
+erm, it uses the CSS fixed,
+
+48
+00:02:53,027 --> 00:02:55,170
+erm, fixed.
+
+49
+00:02:55,171 --> 00:02:58,892
+Fixed, eh, Position.
+
+50
+00:02:58,893 --> 00:03:01,233
+Er, and so, erm, I went to this research, erm,
+
+51
+00:03:01,234 --> 00:03:04,198
+and came up with quite a,
+
+52
+00:03:07,598 --> 00:03:09,864
+Erm, simple, erm, CSS style sheet.
+
+53
+00:03:10,456 --> 00:03:14,448
+Here we are, it's only 50 yards long.
+
+54
+00:03:14,449 --> 00:03:18,778
+Erm, and that allows you to position,
+
+55
+00:03:18,779 --> 00:03:21,450
+based on a data attribute.
+
+56
+00:03:22,760 --> 00:03:26,739
+Erm, so a data-position attribute.
+
+57
+00:03:27,857 --> 00:03:31,776
+Erm, these are the sporty values that you expect,
+
+58
+00:03:31,777 --> 00:03:34,858
+so top, bottom, left, right. And those results,
+
+59
+00:03:34,859 --> 00:03:40,626
+in full height and full with modal modals.
+
+60
+00:03:41,744 --> 00:03:43,839
+And then you can also use things like top,
+
+61
+00:03:43,840 --> 00:03:46,340
+hyphen, left, top, hyphen, right.
+
+62
+00:03:46,341 --> 00:03:48,615
+Bottom, hyphen, left, bottom,
+
+63
+00:03:48,616 --> 00:03:50,998
+hyphen, right. As well.
+
+64
+00:03:50,999 --> 00:03:54,117
+So, there you go.
+
+65
+00:03:54,118 --> 00:03:56,426
+Umm, this is,
+
+66
+00:03:56,627 --> 00:04:00,062
+erm, and here's a basic sort of demo that I put together,
+
+67
+00:04:00,063 --> 00:04:03,058
+er, that uses this style sheet.
+
+68
+00:04:03,059 --> 00:04:06,686
+As you can see, as you move,
+
+69
+00:04:06,722 --> 00:04:12,123
+as you click on the buttons, and
+
+70
+00:04:13,075 --> 00:04:18,047
+it moves the modal dialog around the screen by
+
+71
+00:04:18,048 --> 00:04:29,080
+setting this data out to you. So,
+
+72
+00:04:29,081 --> 00:04:33,648
+really, that's, hopefully, that's really
+
+73
+00:04:33,649 --> 00:04:34,928
+handy, and would be a really useful tool for people going websites, and want
+
+74
+00:04:34,929 --> 00:04:36,766
+to, make sure they're accessible.
