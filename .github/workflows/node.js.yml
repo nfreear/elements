@@ -38,16 +38,17 @@ jobs:
     - run: npm run build --if-present
     #- run: npm run build:feed
     #- run: npm run build:template
+    - run: npm run build:site
     - run: npm test
-    - name: Delete 'node_modules'
-      run: rm -rf node_modules
+    #- name: Delete 'node_modules'
+    #  run: rm -rf node_modules
     - name: Setup Pages
       uses: actions/configure-pages@v5
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        # Upload entire repository.
-        path: '.'
+        # Upload one directory.
+        path: _site
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4

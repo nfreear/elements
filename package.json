@@ -28,11 +28,12 @@
     "./web": "./web.js"
   },
   "scripts": {
-    "build": "npm run build:feed && npm run build:template && npm run copy",
+    "build": "npm run build:feed && npm run build:template && npm run build:pkg",
     "build:doc": "npx jsdoc -r -c ./jsdoc-conf.json",
     "build:feed": "node ./src/build/feed.js > ./src/feed.json",
+    "build:site": "cp -r *.js demo src _site/",
     "build:template": "node ./src/build/template.js > ./src/template.html",
-    "copy": "node ./scripts/copy.mjs",
+    "build:pkg": "node ./scripts/copy.mjs",
     "dry": "npm publish --workspaces --access=public --dry-run",
     "prepare": "npm run build && npm test # && npm run version",
     "start": "npm run build:feed && npx servor --reload",
