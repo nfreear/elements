@@ -36,22 +36,33 @@ export class MyTranscriptElement extends MyMinElement {
 
   get embedOrigin () {
     const _origin = this.getAttribute('embed-origin');
-    console.assert(_origin, 'embed-origin (iframe) - Attribute required.');
-    return _origin;
+    return _origin ? new URL(_origin).origin : null;
+    // console.assert(url, '"embed-origin" (iframe) - Attribute required.');
   }
 
   get _vttParserJs () { return 'https://unpkg.com/@plussub/srt-vtt-parser@^2/dist/index.js'; }
 
   async connectedCallback () {
+    console.assert(this.embedOrigin, '"embed-origin" (iframe) - Attribute required for dynamic transcript.');
+
     await this._fetchAndParseCaptionFile();
 
     this._attachLocalTemplate(this._template);
 
     this._listItems = this._createCaptionElements();
 
-    window.addEventListener('message', (ev) => this._onMessageEvent(ev));
+    if (this.embedOrigin) {
+      window.addEventListener('message', (ev) => this._onMessageEvent(ev));
+    }
+  }
 
-    console.debug('my-transcript:', this.href, this);
+  async _parseCaptions (data) {
+    const { parse } = await import(this._vttParserJs);
+    console.assert(parse, 'Expecting "parse" function.');
+
+    const CAP = parse(data);
+    console.assert(CAP && CAP.entries.length, 'Expecting VTT/SRT captions.');
+    return CAP;
   }
 
   async _fetchAndParseCaptionFile () {
@@ -60,14 +71,9 @@ export class MyTranscriptElement extends MyMinElement {
       throw new Error(`Caption fetch error: ${RESP.status} ~ ${this.href}`);
     }
     const TEXT = await RESP.text();
+    const CAP = await this._parseCaptions(TEXT);
 
-    const { parse } = await import(this._vttParserJs);
-    console.assert(parse, 'Expecting "parse" function.');
-
-    const CAP = parse(TEXT);
-    console.assert(CAP && CAP.entries.length, 'Expecting VTT/SRT captions.');
-
-    console.debug('Captions:', CAP.entries.length, CAP);
+    console.debug('my-transcript, Captions:', CAP.entries.length, CAP, this);
     this._captions = CAP.entries;
     return this._captions;
   }
