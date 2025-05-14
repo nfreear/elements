@@ -1,3 +1,7 @@
+import MyElement from '../MyElement.js';
+
+const { fetch } = window;
+
 /**
  * Easily embed a map
  *
@@ -5,42 +9,46 @@
  * Contains accessibility fixes and enhancements.
  *
  * @copyright © Nick Freear, 27-Nov-2021.
- *
- * @see ../demo/my-map.html
+ * @customElement my-map
+ * @demo https://nfreear.github.io/elements/demo/my-map.html
  * @see https://codepen.io/nfreear/pen/KKeJKov
  * @see https://leafletjs.com/
  *
  * @status beta
  * @since 1.0.0
  */
+export class MyMapElement extends MyElement {
+  static getTag () { return 'my-map'; }
 
-import MyElement from '../MyElement.js';
+  get _leafletCdnLibs () {
+    return [
+      'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+      'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
+      'https://unpkg.com/leaflet.translate@0.6.0/Leaflet.translate.js',
+      'https://unpkg.com/leaflet.a11y@0.6.0/Leaflet.a11y.js'
+    ];
+  }
 
-const { fetch } = window;
+  get _leafletStylesheet () {
+    return {
+      href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+      integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
+    };
+  }
 
-const LEAFLET_CDN_LIBS = [
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-  'https://unpkg.com/leaflet-i18n@0.3.3/Leaflet.i18n.js',
-  'https://unpkg.com/leaflet.translate@0.6.0/Leaflet.translate.js',
-  'https://unpkg.com/leaflet.a11y@0.6.0/Leaflet.a11y.js'
-];
+  get _defaults () {
+    return {
+      // Greenwich Observatory, London, UK. (Was: Central London 51.505,-0.09)
+      lat: 51.476852,
+      long: -0.000500,
+      zoom: 13, // Was 14
+      // See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
+      osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+    };
+  }
 
-// Some defaults.
-const DEF = {
-  // Greenwich Observatory, London, UK. (Was: Central London 51.505,-0.09)
-  lat: 51.476852,
-  long: -0.000500,
-  zoom: 13, // Was 14
-  // See: github:Leaflet/Leaflet/pull/8418 (Was: 'https://{s}.tile.op..')
-  osmTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-};
-
-const TEMPLATE = `
-<template>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""/>
-<style>
+  get _styles () {
+    return `
 .map-desc {
   color: #333;
   font: 1rem sans-serif;
@@ -74,29 +82,35 @@ a[ href *= "maptiler.com" ] {
   display: inline-block;
   padding-right: 1.1rem;
 }
-</style>
+`;
+  }
+
+  get _template () {
+    return `
+<template>
+<link rel="stylesheet" href="${this._leafletStylesheet.href}"
+  integrity="${this._leafletStylesheet.integrity}" crossorigin=""/>
+<style>${this._styles}</style>
 <div id="desc" class="map-desc"><slot><p> Description of the map. </p></slot></div>
 <div id="my-map" role="region" aria-describedby="desc" part="map">
   <p class="my-loading">Loading map…</p>
 </div>
 </template>
 `;
-
-export class MyMapElement extends MyElement {
-  static getTag () {
-    return 'my-map';
   }
 
   get latLng () { return this.getLatLong(this); }
 
-  get zoom () { return parseInt(this.getAttribute('zoom') || DEF.zoom); }
+  get zoom () { return parseInt(this.getAttribute('zoom') || this._defaults.zoom); }
 
   getLatLong (elem) {
-    const str = elem.getAttribute('latlng') || elem.dataset.latlng || `${DEF.lat}, ${DEF.long}`;
+    const str = elem.getAttribute('latlng') || elem.dataset.latlng || `${this._defaults.lat}, ${this._defaults.long}`;
     const parts = str.split(/, ?/) || [0, 0];
     return this._leaflet.latLng(parseFloat(parts[0]), parseFloat(parts[1]));
     // return [parseFloat(parts[0]), parseFloat(parts[1])];
   }
+
+  get geojson () { return this.getAttribute('geojson') || null; }
 
   /** The CSS selector to use to query for HTML `<marker>` elements.
    *  @default '[latlng]' - Any HTML element with a `latlng` attribute.
@@ -122,12 +136,7 @@ export class MyMapElement extends MyElement {
 
   async connectedCallback () {
     this.$$ = {};
-
-    // const caption = this.getAttribute('caption') || 'A caption for the map.';
-    const geojson = this.getAttribute('geojson') || null; // GeoJSON URL is relative to the HTML page!
-    const attribution = null;
-
-    const ATTRS = { latLng: {}, zoom: this.zoom, geojson, tileUrl: this.tileUrl, attribution };
+    const ATTRS = { latLng: {}, zoom: this.zoom, geojson: this.geojson, tileUrl: this.tileUrl };
 
     await this._initialize(ATTRS);
 
@@ -135,8 +144,7 @@ export class MyMapElement extends MyElement {
   }
 
   async _initialize (attr) {
-    // .
-    this._attachLocalTemplate(TEMPLATE); // Was: await this.getTemplate('my-map');
+    this._attachLocalTemplate(this._template);
 
     const mapElem = this.shadowRoot.querySelector('#my-map');
 
@@ -181,12 +189,14 @@ export class MyMapElement extends MyElement {
 
     const PATH = this.shadowRoot.querySelector('.leaflet-overlay-pane path');
     PATH && PATH.setAttribute('part', 'path');
+
+    return this.$$;
   }
 
   /** Load non-module Javascript for side-effects (Leaflet added to window).
    */
   async _importLeafletLibs () {
-    await this._importJs(LEAFLET_CDN_LIBS);
+    await this._importJs(this._leafletCdnLibs);
     const { L } = window;
     await this._whenReady(() => L && L.Map, 'import Leaflet'); // Was: L && L.i18n && L.l10n,
     this.$$.L = L;
@@ -204,7 +214,7 @@ export class MyMapElement extends MyElement {
   }
 
   get tileUrl () {
-    return this.getAttribute('tile-url') || this.getAttribute('tileUrl') || DEF.osmTileUrl;
+    return this.getAttribute('tile-url') || this.getAttribute('tileUrl') || this._defaults.osmTileUrl;
   }
 
   get attribution () {
