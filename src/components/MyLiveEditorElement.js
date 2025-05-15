@@ -2,7 +2,8 @@
  * A code playground / live editor.
  *
  * @copyright © Nick Freear, 30-May-2022.
- * @see ../demo/my-live-editor.html
+ * @customElement my-live-editor
+ * @demo ../demo/my-live-editor.html
  */
 
 import { MyElement } from '../MyElement.js';

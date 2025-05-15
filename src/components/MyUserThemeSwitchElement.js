@@ -3,6 +3,7 @@
  * Store the setting.
  *
  * @copyright © Nick Freear, 11-June-2022.
+ * @customElement my-user-theme-switch
  * @see https://gist.github.com/nfreear/3940b62ef375386de921b4eaa82ea804
  * @see https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/#,
  * @status experimental

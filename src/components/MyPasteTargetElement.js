@@ -5,8 +5,8 @@
  * It may help with WCAG 2.2 Success Criteria 3.3.8 Accessible Authentication.
  *
  * @copyright © Nick Freear, 01-Nov-2023.
- *
- * @see https://codepen.io/nfreear/pen/jOXJjgW
+ * @customElement my-paste-target
+ * @demo https://codepen.io/nfreear/pen/jOXJjgW
  * @see https://codepen.io/nfreear/pen/wvNgeNd (Original)
  * @see https://w3.org/TR/WCAG22/#accessible-authentication-minimum
  * @see https://w3.org/WAI/WCAG22/Techniques/failures/F109

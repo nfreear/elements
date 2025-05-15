@@ -3,8 +3,8 @@
  * Possibly other tests ...?
  *
  * @copyright © Nick Freear, 05-Nov-2022.
- *
- * @see https://codepen.io/nfreear/pen/PoaGGgB
+ * @customElement my-test
+ * @demo https://codepen.io/nfreear/pen/PoaGGgB
  * @see https://validator.w3.org/nu/about.html
  * @status experimental, for demos, Codepen
  * @since 1.3.0

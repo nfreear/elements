@@ -4,7 +4,7 @@
  * @copyright © Nick Freear, 09-Dec-2021.
  *
  * @class MyFoobarElement
- * @tagName my-foobar
+ * @customElement my-foobar
  * @property {tagName} &lt;my-foobar> - Create a my-foobar element.
  * @status beta
  * @since 1.0.0

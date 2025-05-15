@@ -8,11 +8,11 @@
  * @TODO Maybe rename to <my-keyboard-nav> ?
  *
  * @copyright © Nick Freear, 11-Jan-2023.
- * @see https://codepen.io/nfreear/pen/jOpLNxR
+ * @demo https://codepen.io/nfreear/pen/jOpLNxR
  * @see https://w3.org/WAI/ARIA/apg/practices/keyboard-interface/
  * @see https://w3.org/WAI/ARIA/apg/example-index/grid/dataGrids.html
  * @see ./MyDatePickerElement.js
- *
+ * @customElement my-keyboard-control
  * @status experimental, accessibility
  * @since 1.3.0
  */

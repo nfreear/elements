@@ -5,8 +5,8 @@
  *
  * @version ATbar - Version 2.2.1
  * @version Powered by AtKit v1.6.2 (atkit release channel)
- *
- * @see ../demo/my-atbar-button.html
+ * @customElement my-at-bar
+ * @demo ../demo/my-atbar-button.html
  * @see https://access.ecs.soton.ac.uk/projects/atbar
  * @see https://github.com/AccessAtECS/ATBar
  * @see https://bitbucket.org/accessatecs/atbar/

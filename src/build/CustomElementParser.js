@@ -34,12 +34,12 @@ export default class CustomElementParser {
       since: $.matchAndGet(str, /@since v?(\d\.\d.+)/),
       status: $.matchAndGet(str, /@status (.+)/),
       todo: $.matchAndGet(str, /@todo (.+)/i),
-      demoUrl: $.matchAndGet(str, $.demoUrlRegex),
-      demoIsPen: !!$.matchAndGet(str, $.demoIsPenRegex),
+      demoUrl: $.matchAndGet(str, /@demo (.+)/i), // $.demoUrlRegex),
+      demoIsPen: !!$.matchAndGet(str, $.demoIsPenRegex, 2),
       // Parse Javascript code.
       className: $.matchAndGet(str, $.classNameRegex),
       parentClass: $.matchAndGet(str, $.parentClassRegex),
-      tagName: $.matchAndGet(str, $.tagNameRegex),
+      tagName: $.matchAndGet(str, /@customElement ([\w-]+)/), // $.tagNameRegex),
       extTemplate: $.matchAndGet(str, $.extTemplateRegex),
       hasIntTemplate: !!$.matchAndGet(str, $.intTemplateRegex),
       fileName
@@ -93,7 +93,7 @@ export default class CustomElementParser {
   }
 
   get demoIsPenRegex () {
-    return /@see (https:\/\/codepen.io\/nfreear\/.+)/;
+    return /@(see|demo) (https:\/\/codepen.io\/nfreear\/.+)/;
   }
 
   /** Parse Javascript code.

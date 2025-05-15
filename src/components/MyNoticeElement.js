@@ -4,6 +4,7 @@
  * For example, an EU cookie-law notice!
  *
  * @copyright © Nick Freear, 07-Jan-2022.
+ * @customElement my-notice
  */
 
 import { MyElement } from '../MyElement.js';

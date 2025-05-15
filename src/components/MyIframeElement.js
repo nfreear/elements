@@ -5,7 +5,7 @@
  * @customElement my-iframe
  * @see https://github.com/embedly/player.js
  */
-export class MyIframeElement extends window.HTMLElement {
+export class MyIframeElement extends HTMLElement {
   static getTag () { return 'my-iframe'; }
 
   get _anchorSelector () { return 'a[ href ]'; }

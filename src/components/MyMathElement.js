@@ -4,6 +4,7 @@
  *
  * @copyright © Nick Freear, 10-May-2023.
  * @see https://www.mathjax.org/
+ * @customElement my-math
  * @status beta
  * @since 1.0.0
  */

@@ -2,6 +2,7 @@
  * Placeholder text.
  *
  * @copyright © Nick Freear, 09-Dec-2021.
+ * @customElement my-lorem-ipsum
  * @status experimental
  * @since 1.1.0
  */

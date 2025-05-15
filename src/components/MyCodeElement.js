@@ -2,7 +2,7 @@
  * Display code with syntax highlighting.
  *
  * @copyright © Nick Freear, 22-Jan-2022.
- *
+ * @customElement my-code
  * @see https://craig.is/making/rainbows
  * @see https://github.com/ccampbell/rainbow/blob/master/src/language/html.js;
  * @see (https://prismjs.com/)

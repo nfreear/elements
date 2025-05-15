@@ -31,7 +31,7 @@
     "build": "npm run build:feed && npm run build:template && npm run build:pkg",
     "build:doc": "npx jsdoc -r -c ./jsdoc-conf.json",
     "build:feed": "node ./src/build/feed.js > ./src/feed.json",
-    "build:site": "cp -r *.js demo src _site/",
+    "build:site": "cp -R *.js demo src _site",
     "build:template": "node ./src/build/template.js > ./src/template.html",
     "build:pkg": "node ./scripts/copy.mjs",
     "dry": "npm publish --workspaces --access=public --dry-run",
@@ -40,7 +40,7 @@
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
     "fix": "npx semistandard --fix",
-    "test": "npx semistandard && npm run inner:count"
+    "test": "npx semistandard --fix && npm run inner:count"
   },
   "keywords": [
     "ndf-web-components",
@@ -57,6 +57,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "semistandard": {
+    "globals": [ "HTMLElement" ]
+  },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.1",
     "semistandard": "^17.0.0",

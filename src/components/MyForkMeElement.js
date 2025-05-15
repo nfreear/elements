@@ -2,7 +2,7 @@
  * Add a "Fork me on GitHub" ribbon.
  *
  * @copyright © Nick Freear, 09-Dec-2021.
- *
+ * @customElement my-fork-me
  * @see http://simonwhitaker.github.io/github-fork-ribbon-css/
  */
 

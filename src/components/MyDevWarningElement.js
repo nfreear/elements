@@ -2,6 +2,7 @@
  * Display a "Not production ready" warning.
  *
  * @copyright © Nick Freear, 12-Nov-2023.
+ * @customElement my-dev-warning
  * @status beta
  * @since 1.7.0
  */

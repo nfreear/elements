@@ -3,6 +3,7 @@
  *
  * @copyright © Nick Freear.
  * @since 06-Oct-2024.
+ * @customElement my-codepen-button
  */
 
 import MyMinElement from '../MyMinElement.js';

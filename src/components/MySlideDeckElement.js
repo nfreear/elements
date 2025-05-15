@@ -4,7 +4,8 @@
  * - powered by Reveal.js.
  *
  * @copyright © Nick Freear, 24-Sep-2022.
- * @see ../demo/my-slide-deck.html
+ * @customElement my-slide-deck
+ * @demo ../demo/my-slide-deck.html
  * @see https://revealjs.com
  * @status alpha
  * @since 1.3.0

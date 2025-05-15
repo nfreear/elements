@@ -2,7 +2,8 @@
  * Setup a page with minimum markup.
  *
  * @copyright © Nick Freear, 27-Nov-2021.
- * @see ../demo/my-page.html
+ * @customElement my-page
+ * @demo ../demo/my-page.html
  * @status experimental
  * @since 1.0.0
  */

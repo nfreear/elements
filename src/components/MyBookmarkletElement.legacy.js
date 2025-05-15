@@ -1,8 +1,8 @@
 /**
- * Embed a bookmarklet Javascript.
+ * @legacy Embed a bookmarklet Javascript.
  *
  * @copyright © Nick Freear, 23-Jan-2022.
- *
+ * @customElement my-bookmarklet-legacy
  * @see ../demo/my-bookmarklet.html
  * @class MyBookmarkletElement
  */

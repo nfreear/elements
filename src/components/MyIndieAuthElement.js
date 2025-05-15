@@ -6,7 +6,7 @@
  * @see https://indielogin.com/api
  * @see https://indieauth.net/
  * @copyright © Nick Freear, 03-Oct-2022.
- *
+ * @customElement my-indie-auth
  * @status experimental
  * @since 1.3.0
  */

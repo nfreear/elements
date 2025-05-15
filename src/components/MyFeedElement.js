@@ -3,7 +3,8 @@
  *
  * @copyright © Nick Freear, 20-Oct-2022.
  *
- * @see ../demo/my-feed.html
+ * @customElement my-feed
+ * @demo ../demo/my-feed.html
  * @see https://codepen.io/nfreear/pen/rNKwoNL
  * @status beta, my blog
  * @since 1.3.0

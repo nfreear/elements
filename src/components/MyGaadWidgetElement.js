@@ -5,6 +5,7 @@
  *
  * @see https://github.com/nfreear/gaad-widget
  * @copyright © Nick Freear, 05-May-2022.
+ * @customElement my-gaad-widget
  *
  * @TODO ~ Monitor hard-coded date-text in template!
  */

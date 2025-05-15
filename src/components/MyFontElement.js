@@ -5,11 +5,11 @@
  *
  * @copyright © Nick Freear, 02-Mar-2022.
  *
- * @see ../demo/my-font.html
+ * @demo ../demo/my-font.html
  * @see https://gist.github.com/nfreear/3ad861197288cec0179716fe49c9567c
  * @see https://developer.mozilla.org/en-US/docs/Web/API/FontFace
  * @see https://fontsource.org/fonts/aclonica
- *
+ * @customElement my-font
  * @status alpha, my blog
  * @since 1.1.0
  */

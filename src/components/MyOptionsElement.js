@@ -2,7 +2,8 @@
  * Set configuration options, including templateHost.
  *
  * @copyright © Nick Freear, 11-Dec-2021.
- * @see ../demo/my-options.html
+ * @demo ../demo/my-options.html
+ * @customElement my-options
  * @status beta
  * @since 1.0.0
  */

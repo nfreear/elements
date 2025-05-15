@@ -2,7 +2,7 @@
  * Custom site search.
  *
  * @copyright © Nick Freear, 17-Mar-2022.
- * @customElem my-search
+ * @customElement my-search
  * @demo ../demo/my-search.html
  * @see https://cse.google.com/cse/all
  * @see https://developers.google.com/custom-search/docs/element

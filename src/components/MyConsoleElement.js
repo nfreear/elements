@@ -5,8 +5,8 @@
  *
  * @copyright © Nick Freear, 16-Nov-2022.
  *
- * @see https://codepen.io/nfreear/pen/PoaEpVa
- * @class MyConsoleElement
+ * @demo https://codepen.io/nfreear/pen/PoaEpVa
+ * @customElement my-console
  * @status experimental, for demos, Codepen
  * @since 1.3.0
  */

@@ -3,8 +3,9 @@
  * - with keyboard accessibility.
  *
  * @copyright © Nick Freear, 08-Jun-2022.
- * @see https://codepen.io/nfreear/pen/GRBmrER
+ * @demo https://codepen.io/nfreear/pen/GRBmrER
  * @see https://gist.github.com/nfreear/d61ec03df08618a2c8abc40a301c770d,
+ * @customElement my-date-picker
  * @status experimental, accessibility
  * @since 1.3.0
  */
