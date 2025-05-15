@@ -1,4 +1,5 @@
-import MyElement from '../MyElement.js';
+import MyMinElement from '../MyMinElement.js';
+import { importJs, whenReady } from '../utilities.js';
 
 const { fetch } = window;
 
@@ -17,7 +18,7 @@ const { fetch } = window;
  * @status beta
  * @since 1.0.0
  */
-export class MyMapElement extends MyElement {
+export class MyMapElement extends MyMinElement {
   static getTag () { return 'my-map'; }
 
   get _leafletCdnLibs () {
@@ -130,7 +131,7 @@ a[ href *= "maptiler.com" ] {
    * @return { L, map } (Promise)
    */
   async getLeafletMap () {
-    await this._whenReady(() => this.$$.map && this.$$.L, 'getLeafletMap');
+    await whenReady(() => this.$$.map && this.$$.L, 'getLeafletMap');
     return { L: this.$$.L, map: this.$$.map };
   }
 
@@ -196,9 +197,9 @@ a[ href *= "maptiler.com" ] {
   /** Load non-module Javascript for side-effects (Leaflet added to window).
    */
   async _importLeafletLibs () {
-    await this._importJs(this._leafletCdnLibs);
+    await importJs(this._leafletCdnLibs);
     const { L } = window;
-    await this._whenReady(() => L && L.Map, 'import Leaflet'); // Was: L && L.i18n && L.l10n,
+    await whenReady(() => L && L.Map, 'import Leaflet'); // Was: L && L.i18n && L.l10n,
     this.$$.L = L;
     return L;
   }
