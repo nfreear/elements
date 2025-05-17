@@ -1,4 +1,4 @@
-<!doctype html><html lang="en" style="opacity: 0"><title> my-page </title>
+<!doctype html><html lang="en"><title> my-page </title>
 
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,6 +14,8 @@
 </style>
 
 
+<my-gaad-widget></my-gaad-widget>
+
 <my-page>
   <h2> my-page Web Component </h2>
 
@@ -26,6 +28,21 @@
 NDF, 27-Nov-2021.
 </pre>
 
-<script async type="module" src="../index.js"></script>
+<!-- <script async type="module" src="../index.js"></script> -->
+
+<script type="importmap">
+{
+  "imports": {
+    "my-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-gaad-widget", "my-page" ]
+  }
+}
+</script>
+
+<script type="module">
+  import 'my-elements';
+</script>
 
 </html>
