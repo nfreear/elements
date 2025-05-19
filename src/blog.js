@@ -4,6 +4,7 @@
 export { MyAnalyticsElement } from './components/MyAnalyticsElement.js';
 export { MyCodepenEmbedElement } from './components/MyCodepenEmbedElement.js';
 export { MyGaadWidgetElement } from './components/MyGaadWidgetElement.js';
+export { MyGtagElement } from './components/MyGtagElement.js';
 export { MyLoomEmbedElement } from './components/MyLoomEmbedElement.js';
 export { MySearchElement } from './components/MySearchElement.js';
 export { MySiteCounterElement } from './components/MySiteCounterElement.js';

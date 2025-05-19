@@ -26,6 +26,7 @@ export { MyLoomEmbedElement } from './src/components/MyLoomEmbedElement.js';
 export { MyYoutubeEmbedElement } from './src/components/MyYoutubeEmbedElement.js';
 export { MyCodepenEmbedElement } from './src/components/MyCodepenEmbedElement.js';
 export { MyTranscriptElement } from './src/components/MyTranscriptElement.js';
+export { MyGtagElement } from './src/components/MyGtagElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 // export { * } from './src/Options.js';

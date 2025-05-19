@@ -52,5 +52,8 @@ export { MyLiveBridgeElement } from './MyLiveBridgeElement.js';
 export { MyCaptchaElement } from './MyCaptchaElement.js';
 export { MyLoomEmbedElement } from './MyLoomEmbedElement.js';
 export { MyYoutubeEmbedElement } from './MyYoutubeEmbedElement.js';
+export { MyCodepenEmbedElement } from './MyCodepenEmbedElement.js';
+export { MyTranscriptElement } from './MyTranscriptElement.js';
+export { MyGtagElement } from './MyGtagElement.js';
 
 // export { MyFoobarElement } from './MyFoobarElement.js';
