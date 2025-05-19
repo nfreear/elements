@@ -13,11 +13,13 @@
 
 export * from './src/components/index.js';
 
-export { MyElement } from './src/MyElement.js';
+export { MyElement } from './src/MyElement.js'; /** @legacy */
 export { MyMinElement } from './src/MyMinElement.js';
 
-export { getOpt, getOptUse, elemToClass } from './src/Options.js';
-export { importMapOpt } from './src/importMapOpt.js';
+export { defineMyElements, isClass } from './src/defineMyElements.js';
+export { elemToClass, importJs, importMapOpt, whenReady } from './src/utilities.js';
+export { getOpt, getOptUse } from './src/Options.js';
+// export { importMapOpt } from './src/importMapOpt.js';
 export { translate } from './src/translate.js';
 
 // End.

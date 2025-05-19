@@ -33,7 +33,9 @@
 <script type="importmap">
 {
   "imports": {
-    "my-map-etc": "../i.js"
+    "my-elements/my-map": "https://cdn.skypack.dev/ndf-elements/my-map",
+    "ndf-elements/i": "../i.js",
+    "ndf-elements": "../index.js"
   },
   "myElements": {
     "use": [ "my-map", "my-codepen-button" ]
@@ -44,7 +46,12 @@
 <!-- <script type="module" src="./app.js"></script> -->
 
 <script type="module">
-  import 'my-map-etc';
+  import { defineMyElements, MyMapElement } from 'ndf-elements';
+  // import { MyMapElement } from 'my-elements/my-map';
+
+  defineMyElements([ MyMapElement ]);
+
+  // customElements.define('my-map', MyMapElement);
 
   const myMap = document.querySelector('my-map');
 

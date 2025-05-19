@@ -22,6 +22,7 @@
     "./my": "./my.js",
     "./i.js": "./i.js",
     "./base": "./src/MyMinElement.js",
+    "./blog": "./src/blog.js",
     "./my-map": "./src/components/MyMapElement.js",
     "./an-form": "./src/an-form.js",
     "./experiment": "./src/experiment.js",
