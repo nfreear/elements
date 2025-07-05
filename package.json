@@ -14,6 +14,7 @@
     "./my-map": "./src/components/MyMapElement.js",
     "./an-form": "./src/an-form.js",
     "./experiment": "./src/experiment.js",
+    "./util": "./util.js",
     "./web": "./web.js"
   },
   "description": "My collection of useful custom elements.",

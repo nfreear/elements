@@ -29,8 +29,10 @@ export { MyTranscriptElement } from './src/components/MyTranscriptElement.js';
 export { MyGtagElement } from './src/components/MyGtagElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
-// export { * } from './src/Options.js';
-export { defineMyElements, isClass } from './src/defineMyElements.js';
-export { elemToClass, importJs, importMapOpt, whenReady } from './src/utilities.js';
-// export { importMapOpt } from './src/importMapOpt.js';
-export { translate } from './src/translate.js';
+export {
+  attachTemplate,
+  bindTokenListAttribute, createObservedDOMTokenList,
+  defineMyElements, isClass,
+  elemToClass, importJs, importMapOpt, whenReady,
+  translate
+} from './util.js';
