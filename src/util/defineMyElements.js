@@ -1,7 +1,7 @@
 
 const { customElements } = window;
 
-export function defineMyElements (mod) {
+function defineMyElements (mod) {
   console.assert(typeof mod === 'object', '"mod" argument - Should be array or module object.');
   const KLASSES = Object.values(mod).filter(klass => isClass(klass) && isMyElementClass(klass));
   console.assert(KLASSES && KLASSES.length, 'Expecting at least one custom element class.');
@@ -14,12 +14,12 @@ export function defineMyElements (mod) {
   console.debug('defineMyElements:', KLASSES.length, KLASSES);
 }
 
-export function isMyElementClass (klass) {
+function isMyElementClass (klass) {
   return /My(\w+)Element/.test(klass.name);
 }
 
 // https://stackoverflow.com/questions/526559/testing-if-something-is-a-class-in-javascript
-export function isClass (func) {
+function isClass (func) {
   // Class constructor is also a function
   if (!(func && func.constructor === Function) || func.prototype === undefined) {
     return false;
@@ -33,3 +33,5 @@ export function isClass (func) {
   // Usually a function will only have 'constructor' in the prototype
   return Object.getOwnPropertyNames(func.prototype).length > 1;
 }
+
+export { defineMyElements, isMyElementClass, isClass };

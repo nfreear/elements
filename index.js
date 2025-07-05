@@ -29,10 +29,11 @@ export { MyTranscriptElement } from './src/components/MyTranscriptElement.js';
 export { MyGtagElement } from './src/components/MyGtagElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
+export { translate } from './src/translate.js';
 export {
-  attachTemplate,
-  bindTokenListAttribute, createObservedDOMTokenList,
-  defineMyElements, isClass,
-  elemToClass, importJs, importMapOpt, whenReady,
-  translate
+  defineMyElements, isMyElementClass, isClass,
+  elemToClass, importMapOpt, importJs, whenReady
+} from './src/util/internal.js';
+export {
+  attachTemplate, bindTokenListAttribute, createObservedDOMTokenList
 } from './util.js';

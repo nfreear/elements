@@ -1,8 +1,13 @@
+/**
+ * @internal Functions for internal use.
+ */
+
+import { defineMyElements, isMyElementClass, isClass } from './defineMyElements.js';
 
 /**
  * @source Options.js
  */
-export function elemToClass (elem) {
+function elemToClass (elem) {
   const KLASS = elem.replace(/(^|-)([a-z])/g, (mtch, p1, p2) => p2.toUpperCase());
   return `${KLASS}Element`;
 }
@@ -11,7 +16,7 @@ export function elemToClass (elem) {
  * Get data from an importmap.
  * @copyright © Nick Freear, 15-Mar-2025.
  */
-export function importMapOpt (key, key2 = null) {
+function importMapOpt (key, key2 = null) {
   const importMapElement = document.querySelector('script[ type = importmap ]');
   const importMap = importMapElement ? JSON.parse(importMapElement.textContent) : null;
   const OPT = importMap ? importMap[key] : null;
@@ -25,7 +30,7 @@ export function importMapOpt (key, key2 = null) {
  * @source MyElement.js
  * @return {Promise}
  */
-export async function importJs (importArray) {
+async function importJs (importArray) {
   const promises = importArray.map(async (js) => {
     return await import(js);
   });
@@ -36,7 +41,7 @@ export async function importJs (importArray) {
  * @source MyElement.js
  * @return {Promise}
  */
-export async function whenReady (testCallbackFunc, reason, intervalMs = 250, timeoutMs = 2500) {
+async function whenReady (testCallbackFunc, reason, intervalMs = 250, timeoutMs = 2500) {
   console.assert(testCallbackFunc);
   return new Promise((resolve, reject) => {
     const toId = setTimeout(() => reject(new Error(`whenReady: ${reason}`)), timeoutMs);
@@ -50,3 +55,8 @@ export async function whenReady (testCallbackFunc, reason, intervalMs = 250, tim
     }, parseInt(intervalMs));
   });
 }
+
+export {
+  defineMyElements, isMyElementClass, isClass,
+  elemToClass, importMapOpt, importJs, whenReady
+};

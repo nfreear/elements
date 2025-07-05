@@ -1,5 +1,5 @@
 import MyMinElement from '../MyMinElement.js';
-import { importJs, whenReady } from '../utilities.js';
+import { importJs, whenReady } from '../util/internal.js';
 
 const { fetch } = window;
 

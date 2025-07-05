@@ -23,3 +23,5 @@ export function attachTemplate (templateHtml) {
     }
   };
 }
+
+export default attachTemplate;

@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-import { importMapOpt, elemToClass } from './src/utilities.js';
+import { importMapOpt, elemToClass } from './src/util/internal.js';
 
 const { customElements } = window;
 const base = '.';

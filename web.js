@@ -16,8 +16,13 @@ export * from './src/components/index.js';
 export { MyElement } from './src/MyElement.js'; /** @legacy */
 export { MyMinElement } from './src/MyMinElement.js';
 
-export { defineMyElements, isClass } from './src/defineMyElements.js';
-export { elemToClass, importJs, importMapOpt, whenReady } from './src/utilities.js';
+export {
+  defineMyElements, isMyElementClass, isClass,
+  elemToClass, importMapOpt, importJs, whenReady
+} from './src/util/internal.js';
+export {
+  attachTemplate, bindTokenListAttribute, createObservedDOMTokenList
+} from './util.js';
 export { getOpt, getOptUse } from './src/Options.js';
 // export { importMapOpt } from './src/importMapOpt.js';
 export { translate } from './src/translate.js';
