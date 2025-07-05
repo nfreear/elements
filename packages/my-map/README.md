@@ -16,7 +16,7 @@ Easily embed a map powered by [Leaflet][]. Includes [accessibility][myp] and [tr
 Available on the [Unpkg][] CDN:
 
 ```html
-<script src="https://unpkg.com/@nfreear/my-map@1" type="module"></script>
+<script src="https://unpkg.com/@nfreear/my-map@^1" type="module"></script>
 
 <my-map
   latlng="51.505,-0.09"

@@ -31,7 +31,8 @@
   ],
   "files": [
     "!example",
-    "src/MyElement.js",
+    "src/utilities.js",
+    "src/MyMinElement.js",
     "src/components/MyMapElement.js"
   ]
 }

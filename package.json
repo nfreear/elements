@@ -2,20 +2,8 @@
   "name": "ndf-elements",
   "x-old-name": "ndf-web-components",
   "version": "1.7.1",
-  "description": "My collection of useful custom elements.",
   "type": "module",
   "main": "index.js",
-  "license": "MIT",
-  "x-copyright": "© 2021-2025 Nick Freear.",
-  "author": "Nick Freear",
-  "homepage": "https://nfreear.github.io/elements/demo/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nfreear/elements.git"
-  },
-  "bugs": {
-    "url": "https://github.com/nfreear/elements/issues"
-  },
   "exports": {
     ".": "./index.js",
     "./custom": "./custom.js",
@@ -27,6 +15,18 @@
     "./an-form": "./src/an-form.js",
     "./experiment": "./src/experiment.js",
     "./web": "./web.js"
+  },
+  "description": "My collection of useful custom elements.",
+  "license": "MIT",
+  "x-copyright": "© 2021-2025 Nick Freear.",
+  "author": "Nick Freear",
+  "homepage": "https://nfreear.github.io/elements/demo/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nfreear/elements.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nfreear/elements/issues"
   },
   "scripts": {
     "build": "npm run build:feed && npm run build:template && npm run build:pkg",
