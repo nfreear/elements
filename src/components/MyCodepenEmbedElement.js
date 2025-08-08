@@ -1,8 +1,7 @@
-
 import MyIframeElement from './MyIframeElement.js';
 
 /**
- * Embed a CodPen
+ * Embed a CodePen
  * @customElement my-codepen-embed
  * @demo
  * @see https://blog.codepen.io/documentation/embedded-pens/

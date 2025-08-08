@@ -1,4 +1,3 @@
-
 const { HTMLElement, location } = window;
 
 /**

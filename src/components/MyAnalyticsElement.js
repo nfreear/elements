@@ -1,4 +1,3 @@
-
 const { HTMLElement, localStorage } = window;
 
 /**
@@ -14,7 +13,6 @@ const { HTMLElement, localStorage } = window;
  * @see https://developers.google.com/analytics/devguides/collection/analyticsjs#alternative_async_tag,
  *
  * @customElement my-analytics
- * @class MyAnalyticsElement
  * @status beta, my blog
  * @since 1.0.0
  */

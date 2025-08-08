@@ -1,4 +1,3 @@
-
 import MyMinElement from '../MyMinElement.js';
 
 const { location } = window;

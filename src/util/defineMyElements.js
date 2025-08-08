@@ -1,4 +1,3 @@
-
 const { customElements } = window;
 
 function defineMyElements (mod) {
