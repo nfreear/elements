@@ -16,7 +16,7 @@ export class MyOpenBadgeElement extends HTMLElement {
 
   get #anchorSelector () { return 'a[ href *= "credly.com" ]'; }
 
-  get #urlRegex () { return new RegExp('https://www.credly.com/badges/([0-9a-f-]{34,40})'); }
+  get #urlRegex () { return /https:\/\/www.credly.com\/badges\/([0-9a-f-]{34,40})/; }
 
   get assertionId () {
     const ELEM = this.querySelector(this.#anchorSelector);
@@ -49,6 +49,7 @@ export class MyOpenBadgeElement extends HTMLElement {
     console.assert(response.ok, `HTTP error fetching Credly badge data: ${response.status}`);
     if (response.ok) {
       const data = await response.json();
+      /* eslint-disable camelcase */
       const { http_code, content_type } = data.status;
       console.assert(/application\/json.*/.test(content_type), 'Expecting JSON');
       const badgeData = JSON.parse(data.contents);
@@ -57,6 +58,7 @@ export class MyOpenBadgeElement extends HTMLElement {
         const { message } = badgeData.data;
         throw new Error(`HTTP error (2) - Status: ${http_code}; ${message}`);
       }
+      /* eslint-enable */
       this.#ok = true;
     }
   }
@@ -75,6 +77,7 @@ export class MyOpenBadgeElement extends HTMLElement {
   }
 
   get #htmlTemplate () {
+    /* eslint-disable camelcase */
     const { badge_template, expires_at_date, image_url, issued_at_date, issued_to, id } = this.#badgeData;
     const { description, name, issuer, global_activity_url, skills } = badge_template;
     this.dataset.assertionId = id;
@@ -87,11 +90,13 @@ export class MyOpenBadgeElement extends HTMLElement {
     <h2 part="h2 name">${name}</h2>
     <p part="p issuer">${issuer.summary.replace('issued by', '')}</p>
     <p part="p date at">Issued on: <time>${issued_at_date}</time></p>
+    <p part="p to" hidden>Issued to: ${issued_to}</p>
     <p part="p desc" X_hidden>${description}</p>
     <a part="a learn" href="${global_activity_url}">Learn more</a>
     ·
     <a part="a badge" href="https://www.credly.com/badges/${id}">View badge on Credly</a>
   </template>`;
+    /* eslint-enable */
   }
 
   get #errorTemplate () {

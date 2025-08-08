@@ -41,8 +41,9 @@
     "start": "npm run build:feed && npx servor --reload",
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
-    "fix": "npx semistandard --fix",
-    "test": "npx semistandard --fix && npm run inner:count"
+    "fix": "npx eslint --fix",
+    "lint": "npx eslint --fix",
+    "test": "npm run lint && npm run inner:count"
   },
   "keywords": [
     "ndf-web-components",
@@ -60,11 +61,11 @@
     "packages/*"
   ],
   "semistandard": {
-    "globals": [ "HTMLElement" ]
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.1",
-    "semistandard": "^17.0.0",
+    "eslint": "^9.32.0",
+    "neostandard": "^0.12.2",
     "servor": "^4.0.2"
   }
 }
