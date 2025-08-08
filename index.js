@@ -27,6 +27,7 @@ export { MyYoutubeEmbedElement } from './src/components/MyYoutubeEmbedElement.js
 export { MyCodepenEmbedElement } from './src/components/MyCodepenEmbedElement.js';
 export { MyTranscriptElement } from './src/components/MyTranscriptElement.js';
 export { MyGtagElement } from './src/components/MyGtagElement.js';
+export { MyOpenBadgeElement } from './src/components/MyOpenBadgeElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 export { translate } from './src/translate.js';
