@@ -16,7 +16,7 @@ export class MyOpenBadgeElement extends HTMLElement {
 
   get imageSize () { return parseInt(this.getAttribute('image-size') || 10); }
 
-  get hasBorder () { return this.hasAttribute('border'); }
+  get addStyle () { return this.hasAttribute('add-style'); }
 
   get #anchorSelector () { return 'a[ href *= "credly.com" ]'; }
 
@@ -37,7 +37,7 @@ export class MyOpenBadgeElement extends HTMLElement {
     // return `https://api.allorigins.win/get?url=${encodeURIComponent(this.#apiUrl)}`;
   }
 
-  #createRequest () {
+  #createHttpRequest () {
     return new Request(this.#corsProxyUrl, {
       // credentials: 'omit',
       mode: 'cors',
@@ -49,14 +49,14 @@ export class MyOpenBadgeElement extends HTMLElement {
   }
 
   async #fetchBadgeData () {
-    const response = await fetch(this.#createRequest());
+    const response = await fetch(this.#createHttpRequest());
     console.assert(response.ok, `HTTP error fetching Credly badge data: ${response.status}`);
     if (response.ok) {
-      const data = await response.json();
+      const proxyData = await response.json();
       /* eslint-disable camelcase */
-      const { http_code, content_type } = data.status;
+      const { http_code, content_type } = proxyData.status;
       console.assert(/application\/json.*/.test(content_type), 'Expecting JSON');
-      const badgeData = JSON.parse(data.contents);
+      const badgeData = JSON.parse(proxyData.contents);
       this.#badgeData = badgeData.data;
       if (http_code !== 200) {
         const { message } = badgeData.data;
@@ -76,18 +76,31 @@ export class MyOpenBadgeElement extends HTMLElement {
       this.dataset.error = ex;
     }
     attachTemplate(this.#ok ? this.#htmlTemplate : this.#errorTemplate).to.shadowDOM(this);
-    this.#applyBorderStyle();
 
     console.debug('my-open-badge:', this.#ok, this.#badgeData);
   }
 
-  #applyBorderStyle () {
-    if (this.hasBorder) {
-      this.style.border = '1px solid silver';
-      this.style.borderRadius = '.5rem';
-      this.style.display = 'block';
-      this.style.padding = '.5rem';
-    }
+  get #stylesheet () {
+    if (!this.addStyle) { return ''; }
+    return `
+  :host {
+    border: 1px solid silver;
+    border-radius: .5rem;
+    display: block;
+    padding: .5rem;
+  }
+  img {
+    display: block;
+    margin: auto;
+  }
+  summary::marker {
+    font-size: larger;
+  }
+  sep::before {
+    content: '·';
+    display: inline-block;
+    margin: 0 0.6rem;
+  }`;
   }
 
   get #htmlTemplate () {
@@ -100,6 +113,7 @@ export class MyOpenBadgeElement extends HTMLElement {
     this.dataset.ready = true;
     return `
   <template>
+  <style>${this.#stylesheet}</style>
   <details part="details">
   <summary part="summary">
     <img part="img" alt="${name}" title="${name}" src="${image_url}" style="max-height:${this.imageSize}rem;">
@@ -107,14 +121,15 @@ export class MyOpenBadgeElement extends HTMLElement {
   <div part="div">
     <h2 part="h2 name">${name}</h2>
     <p part="p issuer">${issuer.summary.replace('issued by', '')}</p>
-    <p part="p date at">Issued on: <time>${issued_at_date}</time>
-      <span part="span date exp">· Expires on: <time>${expires_at_date}</time></span>
+    <p part="p date at">Issued on: <time>${issued_at_date}</time><span
+      part="span date exp"><sep part="sep"
+      ></sep>Expires on: <time>${expires_at_date}</time></span>
     </p>
     <p part="p to" hidden>Issued to: ${issued_to}</p>
     <p part="p desc" X_hidden>${description}</p>
-    <a part="a learn" href="${global_activity_url}">Learn more</a>
-    ·
-    <a part="a badge" href="https://www.credly.com/badges/${id}">View badge on Credly</a>
+    <a part="a learn" href="${global_activity_url}"
+    >Learn more</a><sep part="sep"
+    ></sep><a part="a badge" href="https://www.credly.com/badges/${id}">View badge on Credly</a>
   </div>
   </details>
   </template>`;
