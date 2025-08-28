@@ -14,6 +14,10 @@ export class MyOpenBadgeElement extends HTMLElement {
 
   static getTag () { return 'my-open-badge'; }
 
+  get imageSize () { return parseInt(this.getAttribute('image-size') || 10); }
+
+  get hasBorder () { return this.hasAttribute('border'); }
+
   get #anchorSelector () { return 'a[ href *= "credly.com" ]'; }
 
   get #urlRegex () { return /https:\/\/www.credly.com\/badges\/([0-9a-f-]{34,40})/; }
@@ -72,8 +76,18 @@ export class MyOpenBadgeElement extends HTMLElement {
       this.dataset.error = ex;
     }
     attachTemplate(this.#ok ? this.#htmlTemplate : this.#errorTemplate).to.shadowDOM(this);
+    this.#applyBorderStyle();
 
     console.debug('my-open-badge:', this.#ok, this.#badgeData);
+  }
+
+  #applyBorderStyle () {
+    if (this.hasBorder) {
+      this.style.border = '1px solid silver';
+      this.style.borderRadius = '.5rem';
+      this.style.display = 'block';
+      this.style.padding = '.5rem';
+    }
   }
 
   get #htmlTemplate () {
@@ -86,15 +100,23 @@ export class MyOpenBadgeElement extends HTMLElement {
     this.dataset.ready = true;
     return `
   <template>
-    <img part="img" alt="" src="${image_url}" style="max-height:10rem;">
+  <details part="details">
+  <summary part="summary">
+    <img part="img" alt="${name}" title="${name}" src="${image_url}" style="max-height:${this.imageSize}rem;">
+  </summary>
+  <div part="div">
     <h2 part="h2 name">${name}</h2>
     <p part="p issuer">${issuer.summary.replace('issued by', '')}</p>
-    <p part="p date at">Issued on: <time>${issued_at_date}</time></p>
+    <p part="p date at">Issued on: <time>${issued_at_date}</time>
+      <span part="span date exp">· Expires on: <time>${expires_at_date}</time></span>
+    </p>
     <p part="p to" hidden>Issued to: ${issued_to}</p>
     <p part="p desc" X_hidden>${description}</p>
     <a part="a learn" href="${global_activity_url}">Learn more</a>
     ·
     <a part="a badge" href="https://www.credly.com/badges/${id}">View badge on Credly</a>
+  </div>
+  </details>
   </template>`;
     /* eslint-enable */
   }
