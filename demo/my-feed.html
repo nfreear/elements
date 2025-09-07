@@ -34,7 +34,7 @@
 
   <h3> BBC News &mdash; Top Stories </h3>
 
-  <my-feed href="tojson:http://feeds.bbci.co.uk/news/rss.xml">Loading …</my-feed>
+  <my-feed to-json href="https://feeds.bbci.co.uk/news/rss.xml">Loading …</my-feed>
 
   <h3> <a href="https://pinboard.in/u:ndf">Pinboard bookmarks (ndf)</a> </h3>
 
@@ -42,6 +42,21 @@
 
 </my-page>
 
-<script type="module" src="../index.js"></script>
+<!-- <script type="module" src="../index.js"></script> -->
+
+<script type="importmap">
+{
+  "imports": {
+    "ndf-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-feed" ]
+  }
+}
+</script>
+
+<script type="module">
+  import 'ndf-elements';
+</script>
 
 </html>

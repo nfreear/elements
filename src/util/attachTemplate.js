@@ -24,4 +24,15 @@ export function attachTemplate (templateHtml) {
   };
 }
 
+export function strip (str) {
+  return str.replace(/[<>&"]/g, '');
+}
+
+export function safeUrl (url) {
+  return url.replace(/javascript:/g, 'zz:');
+}
+
+// A useful alias!
+export const appendTemplate = attachTemplate;
+
 export default attachTemplate;
