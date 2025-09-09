@@ -1,0 +1,63 @@
+<!doctype html><html lang="en">
+
+<link rel="stylesheet" href="style/app.v2.css">
+<style>
+  #myDiv { line-height: 1.7; }
+</style>
+
+<title>Trusted Types test</title>
+
+<h1>Trusted Types test</h1>
+
+<div id="myDiv">Loading Trusted Types polyfill...</div>
+
+
+<script type="uncleanHTML">
+  <img src=x onerror=alert(1)>
+  <script>console.error("BAD")</scr+ipt>
+  <object>BAD</object> ,
+  <iframe src="#_Bad"></iframe> ,
+  <applet>Bad</applet> ,
+  <A href="Javascript:alert(2)">Javascript: dodgy link</A> ,
+  <a href="#" onclick="alert(3)">Dodgy 2</a> ,
+  <A href="#">Clean link</A> ,
+  <a class="X">Non-link</a>.
+</script>
+
+
+<script type="importmap">
+{
+  "imports": {
+    "MyTrustedTypes": "../src/util/MyTrustedTypes.js"
+  }
+}
+</script>
+
+<script type="module">
+  import MyTrustedTypes from 'MyTrustedTypes';
+
+  const elem = document.querySelector('#myDiv');
+  const uncleanHTML = document.querySelector('script[ type = uncleanHTML ]').textContent;
+  const myTrustedTypes = new MyTrustedTypes();
+
+  /* myTrustedTypes.load().then((mttObj) => {
+    console.debug('TT obj:', mttObj);
+
+    const escaped = mttObj.createHTML('allowAnchor', uncleanHTML);
+
+    console.log('Trusted HTML?', mttObj, escaped instanceof TrustedHTML, escaped.toString()); // true
+
+    elem.innerHTML = escaped.toString();
+  }); */
+
+  (async () => {
+    await myTrustedTypes.load();
+
+    const escaped = myTrustedTypes.createHTML('allowAnchor', uncleanHTML);
+
+    console.assert(escaped instanceof TrustedHTML, 'Expecting trustedHTML');
+    console.log('Trusted HTML?', myTrustedTypes, escaped.toString()); // true
+
+    elem.innerHTML = escaped.toString();
+  })();
+</script>
