@@ -85,12 +85,13 @@ export class MyFeedElement extends HTMLElement {
   #makeListItem (item, open) {
     const { skip, guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
 
-    if (skip) return '<!-- skip -->';
+    if (skip) return '<template><!-- skip --></template>';
 
     // @TODO: security! - _saferHtml()
     const CONTENT = content || content_html || null; /* eslint-disable-line camelcase */
-    const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${strip(CONTENT)}</details>` : null;
+    const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${CONTENT}</details>` : null;
     // Be liberal in what we accept - 'link' or 'url'.
+    // console.debug('makeListItem:', item);
     return `<template>
     <li>
     <a part="a" data-tags="${tags ? tags.join(',') : ''}" data-guid="${strip(guid || '')}"

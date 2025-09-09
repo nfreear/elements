@@ -9,7 +9,9 @@ export function attachTemplate (templateHtml) {
   const doc = parser.parseFromString(templateHtml, 'text/html');
 
   const template = doc.querySelector('template');
-  console.assert(template);
+  if (!template) {
+    throw new Error('Missing <template> element. Can\'t clone node.');
+  }
   const docFragment = template.content.cloneNode(true);
 
   return {
