@@ -104,7 +104,7 @@ export class MyFeedElement extends HTMLElement {
     const req = this.#createRequest();
     const resp = await fetch(req);
     if (!resp.ok) {
-      throw new Error(`MyFeedElement (fetch): ${resp.status} ~ ${uri}`);
+      throw new Error(`MyFeedElement (fetch): ${resp.status} ~ ${resp.url}`);
     }
     const data = await resp.json();
 

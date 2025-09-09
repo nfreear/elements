@@ -13,7 +13,7 @@ export class MySearchElement extends window.HTMLElement {
   get cx () {
     const CX = this.getAttribute('cx'); // || '001222343498871500969:-u73i2qfu2s';
     console.assert(CX, '"cx" - Required attribute');
-    return CX;
+    return CX || undefined;
   }
 
   get label () { return this.getAttribute('label') || 'Search'; }

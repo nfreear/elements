@@ -1,4 +1,3 @@
-
 const { HTMLElement } = window;
 
 /**
@@ -52,7 +51,6 @@ export class MyYoutubeEmbedElement extends HTMLElement {
   _onYouTubeIframeAPIReady (playerElem) {
     window.onYouTubeIframeAPIReady = () => {
       const { YT } = window;
-      console.debug('onYouTubeIframeAPIReady:', YT.PlayerState, YT);
       this._player = new YT.Player(playerElem, {
         height: this.height,
         width: this.width,
@@ -65,6 +63,8 @@ export class MyYoutubeEmbedElement extends HTMLElement {
           onStateChange: (ev) => this._onPlayerStateChange(ev)
         }
       });
+      console.debug('onYouTubeIframeAPIReady:', this._player, YT.PlayerState, YT);
+      this.dataset.ready = true;
     };
   }
 
@@ -81,6 +81,7 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     // target.setPlaybackRate(2);
     const RATE = target.getPlaybackRate();
     console.debug('onPlayerReady:', RATE, videoId, ev);
+    this.dataset.ready = true;
   }
 
   _onPlayerStateChange (ev) {
