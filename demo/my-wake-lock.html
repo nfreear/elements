@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <link rel="stylesheet" href="style/app.v2.css">
+  <link rel="stylesheet" href="../src/style/my-wake-lock.css">
+
+  <title>Wake lock</title>
+
+  <h1> Wake lock test</h1>
+
+  <p>
+    <my-wake-lock style="--switch-on-color: #e01581;">My test</my-wake-lock>
+  </p>
+
+<script type="importmap">
+{
+  "imports": {
+    "ndf-elements": "../i.js"
+  },
+  "myElements": {
+    "use": [ "my-wake-lock" ]
+  }
+}
+</script>
+
+<script type="module"> import 'ndf-elements' </script>
+
+<!--
+<p class="wprm-toggle-switch-container wprm-toggle-switch-rounded">
+  <label for="cb" class="wprm-toggle-switch">
+    <input type="checkbox" id="cb">
+    <span class="wprm-toggle-switch-slider"></span>
+    <span>Wake lock</span>
+  </label>
+</p>
+<p>
+  <output>-</output>
+</p>
+-->
+
+<script type="XXX">
+/**
+* https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API#
+* https://demo.wprecipemaker.com/prevent-sleep-toggle/
+*/
+
+  let wakeLock = null;
+
+  const checkBox = document.querySelector('#cb');
+  const statusElem = document.querySelector('output');
+
+  checkBox.addEventListener('change', async (ev) => {
+    console.debug('change (wakeLock):', wakeLock, ev);
+    if (wakeLock) {
+      wakeLock.release().then(() => {
+        wakeLock = null;
+        statusElem.value = 'Wake lock released.'
+      });
+    } else {
+      try {
+        wakeLock = await navigator.wakeLock.request("screen");
+        statusElem.textContent = "Wake Lock is active!";
+      } catch (err) {
+        // The Wake Lock request has failed - usually system related, such as battery.
+        statusElem.textContent = `${err.name}, ${err.message}`;
+      }
+    }
+  });
+
+  if (!wakeLockSupported) {
+    statusElem.value = 'Wake lock is not supported by this browser.';
+  }
+
+  function wakeLockSupported () {
+    return ('wakeLock' in navigator);
+  }
+</script>
+
+</html>

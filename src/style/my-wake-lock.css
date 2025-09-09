@@ -1,0 +1,105 @@
+
+:root {
+  --X-switch-height: 25px;
+  --switch-height: 2rem;
+  --switch-on-color: #333;
+  --switch-on-color: #e01581;
+  --knob-size: calc(var(--switch-height) * 0.8);
+  --switch-off-color: #ccc;
+  --switch-off-text: #333;
+  --switch-off-knob: #fff;
+  --switch-on-text: #fff;
+  --switch-on-knob: #fff;
+}
+
+my-wake-lock::part(container),
+.wprm-toggle-switch-container {
+    align-items: center;
+    X-display: flex;
+    margin: 10px 0;
+
+}
+
+my-wake-lock::part(button),
+my-wake-lock::part(label),
+.wprm-toggle-switch-container label {
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 1em;
+    margin: 0;
+}
+
+my-wake-lock::part(slider),
+.wprm-toggle-switch-slider {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+    gap: 5px;
+    position: relative;
+    -webkit-transition: .4s;
+    transition: .4s;
+    height: var(--switch-height);
+    background-color: var(--switch-off-color);
+
+    width: calc(var(--switch-height) * 2);
+
+    border: 1px solid gray;
+}
+
+my-wake-lock::part(slider),
+.wprm-toggle-switch-rounded .wprm-toggle-switch-slider {
+    border-radius: 999px;
+}
+
+my-wake-lock::part(slider):before,
+.wprm-toggle-switch .wprm-toggle-switch-slider:before {
+    background-color: var(--switch-off-knob);
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: var(--knob-size);
+    left: calc(var(--knob-size) / 5);
+    position: absolute;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: var(--knob-size);
+
+    border: 1px solid gray;
+}
+
+my-wake-lock::part(slider-on):before,
+input:checked + .wprm-toggle-switch-slider:before {
+    background-color: var(--switch-on-knob);
+    left: calc(100% - var(--knob-size) - var(--knob-size) / 5);
+}
+
+my-wake-lock::part(slider-on),
+input:checked + .wprm-toggle-switch-slider {
+  background-color: var(--switch-on-color);
+}
+
+my-wake-lock::part(output) {
+  display: block;
+  margin: 1rem 0;
+}
+
+my-wake-lock::part(text) {
+  padding: .4rem;
+  padding-right: 1rem;
+  X-vertical-align: middle;
+}
+
+my-wake-lock::part(button) {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0;
+  outline-offset: .4rem;
+}
+
+X_my-wake-lock::part(input) {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+}
