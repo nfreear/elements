@@ -1,6 +1,7 @@
-import MyMinElement from '../MyMinElement.js';
+import attachTemplate from '../util/attachTemplate.js';
+// import MyMinElement from '../MyMinElement.js';
 
-const { fetch } = window;
+const { fetch, HTMLElement } = window;
 
 /**
  * Display transcript for an iframe-based embed (E.g. <my-loom-embed>)
@@ -11,12 +12,15 @@ const { fetch } = window;
  * @status experimental
  * @since 1.8.0
  */
-export class MyTranscriptElement extends MyMinElement {
+export class MyTranscriptElement extends HTMLElement {
+  #captions;
+  #listItems;
+
   static getTag () { return 'my-transcript'; }
 
   get open () { return this.hasAttribute('open') ? 'open' : ''; }
 
-  get _template () {
+  get #htmlTemplate () {
     return `
 <template>
   <style> [ part *= ' active' ] { border: 1px solid #b00; } </style>
@@ -40,24 +44,24 @@ export class MyTranscriptElement extends MyMinElement {
     // console.assert(url, '"embed-origin" (iframe) - Attribute required.');
   }
 
-  get _vttParserJs () { return 'https://unpkg.com/@plussub/srt-vtt-parser@^2/dist/index.js'; }
+  get #vttParserJs () { return 'https://unpkg.com/@plussub/srt-vtt-parser@^2/dist/index.js'; }
 
   async connectedCallback () {
     console.assert(this.embedOrigin, '"embed-origin" (iframe) - Attribute required for dynamic transcript.');
 
-    await this._fetchAndParseCaptionFile();
+    await this.#fetchAndParseCaptionFile();
 
-    this._attachLocalTemplate(this._template);
+    attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
 
-    this._listItems = this._createCaptionElements();
+    this.#listItems = this.#createCaptionElements();
 
     if (this.embedOrigin) {
-      window.addEventListener('message', (ev) => this._onMessageEvent(ev));
+      window.addEventListener('message', (ev) => this.#onMessageEvent(ev));
     }
   }
 
-  async _parseCaptions (data) {
-    const { parse } = await import(this._vttParserJs);
+  async #parseCaptions (data) {
+    const { parse } = await import(this.#vttParserJs);
     console.assert(parse, 'Expecting "parse" function.');
 
     const CAP = parse(data);
@@ -65,52 +69,52 @@ export class MyTranscriptElement extends MyMinElement {
     return CAP;
   }
 
-  async _fetchAndParseCaptionFile () {
+  async #fetchAndParseCaptionFile () {
     const RESP = await fetch(this.href);
     if (!RESP.ok) {
       throw new Error(`Caption fetch error: ${RESP.status} ~ ${this.href}`);
     }
     const TEXT = await RESP.text();
-    const CAP = await this._parseCaptions(TEXT);
+    const CAP = await this.#parseCaptions(TEXT);
 
     console.debug('my-transcript, Captions:', CAP.entries.length, CAP, this);
-    this._captions = CAP.entries;
-    return this._captions;
+    this.#captions = CAP.entries;
+    return this.#captions;
   }
 
-  _createCaptionElements () {
-    return this._captions.map(({ id, from, to, text }) => {
+  #createCaptionElements () {
+    return this.#captions.map(({ id, from, to, text }) => {
       const listItem = document.createElement('li');
       listItem.textContent = text;
       listItem.dataset.cid = id;
       listItem.dataset.from = from;
       listItem.dataset.to = to;
-      this._listElement.appendChild(listItem);
+      this.#listElement.appendChild(listItem);
       return listItem;
     });
   }
 
-  _resetCaptionElements () {
+  #resetCaptionElements () {
     this._listItems.forEach((el) => { el.setAttribute('part', 'li inactive'); });
   }
 
-  _queryCaptionElement (cid) {
-    return this._listElement.querySelector(`[data-cid = "${cid}"]`);
+  #queryCaptionElement (cid) {
+    return this.#listElement.querySelector(`[data-cid = "${cid}"]`);
   }
 
-  get _listElement () {
+  get #listElement () {
     return this.shadowRoot.querySelector('ol');
   }
 
-  _findCaption (seconds) {
+  #findCaption (seconds) {
     const millis = parseInt(1000 * seconds);
-    return this._captions.find(({ from, to }) => millis >= from && millis <= to);
+    return this.#captions.find(({ from, to }) => millis >= from && millis <= to);
   }
 
   /** Relies on player.js on <iframe>
    * @see https://github.com/embedly/player.js
    */
-  _onMessageEvent (ev) {
+  #onMessageEvent (ev) {
     if (ev.origin !== this.embedOrigin) { return; }
 
     const DATA = JSON.parse(ev.data);
@@ -118,10 +122,10 @@ export class MyTranscriptElement extends MyMinElement {
 
     if (event === 'timeupdate') {
       const { seconds } = value;
-      const caption = this._findCaption(seconds);
+      const caption = this.#findCaption(seconds);
       if (caption) {
-        this._resetCaptionElements();
-        const itemElem = this._queryCaptionElement(caption.id);
+        this.#resetCaptionElements();
+        const itemElem = this.#queryCaptionElement(caption.id);
         itemElem.setAttribute('part', 'li active');
         // itemElem.dataset.active = true;
 

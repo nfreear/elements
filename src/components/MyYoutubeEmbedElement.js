@@ -20,14 +20,14 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     return EL;
   }
 
-  get _ytJavaScript () { return 'https://www.youtube.com/iframe_api'; }
+  get #ytJavaScript () { return 'https://www.youtube.com/iframe_api'; }
 
-  get _urlRegex () { return /(youtu.be\/|youtube.com\/watch\?v=)(.+)/; }
+  get #urlRegex () { return /(youtu.be\/|youtube.com\/watch\?v=)(.+)/; }
 
   get video () {
     const ytUrl = this.childAnchorElem.href;
     const text = this.childAnchorElem.textContent;
-    const M = ytUrl.match(this._urlRegex);
+    const M = ytUrl.match(this.#urlRegex);
     console.assert(M, `YouTube URL doesn't match: ${ytUrl}`);
     return M ? { id: M[2], text } : null;
   }
@@ -43,12 +43,12 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     shadow.appendChild(slotElem);
     shadow.appendChild(divElem);
 
-    this._onYouTubeIframeAPIReady(divElem);
+    this.#onYouTubeIframeAPIReady(divElem);
 
-    await this._loadJavascript(shadow);
+    await this.#loadJavascript(shadow);
   }
 
-  _onYouTubeIframeAPIReady (playerElem) {
+  #onYouTubeIframeAPIReady (playerElem) {
     window.onYouTubeIframeAPIReady = () => {
       const { YT } = window;
       this._player = new YT.Player(playerElem, {
@@ -59,8 +59,8 @@ export class MyYoutubeEmbedElement extends HTMLElement {
           playsinline: 1
         },
         events: {
-          onReady: (ev) => this._onPlayerReady(ev),
-          onStateChange: (ev) => this._onPlayerStateChange(ev)
+          onReady: (ev) => this.#onPlayerReady(ev),
+          onStateChange: (ev) => this.#onPlayerStateChange(ev)
         }
       });
       console.debug('onYouTubeIframeAPIReady:', this._player, YT.PlayerState, YT);
@@ -68,7 +68,7 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     };
   }
 
-  _onPlayerReady (ev) {
+  #onPlayerReady (ev) {
     const { target } = ev;
     const { videoId } = target.options;
     this.dataset.videoId = videoId;
@@ -84,12 +84,12 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     this.dataset.ready = true;
   }
 
-  _onPlayerStateChange (ev) {
-    const STATE = this._state(ev.data);
+  #onPlayerStateChange (ev) {
+    const STATE = this.#state(ev.data);
     console.debug('onPlayerStateChange:', STATE.text, ev);
   }
 
-  _state (id) {
+  #state (id) {
     const STATES = [
       { id: 3, text: 'buffering' },
       { id: 5, text: 'cued' },
@@ -103,10 +103,10 @@ export class MyYoutubeEmbedElement extends HTMLElement {
     return state;
   }
 
-  async _loadJavascript (parent) {
+  async #loadJavascript (parent) {
     // return await import('https://www.youtube.com/iframe_api');
     const SCRIPT = document.createElement('script');
-    SCRIPT.src = this._ytJavaScript;
+    SCRIPT.src = this.#ytJavaScript;
     parent.appendChild(SCRIPT);
   }
 }

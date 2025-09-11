@@ -1,3 +1,5 @@
+import attachTemplate from '../util/attachTemplate.js';
+
 /**
  * Boilerplate template.
  *
@@ -9,12 +11,15 @@
  * @status beta
  * @since 1.0.0
  */
-
-import { MyElement } from '../MyElement.js';
-
-export class MyFoobarElement extends MyElement {
+export class MyFoobarElement extends HTMLElement {
   static getTag () {
     return 'my-foobar';
+  }
+
+  get #htmlTemplate () {
+    return `
+    <template>Hello world!</template>
+    `;
   }
 
   /* constructor () { // "Useless constructor"!
@@ -24,7 +29,8 @@ export class MyFoobarElement extends MyElement {
   async connectedCallback () {
     // const name = this.getAttribute('name') || 'A name attribute';
 
-    await this.getTemplate('my-foobar');
+    attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
+    // Was: await this.getTemplate('my-foobar');
 
     console.debug('my-foobar:', this);
   }

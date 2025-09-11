@@ -1,6 +1,6 @@
-import MyMinElement from '../MyMinElement.js';
+import attachTemplate from '../util/attachTemplate.js';
 
-const { location } = window;
+const { HTMLElement, location } = window;
 
 /**
  * A Global Accessibility Awareness Day banner.
@@ -12,41 +12,42 @@ const { location } = window;
  * @TODO ~ Monitor hard-coded date-text in template!
  * @see https://github.com/nfreear/gaad-widget/blob/3.x/data/gaad.json
  */
-export class MyGaadWidgetElement extends MyMinElement {
+export class MyGaadWidgetElement extends HTMLElement {
   static getTag () { return 'my-gaad-widget'; }
 
   // Simple test for the month of May!
-  get _isMay () { return new Date().getMonth() === 4; }
+  get #isMay () { return new Date().getMonth() === 4; }
 
-  get _force () { return /gaad=force/.test(location.search); }
+  get #forceUrl () { return /gaad=force/.test(location.search); }
 
-  get _year () { return new Date().getFullYear(); }
+  get #year () { return new Date().getFullYear(); }
 
-  get _styleUrl () { return 'https://nfreear.github.io/elements/src/style/my-gaad-widget.css'; }
-  get _gaadUrl () { return 'https://accessibility.day/?utm_source=github&utm_campaign=gaad-widget'; }
-  get _icalUrl () { return 'https://unpkg.com/gaad-widget@^3/data/gaad.en.ics'; }
+  get #styleUrl () { return 'https://nfreear.github.io/elements/src/style/my-gaad-widget.css'; }
+  get #gaadUrl () { return 'https://accessibility.day/?utm_source=github&utm_campaign=gaad-widget'; }
+  get #icalUrl () { return 'https://unpkg.com/gaad-widget@^3/data/gaad.en.ics'; }
 
   connectedCallback () {
-    if (this._shouldShow) {
-      this._attachLocalTemplate(this._template);
-      this._setDataYear();
+    if (this.#shouldShow) {
+      attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
+      // this._attachLocalTemplate(this._template);
+      this.#setDataYear();
     }
 
-    console.debug('my-gaad-widget:', this._shouldShow, this);
+    console.debug('my-gaad-widget:', this.#shouldShow, this);
   }
 
-  get _shouldShow () { return this._isMay || this._force; }
+  get #shouldShow () { return this.#isMay || this.#forceUrl; }
 
-  _setDataYear () {
+  #setDataYear () {
     const ELEM = this.shadowRoot.querySelector('.gaad-widget-js');
-    ELEM.dataset.year = this._year;
+    ELEM.dataset.year = this.#year;
   }
 
-  get _template () {
+  get #htmlTemplate () {
     // <style>${this._stylesheet}</style>
     return `
 <template>
-  <link rel="stylesheet" href="${this._styleUrl}">
+  <link rel="stylesheet" href="${this.#styleUrl}">
   <div
     part="div"
     lang="en" dir="ltr"
@@ -61,10 +62,10 @@ export class MyGaadWidgetElement extends MyMinElement {
   <i class="tx y2029" hidden>17th, 2029 and mark the 18th</i>
   <i class="tx y2030" hidden>16th, 2030 and mark the 19th</i>
 
-  <a part="a" href="${this._gaadUrl}" target="_top">Global Accessibility Awareness Day (GAAD)</a>.
+  <a part="a" href="${this.#gaadUrl}" target="_top">Global Accessibility Awareness Day (GAAD)</a>.
   <div class="w">
     <a class="p" href="https://github.com/nfreear/gaad-widget#usage" aria-label="Put gaad-widget on your web site (v3.4.0)" target="_top">↓</a>
-    <a class="c" part="ical" href="${this._icalUrl}" aria-label="Download an iCal calendar file" title="Download an iCal calendar file"
+    <a class="c" part="ical" href="${this.#icalUrl}" aria-label="Download an iCal calendar file" title="Download an iCal calendar file"
     >📆</a>
   </div>
   </div>
