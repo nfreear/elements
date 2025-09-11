@@ -47,20 +47,20 @@ export class MyIframeElement extends HTMLElement {
     return iframeEl;
   }
 
-  get _playerJsScript () {
+  get #playerJsScript () {
     return `https://unpkg.com/player.js@0.1.0/dist/player-0.1.0${this.debug ? '' : '.min'}.js`;
   }
 
-  get _playerJsLegacy () { return 'https://cdn.embed.ly/player-0.1.0.min.js'; }
+  get #playerJsLegacy () { return 'https://cdn.embed.ly/player-0.1.0.min.js'; }
 
   async _loadPlayerJs () {
-    await import(this._playerJsScript);
+    await import(this.#playerJsScript);
     return window.playerjs;
   }
 
-  async _loadPlayerJsLegacy () {
+  async #loadPlayerJsLegacy () {
     const SCR = document.createElement('script');
-    SCR.src = this._playerJsScript;
+    SCR.src = this.#playerJsScript;
     const PR = new Promise((resolve, reject) => {
       SCR.onload = (ev) => setTimeout(() => resolve(window.playerjs), 100);
       SCR.onerror = (ev) => reject(new Error('Player.JS loading error!'));
