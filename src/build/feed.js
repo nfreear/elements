@@ -58,13 +58,13 @@ function metaDataToFeed (data) {
     const tags = status ? status.split(/, ?/) : [];
     const url = `${GH_URL}/${fileName}`;
     // eslint-disable-next-line camelcase
-    const content_html = `<p part="p">${desc}</p>
+    const content_html = `<p>${desc}</p>
 <ul>
-<li><i part="k i">Demo:</i> <a href="${demoUrl || '#'}">${demoUrl}</a>
-<li><i part="k i">Status:</i> ${status || ''}
-<li><i part="k i">className:</i> <code>${className}</code>
-<li><i part="k i">parentClass:</i> <code>${parentClass}</code>
-<li><i part="k i">tagName:</i> <code>&lt;${tagName}></code>
+<li><x>Demo:</x> <a href="${demoUrl || '#'}">${demoUrl}</a>
+<li><x>Status:</x> ${status || ''}
+<li><x>className:</x> <code>${className}</code>
+<li><x>parentClass:</x> <code>${parentClass}</code>
+<li><x>tagName:</x> <code>&lt;${tagName}></code>
 </ul>`;
 
     return { id, title, url, tags, content_html, _ext: it }; /* eslint-disable-line camelcase */

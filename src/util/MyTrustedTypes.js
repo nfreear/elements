@@ -19,8 +19,9 @@ export class MyTrustedTypes {
     return {
       lessThan: /</g,
       allTags: /</g,
-      allowAnchorLink: /<(?!a href=|\/a>)/ig,
+      allowAnchorLink: /<(?!a href=|\/a>)/ig, // Negative lookahead assertion.
       notAnchorLink: /<(?!a href=|\/a>)/ig,
+      allowAnchorListPlus: /<(?!a href=|\/a|\/?ul|\/?li|\/?p|\/?x|\/?code>)/ig,
       javascriptColon: /javascript:/ig,
       onEvent: /on(\w+)[ ]*=/ig,
     };
@@ -49,17 +50,21 @@ export class MyTrustedTypes {
 
       this.#policies.push({
         id: 'allowAnchor',
-        policy: trustedTypes.createPolicy('myEscapePolicy', {
-        // createHTML: (string) => string.replace(/</g, "&lt;"),
-        /* createHTML: (str) => str.replace(/on(\w+)=/ig, 'on-ZZ-$1=')
-                                .replace(/<(\/?)(script|object|embed|i?frame|style)/ig, '&lt;$1$2')
-                                .replace(/javascript:/ig, 'ZZ-scrip:'), */
+        policy: trustedTypes.createPolicy('allowAnchor', {
+        // createHTML: (str) => str.replace(/<(\/?)(script|object|embed|i?frame|style)/ig, '&lt;$1$2')
 
           createHTML: (str) => str.replace(this.#RE.allowAnchorLink, this.#replace.lessThanEntity)
-          // .replace(/<([^a][^ ]|\/[^a])/ig, '&lt;$1') // /<(?!(a|b) )/ig
-          // .replace(/<\/([^a])/ig, '&lt;/$1')
             .replace(this.#RE.javascriptColon, this.#replace.cleanJavascriptColon)
             .replace(this.#RE.onEvent, this.#replace.cleanOnEvent)
+        })
+      });
+
+      this.#policies.push({
+        id: 'allowAnchorListPlus',
+        policy: trustedTypes.createPolicy('allowAnchorListPlus', {
+          createHTML: (str) => str.replace(this.#RE.onEvent, this.#replace.cleanOnEvent)
+            .replace(this.#RE.javascriptColon, this.#replace.cleanJavascriptColon)
+            .replace(this.#RE.allowAnchorListPlus, this.#replace.lessThanEntity)
         })
       }); // push.
 

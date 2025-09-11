@@ -3,7 +3,7 @@ const { HTMLElement, localStorage } = window;
 /**
  * Embed analytics without cookies.
  *
- * Easily embed Google Analytics - use <tt>localStorage</tt> instead of cookies, and anonyise the IP address.
+ * Easily embed Google Analytics - use <code>localStorage</code> instead of cookies, and anonyise the IP address.
  *
  * @copyright © Nick Freear, 28-June-2021.
  *

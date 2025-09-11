@@ -1,13 +1,30 @@
 <!doctype html><html lang="en">
 
+<meta
+  http-equiv="Content-Security-Policy"
+  content="require-trusted-types-for 'script'; trusted-types allowAnchor allowAnchorListPlus"
+>
+
 <link rel="stylesheet" href="style/app.v2.css">
 <style>
-  #myDiv { line-height: 1.7; }
+  #myDiv {
+    background: #eee;
+    border: 1px solid silver;
+    line-height: 1.8;
+    margin: 2rem 0;
+    padding: 1rem;
+  }
 </style>
 
 <title>Trusted Types test</title>
 
 <h1>Trusted Types test</h1>
+
+<p>Uses a <tt>Content-Security-Policy</tt> header with <tt>require-trusted-types-for</tt>.
+  And, uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API">Trusted Types API</a>
+  to sanitize input HTML data.
+</p>
+
 
 <div id="myDiv">Loading Trusted Types polyfill...</div>
 
@@ -56,8 +73,11 @@
     const escaped = myTrustedTypes.createHTML('allowAnchor', uncleanHTML);
 
     console.assert(escaped instanceof TrustedHTML, 'Expecting trustedHTML');
-    console.log('Trusted HTML?', myTrustedTypes, escaped.toString()); // true
+    console.log('Trusted HTML?', myTrustedTypes, escaped); // true
 
-    elem.innerHTML = escaped.toString();
+    // elem.innerHTML = 'Hello world!'; // "my-trusted-types.html:64 This document requires 'TrustedHTML' assignment."
+    elem.innerHTML = escaped;
   })();
 </script>
+
+</html>

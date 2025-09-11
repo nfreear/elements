@@ -75,6 +75,7 @@ h2 {
 body {
   color: #222;
   font-family: sans-serif;
+  line-height: 1.6;
   margin: auto;
   max-width: 36rem;
   padding: 0 1rem;

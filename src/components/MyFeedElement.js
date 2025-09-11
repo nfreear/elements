@@ -1,4 +1,5 @@
 import { appendTemplate, safeUrl, strip } from '../util/attachTemplate.js';
+import MyTrustedTypes from '../util/MyTrustedTypes.js';
 // Was: import MyElement from '../MyElement.js';
 
 const { fetch, HTMLElement, Request, location } = window;
@@ -15,6 +16,8 @@ const { fetch, HTMLElement, Request, location } = window;
  * @since 1.3.0
  */
 export class MyFeedElement extends HTMLElement {
+  #trustedTypes;
+
   static getTag () { return 'my-feed'; }
 
   get href () {
@@ -45,6 +48,7 @@ export class MyFeedElement extends HTMLElement {
   }
 
   async connectedCallback () {
+    await this.#loadTrustedTypes();
     const { data, resp, req } = await this.#fetchFeed();
 
     const FILTERED = this.#filterItems(data.items);
@@ -82,14 +86,17 @@ export class MyFeedElement extends HTMLElement {
     return filtered;
   }
 
+  get #policyId () { return 'allowAnchorListPlus'; }
+
   #makeListItem (item, open) {
+    const createHTML = (s) => this.#trustedTypes.createHTML(this.#policyId , s);
     const { skip, guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
 
     if (skip) return '<template><!-- skip --></template>';
 
     // @TODO: security! - _saferHtml()
     const CONTENT = content || content_html || null; /* eslint-disable-line camelcase */
-    const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${CONTENT}</details>` : null;
+    const DETAILS = CONTENT ? `<details part="details" ${open ? 'open' : ''}><summary part="summary">More</summary>${createHTML(CONTENT)}</details>` : null;
     // Be liberal in what we accept - 'link' or 'url'.
     // console.debug('makeListItem:', item);
     return `<template>
@@ -118,5 +125,10 @@ export class MyFeedElement extends HTMLElement {
 
     const feedUrl = this.toJson ? this.#rssToJsonService + encodeURIComponent(PARSED.href) : PARSED.href;
     return new Request(feedUrl);
+  }
+
+  async #loadTrustedTypes () {
+    this.#trustedTypes = new MyTrustedTypes();
+    await this.#trustedTypes.load();
   }
 }
