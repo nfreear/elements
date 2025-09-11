@@ -1,4 +1,4 @@
-import MyMinElement from '../MyMinElement.js';
+import attachTemplate from '../util/attachTemplate.js';
 
 /**
  * Filter a collection of elements, based on the value of a search input field.
@@ -6,7 +6,9 @@ import MyMinElement from '../MyMinElement.js';
  * @customElement element-filter
  * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
  */
-export class MyElementFilterElement extends MyMinElement {
+export class MyElementFilterElement extends HTMLElement {
+  #privElements;
+
   /*
     Public API.
   */
@@ -15,7 +17,7 @@ export class MyElementFilterElement extends MyMinElement {
     return 'my-element-filter';
   }
 
-  get _template () {
+  get #htmlTemplate () {
     return `<template>
   <span part="row">
     <label part="label" for="search"></label>
@@ -67,26 +69,24 @@ export class MyElementFilterElement extends MyMinElement {
    * @return {string}
    */
   get value () {
-    return this._searchField.value;
+    return this.#searchField.value;
   }
 
   set value (data) {
-    this._inputEventHandler(this._mockEvent(data));
-    this._searchField.value = data;
+    this.#inputEventHandler(this._mockEvent(data));
+    this.#searchField.value = data;
   }
 
   /** Life cycle callbacks.
    * @return {void}
    */
   connectedCallback () {
-    this._attachLocalTemplate(this._template); // TEMPLATE);
+    attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
 
-    const labelElement = this.shadowRoot.querySelector('label');
+    this.#labelElement.textContent = this.label;
+    this.#searchField.setAttribute('autocomplete', this.autocomplete);
 
-    labelElement.textContent = this.label;
-    this._searchField.setAttribute('autocomplete', this.autocomplete);
-
-    this._searchField.addEventListener('input', (ev) => this._inputEventHandler(ev));
+    this.#searchField.addEventListener('input', (ev) => this.#inputEventHandler(ev));
 
     console.debug('my-element-filter:', [this]);
   }
@@ -96,30 +96,44 @@ export class MyElementFilterElement extends MyMinElement {
   */
 
   /** @return {HTMLInputElement} */
-  get _searchField () { return this.shadowRoot.querySelector('#search'); }
+  get #searchField () { return this.shadowRoot.querySelector('#search'); }
+  get #labelElement () { return this.shadowRoot.querySelector('label'); }
 
-  get elements () { return this._privElements || []; }
+  get elements () { return this.#privElements || []; }
 
-  _loadElements () {
-    if (!this._privElements) {
-      this._privElements = this.querySelectorAll(this.selector);
+  #lazyLoadElements () {
+    if (!this.#privElements) {
+      this.#privElements = this.querySelectorAll(this.selector);
     }
-    if (!this._privElements) {
+    if (!this.#privElements) {
       throw new Error(`No elements found with selector: ${this.selector}`);
     }
   }
 
-  _inputEventHandler (ev) {
+  #inputEventHandler (ev) {
     // Late initialization - allow other (custom element) JS to run first!
-    this._loadElements();
+    this.#lazyLoadElements();
 
     const QUERY = ev.target.value.trim().toLowerCase();
+
+    const count = this.#filterElements(QUERY);
+
+    this.setAttribute('value', QUERY);
+    this.setAttribute('count', count);
+    this.setAttribute('total', this.elements.length);
+
+    this.#setOutput(count);
+
+    console.debug('input:', count, QUERY, ev);
+  }
+
+  #filterElements (queryStr) {
     let count = 0;
 
-    if (QUERY.length >= this.minlength) {
+    if (queryStr.length >= this.minlength) {
       this.elements.forEach((el) => {
         const TEXT = el.textContent.toLowerCase();
-        const FOUND = TEXT.includes(QUERY);
+        const FOUND = TEXT.includes(queryStr);
 
         el.dataset.myElementFilter = FOUND ? 'in' : 'out';
         count += FOUND ? 1 : 0;
@@ -129,19 +143,12 @@ export class MyElementFilterElement extends MyMinElement {
         el.removeAttribute('data-my-element-filter');
       });
     }
-
-    this.setAttribute('value', QUERY);
-    this.setAttribute('count', count);
-    this.setAttribute('total', this.elements.length);
-
-    this._setOutput(count);
-
-    console.debug('input:', count, QUERY, ev);
+    return count;
   }
 
-  _mockEvent (value) { return { mockEvent: true, target: { value } }; }
+  #mockEvent (value) { return { mockEvent: true, target: { value } }; }
 
-  _setOutput (count) {
+  #setOutput (count) {
     const outputElement = this.shadowRoot.querySelector('output');
     outputElement.value = this.outputTemplate.replace('%d', count);
   }

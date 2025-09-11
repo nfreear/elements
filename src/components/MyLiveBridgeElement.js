@@ -41,12 +41,12 @@ export class MyLiveBridgeElement extends HTMLElement {
     console.assert(this.message, '"message" - attribute required.');
     console.assert(this.liveRegion, `A live region element is required. Selector: ${this.selector}`);
 
-    this.addEventListener(this.event, (ev) => this._eventHandler(ev));
+    this.addEventListener(this.event, (ev) => this.#eventHandler(ev));
 
     console.debug('my-live-bridge', [this]);
   }
 
-  _eventHandler (ev) {
+  #eventHandler (ev) {
     this.liveRegion.textContent = this._formatMessage(ev);
 
     // Optional animation.
@@ -60,11 +60,11 @@ export class MyLiveBridgeElement extends HTMLElement {
     console.debug(this.event, ev);
   }
 
-  _isCustomEvent (ev) {
+  #isCustomEvent (ev) {
     return ev.type.match(/.+:.+/);
   }
 
-  _replacements (ev) {
+  #replacements (ev) {
     return [
       { pattern: '{value}', replace: ev.target.value },
       { pattern: '{text}', replace: ev.target.textContent },
@@ -74,15 +74,15 @@ export class MyLiveBridgeElement extends HTMLElement {
         replace: (str, match) => ev.target.dataset[match] || null
       }, {
         pattern: /\{detail\.(\w+)\}/,
-        replace: (str, match) => this._isCustomEvent(ev) ? ev.detail[match] : null
+        replace: (str, match) => this.#isCustomEvent(ev) ? ev.detail[match] : null
       }
     ];
   }
 
-  _formatMessage (ev) {
+  #formatMessage (ev) {
     let message = this.message;
 
-    this._replacements(ev).forEach(({ pattern, replace }) => {
+    this.#replacements(ev).forEach(({ pattern, replace }) => {
       message = message.replace(pattern, replace);
     });
     return message;

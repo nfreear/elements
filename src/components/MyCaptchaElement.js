@@ -1,4 +1,4 @@
-import MyMinElement from '../MyMinElement.js';
+import attachTemplate from '../util/attachTemplate.js';
 
 /**
  * Wrapper around Google reCAPTCHA (v2 checkbox), using a modal 'dialog'.
@@ -11,11 +11,11 @@ import MyMinElement from '../MyMinElement.js';
  * @status experimental
  * @since 1.7.0
  */
-export class MyCaptchaElement extends MyMinElement {
+export class MyCaptchaElement extends HTMLElement {
   static getTag () { return 'my-captcha'; }
 
   // <slot> doesn't seem to work inside <dialog>!
-  get _template () {
+  get #htmlTemplate () {
     return `
   <template>
     <slot></slot>
@@ -47,42 +47,49 @@ export class MyCaptchaElement extends MyMinElement {
   /** Attribute (optional) - whether to listen for form submit in the capturing phase.
    * @return {boolean} */
   get eventCapture () {
-    return !!this.getAttribute('event-capture');
+    return this.hasAttribute('event-capture');
   }
 
   get inputSelector () { // Optional.
     return this.getAttribute('input-selector');
   }
 
-  get value () { return this._responseElem.value; }
+  get value () { return this.#responseElem.value; }
 
   get success () { return this.value !== ''; }
 
   get _lang () { return this.lang || 'en'; }
 
   connectedCallback () {
-    const ELEM = document.createElement('div');
-    ELEM.classList.add('g-recaptcha');
-    ELEM.dataset.sitekey = this.sitekey;
-    this.appendChild(ELEM); // Was: this.after(ELEM);
+    this.#createCaptchaElement();
 
-    this._attachLocalTemplate(this._template);
-    const DIALOG = this.shadowRoot.querySelector('dialog form');
+    attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
 
     const OPT = this.eventCapture ? { capture: true } : null;
 
-    this._closestForm.addEventListener('submit', (ev) => this._onFormSubmit(ev), OPT);
+    this.#closestForm.addEventListener('submit', (ev) => this.#onFormSubmit(ev), OPT);
 
-    DIALOG.addEventListener('submit', (ev) => this._onDialogClose(ev));
+    this.#dialogElem.addEventListener('submit', (ev) => this.#onDialogClose(ev));
 
-    window.addEventListener('message', (ev) => this._onIframeMessage(ev), false);
+    window.addEventListener('message', (ev) => this.#onIframeMessage(ev), false);
 
     console.debug('my-captcha:', this.sitekey.length, this.sitekey, this);
   }
 
-  _onFormSubmit (ev) {
+  get #dialogElem () {
+    return this.shadowRoot.querySelector('dialog form');
+  }
+
+  #createCaptchaElement () {
+    const ELEM = document.createElement('div');
+    ELEM.classList.add('g-recaptcha');
+    ELEM.dataset.sitekey = this.sitekey;
+    this.appendChild(ELEM); // Was: this.after(ELEM);
+  }
+
+  #onFormSubmit (ev) {
     if (this.success) {
-      this._cascadeValue();
+      this.#cascadeValue();
       console.debug('my-captcha - OK:', this.value.length, this.value.substring(0, 32), '…');
     } else {
       const dialog = this.shadowRoot.querySelector('dialog');
@@ -98,50 +105,50 @@ export class MyCaptchaElement extends MyMinElement {
     }
   }
 
-  get _trustedOrigins () {
+  get #trustedOrigins () {
     return ['https://www.google.com'];
   }
 
-  _onIframeMessage (msg) {
-    if (!this._trustedOrigins.includes(msg.origin)) { return; }
+  #onIframeMessage (msg) {
+    if (!this.#trustedOrigins.includes(msg.origin)) { return; }
 
-    this._cascadeValue(); // Reset!
+    this.#cascadeValue(); // Reset!
     const DT = new Date().toTimeString();
     console.debug('my-captcha - Iframe message:', msg.data, DT, msg);
   }
 
-  _onDialogClose (ev) {
+  #onDialogClose (ev) {
     // Accessibility: set focus back on the <iframe>.
     setTimeout(() => {
-      this._iframeElem.removeAttribute('role');
-      this._iframeElem.setAttribute('tabindex', '-1');
-      this._iframeElem.focus();
-      this._iframeElem.removeAttribute('tabindex');
+      this.#iframeElem.removeAttribute('role');
+      this.#iframeElem.setAttribute('tabindex', '-1');
+      this.#iframeElem.focus();
+      this.#iframeElem.removeAttribute('tabindex');
 
       console.debug('my-captcha - Dialog close:', ev);
     },
     100);
   }
 
-  get _closestForm () {
+  get #closestForm () {
     const FORM = this.closest('form');
     console.assert(FORM, '<form> - Not found (my-captcha)');
     return FORM;
   }
 
-  get _iframeElem () {
+  get #iframeElem () {
     const ELEM = this.querySelector('iframe[src ^= "https://www.google.com/rec"]');
     console.assert(ELEM, '<iframe> - Not found');
     return ELEM;
   }
 
-  get _responseElem () {
+  get #responseElem () {
     const ELEM = this.querySelector('#g-recaptcha-response'); // Was: document.que...
     console.assert(ELEM, '#g-recaptcha-response - Element not found (my-captcha)');
     return ELEM;
   }
 
-  _cascadeValue () {
+  #cascadeValue () {
     if (this.inputSelector) {
       const inputElem = document.querySelector(this.inputSelector);
       console.assert(inputElem, `<input> - Not found: ${this.inputSelector}`);

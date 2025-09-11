@@ -16,11 +16,11 @@ export class MyInputElement extends HTMLElement {
     return 'my-input-element';
   }
 
-  get _cssSelector () {
+  get #cssSelector () {
     return 'input, select, textarea';
   }
 
-  get _attributes () {
+  get #_attributes () {
     return [
       'autocomplete',
       'maxlength',
@@ -32,31 +32,32 @@ export class MyInputElement extends HTMLElement {
   }
 
   connectedCallback () {
-    this._inputElement = this.querySelector(this._cssSelector);
-    console.assert(this._inputElement, 'An <input>, <select> or <textarea> element is required');
+    console.assert(this.#inputElement, 'An <input>, <select> or <textarea> element is required');
 
-    const FOUND = this._attributes.map((attr) => {
+    const FOUND = this.#_attributes.map((attr) => {
       const value = this.getAttribute(attr);
       if (value) {
-        this._inputElement.setAttribute(attr, value);
+        this.#inputElement.setAttribute(attr, value);
       }
       return { attr, value };
     });
 
-    const ARIA = this._transferDataAriaAttributes();
+    const ARIA = this.#transferDataAriaAttributes();
 
     console.debug('my-input:', FOUND, ARIA, this);
   }
 
-  // ARIA: https://www.w3.org/TR/wai-aria-1.2/#aria-attributes
-  get _dataAriaRegex () { return /^data-(role|aria-[a-z]{4,17})$/; }
+  get #inputElement () { return this.querySelector(this.#cssSelector); }
 
-  _transferDataAriaAttributes () {
+  // ARIA: https://www.w3.org/TR/wai-aria-1.2/#aria-attributes
+  get #dataAriaRegex () { return /^data-(role|aria-[a-z]{4,17})$/; }
+
+  #transferDataAriaAttributes () {
     const ARIA = [...this.attributes].map(({ name, value }) => {
-      const match = name.match(this._dataAriaRegex);
+      const match = name.match(this.#dataAriaRegex);
       if (match) {
         const attr = match[1];
-        this._inputElement.setAttribute(attr, value);
+        this.#inputElement.setAttribute(attr, value);
         return { attr, value };
       }
       return null;
