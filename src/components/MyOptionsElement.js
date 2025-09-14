@@ -4,7 +4,7 @@
  * @copyright © Nick Freear, 11-Dec-2021.
  * @demo ../demo/my-options.html
  * @customElement my-options
- * @status beta
+ * @status beta, legacy
  * @since 1.0.0
  */
 

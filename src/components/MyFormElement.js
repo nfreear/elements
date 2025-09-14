@@ -4,7 +4,7 @@
  * @example <form is="my-form">
  * @copyright © Nick Freear, 19-Oct-2022.
  * @customElement my-form
- * @status beta
+ * @status experiment
  * @since 1.3.0
  */
 

@@ -6,6 +6,7 @@
  * @see https://craig.is/making/rainbows
  * @see https://github.com/ccampbell/rainbow/blob/master/src/language/html.js;
  * @see (https://prismjs.com/)
+ * @status experiment
  */
 
 import { rainbowViaCdn } from '../external-cdn.js';

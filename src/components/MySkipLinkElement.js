@@ -1,7 +1,7 @@
 const { HTMLElement } = window;
 
 /**
- * Add a <q>skip to content</q> link, which becomes visible on focus.
+ * Add a "Skip to content" link, which becomes visible on keyboard focus.
  *
  * @copyright Nick Freear, 08-Dec-2021.
  * @customElement my-skip-link
@@ -19,42 +19,44 @@ export class MySkipLinkElement extends HTMLElement {
   /** @return {string} */
   get href () { return this.getAttribute('href') || '#main-content'; }
 
-  get _hrefRegex () { return /^#[\w_-]+$/; }
+  get #hrefRegex () { return /^#[\w_-]+$/; }
+
+  get noAnimate () { return this.hasAttribute('no-animate'); }
 
   connectedCallback () {
     const shadow = this.attachShadow({ mode: 'open' });
 
-    shadow.appendChild(this._styleElement);
-    shadow.appendChild(this._anchorElement);
+    shadow.appendChild(this.#styleElement);
+    shadow.appendChild(this.#anchorElement);
 
     console.debug('my-skip-link:', this);
   }
 
   /** @return {string} */
-  _testHref () {
-    console.assert(this._hrefRegex.test(this.href), `'href' - Unexpected value: ${this.href}`);
+  #testAndGetHref () {
+    console.assert(this.#hrefRegex.test(this.href), `'href' - Unexpected value: ${this.href}`);
     const EL = document.querySelector(this.href);
     console.assert(EL, `Skip-link destination element - Not found: ${this.href}`);
     return this.href;
   }
 
   /** @return {HTMLAnchorElement} */
-  get _anchorElement () {
+  get #anchorElement () {
     const anchorEl = document.createElement('a');
     anchorEl.textContent = this.text;
-    anchorEl.href = this._testHref();
-    anchorEl.setAttribute('part', 'a');
+    anchorEl.href = this.#testAndGetHref();
+    anchorEl.setAttribute('part', `a ${this.noAnimate ? 'no-' : ''}animate`);
     return anchorEl;
   }
 
-  get _styleElement () {
+  get #styleElement () {
     const styleEl = document.createElement('style');
-    styleEl.textContent = this._stylesheet;
+    styleEl.textContent = this.#stylesheet;
     return styleEl;
   }
 
   /** @return {string} */
-  get _stylesheet () {
+  get #stylesheet () {
     return `
 a[ href ] {
   font: larger sans-serif;
@@ -77,7 +79,14 @@ a:focus {
   /* Fix: ensure link appears on top of other absolute/relative content. */
   z-index: 999;
 }
-`;
+a[ part *= no-animate]:focus {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  a:focus {
+    transition: none;
+  }
+}`;
   }
 }
 

@@ -4,6 +4,7 @@
  * @copyright © Nick Freear, 30-May-2022.
  * @customElement my-live-editor
  * @demo ../demo/my-live-editor.html
+ * @status experiment
  */
 
 import { MyElement } from '../MyElement.js';

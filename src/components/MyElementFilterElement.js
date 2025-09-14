@@ -5,6 +5,7 @@ import attachTemplate from '../util/attachTemplate.js';
  *
  * @customElement element-filter
  * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
+ * @status an-form
  */
 export class MyElementFilterElement extends HTMLElement {
   #privElements;

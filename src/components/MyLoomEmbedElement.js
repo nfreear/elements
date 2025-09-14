@@ -8,6 +8,7 @@ const { fetch } = window;
  * @demo https://nfreear.github.io/elements/demo/my-loom-embed.html
  * @see https://dev.loom.com/docs/embed-sdk/api#oembed
  * @see https://support.loom.com/hc/en-us/articles/360002208317-How-to-embed-your-video-into-a-webpage
+ * @status my blog
  */
 export class MyLoomEmbedElement extends MyIframeElement {
   #oEmbed;

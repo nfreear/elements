@@ -5,6 +5,7 @@
  *
  * @copyright © Nick Freear, 07-Jan-2022.
  * @customElement my-notice
+ * @status experiment
  */
 
 import { MyElement } from '../MyElement.js';

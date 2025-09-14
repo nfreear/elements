@@ -8,7 +8,7 @@ const { HTMLElement } = window;
  * @see https://codepen.io/nfreear/pen/XJWVRPK
  * @see https://codepen.io/nfreear/pen/QwWOdWN
  * @copyright © Nick Freear, 15-Mar-2025.
- * @status beta
+ * @status beta, an-form
  * @since 1.7.0
  */
 export class MyLiveBridgeElement extends HTMLElement {

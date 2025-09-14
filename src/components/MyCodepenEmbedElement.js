@@ -5,6 +5,7 @@ import MyIframeElement from './MyIframeElement.js';
  * @customElement my-codepen-embed
  * @demo
  * @see https://blog.codepen.io/documentation/embedded-pens/
+ * @status my blog
  */
 export class MyCodepenEmbedElement extends MyIframeElement {
   static getTag () { return 'my-codepen-embed'; }

@@ -7,7 +7,7 @@
  * @customElement my-slide-deck
  * @demo ../demo/my-slide-deck.html
  * @see https://revealjs.com
- * @status alpha
+ * @status alpha, experiment
  * @since 1.3.0
  */
 

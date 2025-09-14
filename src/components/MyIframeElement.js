@@ -4,6 +4,7 @@
  * @copyright © Nick Freear, 20-April-2025.
  * @customElement my-iframe
  * @see https://github.com/embedly/player.js
+ * @status my blog
  */
 export class MyIframeElement extends HTMLElement {
   static getTag () { return 'my-iframe'; }

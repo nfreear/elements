@@ -8,7 +8,7 @@ import attachTemplate from '../util/attachTemplate.js';
  * @copyright NDF, 21-March-2025.
  * @customElement my-captcha
  * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
- * @status experimental
+ * @status experimental, an-form
  * @since 1.7.0
  */
 export class MyCaptchaElement extends HTMLElement {

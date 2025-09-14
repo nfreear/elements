@@ -1,8 +1,10 @@
 import attachTemplate from '../util/attachTemplate.js';
 
 /**
+ * A wake lock switch.
  * @customElement my-wake-lock
  * @demo ../demo/my-wake-lock.html
+ * @status experiment
  */
 export class MyWakeLockElement extends HTMLElement {
   #wakeLock = null;

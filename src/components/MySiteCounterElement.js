@@ -11,6 +11,7 @@ const { HTMLElement, location } = window;
  * @see https://www.goatcounter.com/help/pixel
  * @see https://github.com/arp242/goatcounter/blob/master/public/count.js#L54
  * @example <img src="https://MYCODE.goatcounter.com/count?p=/test">
+ * @status beta, my blog
  */
 export class MySiteCounterElement extends HTMLElement {
   static getTag () { return 'my-site-counter'; }

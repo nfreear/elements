@@ -7,6 +7,7 @@ const { fetch, HTMLElement, Request } = window;
  * @demo
  * @see https://codepen.io/nfreear/pen/Qwjpbpx
  * @see https://www.credly.com/badges/cfc2c32c-6d52-4278-8444-ce87e8aabd5b
+ * @status my blog
  */
 export class MyOpenBadgeElement extends HTMLElement {
   #ok = false;

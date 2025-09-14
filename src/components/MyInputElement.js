@@ -8,7 +8,7 @@ const { HTMLElement } = window;
  * @customElement my-input
  * @demo https://nfreear.github.io/elements/demo/my-element-filter.html
  * @see https://github.com/nfreear/elements
- * @status beta
+ * @status beta, an-form
  * @since 1.7.0
  */
 export class MyInputElement extends HTMLElement {

@@ -8,7 +8,7 @@ import attachTemplate from '../util/attachTemplate.js';
  * @class MyFoobarElement
  * @customElement my-foobar
  * @property {tagName} &lt;my-foobar> - Create a my-foobar element.
- * @status beta
+ * @status experiment
  * @since 1.0.0
  */
 export class MyFoobarElement extends HTMLElement {

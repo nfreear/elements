@@ -9,7 +9,7 @@ const { fetch, HTMLElement } = window;
  * @copyright © Nick Freear, 20-April-2025.
  * @customElement my-transcript
  * @see https://github.com/plussub/srt-vtt-parser
- * @status experimental
+ * @status my blog
  * @since 1.8.0
  */
 export class MyTranscriptElement extends HTMLElement {

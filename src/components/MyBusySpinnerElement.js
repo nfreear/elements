@@ -12,7 +12,7 @@
  * @see https://github.com/SAP/ui5-webcomponents/blob/master/packages/main/src/BusyIndicator.hbs,
  * @customElement my-busy-spinner
  * @class MyBusySpinnerElement
- * @status beta, my blog
+ * @status experiment
  * @since 1.0.0
 */
 

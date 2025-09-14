@@ -6,6 +6,7 @@
  * @demo ../demo/my-search.html
  * @see https://cse.google.com/cse/all
  * @see https://developers.google.com/custom-search/docs/element
+ * @status my blog
  */
 export class MySearchElement extends window.HTMLElement {
   static getTag () { return 'my-search'; }
@@ -19,18 +20,18 @@ export class MySearchElement extends window.HTMLElement {
   get label () { return this.getAttribute('label') || 'Search'; }
 
   connectedCallback () {
-    const ELEMS = this._createElements();
+    const ELEMS = this.#createElements();
 
-    this._addConfig();
+    this.#addConfig();
 
     this.appendChild(ELEMS.label);
     this.appendChild(ELEMS.search);
-    this.appendChild(this._scriptElem());
+    this.appendChild(this.#scriptElem());
 
     console.debug('my-search:', this.cx, this);
   }
 
-  _createElements () {
+  #createElements () {
     const search = document.createElement('div'); // const id = '___gcse_0';
     const label = document.createElement('label');
 
@@ -44,7 +45,7 @@ export class MySearchElement extends window.HTMLElement {
     return { search, label };
   }
 
-  _scriptElem () {
+  #scriptElem () {
     const GCSE = document.createElement('script');
     GCSE.async = true;
     GCSE.src = `https://cse.google.com/cse.js?cx=${this.cx}`;
@@ -54,7 +55,7 @@ export class MySearchElement extends window.HTMLElement {
     return GCSE;
   }
 
-  _addConfig () {
+  #addConfig () {
     window.__gcse = {
       parsetags: 'onload', // Not: 'explicit', // Defaults to 'onload'
       initializationCallback: () => console.debug('CSE init.'),

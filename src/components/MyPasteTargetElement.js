@@ -10,6 +10,7 @@
  * @see https://codepen.io/nfreear/pen/wvNgeNd (Original)
  * @see https://w3.org/TR/WCAG22/#accessible-authentication-minimum
  * @see https://w3.org/WAI/WCAG22/Techniques/failures/F109
+ * @status accessibility
  */
 
 const { HTMLElement } = window || globalThis;

@@ -5,6 +5,7 @@
  * @customElement my-bookmarklet-legacy
  * @see ../demo/my-bookmarklet.html
  * @class MyBookmarkletElement
+ * @status legacy
  */
 
 import MyElement from '../MyElement.js';
