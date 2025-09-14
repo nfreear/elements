@@ -41,7 +41,8 @@
     "start": "npm run build:feed && npx servor --reload",
     "inner:grep": "grep -rn '\\.innerHTML' src",
     "inner:count": "grep -r '\\.innerHTML =' src | wc -l",
-    "myelem:count": "grep -r 'extends MyElement' src | wc -l",
+    "count:myelem": "grep -r 'extends MyElement' src | wc -l",
+    "grep:animate": "grep -rn -E '(transition|animation)' src/components",
     "fix": "npx eslint --fix",
     "lint": "npx eslint --fix",
     "test": "npm run lint && npm run inner:count"

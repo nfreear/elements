@@ -1,6 +1,5 @@
 import { appendTemplate, safeUrl, strip } from '../util/attachTemplate.js';
 import MyTrustedTypes from '../util/MyTrustedTypes.js';
-// Was: import MyElement from '../MyElement.js';
 
 const { fetch, HTMLElement, Request, location } = window;
 
@@ -27,6 +26,7 @@ export class MyFeedElement extends HTMLElement {
   }
 
   get include () { return this.getAttribute('include'); }
+  get exclude () { return this.getAttribute('exclude'); }
 
   get isOpen () { return this.getAttribute('details') === 'open'; }
 
@@ -74,6 +74,11 @@ export class MyFeedElement extends HTMLElement {
     return INCLUDE ? new RegExp(`(${INCLUDE.join('|')})`, 'i') : null;
   }
 
+  get #excludeRegex () {
+    const EXCLUDE = this.exclude ? this.exclude.split(/,[ ]*/) : null;
+    return EXCLUDE ? new RegExp(`(${EXCLUDE.join('|')})`, 'i') : null;
+  }
+
   #filterItems (items) {
     const filtered = this.include
       ? items.filter(it => {
@@ -81,15 +86,21 @@ export class MyFeedElement extends HTMLElement {
       })
       : items;
 
-    console.debug('my-feed ~ Filtered:', this.include, filtered);
+    const filterExclude = this.exclude
+      ? filtered.filter(it => {
+        return it && it.tags && !it.tags.some(tag => this.#excludeRegex.test(tag));
+      })
+      : filtered;
 
-    return filtered;
+    console.debug('my-feed ~ Filtered:', this.include, this.#excludeRegex, filterExclude);
+
+    return filterExclude;
   }
 
   get #policyId () { return 'allowAnchorListPlus'; }
 
   #makeListItem (item, open) {
-    const createHTML = (s) => this.#trustedTypes.createHTML(this.#policyId , s);
+    const createHTML = (s) => this.#trustedTypes.createHTML(this.#policyId, s);
     const { skip, guid, link, pubDate, title, url, time, tags, content, content_html } = item; /* eslint-disable-line camelcase */
 
     if (skip) return '<template><!-- skip --></template>';

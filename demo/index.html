@@ -1,9 +1,9 @@
-<!doctype html><html lang="en" style="opacity:0"><title> My Elements </title>
+<!doctype html><html lang="en"><title> My Elements </title>
 
 <!-- <meta name="robots" content="noindex"> -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link rel="stylesheet" href="style/app.css" />
+<link rel="stylesheet" href="style/app.v2.css" />
 
 <my-page>
 
@@ -11,7 +11,8 @@
 
   <p> A collection of reusable custom elements (Web Components). </p>
 
-  <my-feed href="../src/feed.json" details="true" class="element-list" >
+  <my-feed href="../src/feed.json" details="true" class="element-list"
+    exclude="legacy, experiment" XX_include="my blog">
 
   <ol>
     <li><a href="my-analytics.html"   >my-analytics</a>
@@ -30,6 +31,16 @@
 
 </my-page>
 
+<script type="importmap">
+{
+  "myElements": { "use": [ "my-feed" ] }
+}
+</script>
+
+<script type="module" src="../i.js"></script>
+
+<!--
 <script type="module" src="../my.js?use=my-feed,my-page"></script>
+-->
 
 </html>
