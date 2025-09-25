@@ -1,0 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: My Elements
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Nick
+    family-names: Freear
+    orcid: 'https://orcid.org/0000-0001-7791-5549'
+    affiliation: AbilityNet
+  - {}
+repository-code: 'https://github.com/nfreear/elements'
+url: 'https://nfreear.github.io/elements/demo'
+repository-artifact: 'https://www.npmjs.com/package/ndf-elements'
+abstract: A collection of useful custom elements (Web Components).
+keywords:
+  - test
+license: MIT
+version: 1.7.1
+date-released: '2025-03-26'
