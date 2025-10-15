@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta charset="utf-8">
 
-<link rel="stylesheet" href="style/app.css" />
+<link rel="stylesheet" href="style/app.v2.css" />
 
 <my-page>
   <h2> my-text-to-speech </h2>
@@ -61,8 +61,21 @@
 
 </my-page>
 
-<script type="module" src="./app.js"></script>
 
+<script type="importmap">
+{
+  "imports": {
+    "my-elements": "../i.js"
+  },
+  "myElements": { "use": [ "my-text-to-speech" ] }
+}
+</script>
+
+<script type="module"> import 'my-elements'; </script>
+
+<!--
+<script type="module" src="./app.js"></script>
+-->
 <!--
 https://www.mondly.com/blog/2019/08/23/71-best-tongue-twisters-to-perfect-your-english-pronunciation/;
 https://www.fluentin3months.com/chinese-proverbs/

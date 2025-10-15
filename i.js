@@ -22,10 +22,11 @@ try {
 
   const PR = KLASS.map(async ({ klass, path }) => {
     const MOD = await import(path);
-    // console.debug('class:', MOD[klass]); // HTMLElement.prototype.isPrototypeOf(MOD[klass]));
-    console.assert(typeof MOD[klass] === 'function', `Should be an exported class: ${klass}`);
-    console.assert(MOD[klass].getTag, '"getTag()" - Static function not found.');
-    customElements.define(MOD[klass].getTag(), MOD[klass]);
+    const DEF = MOD[klass];
+    // console.debug('class:', DEF); // HTMLElement.prototype.isPrototypeOf(MOD[klass]));
+    console.assert(DEF.prototype instanceof HTMLElement, `Should be an exported class: ${klass}`);
+    console.assert(DEF.getTag, '"getTag()" - Static function not found.');
+    customElements.define(DEF.getTag(), DEF);
   });
   await Promise.all(PR);
 

@@ -1,3 +1,8 @@
+import attachTemplate from '../util/attachTemplate.js';
+// import { MyElement } from '../MyElement.js';
+
+const { speechSynthesis, SpeechSynthesisUtterance } = window;
+
 /**
  * Speech synthesis using the Web Speech API.
  *
@@ -16,19 +21,14 @@
  * @status experimental
  * @since 1.X.0
  */
-
-import { MyElement } from '../MyElement.js';
-
-const { speechSynthesis, SpeechSynthesisUtterance } = window;
-
-export class MyTextToSpeechElement extends MyElement {
+export class MyTextToSpeechElement extends HTMLElement {
   static getTag () {
     return 'my-text-to-speech'; // Was: 'my-speech-synthesis';
   }
 
-  /* constructor () { // "Useless constructor"!
-    super();
-  } */
+  get pitch () { return parseFloat(this.getAttribute('pitch')) || 1; } // Default: 1; Range: 0-2;
+  get rate () { return parseFloat(this.getAttribute('rate')) || 1; } // Default: 1; Range: 0.1-10;
+  get volume () { return parseFloat(this.getAttribute('volume')) || 1; } // Default: 1; Range: 0-1;
 
   async connectedCallback () {
     const langRegex = this.getAttribute('lang-regex') || 'en.*';
@@ -37,11 +37,12 @@ export class MyTextToSpeechElement extends MyElement {
     const rate = parseFloat(this.getAttribute('rate')) || 1; //   Default: 1; Range: 0.1-10;
     const volume = parseFloat(this.getAttribute('volume')) || 1; // Range: 0-1;
 
-    await this._initialize({ langRegex, voxRegex, pitch, rate, volume });
+    await this.#initialize({ langRegex, voxRegex, pitch, rate, volume });
   }
 
-  async _initialize (ATTR = {}) {
-    await this.getTemplate('my-text-to-speech');
+  async #initialize (ATTR = {}) {
+    attachTemplate(this.#htmlTemplate).to.shadowDOM(this);
+    // Was: await this.getTemplate('my-text-to-speech');
 
     const utterElem = this.shadowRoot.querySelector('#utterance');
     const voxSelect = this.shadowRoot.querySelector('#vox select');
@@ -54,7 +55,7 @@ export class MyTextToSpeechElement extends MyElement {
 
     speechSynthesis.onvoiceschanged = this._addVoicesToSelect;
 
-    setTimeout(() => this._addVoicesToSelect(), 1500);
+    setTimeout(() => this.#addVoicesToSelect(), 1500);
 
     console.debug('my-text-to-speech:', this);
     console.dir(this);
@@ -62,7 +63,7 @@ export class MyTextToSpeechElement extends MyElement {
 
   _speak (say = null, ev = null) {
     const ATTR = this.$$;
-    const SAY = this._getText(say);
+    const SAY = this.#getText(say);
     const VOX = this._findVoiceByName(ATTR.voxRegex); // /(Fiona|Goo*UK Eng*Female)/);
 
     const utterThis = new SpeechSynthesisUtterance(SAY);
@@ -78,7 +79,7 @@ export class MyTextToSpeechElement extends MyElement {
     console.debug('Speak:', SAY, utterThis, VOX, ev);
   }
 
-  _getText (say = null) {
+  #getText (say = null) {
     const TEXT = this.textContent.replace(/[ \n]{2,}/g, '\n');
     const EL = this.$$.utterElem; // this.shadowRoot.querySelector('#utterance');
     // console.debug('Utter:', ELEM, ELEM.innerHTML, ELEM.content);
@@ -100,7 +101,7 @@ export class MyTextToSpeechElement extends MyElement {
     return VOX.find(vox => nameRegex.test(vox.name));
   }
 
-  _addVoicesToSelect () {
+  #addVoicesToSelect () {
     const ALL = /\?vox=all/.test(document.location.href);
     const SELECT = this.$$.voxSelect; // document.querySelector('#vox');
     const LOG = this.$$.log; // document.querySelector('#log');
@@ -125,5 +126,58 @@ export class MyTextToSpeechElement extends MyElement {
     LOG.textContent = `Voices: ${VA.length}\n${VA.join('\n')}`;
 
     console.debug('Voices:', SELECT, VOICES);
+  }
+
+  // get #utterElem () { return this.shadowRoot.querySelector('#utterance'); }
+  // get #button () { return this.shadowRoot.querySelector('button'); }
+
+  get #stylesheet () {
+    return `
+  button,
+  select {
+    font: inherit;
+    padding: .5rem;
+  }
+  button {
+    padding: .2rem 2rem;
+  }
+  select {
+    margin: 0 .5rem;
+    min-width: 9rem;
+    max-width: 100%;
+  }
+  pre {
+    font-size: small;
+    line-height: 1.2;
+  }
+  label,
+  [ contenteditable = true ] {
+    X-padding: 0 .2rem;
+    outline-offset: .3rem;
+  }
+    `;
+  }
+
+  get #htmlTemplate () {
+    return `
+  <template>
+    <style>${this.#stylesheet}</style>
+
+    <div id="utterance" contenteditable="true" aria-label="Text to speak" part="utterance">
+      <slot> Hello! You can edit me. </slot>
+    </div>
+    <!-- <textarea><slot></slot></textarea> -->
+
+    <p>
+      <label id="vox">Voice:<select></select></label>
+      <button part="button"> Speak </button>
+    </p>
+
+    <details part="details">
+      <summary> Voices </summary>
+      <pre id="log"><pre>
+    </details>
+  </template>
+`;
   }
 }
