@@ -78,6 +78,7 @@ export class MySharingWidgetElement extends HTMLElement {
     buttonElem.setAttribute('part', 'button');
     outputElem.id = 'output';
     outputElem.setAttribute('part', 'output');
+    formElem.setAttribute('part', 'form');
     formElem.appendChild(buttonElem);
     formElem.appendChild(outputElem);
     return formElem;
