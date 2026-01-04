@@ -28,6 +28,7 @@ export { MyCodepenEmbedElement } from './src/components/MyCodepenEmbedElement.js
 export { MyTranscriptElement } from './src/components/MyTranscriptElement.js';
 export { MyGtagElement } from './src/components/MyGtagElement.js';
 export { MyOpenBadgeElement } from './src/components/MyOpenBadgeElement.js';
+export { MySharingWidgetElement } from './src/components/MySharingWidgetElement.js';
 export { MyZoomElement } from './src/components/MyZoomElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';

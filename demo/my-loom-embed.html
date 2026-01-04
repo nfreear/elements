@@ -2,6 +2,8 @@
 <html lang="en">
   <meta charset="utf-8">
 
+  <meta name="description" content="Some media embeds ...">
+
   <style>
     body {
       margin: auto;
@@ -30,11 +32,29 @@
       border: 1px outset #444;
       transition: all 250ms;
     }
+
+    [ data-ready = true ] > my-busy-spinner {
+      display: none;
+    }
+
+    X_my-open-badge {
+      border: 1px solid silver;
+      border-radius: .7rem;
+      display: block;
+      padding: 1rem;
+    }
+
+    X_my-open-badge::part(img) {
+      display: block;
+      margin: 1rem auto;
+    }
   </style>
 
   <title>Media embeds</title>
 
   <h1>Media embeds</h1>
+
+  <my-sharing-widget></my-sharing-widget>
 
   <h2>my-loom-embed</h2>
 
@@ -42,6 +62,7 @@
     <my-loom-embed debug="true">
       <a href="https://www.loom.com/share/96f6324c0ff94509be60cc47931ab3ef?sid=328ef299-30d9-4fe4-8e0e-62c03c5cffab"
       >Loom: Refreshing my blog — April 2025</a>
+      <my-busy-spinner> Loading video… </my-busy-spinner>
     </my-loom-embed>
   </p>
 
@@ -49,10 +70,11 @@
 
   <my-transcript
     open
-    embed-origin="https://www.loom.com"
+    embed-origin="https://www.loom.com/x#"
     href="./data/test-video.vtt"
     X_href="https://nfreear.github.io/elements/demo/data/test-video.vtt"
   >
+    <my-busy-spinner>Loading transcript…</my-busy-spinner>
   </my-transcript>
 
   <!-- <p>
@@ -67,7 +89,14 @@
   <p>
     <my-youtube-embed>
       <a href="https://youtu.be/M7lc1UVf-VE">YouTube Developers Live: Embedded Web Player Customization</a>
+      <my-busy-spinner> Loading video… </my-busy-spinner>
     </my-youtube-embed>
+  </p>
+
+  <p>
+    <my-open-badge border add-style image-size="8">
+      <a href="https://www.credly.com/badges/cfc2c32c-6d52-4278-8444-ce87e8aabd5b">CPWA badge</a>
+    </my-open-badge>
   </p>
 
 
@@ -76,12 +105,27 @@
     "my-elements": "../i.js"
   },
   "myElements": {
-    "use": [ "my-loom-embed", "my-youtube-embed", "my-transcript" ]
+    "use": [ "my-loom-embed", "my-youtube-embed", "my-transcript", "my-sharing-widget", "my-open-badge" ]
   }
 } </script>
 
-<script type="module">
+<script type="X__module">
   import 'my-elements';
+</script>
+
+<script type="module">
+import {
+  defineMyElements,
+  MyLoomEmbedElement, MyYoutubeEmbedElement, MyTranscriptElement
+  , MySharingWidgetElement
+  , MyOpenBadgeElement
+} from '../index.js';
+
+defineMyElements([
+  MyLoomEmbedElement, MyYoutubeEmbedElement, MyTranscriptElement
+  , MySharingWidgetElement
+  , MyOpenBadgeElement
+]);
 </script>
 
 </html>

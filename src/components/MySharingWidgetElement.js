@@ -21,47 +21,56 @@ export class MySharingWidgetElement extends HTMLElement {
     return this.getAttribute('button-label') || 'Share';
   }
 
-  get descElement () {
+  get cancelMessage () {
+    return this.getAttribute('cancel-message') || 'Share was cancelled.';
+  }
+
+  get #descElement () {
     const ELEM = document.querySelector(this.descSelector);
     console.assert(ELEM, 'Description <meta> element not found');
     return ELEM;
   }
 
-  get linkElement () {
+  get #linkElement () {
     return document.querySelector(this.urlSelector);
   }
 
   connectedCallback () {
     if (!this._supportsShareApi) {
       console.warn('Web Share API not supported');
-      return;
+      // Was: return;
     }
-    const formElem = this._createElements();
+    const formElem = this.#createElements();
 
     const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.appendChild(formElem);
 
-    formElem.addEventListener('submit', (ev) => this._onSubmitEvent(ev));
+    formElem.addEventListener('submit', (ev) => this.#onSubmitEvent(ev));
 
-    console.debug('my-sharing-widget', this);
+    console.debug('my-sharing-widget', [this]);
   }
 
-  async _onSubmitEvent (ev) {
+  async #onSubmitEvent (ev) {
     ev.preventDefault();
-    const shareForm = ev.target;
-    console.debug('Share:', this._shareData, shareForm, ev);
+    console.debug('Share:', this.#shareData, this.#formElements, ev);
     try {
-      await navigator.share(this._shareData);
-      shareForm.elements.output.value = 'Shared successfully';
-      shareForm.dataset.shared = true;
+      await navigator.share(this.#shareData);
+      this.#formElements.output.value = 'Shared successfully';
+      this.dataset.shared = true;
     } catch (err) {
-      shareForm.elements.output.value = `Error: ${err}`;
-      shareForm.dataset.shared = false;
-      console.error(`Error: ${err}`, err);
+      if (err.name === 'AbortError') {
+        this.#formElements.output.value = this.cancelMessage;
+      } else {
+        this.#formElements.output.value = `Error: ${err}`;
+      }
+      this.dataset.shared = false;
+      this.dataset.error = err;
+      console.error('Error:', err);
+      console.dir(err);
     }
   }
 
-  _createElements () {
+  #createElements () {
     const formElem = document.createElement('form');
     const buttonElem = document.createElement('button');
     const outputElem = document.createElement('output');
@@ -74,16 +83,18 @@ export class MySharingWidgetElement extends HTMLElement {
     return formElem;
   }
 
-  get _shareData () {
+  get #formElements () { return this.shadowRoot.querySelector('form').elements; }
+
+  get #shareData () {
     return {
       title: document.title,
-      text: this.descElement ? this.descElement.getAttribute('content') : null,
-      url: this.linkElement ? this.linkElement.href : location.href
+      text: this.#descElement ? this.#descElement.getAttribute('content') : null,
+      url: this.#linkElement ? this.#linkElement.href : location.href
     };
   }
 
-  get _supportsShareApi () {
-    return typeof navigator.share === 'function' && navigator.canShare;
+  get #supportsShareApi () {
+    return typeof navigator.share === 'function'; // && navigator.canShare;
   }
 }
 
