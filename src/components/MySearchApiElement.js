@@ -13,25 +13,38 @@ export class MySearchApiElement extends HTMLElement {
   #form;
   #resultElem;
   #data;
+  #priv = {};
   #response;
 
   get #searchId () { return this.getAttribute('search-id'); }
-  // https://developers.google.com/custom-search/v1/introduction#identify_your_application_to_google_with_api_key
-  get #apiKey () { return this.getAttribute('key'); }
-  get #buttonText () { return this.getAttribute('button-text') ?? 'Search'; }
 
-  #searchUrl (query) {
-    const encq = encodeURIComponent(query);
-    return `https://customsearch.googleapis.com/customsearch/v1?key=${this.#apiKey}&cx=${this.#searchId}&q=${encq}`;
+  // https://developers.google.com/custom-search/v1/introduction#identify_your_application_to_google_with_api_key
+  #getApiKey () {
+    this.#priv.apiKey = this.getAttribute('key');
+    this.setAttribute('key', '');
   }
+
+  get #buttonText () { return this.getAttribute('button-text') ?? 'Search'; }
+  get #resultTemplate () { return this.getAttribute('result-template') ?? '%s results found'; }
+
+  get #query () { return this.#form.elements.query.value; }
+  get #encQuery () { return encodeURIComponent(this.#query); }
+
+  get #searchUrl () {
+    return `https://customsearch.googleapis.com/customsearch/v1?key=${this.#priv.apiKey}&cx=${this.#searchId}&q=${this.#encQuery}`;
+  }
+
+  get #resultItems () { return this.#data.items ?? []; }
+  get #count () { return this.#resultItems.length; }
 
   #assertRequired () {
     console.assert(this.#searchId, 'search-id is required');
-    console.assert(this.#apiKey, 'api-key is required');
+    console.assert(this.#priv.apiKey, 'api-key is required');
     console.assert(this.#buttonText, 'button-text is required');
   }
 
   connectedCallback () {
+    this.#getApiKey();
     this.#assertRequired();
     const root = this.attachShadow({ mode: 'open' });
 
@@ -53,31 +66,35 @@ export class MySearchApiElement extends HTMLElement {
     this.dataset.loading = true;
     ev.preventDefault();
 
-    const query = ev.target.elements.query.value;
-
-    const { items } = await this.#fetchResults(query);
-    const elems = items.map((it) => this.#createListItem(it));
+    await this.#fetchResults();
+    const elems = this.#resultItems.map((it) => this.#createListItem(it));
 
     elems.forEach((el) => { this.#resultElem.appendChild(el); });
+
+    this.#markResults();
+    this.#summarizeResults();
 
     this.dataset.loading = false;
   }
 
-  async #fetchResults (query) {
-    const resp = this.#response = await fetch(this.#searchUrl(query));
-    this.dataset.query = query;
+  #summarizeResults () {
+    this.#form.elements.output.value = this.#resultTemplate.replace('%s', this.#count);
+    this.dataset.count = this.#count;
+  }
+
+  async #fetchResults () {
+    const resp = this.#response = await fetch(this.#searchUrl);
+    this.dataset.query = this.#query;
     this.dataset.httpStatus = resp.status;
 
     if (!resp.ok) {
-      console.error('Fetch Error:', resp.status, resp.url, resp); // 400 Bad Request.
+      console.error('Search Fetch Error:', resp.status, resp.url, resp); // 400 Bad Request.
       return { items: [], resp };
     }
     this.#data = await resp.json();
     const { context, items, kind, queries, searchInformation } = this.#data;
 
-    console.debug('Fetch OK:', context, items, kind, queries, searchInformation, resp, [this]);
-
-    this.dataset.count = items.length;
+    console.debug('Search Fetch OK:', context, items, kind, queries, searchInformation, resp, [this]);
 
     return { context, items, kind, queries, searchInformation, resp };
   }
@@ -103,14 +120,14 @@ export class MySearchApiElement extends HTMLElement {
   }
 
   #createElements () {
-    const form = document.createElement('form');
-    const results = document.createElement('ul');
-    const labelElem = document.createElement('label');
-    const inputElem = document.createElement('input');
-    const outputElem = document.createElement('output');
-    const buttonElem = document.createElement('button');
-    const buttonTextElem = document.createElement('span');
-    const slotElem = document.createElement('slot');
+    const form = this.#createElement('form', false);
+    const results = this.#createElement('ul', 'ul results');
+    const labelElem = this.#createElement('label', -1, [['for', 'q']]);
+    const inputElem = this.#createElement('input', -1, [['id', 'q'], ['type', 'search'], ['name', 'query'], ['required', '']]);
+    const outputElem = this.#createElement('output', -1, [['name', 'output']]);
+    const buttonElem = this.#createElement('button');
+    const buttonTextElem = this.#createElement('span', 'buttonText');
+    const slotElem = this.#createElement('slot', false);
 
     form.appendChild(labelElem);
     form.appendChild(inputElem);
@@ -124,25 +141,25 @@ export class MySearchApiElement extends HTMLElement {
     buttonTextElem.textContent = this.#buttonText;
 
     buttonElem.setAttribute('aria-label', this.#buttonText);
-
-    labelElem.setAttribute('part', 'label');
-    inputElem.setAttribute('part', 'input');
-    buttonElem.setAttribute('part', 'button');
-    buttonTextElem.setAttribute('part', 'buttonText');
-    outputElem.setAttribute('part', 'output');
-    results.setAttribute('part', 'ul results');
-
-    labelElem.setAttribute('for', 'q');
-    inputElem.id = 'q';
-    inputElem.type = 'search';
-    inputElem.name = 'query';
-    outputElem.name = 'output';
-
-    inputElem.setAttribute('required', '');
     inputElem.setAttribute('minlength', 2);
     inputElem.setAttribute('maxlength', 40);
 
     return { form, results };
+  }
+
+  #createElement(tagName, partAttr, attributes = []) {
+    const elem = document.createElement(tagName);
+    const part = typeof partAttr === 'undefined' || partAttr === -1 ? tagName : partAttr;
+    if (partAttr !== false) {
+      elem.setAttribute('part', part);
+    }
+    attributes.forEach(([attr, value]) => { elem.setAttribute(attr, value); });
+    return elem;
+  }
+
+  #markResults () {
+    const boldElems = this.shadowRoot.querySelectorAll('b');
+    boldElems.forEach((el) => { el.setAttribute('part', 'mark'); });
   }
 }
 
