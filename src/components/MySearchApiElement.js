@@ -147,7 +147,7 @@ export class MySearchApiElement extends HTMLElement {
     return { form, results };
   }
 
-  #createElement(tagName, partAttr, attributes = []) {
+  #createElement (tagName, partAttr, attributes = []) {
     const elem = document.createElement(tagName);
     const part = typeof partAttr === 'undefined' || partAttr === -1 ? tagName : partAttr;
     if (partAttr !== false) {

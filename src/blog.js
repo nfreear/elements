@@ -9,6 +9,8 @@ export { MyGtagElement } from './components/MyGtagElement.js';
 export { MyLoomEmbedElement } from './components/MyLoomEmbedElement.js';
 export { MyOpenBadgeElement } from './components/MyOpenBadgeElement.js';
 export { MySearchElement } from './components/MySearchElement.js';
+export { MySearchApiElement } from './components/MySearchApiElement.js';
+export { MySharingWidgetElement } from './components/MySharingWidgetElement.js';
 export { MySiteCounterElement } from './components/MySiteCounterElement.js';
 export { MySkipLinkElement } from './components/MySkipLinkElement.js';
 export { MyTranscriptElement } from './components/MyTranscriptElement.js';

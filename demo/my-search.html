@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"> <title> my-search </title>
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="My page description ...">
 
   <link rel="stylesheet" href="style/app.v2.css" />
 
@@ -11,17 +12,33 @@
 
     <my-search cx="001222343498871500969:-u73i2qfu2s"></my-search>
 
+
+    <my-share-button></my-share-button>
   </my-page>
 
   <script type="importmap"> {
     "imports": {
-      "ndf-elements": "../i.js"
+      "auto:ndf-elements": "../i.js",
+      "ndf-elements/dia": "../src/dia.js",
+      "package.json": "../package.json"
     },
     "myElements": {
       "use": [ "my-search" ]
     }
   } </script>
 
-  <script type="module"> import 'ndf-elements'; </script>
+  <script type="module">
+    // import 'auto:ndf-elements';
+    import {
+      MySharingWidgetElement, MySearchElement
+    } from 'ndf-elements/dia';
+    import PKG from 'package.json' with { type: 'json' };
+
+    // console.debug('module:', MOD);
+    customElements.define('my-search', MySearchElement);
+    customElements.define('my-share-button', MySharingWidgetElement);
+
+    console.debug('PKG:', PKG);
+  </script>
 
 </html>

@@ -36,9 +36,9 @@ export class MySharingWidgetElement extends HTMLElement {
   }
 
   connectedCallback () {
-    if (!this._supportsShareApi) {
+    if (!this.#supportsShareApi) {
       console.warn('Web Share API not supported');
-      // Was: return;
+      return;
     }
     const formElem = this.#createElements();
 

@@ -13,10 +13,15 @@
     "./blog": "./src/blog.js",
     "./my-map": "./src/components/MyMapElement.js",
     "./an-form": "./src/an-form.js",
+    "./dia": "./src/dia.js",
     "./experiment": "./src/experiment.js",
     "./util": "./util.js",
     "./web": "./web.js"
   },
+  "sideEffects": [
+    "./i.js",
+    "**/*.css"
+  ],
   "description": "My collection of useful custom elements.",
   "license": "MIT",
   "x-copyright": "© 2021-2025 Nick Freear.",
