@@ -28,7 +28,7 @@ See also: [web-vitals-element][].
 
 ## Usage
 
-Available on [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be accessed from Skypack.
+Available on [esm.sh][], [Unpkg][] and [Skypack][] CDNs. Note, templates can't currently be accessed from Skypack.
 
 ```html
 <my-skip-link></my-skip-link>
@@ -92,7 +92,7 @@ Then:
 [ci-img]: https://github.com/nfreear/elements/actions/workflows/node.js.yml/badge.svg
 [demo]: https://nfreear.github.io/elements/demo/
 [pen]: https://codepen.io/collection/mrpzOQ
-[mit]: https://nfreear.mit-license.org/#2021
+[mit]: https://nfreear.mit-license.org/2021-2026
 [npm]: https://www.npmjs.com/package/ndf-elements
 [npm-img]: https://img.shields.io/npm/v/ndf-elements
 [unpkg]: https://unpkg.com
@@ -101,5 +101,6 @@ Then:
 [skypack]: https://cdn.skypack.dev
   "A JavaScript Delivery Network for modern web apps"
 [sp-cdn]: https://cdn.skypack.dev/ndf-elements
+[esm.sh]: https://esm.sh/
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 [web-vitals-element]: https://github.com/stefanjudis/web-vitals-element
