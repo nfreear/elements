@@ -1,5 +1,6 @@
 /**
  * Filter a collection of options/elements, based on the value of a search input field.
+ * A combobox component, with autocomplete.
  *
  * @customElement popover-filter
  * @demo https://codepen.io/nfreear/pen/QwEBORL
@@ -8,8 +9,10 @@
 export class MyPopoverFilterElement extends HTMLElement {
   #optionElements;
   #inputElem;
+  #buttonElem;
   #popoverElem;
   #outputElem;
+  #count = 0;
 
   /*
     Public API.
@@ -44,7 +47,7 @@ export class MyPopoverFilterElement extends HTMLElement {
 
   /** @return {number} */
   get #minlength () { return parseInt(this.getAttribute('minlength') || 1); }
-  get #selectDelayMs () { return parseInt(this.getAttribute('select-delay') || 100); }
+  get #selectDelay () { return parseInt(this.getAttribute('select-delay') || 250); } // Milliseconds.
 
   /** @return {string} */
   get #outputTemplate () {
@@ -61,14 +64,19 @@ export class MyPopoverFilterElement extends HTMLElement {
     this.#inputElem.value = strValue;
   }
 
+  get count () { return this.#count; }
+
+  get _stylesheetUrl () { return import.meta.resolve('../style/my-popover-filter.css'); }
+
   /** Life cycle callbacks.
    * @return {void}
    */
   connectedCallback () {
     const rootElem = this.attachShadow({ mode: 'open' });
-    const { input, output, popover } = this.#createElements(rootElem);
+    const { input, output, button, popover } = this.#createElements(rootElem);
 
     this.#inputElem = input;
+    this.#buttonElem = button;
     this.#outputElem = output;
     this.#popoverElem = popover;
 
@@ -113,7 +121,7 @@ export class MyPopoverFilterElement extends HTMLElement {
     this.#setOutput(count);
 
     this.dataset.query = this.value;
-    this.dataset.count = count;
+    this.dataset.count = this.#count = count;
     this.dataset.total = this.#optionElements.length;
 
     console.debug('input:', count, this.value, ev);
@@ -125,7 +133,7 @@ export class MyPopoverFilterElement extends HTMLElement {
       this.#resetOptions();
       target.setAttribute('aria-selected', 'true');
       this.#inputElem.value = target.textContent;
-      setTimeout(() => this.#setPopoverState(false), this.#selectDelayMs);
+      setTimeout(() => this.#setPopoverState(false), this.#selectDelay);
     }
     console.debug('click:', target, ev);
   }
@@ -184,11 +192,13 @@ export class MyPopoverFilterElement extends HTMLElement {
   }
 
   #createElements (rootElem) {
+    const pID = 'popoverID';
     const label = this.#createElement('label', -1, [['for', 'search'], ['id', 'labelID']]);
     const input = this.#createElement('input', -1, [['id', 'search'], ['role', 'combobox'], ['aria-expanded', 'false']]);
+    const button = this.#createElement('button', -1, [['aria-labelledby', 'labelID']]);
     const output = this.#createElement('output');
-    const popover = this.#createElement('div', 'popover', [['popover', ''], ['aria-labelledby', 'labelID']]);
-    const listBox = this.#createElement('div', false, [['aria-labelledby', 'labelID']]);
+    const popover = this.#createElement('div', 'popover', [['id', pID], ['popover', ''], ['aria-labelledby', 'labelID']]);
+    // const listBox = this.#createElement('div', false, [['aria-labelledby', 'labelID']]);
     const slotElem = document.createElement('slot');
 
     label.textContent = this.#label;
@@ -196,19 +206,23 @@ export class MyPopoverFilterElement extends HTMLElement {
     input.type = this.#type;
     input.setAttribute('autocomplete', this.#autocomplete);
 
-    listBox.appendChild(slotElem);
-    popover.appendChild(listBox);
+    input.setAttribute('popovertarget', pID);
+    button.setAttribute('popovertarget', pID);
+
+    // listBox.appendChild(slotElem);
+    popover.appendChild(slotElem);
 
     rootElem.appendChild(label);
     rootElem.appendChild(input);
+    rootElem.appendChild(button);
     rootElem.appendChild(output);
     rootElem.appendChild(popover);
 
     if (this.#addAria) {
-      listBox.setAttribute('role', 'listbox');
+      popover.setAttribute('role', 'listbox');
     }
 
-    return { label, input, output, popover };
+    return { label, input, button, output, popover };
   }
 }
 

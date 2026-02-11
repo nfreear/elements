@@ -1,0 +1,63 @@
+my-popover-filter {
+  display: none;
+
+  &[ data-ready ] {
+    display: inline-block;
+  }
+
+  button {
+    &:not([ hidden ]) {
+      display: block;
+    }
+
+    font-size: .92rem;
+    height: 1.8rem;
+    margin: 0 0 .6rem;
+    min-width: 12rem;
+    text-align: left;
+
+    &[ data-flag ]::before {
+      content: attr(data-flag) / '';
+      font-size: 1.4rem;
+      line-height: .8;
+      margin-right: .2rem;
+      vertical-align: middle;
+    }
+
+    &[ aria-selected = true ]::after {
+      color: darkred;
+      content: '✔' / '';
+      font-size: 1.1rem;
+      margin-left: .3rem;
+      vertical-align: middle;
+    }
+  }
+
+  &::part(input) {
+    font-size: inherit;
+    height: 1.6rem;
+    padding: 0 .6rem;
+    margin: 0;
+    margin-left: .25rem;
+  }
+
+  &::part(button) {
+    height: 1.7rem;
+    width: 1.7rem;
+    margin-right: .25rem;
+    X_vertical-align: middle;
+  }
+
+  &::part(button)::after {
+    content: '▼' / '';
+  }
+
+  &::part(popover) {
+    border: 1px outset silver;
+    border-radius: .25rem;
+    box-shadow: 0 0 1px 2px silver;
+    padding: .3rem;
+    position-area: bottom center;
+    margin-top: .2rem;
+  }
+}
