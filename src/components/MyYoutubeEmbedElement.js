@@ -12,6 +12,8 @@ const { HTMLElement } = window;
  * </my-youtube-embed>
  */
 export class MyYoutubeEmbedElement extends HTMLElement {
+  #player;
+
   static getTag () { return 'my-youtube-embed'; }
 
   get childAnchorElem () {
@@ -22,14 +24,15 @@ export class MyYoutubeEmbedElement extends HTMLElement {
 
   get #ytJavaScript () { return 'https://www.youtube.com/iframe_api'; }
 
-  get #urlRegex () { return /(youtu.be\/|youtube.com\/watch\?v=)(.+)/; }
+  // https://webapps.stackexchange.com/questions/54443/format-for-id-of-youtube-video
+  get #urlRegex () { return /(youtu.be\/|youtube.com\/watch\?v=)([\w-_]{11,})/; }
 
-  get video () {
-    const ytUrl = this.childAnchorElem.href;
+  get #video () {
+    const url = this.childAnchorElem.href;
     const text = this.childAnchorElem.textContent;
-    const M = ytUrl.match(this.#urlRegex);
-    console.assert(M, `YouTube URL doesn't match: ${ytUrl}`);
-    return M ? { id: M[2], text } : null;
+    const M = url.match(this.#urlRegex);
+    console.assert(M, `YouTube URL doesn't match: ${url}`);
+    return M ? { id: M[2], text, url } : null;
   }
 
   get height () { return parseInt(this.getAttribute('height') || 390); }
@@ -51,10 +54,10 @@ export class MyYoutubeEmbedElement extends HTMLElement {
   #onYouTubeIframeAPIReady (playerElem) {
     window.onYouTubeIframeAPIReady = () => {
       const { YT } = window;
-      this._player = new YT.Player(playerElem, {
+      this.#player = new YT.Player(playerElem, {
         height: this.height,
         width: this.width,
-        videoId: this.video.id, // 'M7lc1UVf-VE',
+        videoId: this.#video.id, // 'M7lc1UVf-VE',
         playerVars: {
           playsinline: 1
         },
@@ -63,10 +66,12 @@ export class MyYoutubeEmbedElement extends HTMLElement {
           onStateChange: (ev) => this.#onPlayerStateChange(ev)
         }
       });
-      console.debug('onYouTubeIframeAPIReady:', this._player, YT.PlayerState, YT);
+      console.debug('onYouTubeIframeAPIReady:', [this]);
       this.dataset.ready = true;
     };
   }
+
+  get #YT () { return window.YT; }
 
   #onPlayerReady (ev) {
     const { target } = ev;

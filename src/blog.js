@@ -14,4 +14,5 @@ export { MySharingWidgetElement } from './components/MySharingWidgetElement.js';
 export { MySiteCounterElement } from './components/MySiteCounterElement.js';
 export { MySkipLinkElement } from './components/MySkipLinkElement.js';
 export { MyTranscriptElement } from './components/MyTranscriptElement.js';
+export { MyVimeoEmbedElement } from './components/MyVimeoEmbedElement.js';
 export { defineMyElements } from './util/defineMyElements.js';

@@ -32,6 +32,7 @@ export { MySharingWidgetElement } from './src/components/MySharingWidgetElement.
 export { MyZoomElement } from './src/components/MyZoomElement.js';
 export { MySearchApiElement } from './src/components/MySearchApiElement.js';
 export { MyPopoverFilterElement } from './src/components/MyPopoverFilterElement.js';
+export { MyVimeoEmbedElement } from './src/components/MyVimeoEmbedElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 export { translate } from './src/translate.js';
