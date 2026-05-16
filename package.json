@@ -67,12 +67,11 @@
   "workspaces": [
     "packages/*"
   ],
-  "semistandard": {
-  },
+  "semistandard": {},
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.1",
-    "eslint": "^9.32.0",
-    "neostandard": "^0.12.2",
+    "eslint": "^9.39.4",
+    "neostandard": "^0.13.0",
     "servor": "^4.0.2"
   }
 }
