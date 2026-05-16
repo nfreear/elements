@@ -1,18 +1,20 @@
 const { HTMLElement } = window;
 
 /**
- * Embed a Vimeo video, exposing the iframe element.
+ * Embed a Vimeo video, exposing the iframe element using `::part()`
  *
  * @customElement my-vimeo-embed
  * @see https://github.com/vimeo/player.js
  */
 export class MyVimeoEmbedElement extends HTMLElement {
   #player;
+  #duration;
 
   static getTag () { return 'my-vimeo-embed'; }
 
   get #height () { return parseInt(this.getAttribute('height') ?? 360); }
   get #width () { return parseInt(this.getAttribute('width') ?? 640); }
+  get #doNotTrack () { return this.hasAttribute('dnt'); }
 
   get #videoTitle () { return this.#player.element.title; }
 
@@ -40,7 +42,11 @@ export class MyVimeoEmbedElement extends HTMLElement {
     // shadow.appendChild(slotElem);
     shadow.appendChild(divElem);
 
-    await this.#createPlayer(divElem);
+    try {
+      await this.#createPlayer(divElem);
+    } catch (err) {
+      this.#handleError(err);
+    }
   }
 
   async #createPlayer (divElem) {
@@ -49,21 +55,33 @@ export class MyVimeoEmbedElement extends HTMLElement {
     const player = this.#player = new Player(divElem, {
       id: this.#video.id,
       height: this.#height,
-      width: this.#width
+      width: this.#width,
+      dnt: this.#doNotTrack,
     });
 
-    player.on('play', (ev) => console.debug('Played the video!', ev));
+    player.on('error', (ev) => this.#handleError(ev));
+
+    player.on('play', (ev) => console.debug('Vimeo: played the video!', ev));
 
     player.on('timeupdate', (ev) => console.debug('timeupdate:', ev));
 
     await player.ready();
     this.dataset.ready = true;
 
+    this.#duration = await this.#player.getDuration();
+
     player.element.setAttribute('part', 'iframe');
 
-    console.debug('Vimeo player ready:', [this]);
+    console.debug('Vimeo player ready:', [this], Player.prototype);
     // player.ready().then(() => console.debug('Vimeo player ready:', [this]));
     return player;
+  }
+
+  #handleError (err) {
+    console.error('Vimeo Error.', [err]);
+    this.dataset.error = err.message ?? err;
+    this.title = `Vimeo Error: ${err.message ?? err}`;
+    this.style = 'cursor:not-allowed;';
   }
 }
 
