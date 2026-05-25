@@ -26,9 +26,18 @@ export class MyIncludeElement extends HTMLElement {
     children.forEach((child) => this.#iframe.before(child));
 
     this.#iframeSrc = this.#iframe.src;
-    console.debug('import-content:', [this]);
-
+    this.dataset.src = this.#iframe.getAttribute('src');
+    this.dataset.ready = true;
     this.#iframe.remove();
+
+    this.#dispatchReadyEvent();
+  }
+
+  #dispatchReadyEvent () {
+    this.dispatchEvent(new Event('ready', {
+      bubbles: true, composed: true
+    }));
+    // console.debug('my-include:', [this]);
   }
 }
 
