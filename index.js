@@ -33,6 +33,7 @@ export { MyZoomElement } from './src/components/MyZoomElement.js';
 export { MySearchApiElement } from './src/components/MySearchApiElement.js';
 export { MyPopoverFilterElement } from './src/components/MyPopoverFilterElement.js';
 export { MyVimeoEmbedElement } from './src/components/MyVimeoEmbedElement.js';
+export { MyIncludeElement } from './src/components/MyIncludeElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 export { translate } from './src/translate.js';
