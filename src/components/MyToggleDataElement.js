@@ -1,14 +1,26 @@
 const { CommandEvent, HTMLElement } = window;
 
+/* export class MyCommandEvent extends CommandEvent {
+  #value;
+  get value () { return this.#value; }
+  constructor (type, options) {
+    super(type, options);
+    this.#value = /* typeof options.value === 'undefined' ? *-/ options.value;
+  }
+} */
+
 /**
  * Use a checkbox to toggle a `data-` attribute and dispatch a `CommandEvent`.
  *
  * @customElement my-toggle-data
  */
 export class MyToggleDataElement extends HTMLElement {
+  #checkBox;
   static getTag () { return 'my-toggle-data'; }
   get #command () { return '--my-toggle-data'; }
   get #dataName () { return 'myToggleData'; }
+
+  get checked () { return this.#checkBox.checked; }
 
   get #initialChecked () { return this.hasAttribute('initial-checked'); }
 
@@ -26,6 +38,7 @@ export class MyToggleDataElement extends HTMLElement {
   connectedCallback () {
     console.assert(this.#target);
     const { checkBox, label } = this.#createElements();
+    this.#checkBox = checkBox;
 
     this.attachShadow({ mode: 'open' }).appendChild(label);
 
@@ -39,9 +52,12 @@ export class MyToggleDataElement extends HTMLElement {
 
     const commandEvent = new CommandEvent('command', {
       command: this.#command, // `--my-toggle-flag-${checked}`,
-      source: this
+      // value: checked,
+      source: this,
+      bubbles: true
     });
-    this.#target.dispatchEvent(commandEvent);
+    this.dispatchEvent(commandEvent);
+    // Was: this.#target.dispatchEvent(commandEvent);
   }
 
   #createElements () {
