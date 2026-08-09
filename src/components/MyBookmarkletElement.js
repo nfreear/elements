@@ -14,9 +14,17 @@ export class MyBookmarkletElement extends HTMLElement {
   /** 'name' attribute.
    *  @return {string}
    */
-  get name () { return this.getAttribute('name') || this.textContent || 'Bookmarklet'; }
+  get name () { return this.getAttribute('name') ?? this.textContent ?? 'Bookmarklet'; }
+
+  get #hint () { return this.getAttribute('hint') ?? 'Bookmarklet. Drag to your browser\'s bookmarks bar.'; }
 
   get #originPlaceholder () { return '{__ORIGIN__}'; }
+
+  constructor () {
+    super();
+    const styleElem = this.#createStyleElement();
+    this.attachShadow({ mode: 'open' }).appendChild(styleElem);
+  }
 
   /** Load the bookmarklet source code into the link from a function.
    *  @param {function} theFunction
@@ -30,7 +38,12 @@ export class MyBookmarkletElement extends HTMLElement {
     EL.href = `javascript:${SCRIPT}`;
     EL.textContent = this.name;
     EL.setAttribute('part', 'a');
-    this.attachShadow({ mode: 'open' }).appendChild(EL);
+    this.shadowRoot.appendChild(EL);
+
+    const popover= this.#createPopoverElement(EL);
+
+    this.shadowRoot.appendChild(popover);
+
     console.debug(`my-bookmarklet. From function - "${this.name}":`, SCRIPT);
   }
 
@@ -49,5 +62,48 @@ export class MyBookmarkletElement extends HTMLElement {
 
   connectedCallback () {
     console.debug('my-bookmarklet:', this.name, this);
+  }
+
+  #createPopoverElement (triggerElem) {
+    const popoverID = 'popoverID';
+    const popoverElem = document.createElement('div');
+
+    popoverElem.id = popoverID;
+    popoverElem.textContent = this.#hint;
+    popoverElem.setAttribute('popover', '');
+
+    triggerElem.setAttribute('interestfor', popoverID);
+    triggerElem.setAttribute('aria-describedby', popoverID);
+    return popoverElem;
+  }
+
+  #createStyleElement () {
+    const elem = document.createElement('style');
+    elem.textContent = `
+  :host {}
+  a[href] {
+    background: #def;
+    border: 3px dotted #999;
+    border-radius: .2rem;
+    cursor: copy;
+    display: block;
+    font-size: larger;
+    padding: .5rem;
+    outline-offset: .3rem;
+    text-align: center;
+  }
+  [popover] {
+    --pale-yellow: #ffffe0;
+    background: var(--mybm-popover-background, var(--pale-yellow));
+    border: 1px dotted currentColor;
+    border-radius: .3rem;
+    cursor: help;
+    font-size: small;
+    margin: .2rem 0;
+    min-width: 10rem;
+    padding: .5rem;
+    position-area: var(--mybm-popover-position, bottom center);
+  }`;
+    return elem;
   }
 }
