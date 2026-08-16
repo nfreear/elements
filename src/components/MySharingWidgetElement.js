@@ -5,6 +5,7 @@ const { HTMLElement, location, navigator } = window;
  * @date 01-June-2025 ??
  * @customElement my-sharing-widget
  * @demo https://codepen.io/nfreear/pen/azONmMo
+ * @see https://caniuse.com/web-share
  */
 export class MySharingWidgetElement extends HTMLElement {
   static getTag () { return 'my-sharing-widget'; }
@@ -35,7 +36,9 @@ export class MySharingWidgetElement extends HTMLElement {
     return document.querySelector(this.urlSelector);
   }
 
-  connectedCallback () {
+  constructor () {
+  // Was: connectedCallback () {
+    super();
     if (!this.#supportsShareApi) {
       console.warn('Web Share API not supported');
       return;
@@ -71,17 +74,47 @@ export class MySharingWidgetElement extends HTMLElement {
   }
 
   #createElements () {
+    const svgElem = this.#createSVGIcon();
     const formElem = document.createElement('form');
     const buttonElem = document.createElement('button');
     const outputElem = document.createElement('output');
-    buttonElem.textContent = this.buttonLabel;
+    const spanElem = document.createElement('span');
+    spanElem.textContent = this.buttonLabel;
+    spanElem.setAttribute('part', 'span');
+    buttonElem.appendChild(svgElem);
+    buttonElem.appendChild(spanElem);
     buttonElem.setAttribute('part', 'button');
+    buttonElem.setAttribute('aria-describedby', 'output');
     outputElem.id = 'output';
     outputElem.setAttribute('part', 'output');
     formElem.setAttribute('part', 'form');
     formElem.appendChild(buttonElem);
     formElem.appendChild(outputElem);
     return formElem;
+  }
+
+  /*
+  https://fonts.google.com/icons?selected=Material+Symbols+Outlined:share:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=share&icon.size=24&icon.color=%23e3e3e3
+  */
+  #createSVGIcon () {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const d = `M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50
+  35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24
+  0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17
+  0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17
+  0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm508.5-291.5Q720-743 720-760t-11.5-28.5Q697-800 680-800t-28.5 11.5Q640-777 640-760t11.5 28.5Q663-720  680-720t28.5-11.5ZM680-200ZM200-480Zm480-280Z`;
+    const svg = document.createElementNS(svgNS, 'svg');
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', d);
+    svg.setAttribute('xmlns', svgNS);
+    svg.setAttribute('viewBox', '0 -960 960 960');
+    svg.setAttribute('height', '24px');
+    svg.setAttribute('width', '24px');
+    svg.setAttribute('fill', 'currentColor');
+    svg.setAttribute('part', 'svg icon');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.appendChild(path);
+    return svg;
   }
 
   get #formElements () { return this.shadowRoot.querySelector('form').elements; }
