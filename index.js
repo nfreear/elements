@@ -35,6 +35,7 @@ export { MyPopoverFilterElement } from './src/components/MyPopoverFilterElement.
 export { MyVimeoEmbedElement } from './src/components/MyVimeoEmbedElement.js';
 export { MyIncludeElement } from './src/components/MyIncludeElement.js';
 export { MyToggleDataElement } from './src/components/MyToggleDataElement.js';
+export { MyTagCloudElement } from './src/components/MyTagCloudElement.js';
 
 export { MyMinElement } from './src/MyMinElement.js';
 export { translate } from './src/translate.js';

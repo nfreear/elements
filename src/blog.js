@@ -15,4 +15,5 @@ export { MySiteCounterElement } from './components/MySiteCounterElement.js';
 export { MySkipLinkElement } from './components/MySkipLinkElement.js';
 export { MyTranscriptElement } from './components/MyTranscriptElement.js';
 export { MyVimeoEmbedElement } from './components/MyVimeoEmbedElement.js';
+export { MyTagCloudElement } from './components/MyTagCloudElement.js';
 export { defineMyElements } from './util/defineMyElements.js';
