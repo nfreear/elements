@@ -1,18 +1,25 @@
-const { customElements } = window;
+const { customElements, HTMLElement } = window;
 
 function defineMyElements (mod) {
   console.assert(typeof mod === 'object', '"mod" argument - Should be array or module object.');
-  const KLASSES = Object.values(mod).filter(klass => isClass(klass) && isMyElementClass(klass));
+  const KLASSES = Object.values(mod).filter(klass => isClass(klass) && extendsHTML(klass));
   console.assert(KLASSES && KLASSES.length, 'Expecting at least one custom element class.');
 
   KLASSES.forEach((klass, idx) => {
-    console.assert(typeof klass.getTag === 'function', '"getTag()" - Static function not found.');
+    console.assert(typeof klass.getTag === 'function', 'getTag() - Static function not found');
     customElements.define(klass.getTag(), klass);
     // console.debug(idx, klass.name, klass);
   });
   console.debug('defineMyElements:', KLASSES.length, KLASSES);
 }
 
+function extendsHTML (klass) {
+  // https://stackoverflow.com/questions/14486110/how-to-check-if-a-javascript-class-inherits-another-without-creating-an-obj
+  // ChildClass.prototype instanceof ParentClass;
+  return klass.prototype instanceof HTMLElement;
+}
+
+// Fails on https://esm.sh
 function isMyElementClass (klass) {
   return /My(\w+)Element/.test(klass.name);
 }
@@ -33,4 +40,4 @@ function isClass (func) {
   return Object.getOwnPropertyNames(func.prototype).length > 1;
 }
 
-export { defineMyElements, isMyElementClass, isClass };
+export { defineMyElements, isMyElementClass, isClass, extendsHTML };

@@ -43,9 +43,11 @@ export class MySharingWidgetElement extends HTMLElement {
       console.warn('Web Share API not supported');
       return;
     }
+    const styleElem = this.#createStyleElement();
     const formElem = this.#createElements();
 
     const shadowRoot = this.attachShadow({ mode: 'open' });
+    shadowRoot.appendChild(styleElem);
     shadowRoot.appendChild(formElem);
 
     formElem.addEventListener('submit', (ev) => this.#onSubmitEvent(ev));
@@ -115,6 +117,26 @@ export class MySharingWidgetElement extends HTMLElement {
     svg.setAttribute('aria-hidden', 'true');
     svg.appendChild(path);
     return svg;
+  }
+
+  #createStyleElement () {
+    const style = document.createElement('style');
+    style.textContent = `
+  svg {
+    fill: var(--my-icon-fill, gray);
+    vertical-align: middle;
+    margin-right: .25rem;
+  }
+  span {
+    position: relative;
+    top: .1rem;
+  }
+  button {
+    font-size: large;
+    padding: .2rem .8rem;
+    margin-right: .5rem;
+  }`;
+    return style;
   }
 
   get #formElements () { return this.shadowRoot.querySelector('form').elements; }
