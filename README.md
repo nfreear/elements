@@ -84,6 +84,19 @@ Then:
 <my-star-rating></my-star-rating>
 ```
 
+## Related projects
+
+Other projects using custom elements:
+
+* [nfreear/audio-describe][]
+* [nfreear/combobox][]
+* [nfreear/date-picker][]
+* [nfreear/password-check][]
+* [nfreear/transform-video][]
+* [nfreear/audio-recorder][]
+* [nfreear/a11y-aware][]
+* [nfreear/pixel-ruler][]
+
 ## License
 
 * License: [MIT][].
@@ -104,3 +117,12 @@ Then:
 [esm.sh]: https://esm.sh/
 [mdn]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 [web-vitals-element]: https://github.com/stefanjudis/web-vitals-element
+
+[nfreear/a11y-aware]: https://github.com/nfreear/a11y-aware
+[nfreear/audio-describe]: https://github.com/nfreear/audio-describe
+[nfreear/audio-recorder]: https://github.com/nfreear/audio-recorder
+[nfreear/combobox]: https://github.com/nfreear/combobox
+[nfreear/date-picker]: https://github.com/nfreear/date-picker
+[nfreear/password-check]: https://github.com/nfreear/password-check
+[nfreear/transform-video]: https://github.com/nfreear/transform-video
+[nfreear/pixel-ruler]: https://github.com/nfreear/pixel-ruler

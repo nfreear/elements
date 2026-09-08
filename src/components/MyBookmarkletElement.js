@@ -1,10 +1,9 @@
-const { HTMLElement, location } = window;
+const { customElements, HTMLElement, location } = window;
 
 /**
  * Embed a link to install a bookmarklet Javascript.
  *
  * @copyright © Nick Freear, 23-Jan-2022.
- *
  * @demo ../demo/my-bookmarklet.html
  * @customElement my-bookmarklet
  */
@@ -40,7 +39,7 @@ export class MyBookmarkletElement extends HTMLElement {
     EL.setAttribute('part', 'a');
     this.shadowRoot.appendChild(EL);
 
-    const popover= this.#createPopoverElement(EL);
+    const popover = this.#createPopoverElement(EL);
 
     this.shadowRoot.appendChild(popover);
 
@@ -89,12 +88,13 @@ export class MyBookmarkletElement extends HTMLElement {
     display: block;
     font-size: larger;
     padding: .5rem;
+    margin: var(--my-bm-margin, 2rem 0);
     outline-offset: .3rem;
     text-align: center;
   }
   [popover] {
     --pale-yellow: #ffffe0;
-    background: var(--mybm-popover-background, var(--pale-yellow));
+    background: var(--my-bm-popover-background, var(--pale-yellow));
     border: 1px dotted currentColor;
     border-radius: .3rem;
     cursor: help;
@@ -102,8 +102,12 @@ export class MyBookmarkletElement extends HTMLElement {
     margin: .2rem 0;
     min-width: 10rem;
     padding: .5rem;
-    position-area: var(--mybm-popover-position, bottom center);
+    position-area: var(--my-bm-popover-position, bottom center);
   }`;
     return elem;
   }
+}
+
+if (import.meta.url.includes('define')) {
+  customElements.define('my-bookmarklet', MyBookmarkletElement);
 }
